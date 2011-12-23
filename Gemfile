@@ -39,5 +39,15 @@ gem 'execjs'
 gem 'therubyracer'
 gem 'devise'
 gem "oauth-plugin", ">= 0.4.0.pre1"
+gem "autotest"
+gem "autotest-rails-pure"
+gem "autotest-notification"
+#gem "redgreen"
+group :development do
+    gem 'rspec-rails', '2.6.1'
+end
 
-
+group :test do
+    gem 'rspec-rails', '2.6.1'
+    gem 'webrat', '0.7.1'
+end

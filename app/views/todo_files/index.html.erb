@@ -1,0 +1,27 @@
+<h1>Listing todo_files</h1>
+
+<table>
+  <tr>
+    <th>Filename</th>
+    <th>Contents</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @todo_files.each do |todo_file| %>
+  <tr>
+    <td><%= todo_file.FileName %></td>
+    <td><%= todo_file.Contents %></td>
+    <td><%= todo_file.user_id %></td>
+    <td><%= link_to 'Show', todo_file %></td>
+    <td><%= link_to 'Edit', edit_todo_file_path(todo_file) %></td>
+    <td><%= link_to 'Destroy', todo_file, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Todo file', new_todo_file_path %>

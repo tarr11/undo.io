@@ -5,7 +5,7 @@ class TodoFilesController < ApplicationController
   # GET /todo_files
   # GET /todo_files.json
   def index
-    @todo_files = TodoFile.all
+    @todo_files = current_user.todo_files.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,7 +16,7 @@ class TodoFilesController < ApplicationController
   # GET /todo_files/1
   # GET /todo_files/1.json
   def show
-    @todo_file = TodoFile.find(params[:id])
+    @todo_file = current_user.todo_files.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,7 +27,7 @@ class TodoFilesController < ApplicationController
   # GET /todo_files/new
   # GET /todo_files/new.json
   def new
-    @todo_file = TodoFile.new
+    @todo_file = current_user.todo_files.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,13 +37,13 @@ class TodoFilesController < ApplicationController
 
   # GET /todo_files/1/edit
   def edit
-    @todo_file = TodoFile.find(params[:id])
+    @todo_file = current_user.todo_files.find(params[:id])
   end
 
   # POST /todo_files
   # POST /todo_files.json
   def create
-    @todo_file = TodoFile.new(params[:todo_file])
+    @todo_file = current_user.todo_files.new(params[:todo_file])
 
     respond_to do |format|
       if @todo_file.save
@@ -59,7 +59,7 @@ class TodoFilesController < ApplicationController
   # PUT /todo_files/1
   # PUT /todo_files/1.json
   def update
-    @todo_file = TodoFile.find(params[:id])
+    @todo_file = current_user.todo_files.find(params[:id])
 
     respond_to do |format|
       if @todo_file.update_attributes(params[:todo_file])
@@ -75,7 +75,7 @@ class TodoFilesController < ApplicationController
   # DELETE /todo_files/1
   # DELETE /todo_files/1.json
   def destroy
-    @todo_file = TodoFile.find(params[:id])
+    @todo_file = current_user.todo_files.find(params[:id])
     @todo_file.destroy
 
     respond_to do |format|

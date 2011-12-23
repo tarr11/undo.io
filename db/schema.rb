@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111223065511) do
+ActiveRecord::Schema.define(:version => 20111223190858) do
 
   create_table "client_applications", :force => true do |t|
     t.string   "name"
@@ -58,6 +58,15 @@ ActiveRecord::Schema.define(:version => 20111223065511) do
     t.string   "FileName"
     t.text     "Contents"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "todo_lines", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "line"
+    t.string   "guid"
+    t.integer  "todo_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

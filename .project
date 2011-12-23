@@ -1,0 +1,28 @@
+Project TODO:
+
+TASK: IMPORT TEXT FILE
+	Import text file and write an RSpec test
+	Can we create a unique hash or must we create a GUID?
+		Unique hash would be simpler
+			Hash(filename) + DateRevision? Blech
+		GUID would obvoiusly work
+	Store in TodoLine table (user_id:integer, task:string, Guid:GUID, Todo_file_id:integer)
+	Read todo lines from previous file with the same name
+		(if no file, then insert everything as new)
+		
+	New file compares each line (without the GUID to the old line)
+		If line exists, then append existing GUID for that line
+		If line doesn't exist, create a new GUID 
+		Create insert commands for new, then also delete commands for removed
+		Don't try to see if a line "changed" - either different or the same
+		Date of task is date of file when it is inserted
+		 		
+TASK: SYNC WITH TASKS API
+
+TASK: BUILD TASK UI
+
+TASK: SYNC TEXT FILE SERVICE WITH DROPBOX
+
+TASK: PUSH TO HEROKU
+
+

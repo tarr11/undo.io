@@ -38,3 +38,6 @@ end
 gem 'execjs'
 gem 'therubyracer'
 gem 'devise'
+gem "oauth-plugin", ">= 0.4.0.pre1"
+
+

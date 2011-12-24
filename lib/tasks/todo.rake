@@ -26,4 +26,21 @@ namespace :todo do
 
     TodoFile.compareFiles file1, file2
   end
+
+  task :push => :environment do
+    user = User.first
+    filename1 =  "/home/douglastarr/dev/todo/sample.txt" 
+#    file1 = TodoFile.importFile(filename1, user)
+
+    TodoFile.pushChanges user, filename1
+  end
+
+  task :delete => :environment do
+    User.first.todo_files.each do |file|
+      file.todo_lines.delete_all
+    end
+
+    User.first.tasks.delete_all
+  end
+
 end

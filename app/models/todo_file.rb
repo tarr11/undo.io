@@ -26,27 +26,22 @@ class TodoFile < ActiveRecord::Base
   def self.compareFiles(oldFile, newFile)
 
     # find deleted lines - in old, but not new
-    deleted  = oldFile.todo_lines.find_all do |oldline|
+    return oldFile.todo_lines.find_all do |oldline|
       !newFile.todo_lines.any? do |newline|
         newline.line == oldline.line
       end
     end    
 
-    puts "Deleted:"
+  end
 
-    deleted.each do |line|
-      puts line.line
-    end  
+  def self.pushChanges(user, oldFile, newFile)
+    
+    deleted = TodoFile.compareFiles(oldFile, newFile)
+    inserted = TodoFile.compareFiles(newFile, oldFile)
 
-    inserted = newFile.todo_lines.find_all do |newLine|
-      !oldFile.todo_lines.any? do |oldLine|
-        newLine.line == oldLine.line
-      end
-    end
+    #deleted.all.each do |line|
+    
 
-    puts "Inserted:"
-    inserted.each do |line|
-      puts line.line
-    end
-  end 
+  end
+
 end

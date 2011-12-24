@@ -2,6 +2,8 @@ Project TODO:
 
 TASK: IMPORT TEXT FILE
 	Import text file and write an RSpec test
+		Quickly figure out RSpec + test runner thing
+		that's enough for now - we installed RSpec and created a failing test :)	
 	Can we create a unique hash or must we create a GUID?
 		Unique hash would be simpler
 			Hash(filename) + DateRevision? Blech
@@ -17,6 +19,7 @@ TASK: IMPORT TEXT FILE
 		Don't try to see if a line "changed" - either different or the same
 		Date of task is date of file when it is inserted
 		 		
+	DONE
 TASK: SYNC WITH TASKS API
 
 TASK: BUILD TASK UI

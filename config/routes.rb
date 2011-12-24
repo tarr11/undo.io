@@ -1,4 +1,8 @@
 Todo::Application.routes.draw do
+  resources :tasks
+
+  resources :applications
+
   resources :oauth_clients
 
   match '/oauth/test_request',  :to => 'oauth#test_request',  :as => :test_request

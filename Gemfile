@@ -42,6 +42,8 @@ end
 gem 'execjs'
 gem 'therubyracer'
 gem 'devise'
+gem "oauth"
+gem "oauth2"
 gem "oauth-plugin", ">= 0.4.0.rc2"
 gem "autotest"
 gem "autotest-rails-pure"

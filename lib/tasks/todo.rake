@@ -43,4 +43,18 @@ namespace :todo do
     User.first.tasks.delete_all
   end
 
+  task :dbdelete  => :environment do
+
+      ConsumerToken.delete_all
+  end
+
+  task :dropbox => :environment do
+    
+    user = User.first
+    filename = "/todo.txt"
+    text = user.dropbox.client.get_file(filename)
+    todo = TodoFile.pushChangesFromText user, filename, text
+    
+
+  end
 end

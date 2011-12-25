@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111224002340) do
+ActiveRecord::Schema.define(:version => 20111224191253) do
 
   create_table "applications", :force => true do |t|
     t.string   "name"
@@ -32,6 +32,20 @@ ActiveRecord::Schema.define(:version => 20111224002340) do
   end
 
   add_index "client_applications", ["key"], :name => "index_client_applications_on_key", :unique => true
+
+  create_table "consumer_tokens", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "type",           :limit => 30
+    t.string   "token",          :limit => 1024
+    t.string   "secret"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "authorized_at"
+    t.datetime "invalidated_at"
+    t.datetime "expires_at"
+  end
+
+  add_index "consumer_tokens", ["token"], :name => "index_consumer_tokens_on_token", :unique => true
 
   create_table "oauth_nonces", :force => true do |t|
     t.string   "nonce"

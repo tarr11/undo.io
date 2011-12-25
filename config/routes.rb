@@ -1,4 +1,12 @@
 Todo::Application.routes.draw do
+  resources :oauth_consumers do
+    member do
+      get :callback
+      get :callback2
+      match 'client/*endpoint' => 'oauth_consumers#client'
+    end
+  end
+
   resources :tasks
 
   resources :applications
@@ -22,6 +30,8 @@ Todo::Application.routes.draw do
   devise_for :users
 
   resources :todo_files
+
+ get "/apps/dropbox", :to => 'App::Dropbox#index', :as => :dropbox
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

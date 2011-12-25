@@ -53,3 +53,6 @@ group :test do
 end
 
 gem 'uuidtools'
+gem 'json'
+gem 'twitter'
+

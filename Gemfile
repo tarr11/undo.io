@@ -55,4 +55,4 @@ end
 gem 'uuidtools'
 gem 'json'
 gem 'twitter'
-
+gem 'ZenTest', '4.6.0'

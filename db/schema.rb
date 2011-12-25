@@ -84,8 +84,8 @@ ActiveRecord::Schema.define(:version => 20111224191253) do
   end
 
   create_table "todo_files", :force => true do |t|
-    t.string   "FileName"
-    t.text     "Contents"
+    t.string   "filename"
+    t.text     "contents"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"

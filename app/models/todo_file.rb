@@ -15,7 +15,7 @@ class TodoFile < ActiveRecord::Base
   def self.saveFile(user, filename, file)
 
     todofile = user.todo_files.new
-    todofile.FileName = filename
+    todofile.filename = filename
     todofile.save
 
     reader = StringIO.new(file.strip)
@@ -68,7 +68,7 @@ class TodoFile < ActiveRecord::Base
   def self.pushChanges(user, newFile)
  
  #   newFile = TodoFile.importFile(newFileName, user)
-    oldFile = user.todo_files.where(["filename=? and id <> ?", newFile.FileName,newFile.id]).order("created_at DESC").first
+    oldFile = user.todo_files.where(["filename=? and id <> ?", newFile.filename,newFile.id]).order("created_at DESC").first
 
     if (!oldFile.nil?)
         puts "Deleted"

@@ -66,5 +66,18 @@ namespace :todo do
     
       end
     end
+
+  end
+
+  task :dailyemail => :environment do
+
+    User.all.each do |user|
+      if user.tasks.count == 0
+        next
+      end
+      puts user.email
+      UserMailer.daily_email(user).deliver
+    end
+
   end
 end

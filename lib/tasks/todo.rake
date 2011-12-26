@@ -50,11 +50,21 @@ namespace :todo do
 
   task :dropbox => :environment do
     
-    user = User.first
-    filename = "/todo.txt"
-    text = user.dropbox.client.get_file(filename)
-    todo = TodoFile.pushChangesFromText user, filename, text
-    
+    User.all.each do |user|
+      if user.dropbox.nil?
+        next
+      end
+      puts user.email 
+      
 
+      user.dropbox.client.metadata("/")['contents'].each do |fileinfo|
+      
+        filename = fileinfo['path']
+        puts filename
+        text = user.dropbox.client.get_file(filename)
+        todo = TodoFile.pushChangesFromText user, filename, text
+    
+      end
+    end
   end
 end

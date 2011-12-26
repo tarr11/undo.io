@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111224191253) do
+ActiveRecord::Schema.define(:version => 20111224220849) do
 
   create_table "applications", :force => true do |t|
     t.string   "name"
@@ -46,6 +46,11 @@ ActiveRecord::Schema.define(:version => 20111224191253) do
   end
 
   add_index "consumer_tokens", ["token"], :name => "index_consumer_tokens_on_token", :unique => true
+
+  create_table "dropbox_wrappers", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "oauth_nonces", :force => true do |t|
     t.string   "nonce"

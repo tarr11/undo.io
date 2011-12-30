@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :todo_files 
   has_many :tasks
   has_many :applications
+  has_many :todo_lines
   
   has_one :dropbox, :class_name => "DropboxToken", :dependent => :destroy  
 

@@ -1,4 +1,6 @@
 Todo::Application.routes.draw do
+  get "todo_lines/show"
+
   resources :oauth_consumers do
     member do
       get :callback
@@ -16,6 +18,8 @@ Todo::Application.routes.draw do
   devise_for :users
 
   resources :todo_files
+
+  resources :todo_lines
 
  get "/apps/dropbox", :to => 'App::Dropbox#index', :as => :dropbox
 

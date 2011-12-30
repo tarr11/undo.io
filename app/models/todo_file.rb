@@ -16,14 +16,18 @@ class TodoFile < ActiveRecord::Base
 
     todofile = user.todo_files.new
     todofile.filename = filename
+    todofile.notes = file
     todofile.save
 
     reader = StringIO.new(file.strip)
     while (line = reader.gets)
-      item = todofile.todo_lines.new
-      item.line = line.strip
-      item.guid = UUIDTools::UUID.timestamp_create.to_s
-      item.save
+      # only lines that start with to do chars are considered todos
+      if (line.lstrip.downcase.start_with?("*","+","todo"))
+        item = todofile.todo_lines.new
+        item.line = line.strip
+        item.guid = UUIDTools::UUID.timestamp_create.to_s
+        item.save
+      end
     end
     return todofile
 
@@ -33,6 +37,7 @@ class TodoFile < ActiveRecord::Base
   def self.importFile(filename, user)
     # import this file using File
     file = File.open(filename, 'r')
+
 
    end
 
@@ -66,26 +71,27 @@ class TodoFile < ActiveRecord::Base
   end
 
   def self.pushChanges(user, newFile)
- 
- #   newFile = TodoFile.importFile(newFileName, user)
+
+    #   newFile = TodoFile.importFile(newFileName, user)
     oldFile = user.todo_files.where(["filename=? and id <> ?", newFile.filename,newFile.id]).order("created_at DESC").first
 
     if (!oldFile.nil?)
-        puts "Deleted"
-    
-        deleted = TodoFile.compareFiles(oldFile, newFile)
-        deletedGuids = deleted.map do |line|
-          line.guid
-        end
-      
+      puts "Deleted"
+
+      TodoFile.App
+      deleted = TodoFile.compareFiles(oldFile, newFile)
+      deletedGuids = deleted.map do |line|
+        line.guid
+      end
+
       user.tasks.where([ "client_id in (?)", deletedGuids ]).delete_all
       deleted.map do |line|
-       puts line.line
+        puts line.line
       end
 
     end
-   
-     puts "Inserted"
+
+    puts "Inserted"
     inserted = TodoFile.compareFiles(newFile, oldFile)
 
     inserted.each do |line|

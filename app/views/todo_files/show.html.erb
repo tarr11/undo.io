@@ -1,20 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Filename:</b>
-  <%= @todo_file.FileName %>
+  <b><%= @todo_file.filename%></b>
 </p>
 
-<p>
-  <b>Contents:</b>
-  <%= @todo_file.Contents %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%= @todo_file.user_id %>
-</p>
+<pre>
+  <%= @todo_file.notes%>
+</pre>
 
 
-<%= link_to 'Edit', edit_todo_file_path(@todo_file) %> |
-<%= link_to 'Back', todo_files_path %>
+
+<%= link_to 'Edit', edit_todo_file_path(@todo_file) %>

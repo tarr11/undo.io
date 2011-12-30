@@ -4,7 +4,15 @@
       <%= link_to('Login', new_user_session_path)  %>  
 <% end %>
 <h1>All my todos</h1>
-<% @tasks.each do |task| %>
-  <div><%= task.task %></div>
+<% @files.each do |file| %>
+
+  <div style="margin-bottom:10px">
+  <div><%= link_to file.filename, file, {:style=> "font-weight:bold; "}%></div>
+    <div style="margin-left:10px">
+    <% file.todo_lines.each do |line| %>
+   <div><%= link_to line.line, line %></div>
+    <% end %>
+      </div>
+  </div>
 <% end %>
 

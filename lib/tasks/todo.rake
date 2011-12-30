@@ -1,3 +1,4 @@
+require 'DropboxNavigator'
 namespace :todo do
 
   task :import => :environment do
@@ -46,26 +47,12 @@ namespace :todo do
   task :dbdelete  => :environment do
 
       ConsumerToken.delete_all
+
   end
 
   task :dropbox => :environment do
-    
-    User.all.each do |user|
-      if user.dropbox.nil?
-        next
-      end
-      puts user.email 
-      
 
-      user.dropbox.client.metadata("/")['contents'].each do |fileinfo|
-      
-        filename = fileinfo['path']
-        puts filename
-        text = user.dropbox.client.get_file(filename)
-        todo = TodoFile.pushChangesFromText user, filename, text
-    
-      end
-    end
+    DropboxNavigator.Sync
 
   end
 
@@ -76,6 +63,7 @@ namespace :todo do
         next
       end
       puts user.email
+
       UserMailer.daily_email(user).deliver
     end
 

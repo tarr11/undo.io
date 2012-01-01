@@ -1,6 +1,8 @@
 <div class="header-bar" style="width:3000px">
 <% @topfolders.each do |folder| %>
-<div class="folder-header"><%=folder.path %></div>
+<div class="folder-header">
+  <%= link_to folder.name, :controller=> "task_folder", :action=>"show",  :path => folder.name%>
+  </div>
 <% end %>
 </div>
 
@@ -30,8 +32,13 @@
           <% else %>
              <div class="box">
                <div class="box-header">
-                    <div class="filename"><%= link_to @matrix[[col,row]].name, :controller=> "task_folder", :action=>"show",  :path => @matrix[[col,row]].name%></div>
-                 <div class="file-summary">
+                    <div class="filename">
+                      <% if @matrix[[col,row]].class.to_s == "TodoFile" %>
+                          <%= link_to @matrix[[col,row]].name, @matrix[[col,row]]%></div>
+                       <% else %>
+                      <%= link_to @matrix[[col,row]].name, :controller=> "task_folder", :action=>"show",  :path => @matrix[[col,row]].name%></div>
+                      <% end %>
+                          <div class="file-summary">
                    <%@matrix[[col,row]].summary.each do |item|%>
                     <div><%=item%></div>
                    <% end%>
@@ -42,9 +49,11 @@
                  <% end%>
                   <div class="file-changes">Recent Notes</div>
                  <div class="task"> ...
-                 <%@matrix[[col,row]].latestNotes.each do |item|%>
-                   <%=item%>
+                 <% if !@matrix[[col,row]].nil?%>
+                    <%@matrix[[col,row]].latestNotes.each do |item|%>
+                    <%=item%>
                   <% end%> ...
+                  <% end %>
                    </div>
                  </div>
             </div>

@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+<style>
+
+    BODY
+    {
+        background-color: #d3d3d3;
+
+    }
+    h1
+    {
+        font-size: 48pt;
+
+    }
+    .undo-un
+    {
+        color:gray;
+    }
+
+    .undo-do
+    {
+        color:green;
+    }
+
+    .undo-io
+    {
+
+        color:gray;
+    }
+
+
+    .folder-header {
+        font-weight:bold;
+        font-size:36pt;
+        float:left;
+        width:350px;
+        margin: 10px;
+        padding: 5px;
+    }
+
+    .header-bar {
+        width:1600px;
+    }
+
+    .body-container
+    {
+        width:1600px;
+    }
+
+    .box
+    {
+        width:350px;
+        height:350px;
+        float:left;
+        border: 1px solid #000000;
+        margin: 10px;
+        padding: 5px;
+
+    }
+
+    .todo
+    {
+        border-color: blue;
+        border-width: 3px;
+    }
+
+    .clear
+    {
+        clear:both;
+    }
+
+    .arrow
+    {
+
+
+    }
+
+    .box-header
+    {
+    }
+
+    .filename
+    {
+        text-align: left;
+        padding-bottom: 10px;
+        font-size:24pt;
+    }
+
+    .date-file-updated
+    {
+        vertical-align: bottom;
+        float:right;
+        font-style:italic;
+        color:gray;
+    }
+
+    .file-summary
+    {
+        color:gray;
+        font-style: italic;
+    }
+
+    .file-changes
+    {
+        margin-top:10px;
+        margin-bottom: 10px;
+    }
+
+    .task
+    {
+        padding-left: 10px;
+
+    }
+
+    .file-tasks
+    {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .sub-file
+    {
+        padding-left: 10px;
+
+    }
+
+    .empty
+    {
+        border: none;
+    }
+
+</style>
+<h1>
+<span class="undo-un">un</span><span class="undo-do">do</span><span class="undo-io"> method</span>
+</h1>
+    <div class="header-bar">
+<div class="folder-header">/</div>
+<div class="folder-header">/Personal</div>
+<div class="folder-header">/Undo-Project</div>
+<div class="folder-header">/PayScale</div>
+</div>
+<div class="clear"></div>
+<div class="body-container">
+    <div class="box todo">
+        <div class="box-header">
+            <div class="filename">Todo</div>
+        </div>
+        <div class="clear"></div>
+        <div class="task">[ ] Duis aute irure dolor </div>
+        <div class="task">[ ] in reprehenderit in voluptate</div>
+        <div class="task">[ ] Duis aute irure dolor </div>
+        <div class="task">[ ] in reprehenderit in voluptate</div>
+        <div class="task">[ ] Duis aute irure dolor </div>
+        <div class="task">[ ] in reprehenderit in voluptate</div>
+        <div class="task">[ ] Duis aute irure dolor </div>
+        <div class="task">[ ] in reprehenderit in voluptate</div>
+        <div class="task">[ ] Duis aute irure dolor </div>
+        <div class="task">[ ] in reprehenderit in voluptate</div>
+
+    </div>
+    <div class="box">
+        <div class="box-header">
+            <div class="filename">lose-weight.txt</div>
+        </div>
+        <div class="clear"></div>
+        <div class="file-summary">Lorem ipsum dolor sit amet, consectetur adipisicing elit, </div>
+        <div class="file-tasks">Recent Tasks</div>
+        <div class="task">[ ] Duis aute irure dolor </div>
+        <div class="task">[ ] in reprehenderit in voluptate</div>
+        <div class="file-changes">Recent Notes</div>
+        <div class="file-note">... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</div>
+
+    </div>
+    <div class="box">
+        <div class="box-header">
+             <div class="filename">/Specs</div>
+         </div>
+        <div class="sub-file">spec1.txt</div>
+        <div class="sub-file">spec2.txt</div>
+        <div class="file-tasks">Recent Tasks</div>
+        <div class="task">[ ] Duis aute irure dolor </div>
+        <div class="task">[ ] in reprehenderit in voluptate</div>
+        <div class="file-changes">Recent Notes</div>
+        <div class="file-note">... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</div>
+
+    </div>
+    <div class="box">
+        <div class="box-header">
+             <div class="filename">/Consumer</div>
+         </div>
+        <div class="sub-file">linkedin.txt</div>
+        <div class="sub-file">seo.txt</div>
+        <div class="file-tasks">Recent Tasks</div>
+        <div class="task">[ ] Duis aute irure dolor </div>
+        <div class="task">[ ] in reprehenderit in voluptate</div>
+        <div class="file-changes">Recent Notes</div>
+        <div class="file-note">... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</div>
+
+    </div>
+    <div class="clear"></div>
+    <div class="box">
+         <div class="box-header">
+             <div class="filename">random-thoughts.txt</div>
+         </div>
+         <div class="clear"></div>
+         <div class="file-summary">do eiusmod tempor incididunt ut labore et dolore magna </div>
+         <div class="file-tasks">Recent Tasks</div>
+         <div class="task">[ ] Duis aute irure dolor </div>
+         <div class="task">[ ] in reprehenderit in voluptate</div>
+         <div class="file-changes">Recent Notes</div>
+         <div class="file-note">... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</div>
+
+     </div>
+     <div class="box">
+        <div class="box-header">
+            <div class="filename">resolutions.txt</div>
+        </div>
+        <div class="clear"></div>
+        <div class="file-summary">do eiusmod tempor incididunt ut labore et dolore magna </div>
+        <div class="file-tasks">Recent Tasks</div>
+        <div class="task">[ ] Duis aute irure dolor </div>
+        <div class="task">[ ] in reprehenderit in voluptate</div>
+        <div class="file-changes">Recent Notes</div>
+        <div class="file-note">... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</div>
+
+    </div>
+    <div class="box">
+            <div class="box-header">
+                 <div class="filename">/Business Plan</div>
+             </div>
+            <div class="sub-file">model.txt</div>
+            <div class="sub-file">vc.txt</div>
+            <div class="file-tasks">Recent Tasks</div>
+            <div class="task">[ ] Duis aute irure dolor </div>
+            <div class="task">[ ] in reprehenderit in voluptate</div>
+            <div class="file-changes">Recent Notes</div>
+            <div class="file-note">... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</div>
+
+        </div>
+    <div class="box">
+        <div class="box-header">
+             <div class="filename">/IT</div>
+         </div>
+        <div class="sub-file">dsfj.txt</div>
+        <div class="sub-file">dsfsaf.txt</div>
+        <div class="file-tasks">Recent Tasks</div>
+        <div class="task">[ ] Duis aute irure dolor </div>
+        <div class="task">[ ] in reprehenderit in voluptate</div>
+        <div class="file-changes">Recent Notes</div>
+        <div class="file-note">... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</div>
+
+    </div>
+    <div class="clear"></div>
+    <div class="box empty"></div>
+    <div class="box">
+        <div class="box-header">
+            <div class="filename">finances.txt</div>
+        </div>
+        <div class="clear"></div>
+        <div class="file-summary">do eiusmod tempor incididunt ut labore et dolore magna </div>
+        <div class="file-tasks">Recent Tasks</div>
+        <div class="task">[ ] Duis aute irure dolor </div>
+        <div class="task">[ ] in reprehenderit in voluptate</div>
+        <div class="file-changes">Recent Notes</div>
+        <div class="file-note">... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</div>
+
+    </div>
+    <div class="box empty"></div>
+    <div class="box">
+         <div class="box-header">
+             <div class="filename">budget.txt</div>
+         </div>
+         <div class="clear"></div>
+         <div class="file-summary">do eiusmod tempor incididunt ut labore et dolore magna </div>
+         <div class="file-tasks">Recent Tasks</div>
+         <div class="task">[ ] Duis aute irure dolor </div>
+         <div class="task">[ ] in reprehenderit in voluptate</div>
+         <div class="file-changes">Recent Notes</div>
+         <div class="file-note">... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</div>
+
+     </div>
+    <div class="clear"></div>
+    <div class="box empty"></div>
+    <div class="box empty"></div>
+    <div class="box empty"></div>
+    <div class="box">
+          <div class="box-header">
+              <div class="filename">transition.txt</div>
+          </div>
+          <div class="clear"></div>
+          <div class="file-summary">do eiusmod tempor incididunt ut labore et dolore magna </div>
+          <div class="file-tasks">Recent Tasks</div>
+          <div class="task">[ ] Duis aute irure dolor </div>
+          <div class="task">[ ] in reprehenderit in voluptate</div>
+          <div class="file-changes">Recent Notes</div>
+          <div class="file-note">... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</div>
+
+      </div>
+
+</div>
+
+</body>
+</html>

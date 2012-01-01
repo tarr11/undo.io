@@ -1,4 +1,6 @@
 Todo::Application.routes.draw do
+  get "task_folder/show"
+
   get "todo_lines/show"
 
   resources :oauth_consumers do
@@ -20,6 +22,8 @@ Todo::Application.routes.draw do
   resources :todo_files
 
   resources :todo_lines
+
+  match 'task_folders/:path' => 'task_folder#show'
 
  get "/apps/dropbox", :to => 'App::Dropbox#index', :as => :dropbox
 

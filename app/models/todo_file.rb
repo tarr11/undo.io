@@ -8,7 +8,6 @@ class TodoFile < ActiveRecord::Base
     newFile = TodoFile.saveFile(user, filename, text)
     TodoFile.pushChanges(user, newFile)
 
-
   end
 
 
@@ -34,11 +33,36 @@ class TodoFile < ActiveRecord::Base
 
   end
 
+
+  def tasks
+    self.todo_lines
+
+  end
+  def summary
+    reader = StringIO.new(self.notes)
+    return [reader.gets]
+  end
+
+  def name
+    self.filename
+  end
+
+  def latestNotes
+    reader = StringIO.new(self.notes)
+    last = Array.new
+    while (line = reader.gets)
+      # only lines that start with to do chars are considered todos
+      if (!line.empty?)
+        last.push line
+      end
+    end
+    return last.last(3)
+
+  end
+
   def self.importFile(filename, user)
     # import this file using File
     file = File.open(filename, 'r')
-
-
    end
 
 

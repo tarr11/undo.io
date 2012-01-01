@@ -1,7 +1,6 @@
-require 'matrix'
-class HomeController < ApplicationController
-   before_filter :authenticate_user! 
-  def index
+class TaskFolderController < ApplicationController
+  def show
+
     allFiles = current_user.todo_files
         .includes(:todo_lines)
         .select do |file|
@@ -19,9 +18,13 @@ class HomeController < ApplicationController
 
     @files = rows.first(2)
 
-    topfolders = current_user.task_folder.task_folders
+    path = "/"
+    if (!path.nil?)
+         path = params[:path]
+    end
 
-    @topfolders = current_user.task_folder.task_folders.push(current_user.task_folder)
+    taskfolder = current_user.task_folder(path)
+    @topfolders = taskfolder.task_folders.push(taskfolder)
     @topfolders.sort_by!{|a| a.path.downcase}
 
     @cols = @topfolders.length - 1
@@ -30,9 +33,6 @@ class HomeController < ApplicationController
     @matrix = Hash.new
     @topfolders.each_with_index do |folder, col|
       folder.all.each_with_index do |item, row|
-        if (col == 0)
-          next
-        end
         @matrix[[col, row]] = item
         if row > @rows
           @rows = row
@@ -47,9 +47,8 @@ class HomeController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @files}
     end
- 
-  
-  
+
+
   end
 
 end

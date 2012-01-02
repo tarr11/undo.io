@@ -1,45 +1,69 @@
 class TodoFile < ActiveRecord::Base
 
   belongs_to :user
-  has_many :todo_lines
+#  has_many :todo_lines
+  has_many :task_file_revisions
 
   def self.pushChangesFromText(user, filename, text)
 
     newFile = TodoFile.saveFile(user, filename, text)
-    TodoFile.pushChanges(user, newFile)
+    #TodoFile.pushChanges(user, newFile)
 
+  end
+
+  def self.deleteFile(user, filename)
+    file = user.todo_files.find_by_filename(filename)
+    file.destroy
   end
 
 
   def self.saveFile(user, filename, file)
 
-    todofile = user.todo_files.new
-    todofile.filename = filename
-    todofile.notes = file
+    # save the curent file
+    todofile = user.todo_files.find_or_initialize_by_filename(filename)
+    todofile.contents = file
     todofile.save
 
-    reader = StringIO.new(file.strip)
-    while (line = reader.gets)
-      # only lines that start with to do chars are considered todos
-      if (line.lstrip.downcase.start_with?("*","+","todo"))
-        item = todofile.todo_lines.new
-        item.line = line.strip
-        item.guid = UUIDTools::UUID.timestamp_create.to_s
-        item.save
-      end
-    end
-    return todofile
+    # also save revisions
+    revision = todofile.task_file_revisions.new
+    revision.filename = filename
+    revision.contents = file
+    revision.user_id = user.id
+    revision.save
 
+   return todofile
+  end
+
+  def getChanges(startDate, endDate)
+      revs = self.task_file_revisions.where(['created_at between ? and ?',startDate, endDate])
+
+      Diffy::Diff.new(revs.first.contents, revs.last.contents)
 
   end
 
 
   def tasks
-    self.todo_lines
+    if (self.notes.nil?)
+      return []
+    end
 
+    tempTasks = []
+    reader = StringIO.new(self.notes.strip)
+     while (line = reader.gets)
+       # only lines that start with to do chars are considered todos
+       if (line.lstrip.downcase.start_with?("*","+","todo"))
+         task = Task.new
+         task.contents = line.strip
+         tempTasks.push task
+       end
+     end
+     return tempTasks
   end
   def summary
-    reader = StringIO.new(self.notes)
+    if (self.notes.nil?)
+      return [""]
+    end
+    reader = StringIO.new(self.contents)
     return [reader.gets]
   end
 
@@ -48,7 +72,11 @@ class TodoFile < ActiveRecord::Base
   end
 
   def latestNotes
-    reader = StringIO.new(self.notes)
+    if (self.contents.nil?)
+      return [""]
+    end
+
+    reader = StringIO.new(self.contents)
     last = Array.new
     while (line = reader.gets)
       # only lines that start with to do chars are considered todos
@@ -94,6 +122,7 @@ class TodoFile < ActiveRecord::Base
 
   end
 
+=begin
   def self.pushChanges(user, newFile)
 
     #   newFile = TodoFile.importFile(newFileName, user)
@@ -144,7 +173,7 @@ class TodoFile < ActiveRecord::Base
       newTask.client_id = line.guid
       newTask.save
     end
+=end
 
-  end
 
 end

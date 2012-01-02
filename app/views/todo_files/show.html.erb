@@ -4,9 +4,7 @@
   <b><%= @todo_file.filename%></b>
 </p>
 
-<pre>
-  <%= @todo_file.notes%>
-</pre>
+  <%= @todo_file.getChanges(Date.today, Date.tomorrow).to_s(:html).html_safe%>
 
 
 

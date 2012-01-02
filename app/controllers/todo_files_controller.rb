@@ -18,6 +18,7 @@ class TodoFilesController < ApplicationController
   def show
     @todo_file = current_user.todo_files.find(params[:id])
 
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @todo_file }

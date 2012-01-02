@@ -15,7 +15,9 @@ class User < ActiveRecord::Base
   has_many :todo_lines
 
   has_one :task_folder
-  has_one :dropbox, :class_name => "DropboxToken", :dependent => :destroy  
+  has_one :dropbox, :class_name => "DropboxToken", :dependent => :destroy
+  has_many :task_file_revisions
+
 
 
   def task_folder (path="/")

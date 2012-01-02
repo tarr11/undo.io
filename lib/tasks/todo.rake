@@ -1,13 +1,13 @@
 require 'DropboxNavigator'
 namespace :todo do
 
-  task :import => :environment do
 
-    user = User.first
-    filename = "/home/douglastarr/dev/todo/sample.txt"
-    todo = TodoFile.new
-    todo.importFile filename, user
+  task :testrecurse => :environment do
+    DropboxNavigator.getChangedFiles User.first
+  end
 
+  task :testtodo=> :environment do
+    DropboxNavigator.Sync User.first
   end
 
   task :dump => :environment do
@@ -52,7 +52,7 @@ namespace :todo do
 
   task :dropbox => :environment do
 
-    DropboxNavigator.Sync
+    DropboxNavigator.SyncAll
 
   end
 

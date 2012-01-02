@@ -1,4 +1,16 @@
-<div class="header-bar" style="width:3000px">
+<ul>
+  <li>Dates: </li>
+  <li>All Time</li>
+  <li>Today</li>
+  <li>Yesterday</li>
+  <li>Last 3 days</li>
+  <li>Last 7 days</li>
+  <li>Last Month</li>
+  <li>Custom</li>
+</ul>
+<div class="clear"></div>
+
+<div class="header-bar">
 <% @topfolders.each do |folder| %>
 <div class="folder-header">
   <%= link_to folder.name, :controller=> "task_folder", :action=>"show",  :path => folder.name%>
@@ -6,6 +18,7 @@
 <% end %>
 </div>
 
+<div class="clear"></div>
 <!--<div class="box todo">
   <div class="box-header">
       <div class="filename">Tasks</div>
@@ -15,14 +28,24 @@
   <div style="margin-bottom:10px">
     <div style="margin-left:10px">
     <% row.each do |line| %>
-       <div><%= link_to line[:task].line, line[:task]%></div>
+       <div><%= line[:task].contents%></div>
     <% end %>
    </div>
   </div>
 <% end %>
 </div>-->
+<div class="box-bar">
+  <% @topfolders.each do |folder| %>
+    <div class="box">
+      <div class="filename">
+    <%=folder.name.tr("/"," ")%> Summary
+        </div>
+    </div>
+  <% end %>
+</div>
+<div class="clear"></div>
 
-<div style="width:5000px">
+<div class="box-bar">
 <% 0.upto(@rows) do |row| %>
    <% 0.upto(@cols) do |col|%>
           <% if @matrix[[col,row]].nil?%>
@@ -45,7 +68,7 @@
                  </div>
                  <div class="file-tasks">Recent Tasks</div>
                  <%@matrix[[col,row]].tasks.each do |item|%>
-                  <div class="task"><%=item.line%></div>
+                  <div class="task"><%=item.contents%></div>
                  <% end%>
                   <div class="file-changes">Recent Notes</div>
                  <div class="task"> ...

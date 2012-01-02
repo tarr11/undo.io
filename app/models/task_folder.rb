@@ -78,11 +78,19 @@ class TaskFolder
 
   def tasks
     todo_files.map { |file|
-      file.tasks.all
+      file.tasks
     }.flatten
   end
 
   def name
     @path
   end
+
+  def getChanges(startDate, endDate)
+    @user.task_file_revisions.where(['filename like ? and created_at between ? and ?', "#{path}%", startDate, endDate])
+      .group_by(&:filename)
+      .each {|key,revisions| puts key + Diffy::Diff.new(revisions.first.contents, revisions.last.contents).to_s}
+
+  end
+
 end

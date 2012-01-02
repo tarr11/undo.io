@@ -2,13 +2,12 @@ class TaskFolderController < ApplicationController
   def show
 
     allFiles = current_user.todo_files
-        .includes(:todo_lines)
         .select do |file|
-          file.todo_lines.length > 0
+          file.tasks.length > 0
         end
 
     rows = allFiles.map do |file|
-      file.todo_lines.map do |line|
+      file.tasks.map do |line|
         {
           :todofile => file ,
           :task => line

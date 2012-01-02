@@ -1,4 +1,7 @@
-class Task < ActiveRecord::Base
-  belongs_to :User
+class Task
+
+
+  attr_accessor :contents
+  attr_accessor :completed
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111230190331) do
+ActiveRecord::Schema.define(:version => 20120102212306) do
 
   create_table "applications", :force => true do |t|
     t.string   "name"
@@ -78,6 +78,15 @@ ActiveRecord::Schema.define(:version => 20111230190331) do
   end
 
   add_index "oauth_tokens", ["token"], :name => "index_oauth_tokens_on_token", :unique => true
+
+  create_table "task_file_revisions", :force => true do |t|
+    t.integer  "todo_file_id"
+    t.text     "contents"
+    t.string   "filename"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
 
   create_table "tasks", :force => true do |t|
     t.string   "task"

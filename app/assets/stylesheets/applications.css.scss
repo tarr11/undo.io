@@ -163,6 +163,13 @@
         border: solid 1px white;
     }
 
+    .date-menu li
+    {
+
+        list-style-type:none;
+        display:inline;
+    }
+
 .diff{overflow:auto;}
 .diff ul{background:#fff;overflow:auto;font-size:13px;list-style:none;margin:0;padding:0;display:table;width:100%;
 }

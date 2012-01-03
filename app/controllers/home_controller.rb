@@ -2,22 +2,6 @@ require 'matrix'
 class HomeController < ApplicationController
    before_filter :authenticate_user! 
   def index
-    allFiles = current_user.todo_files
-        .includes(:todo_lines)
-        .select do |file|
-          file.todo_lines.length > 0
-        end
-
-    rows = allFiles.map do |file|
-      file.todo_lines.map do |line|
-        {
-          :todofile => file ,
-          :task => line
-        }
-      end
-    end
-
-    @files = rows.first(2)
 
     topfolders = current_user.task_folder.task_folders
 

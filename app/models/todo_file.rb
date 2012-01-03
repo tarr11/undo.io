@@ -35,9 +35,54 @@ class TodoFile < ActiveRecord::Base
   end
 
   def getChanges(startDate, endDate)
-      revs = self.task_file_revisions.where(['created_at between ? and ?',startDate, endDate])
+      revs = self.task_file_revisions#.where(['created_at between ? and ?',startDate, endDate]).map {|a| a}
+      firstversion = revs.first
 
-      Diffy::Diff.new(revs.first.contents, revs.last.contents)
+      if (firstversion.nil?)
+          return []
+      end
+
+      # prev = first rev before the start
+      prevRev = revs.select{|a| a.created_at < startDate }
+                    .sort_by{|a| a.created_at}
+                    .reverse
+                    .first
+
+      nextRev = revs.select{|a| a.created_at < endDate}
+                    .sort_by{|a| a.created_at}
+                    .reverse
+                    .first
+
+      if (self.id == 29)
+        puts self.id
+      end
+
+      if (prevRev.nil?)
+        prevContents = ""
+      elsif (firstversion.id == prevRev.id)
+        prevContents = ""
+      else
+        prevContents = prevRev.contents
+      end
+
+      if (nextRev.nil?)
+        nextContents = ""
+      else
+        nextContents = nextRev.contents
+      end
+
+
+      diff = Diffy::Diff.new(prevContents, nextContents)
+
+      if diff.select{|line| line.match('^[+-]')}.length > 0
+         [{
+             :file => self,
+            :diff => diff
+         }]
+
+      else
+        []
+      end
 
   end
 

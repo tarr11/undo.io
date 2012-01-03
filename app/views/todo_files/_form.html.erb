@@ -11,17 +11,10 @@
     </div>
   <% end %>
 
+
   <div class="field">
-    <%= f.label :FileName %><br />
-    <%= f.text_field :FileName %>
-  </div>
-  <div class="field">
-    <%= f.label :Contents %><br />
-    <%= f.text_area :Contents %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
+    <%= f.label :contents %><br />
+    <%= f.text_area :contents, {:style => "width:1000px;height:500px;"} %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -4,7 +4,7 @@
   <b><%= @todo_file.filename%></b>
 </p>
 
-  <%= @todo_file.getChanges(Date.today, Date.tomorrow).to_s(:html).html_safe%>
+  <%= @todo_file.getChanges(Date.today, Date.tomorrow).first[:diff].to_s(:html).html_safe%>
 
 
 

@@ -40,7 +40,9 @@ group :test do
 end
 
 gem 'execjs'
-gem 'therubyracer'
+group :development do
+  gem 'therubyracer'
+end
 gem 'devise'
 gem "oauth"
 gem "oauth2"

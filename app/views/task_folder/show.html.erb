@@ -1,5 +1,13 @@
 <%=@range%>
 <ul class="date-menu">
+
+ <% if !@uplevel.nil? %>
+<div>
+
+ <%= link_to "Up to " + @uplevel, :controller=> "task_folder", :action=>"show",  :path => @uplevel%></div>
+  </div>
+  <% end %>
+      <%=%>
   <li>Dates: </li>
   <% @ranges.each do |range|%>
       <li>
@@ -9,12 +17,15 @@
  </ul>
 <div class="clear"></div>
 <div class="header-bar">
-<% @columnItems.each do |folder| %>
-<div class="folder-header">
-  <%= link_to folder[:folder].name, :controller=> "task_folder", :action=>"show",  :path => folder[:folder].name%>
-  </div>
-<% end %>
-</div>
+<% @columnItems.each_with_index do |folder, index| %>
+    <div class="folder-header">
+      <% if index == 0 %>
+      <%= link_to folder[:folder].name, :controller=> "task_folder", :action=>"show",  :path => folder[:folder].name%>
+      <% else %>
+      <%= link_to folder[:folder].shortName + "/", :controller=> "task_folder", :action=>"show",  :path => folder[:folder].name%>
+      <% end%>
+    </div>
+   <% end %>
 
 <div class="clear"></div>
 

@@ -142,6 +142,16 @@ class TaskFolderController < ApplicationController
 
     ]
 
+    if (params[:path] != "/")
+
+      path = params[:path].split("/")
+      path.pop
+      if (path.length == 0)
+        @uplevel = "/"
+      else
+        @uplevel = path.join("/")
+      end
+    end
 
     @cols = @columnItems.length
 

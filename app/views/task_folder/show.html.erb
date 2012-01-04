@@ -1,14 +1,12 @@
 <%=@range%>
 <ul class="date-menu">
   <li>Dates: </li>
-  <li>All Time</li>
-  <li>Today</li>
-  <li>Yesterday</li>
-  <li>Last 3 days</li>
-  <li>Last 7 days</li>
-  <li>Last Month</li>
-  <li>Custom</li>
-</ul>
+  <% @ranges.each do |range|%>
+      <li>
+        <%= link_to range[:name], :controller=> "task_folder", :action=>"show",  :path => params[:path], :range => range[:range]%></div>
+      </li>
+  <% end %>
+ </ul>
 <div class="clear"></div>
 <div class="header-bar">
 <% @columnItems.each do |folder| %>
@@ -19,21 +17,6 @@
 </div>
 
 <div class="clear"></div>
-<!--<div class="box todo">
-  <div class="box-header">
-      <div class="filename">Tasks</div>
-  </div>
-  <% @files.each do |row| %>
-
-  <div style="margin-bottom:10px">
-    <div style="margin-left:10px">
-    <% row.each do |line| %>
-       <div><%= line[:task].contents%></div>
-    <% end %>
-   </div>
-  </div>
-<% end %>
-</div>-->
 
 <div class="box-bar">
 <% 0.upto(@rows) do |row| %>
@@ -47,18 +30,22 @@
                <div class="box-header">
                     <div class="filename">
                       <% if @matrix[[col,row]][:item].class.to_s == "TodoFile" %>
-                          <%= link_to @matrix[[col,row]][:item].name, @matrix[[col,row]][:item]%></div>
+                          <%= link_to @matrix[[col,row]][:item].shortName, @matrix[[col,row]][:item]%></div>
                        <% else %>
-                      <%= link_to @matrix[[col,row]][:item].name, :controller=> "task_folder", :action=>"show",  :path => @matrix[[col,row]][:item].name%></div>
-                          <div class="file-summary">
+                      <% if row == 0 %>
+                              <%= link_to @matrix[[col,row]][:item].shortName + "/ summary", :controller=> "task_folder", :action=>"show",  :path => @matrix[[col,row]][:item].name%></div>
 
+                      <% else %>
+                              <%= link_to @matrix[[col,row]][:item].shortName + "/", :controller=> "task_folder", :action=>"show",  :path => @matrix[[col,row]][:item].name%></div>
+
+                      <% end %>
+<!--                          <div class="file-summary">
                             <%@matrix[[col,row]][:changes].each do |item|%>
                                 <div><%=item[:file].name%></div>
                             <% end%>
-                          </div>
+                          </div>-->
                       <% end %>
                     </div>
-                  <div class="file-changes">Recent Notes</div>
                  <div class="task">
                  <% if @matrix[[col,row]][:changes].length > 0%>
                     <%@matrix[[col,row]][:changes].each do |change|%>

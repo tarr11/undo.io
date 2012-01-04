@@ -63,6 +63,11 @@ class TaskFolderController < ApplicationController
     @changes = Hash.new
     @topfolders.each_with_index do |folder, col|
       folder.all.each_with_index do |item, row|
+        # don't show any folders in the first column, since they are already in the row'
+        if (folder.name == path && item.class.to_s == "TaskFolder")
+            next
+        end
+
         changes = item.getChanges(@startDate , @endDate)
         if (changes.length > 0)
           note =
@@ -80,33 +85,65 @@ class TaskFolderController < ApplicationController
     @count = changedNotes.length
 
     @columnItems =  changedNotes.uniq{|a| a[:folder].name}
+
+    # summary rows, these are the
+    @columnItems.each_with_index do |folder, col |
+
+      changes = folder[:folder].getChanges(@startDate, @endDate)
+      @matrix[[col,0]] = {
+          :changes => changes,
+          :folder =>folder,
+          :item => folder[:folder]
+      }
+    end
+
     @columnItems.each_with_index do |folder, col |
         rows = changedNotes.select{ |note|
           note[:folder] == folder[:folder]
         }
 
         rows.each_with_index do |item, row|
-            if (col == 0 )
-              # no folders in the first col
-              if (item[:item].class.to_s == "TaskFolder")
-                next
-              end
-            end
-            @matrix[[col,row]] = item
-            if (row > @rows)
-              @rows = row
+            realrow = row +1
+            @matrix[[col,realrow ]] = item
+            if (realrow > @rows)
+              @rows = realrow
             end
         end
 
     end
 
+    @ranges = [
+        {
+             :name => "Today",
+             :range => "today"
+         },
+         {
+            :name => "Yesterday",
+            :range => "yesterday"
+        },
+         {
+            :name => "Last 3 Days",
+            :range => "3days"
+        },
+         {
+            :name => "Last 7 Days",
+            :range => "3days"
+        },
+         {
+            :name => "Last Month",
+            :range => "month"
+        },
+         {
+            :name => "All",
+            :range => "all"
+        },
+
+
+
+    ]
+
+
     @cols = @columnItems.length
-
-    # only get files that have changed
-#    @matrix = @matrix.select { |index|
-
-##      @matrix[index].getChanges(startDate, endDate).length > 0
-#    }
 
     respond_to do |format|
       format.html # index.html.erb

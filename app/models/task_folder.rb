@@ -86,6 +86,15 @@ class TaskFolder
     @path
   end
 
+  def shortName
+    if (@path == "/")
+      "Home"
+    else
+      @path.split("/").last
+    end
+
+  end
+
   def getChanges(startDate, endDate, allChanges = [])
 
     todo_files.each do |file|

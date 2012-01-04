@@ -63,7 +63,7 @@ class TodoFilesController < ApplicationController
     @todo_file = current_user.todo_files.find(params[:id])
 
     respond_to do |format|
-      if @todo_file.update_attributes(params[:todo_file])
+      if @todo_file.update_attributes!(params[:todo_file])
         format.html { redirect_to @todo_file, notice: 'Todo file was successfully updated.' }
         format.json { head :ok }
       else

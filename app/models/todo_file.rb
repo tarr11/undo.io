@@ -16,6 +16,23 @@ class TodoFile < ActiveRecord::Base
     file.destroy
   end
 
+=begin
+ =begin
+
+ def save
+
+
+    # also save revisions
+    revision = self.task_file_revisions.new
+    revision.filename = self.filename
+    revision.contents = self.contents
+    revision.user_id = self.user_id
+    revision.save
+
+  end
+
+end
+=end
 
   def self.saveFile(user, filename, file)
 
@@ -71,8 +88,10 @@ class TodoFile < ActiveRecord::Base
         nextContents = nextRev.contents
       end
 
-
+      prevContents = encodeUtf8(prevContents)
+      nextContents = encodeUtf8(nextContents)
       diff = Diffy::Diff.new(prevContents, nextContents)
+
 
       if diff.select{|line| line.match('^[+-]')}.length > 0
          [{
@@ -86,6 +105,12 @@ class TodoFile < ActiveRecord::Base
 
   end
 
+  def encodeUtf8(untrusted_string)
+    require ("iconv")
+    ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
+    valid_string = ic.iconv(untrusted_string + ' ')[0..-2]
+
+  end
 
   def tasks
     if (self.notes.nil?)
@@ -116,6 +141,9 @@ class TodoFile < ActiveRecord::Base
     self.filename
   end
 
+  def shortName
+    self.filename.split("/").last
+  end
   def latestNotes
     if (self.contents.nil?)
       return [""]

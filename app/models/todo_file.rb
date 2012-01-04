@@ -36,15 +36,16 @@ end
 
   def self.saveFile(user, filename, file)
 
+    utfEncodedFile = encodeUtf8(file)
     # save the curent file
     todofile = user.todo_files.find_or_initialize_by_filename(filename)
-    todofile.contents = file
+    todofile.contents = utfEncodedFile
     todofile.save
 
     # also save revisions
     revision = todofile.task_file_revisions.new
     revision.filename = filename
-    revision.contents = file
+    revision.contents = utfEncodedFile
     revision.user_id = user.id
     revision.save
 
@@ -88,8 +89,8 @@ end
         nextContents = nextRev.contents
       end
 
-      prevContents = encodeUtf8(prevContents)
-      nextContents = encodeUtf8(nextContents)
+      prevContents = TodoFile.encodeUtf8(prevContents)
+      nextContents = TodoFile.encodeUtf8(nextContents)
       diff = Diffy::Diff.new(prevContents, nextContents)
 
 
@@ -105,7 +106,7 @@ end
 
   end
 
-  def encodeUtf8(untrusted_string)
+  def self.encodeUtf8(untrusted_string)
     require ("iconv")
     ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
     valid_string = ic.iconv(untrusted_string + ' ')[0..-2]

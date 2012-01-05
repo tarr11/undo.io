@@ -88,7 +88,7 @@ class TaskFolder
 
   def shortName
     if (@path == "/")
-      "Home"
+      ""
     else
       @path.split("/").last
     end

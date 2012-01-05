@@ -45,16 +45,10 @@
                        <% else %>
                       <% if row == 0 %>
                               <%= link_to @matrix[[col,row]][:item].shortName + "/ summary", :controller=> "task_folder", :action=>"show",  :path => @matrix[[col,row]][:item].name%></div>
-
                       <% else %>
                               <%= link_to @matrix[[col,row]][:item].shortName + "/", :controller=> "task_folder", :action=>"show",  :path => @matrix[[col,row]][:item].name%></div>
 
                       <% end %>
-<!--                          <div class="file-summary">
-                            <%@matrix[[col,row]][:changes].each do |item|%>
-                                <div><%=item[:file].name%></div>
-                            <% end%>
-                          </div>-->
                       <% end %>
                     </div>
                  <div class="task">

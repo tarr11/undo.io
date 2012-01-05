@@ -18,7 +18,7 @@ class TaskFolderController < ApplicationController
     @files = rows.first(2)
 
     path = "/"
-    if (!params[:path].nil?)
+    if (!params[:path].empty?)
          path = params[:path]
     end
 

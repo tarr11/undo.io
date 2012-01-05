@@ -4,8 +4,10 @@
   <b><%= @todo_file.filename%></b>
 </p>
 
-  <%= @todo_file.getChanges(Date.today, Date.tomorrow).first[:diff].to_s(:html).html_safe%>
+<div>Revisions</div>
+ <% @revisions.each do |rev|%>
+    <div><%=rev.revision_at%></div>
+    <pre><%=rev.contents%></pre>
 
-
-
+    <% end%>
 <%= link_to 'Edit', edit_todo_file_path(@todo_file) %>

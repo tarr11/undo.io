@@ -18,6 +18,7 @@ class TodoFilesController < ApplicationController
   def show
     @todo_file = current_user.todo_files.find(params[:id])
 
+    @revisions = @todo_file.task_file_revisions
 
     respond_to do |format|
       format.html # show.html.erb

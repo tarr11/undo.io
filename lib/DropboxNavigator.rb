@@ -13,20 +13,32 @@ class DropboxNavigator
 
   def self.Sync(user)
 
-      dropboxFiles = getChangedFiles(user)
+    dropboxFiles = getChangedFiles(user)
+
+    dbFiles = user.todo_files.all.map {|a| a}
+
 
     begin
-        dropboxFiles.each do |filename|
-            text = user.dropbox.client.get_file(filename)
-            todo = TodoFile.pushChangesFromText user, filename, text
+        dropboxFiles.each do |fileinfo|
+
+            # get the dropbox files where the revision codes don't match
+            file = dbFiles.find{|a| a.filename == fileinfo[:filename]}
+            if (!file.nil? && file.dropbox_revision == fileinfo[:revisionCode])
+              next
+            end
+
+            text = user.dropbox.client.get_file(fileinfo[:filename])
+            todo = TodoFile.pushChangesFromText user, fileinfo[:filename], text, fileinfo[:revisionDate], fileinfo[:revisionCode]
         end
 
     end
 
-    user.todo_files.all
-      .select{|file| !dropboxFiles.include?(file.filename) }
-      .each {|file| file.destroy}
+    dropboxFileNames = dropboxFiles.map{|a| a[:filename]}
 
+    user.todo_files.all
+      .select{|file| !dropboxFileNames
+        .include?(file.filename) }
+      .each {|file| file.destroy}
 
   end
 
@@ -48,9 +60,14 @@ class DropboxNavigator
         subdir = user.dropbox.client.metadata(fileinfo["path"])
         getChangedFilesByPath(user, subdir, storedHashes, filenames)
       else
-        filename = fileinfo['path']
-        if (fileinfo.hash != storedHashes[filename])
-          filenames.push filename
+        hash = {
+              :filename => fileinfo['path'],
+              :revisionDate => fileinfo['modified'],
+              :revisionCode => fileinfo["rev"]
+              }
+
+        if (fileinfo.hash != storedHashes[hash[:filename]])
+          filenames.push hash
         end
       end
      end

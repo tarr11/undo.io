@@ -4,9 +4,9 @@ class TodoFile < ActiveRecord::Base
 #  has_many :todo_lines
   has_many :task_file_revisions
 
-  def self.pushChangesFromText(user, filename, text)
+  def self.pushChangesFromText(user, filename, text, revisionDate, revisionCode)
 
-    newFile = TodoFile.saveFile(user, filename, text)
+    newFile = TodoFile.saveFile(user, filename, text,revisionDate, revisionCode)
     #TodoFile.pushChanges(user, newFile)
 
   end
@@ -34,12 +34,14 @@ class TodoFile < ActiveRecord::Base
 end
 =end
 
-  def self.saveFile(user, filename, file)
+  def self.saveFile(user, filename, file, revisionDate, revisionCode)
 
     utfEncodedFile = encodeUtf8(file)
     # save the curent file
     todofile = user.todo_files.find_or_initialize_by_filename(filename)
     todofile.contents = utfEncodedFile
+    todofile.revision_at = revisionDate
+    todofile.dropbox_revision = revisionCode
     todofile.save
 
     # also save revisions
@@ -47,13 +49,15 @@ end
     revision.filename = filename
     revision.contents = utfEncodedFile
     revision.user_id = user.id
+    revision.revision_at = revisionDate
+    revision.dropbox_revision = revisionCode
     revision.save
 
    return todofile
   end
 
   def getChanges(startDate, endDate)
-      revs = self.task_file_revisions#.where(['created_at between ? and ?',startDate, endDate]).map {|a| a}
+      revs = self.task_file_revisions#.where(['revision_at between ? and ?',startDate, endDate]).map {|a| a}
       firstversion = revs.first
 
       if (firstversion.nil?)
@@ -61,30 +65,26 @@ end
       end
 
       # prev = first rev before the start
-      prevRev = revs.select{|a| a.created_at < startDate }
-                    .sort_by{|a| a.created_at}
+      prevRev = revs.select{|a| a.revision_at < startDate }
+                    .sort_by{|a| a.revision_at}
                     .reverse
                     .first
 
-      nextRev = revs.select{|a| a.created_at < endDate}
-                    .sort_by{|a| a.created_at}
+      nextRev = revs.select{|a| a.revision_at > startDate && a.revision_at < endDate}
+                    .sort_by{|a| a.revision_at}
                     .reverse
                     .first
 
-      if (self.id == 29)
-        puts self.id
-      end
 
       if (prevRev.nil?)
-        prevContents = ""
-      elsif (firstversion.id == prevRev.id)
         prevContents = ""
       else
         prevContents = prevRev.contents
       end
 
       if (nextRev.nil?)
-        nextContents = ""
+        # if there are no changes in the range, skip it
+        return []
       else
         nextContents = nextRev.contents
       end
@@ -200,7 +200,7 @@ end
   def self.pushChanges(user, newFile)
 
     #   newFile = TodoFile.importFile(newFileName, user)
-    oldFile = user.todo_files.where(["filename=? and id <> ?", newFile.filename,newFile.id]).order("created_at DESC").first
+    oldFile = user.todo_files.where(["filename=? and id <> ?", newFile.filename,newFile.id]).order("revision_at DESC").first
 
     if (!oldFile.nil?)
       puts "Deleted"
@@ -228,7 +228,7 @@ end
       newTask.save
       puts line.line 
     end
-  end
+  end                                    f
 
   def self.pushChangesFromTwoFiles(user, oldFile, newFile)
     

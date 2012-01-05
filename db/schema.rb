@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120102212306) do
+ActiveRecord::Schema.define(:version => 20120105073450) do
 
   create_table "applications", :force => true do |t|
     t.string   "name"
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(:version => 20120102212306) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.datetime "revision_at"
+    t.string   "dropbox_revision"
   end
 
   create_table "tasks", :force => true do |t|
@@ -104,6 +106,10 @@ ActiveRecord::Schema.define(:version => 20120102212306) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "notes"
+    t.datetime "RevisionDate"
+    t.datetime "revision_at"
+    t.string   "dropbox_hash"
+    t.string   "dropbox_revision"
   end
 
   create_table "todo_lines", :force => true do |t|

@@ -35,7 +35,7 @@ class TaskFolderController < ApplicationController
         @startDate = DateTime.now.utc - 1.hour
         @endDate = DateTime.now.utc
       when "today"
-        @startDate = DateTime.now.utc - 1.day
+        @startDate = Date.today
         @endDate = DateTime.now.utc
       when "yesterday"
         @startDate = Date.yesterday

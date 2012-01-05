@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8525da9e-be8a-43fe-912c-9d41aba25e68" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/lib/filesystems/dropbox.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/todo_file.rb" afterPath="$PROJECT_DIR$/app/models/todo_file.rb" />
     </list>
     <ignored path="todo.iws" />
@@ -61,7 +60,7 @@
       <file leaf-file-name="todo_file.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/todo_file.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="17" selection-start="1632" selection-end="1632" vertical-scroll-proportion="0.3632653">
+            <state line="75" column="50" selection-start="1913" selection-end="1913" vertical-scroll-proportion="0.577551">
               <folding />
             </state>
           </provider>
@@ -1002,7 +1001,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/todo_file.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="17" selection-start="1632" selection-end="1632" vertical-scroll-proportion="0.3632653">
+        <state line="75" column="50" selection-start="1913" selection-end="1913" vertical-scroll-proportion="0.577551">
           <folding />
         </state>
       </provider>

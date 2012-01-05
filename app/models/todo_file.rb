@@ -68,12 +68,12 @@ end
         return []
       end
       # prev = first rev before the start
-      prevRev = revs.select{|a| a.revision_at < startDate }
+      prevRev = revs.select{|a| !a.revision_at.nil? && a.revision_at < startDate }
                     .sort_by{|a| a.revision_at}
                     .reverse
                     .first
 
-      nextRev = revs.select{|a| a.revision_at > startDate && a.revision_at < endDate}
+      nextRev = revs.select{|a| !a.revision_at.nil? && a.revision_at > startDate && a.revision_at < endDate}
                     .sort_by{|a| a.revision_at}
                     .reverse
                     .first

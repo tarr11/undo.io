@@ -97,14 +97,14 @@ end
       diff = Diffy::Diff.new(prevContents, nextContents)
 
 
-      changedLines = diff.select{|line| line.match('^[+-]')}
-                    .map {|line| line.gsub(/^[+-]/,'')}
+      addedLines = diff.select{|line| line.match('^[+-]')}
+                    .map {|line| line.gsub(/^[+]/,'')}
 
       if changedLines.length > 0
          [{
              :file => self,
             :diff => diff,
-            :changedLines => changedLines
+            :changedLines => addedLines
          }]
 
       else

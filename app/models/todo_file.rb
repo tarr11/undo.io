@@ -97,7 +97,7 @@ end
       diff = Diffy::Diff.new(prevContents, nextContents)
 
 
-      addedLines = diff.select{|line| line.match('^[+-]')}
+      addedLines = diff.select{|line| line.match('^[+]')}
                     .map {|line| line.gsub(/^[+]/,'')}
 
       if addedLines.length > 0

@@ -51,7 +51,7 @@
       <file leaf-file-name="todo_file.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/todo_file.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="102" column="19" selection-start="2653" selection-end="2653" vertical-scroll-proportion="0.6686047">
+            <state line="101" column="47" selection-start="2632" selection-end="2632" vertical-scroll-proportion="0.6395349">
               <folding />
             </state>
           </provider>
@@ -944,7 +944,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/todo_file.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="19" selection-start="2653" selection-end="2653" vertical-scroll-proportion="0.6686047">
+        <state line="101" column="47" selection-start="2632" selection-end="2632" vertical-scroll-proportion="0.6395349">
           <folding />
         </state>
       </provider>

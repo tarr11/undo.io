@@ -100,7 +100,7 @@ end
       addedLines = diff.select{|line| line.match('^[+-]')}
                     .map {|line| line.gsub(/^[+]/,'')}
 
-      if changedLines.length > 0
+      if addedLines.length > 0
          [{
              :file => self,
             :diff => diff,

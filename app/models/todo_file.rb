@@ -64,6 +64,9 @@ end
           return []
       end
 
+      if (revs.nil?)
+        return []
+      end
       # prev = first rev before the start
       prevRev = revs.select{|a| a.revision_at < startDate }
                     .sort_by{|a| a.revision_at}

@@ -1,4 +1,6 @@
 class TaskFolderController < ApplicationController
+  before_filter :authenticate_user!
+
   def show
 
     allFiles = current_user.todo_files

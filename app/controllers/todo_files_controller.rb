@@ -1,7 +1,8 @@
 class TodoFilesController < ApplicationController
 
  before_filter :authenticate_user!
- 
+
+
   # GET /todo_files
   # GET /todo_files.json
   def index

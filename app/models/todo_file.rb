@@ -4,6 +4,9 @@ class TodoFile < ActiveRecord::Base
 #  has_many :todo_lines
   has_many :task_file_revisions
 
+  after_save :save_revision
+
+
   def self.pushChangesFromText(user, filename, text, revisionDate, revisionCode)
 
     newFile = TodoFile.saveFile(user, filename, text,revisionDate, revisionCode)
@@ -44,16 +47,19 @@ end
     todofile.dropbox_revision = revisionCode
     todofile.save
 
-    # also save revisions
-    revision = todofile.task_file_revisions.new
-    revision.filename = filename
-    revision.contents = utfEncodedFile
-    revision.user_id = user.id
-    revision.revision_at = revisionDate
-    revision.dropbox_revision = revisionCode
+    return todofile
+  end
+
+  def save_revision
+   # also save revisions
+    revision = self.task_file_revisions.new
+    revision.filename = self.filename
+    revision.contents = self.contents
+    revision.user_id = self.user_id
+    revision.revision_at = self.revision_at
+    revision.dropbox_revision = self.dropbox_revision
     revision.save
 
-   return todofile
   end
 
   def getChanges(startDate, endDate)

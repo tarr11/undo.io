@@ -5,9 +5,9 @@
 </p>
 
 <div>Revisions</div>
+<pre><%=@todo_file.contents%></pre>
  <% @revisions.each do |rev|%>
     <div><%=rev.revision_at%></div>
-    <pre><%=rev.contents%></pre>
 
     <% end%>
 <%= link_to 'Edit', edit_todo_file_path(@todo_file) %>

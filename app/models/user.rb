@@ -18,7 +18,11 @@ class User < ActiveRecord::Base
   has_one :dropbox, :class_name => "DropboxToken", :dependent => :destroy
   has_many :task_file_revisions
 
+  before_validation :whitelisted
 
+  def whitelisted
+      errors.add :email, "is not on our invitation list"
+  end
 
   def task_folder (path="/")
     TaskFolder.new(self, path)

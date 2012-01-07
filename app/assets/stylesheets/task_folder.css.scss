@@ -1,3 +1,25 @@
 // Place all the styles related to the task_folder controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.timebox
+{
+    float:left;
+    background-color:#add8e6;
+    margin :1px;
+    height:30px;
+
+}
+.timebox:hover
+{
+    cursor:hand;
+    cursor: pointer;
+
+}
+.timeline
+{
+    width:3000px;
+    padding-left:20px;
+
+
+}
+

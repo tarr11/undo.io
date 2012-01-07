@@ -1,3 +1,4 @@
+require 'DropboxNavigator'
 class TodoFile < ActiveRecord::Base
 
   belongs_to :user
@@ -62,6 +63,17 @@ end
 
   end
 
+  def saveFromWeb(todofileParams)
+
+    if self.update_attributes!(todofileParams)
+      DropboxNavigator.UpdateFileInDropbox(self)
+      return true
+    else
+      return false
+    end
+
+  end
+
   def getChanges(startDate, endDate)
       revs = self.task_file_revisions#.where(['revision_at between ? and ?',startDate, endDate]).map {|a| a}
       firstversion = revs.first
@@ -91,11 +103,13 @@ end
         prevContents = prevRev.contents
       end
 
-      if (nextRev.nil?)
+      revision_at = endDate
+        if (nextRev.nil?)
         # if there are no changes in the range, skip it
         return []
       else
         nextContents = nextRev.contents
+        revision_at = nextRev.revision_at
       end
 
       prevContents = TodoFile.encodeUtf8(prevContents)
@@ -108,8 +122,9 @@ end
 
       if addedLines.length > 0
          [{
-             :file => self,
+            :file => self,
             :diff => diff,
+            :revision_at => revision_at,
             :changedLines => addedLines
          }]
 

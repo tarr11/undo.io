@@ -10,6 +10,27 @@ class DropboxNavigator
 
   end
 
+  def self.UpdateFileInDropbox(todofile)
+    # check if there is an existing file previous the current one
+
+
+    revs = todofile.task_file_revisions.map {|a| a}
+
+    myuser = todofile.user
+
+    revision = ""
+    if revs.length > 1
+      revs.sort_by!{|a| a.id}.reverse.second.dropbox_revision
+      revision = revs.reverse.second.dropbox_revision ||= ""
+    end if
+
+    if revision.empty?
+      myuser.dropbox.client.put_file todofile.filename, todofile.contents, true
+    else
+      myuser.dropbox.client.put_file todofile.filename, todofile.contents, true, revision
+    end
+
+  end
 
   def self.Sync(user)
 

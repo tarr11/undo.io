@@ -42,7 +42,7 @@ class TaskFolder
     user.todo_files.find(:all, :conditions => ["filename LIKE ?", "#{path}%"])
       .select {|file| file.filename.scan("/").length >= depth}
       .map{ |file| File.dirname(file.filename)}
-      .map{ |path| path.split("/").first(depth).join("/")}
+      .map{ |path| path.split("/").first(depth).join("/") + "/"}
       .uniq
       .map {|path| TaskFolder.new @user, path}
   end

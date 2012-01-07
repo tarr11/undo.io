@@ -1,20 +1,40 @@
-<%=@range%>
-<ul class="date-menu">
-
+<% timeline_width = 1000 %>
  <% if !@uplevel.nil? %>
-<div>
-
- <%= link_to "Up to " + @uplevel, :controller=> "task_folder", :action=>"show",  :path => @uplevel%></div>
-  </div>
+<div><%= link_to "Up to " + @uplevel, :controller=> "task_folder", :action=>"show",  :path => @uplevel%></div>
   <% end %>
-      <%=%>
-  <li>Dates: </li>
+
+<div class="timeline">
+  <div style="height:20px;font-weight:bold;">Timeline</div>
+  <div style="float:left">
+      <div>
+        <% @timeline.each do |timeperiod|%>
+          <div style="float:left; ;margin:1px;width:<%=(timeperiod[:percentTotal]*timeline_width) %>px"><%=timeperiod[:end_date].to_s(:short)%></div>
+        <% end%>
+      </div>
+      <div class="clear"></div>
+      <div>
+          <% @timeline.each do |timeperiod|%>
+            <div class="timebox" href="<%=url_for(:controller=> 'task_folder', :action=>'show', :path => params[:path], :start => timeperiod[:start_date], :end => timeperiod[:end_date])%>" style="width:<%=(timeperiod[:percentTotal]*timeline_width) %>px">
+              &nbsp;
+            </div>
+          <% end%>
+      </div>
+  </div>
+</div>
+
+
+
+<!--
+<ul class="date-menu">
+<li>Dates: </li>
   <% @ranges.each do |range|%>
       <li>
         <%= link_to range[:name], :controller=> "task_folder", :action=>"show",  :path => params[:path], :range => range[:range]%></div>
       </li>
   <% end %>
  </ul>
+-->
+
 <div class="clear"></div>
 <div class="header-bar">
 <% @columnItems.each_with_index do |folder, index| %>
@@ -53,9 +73,9 @@
                     </div>
                  <div class="task">
                  <% if @matrix[[col,row]][:changes].length > 0%>
-                    <%@matrix[[col,row]][:changes].first(3).each do |change|
+                    <%@matrix[[col,row]][:changes].first(5).each do |change|
                        if @matrix[[col,row]][:item].class.to_s  == "TodoFile"
-                            rowCount = 5
+                            rowCount = 10
                        else
                             rowCount = 1
                        end

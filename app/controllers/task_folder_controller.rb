@@ -68,9 +68,9 @@ class TaskFolderController < ApplicationController
     @topfolders.each_with_index do |folder, col|
       folder.all.each_with_index do |item, row|
         # don't show any folders in the first column, since they are already in the row'
-        if (folder.name == path && item.class.to_s == "TaskFolder")
-            next
-        end
+#        if (folder.name == path && item.class.to_s == "TaskFolder")
+#            next
+#        end
 
         changes = item.getChanges(@startDate , @endDate)
         if (changes.length > 0)
@@ -88,7 +88,22 @@ class TaskFolderController < ApplicationController
 
     @count = changedNotes.length
 
-    @columnItems =  changedNotes.uniq{|a| a[:folder].name}
+    sortedColumnItems = []
+    changedNotes.group_by {|note| note[:folder].name}
+      .each do |folderName, notes|
+         sortedColumnItems.push(
+          {
+            :folder => notes.first[:folder],
+            :count =>notes.count
+          }
+         )
+    end
+
+    @columnItems = sortedColumnItems
+      .sort_by{|a| [ (a[:folder].name == "/" ? 2 : 1), a[:count]] }
+      .reverse
+
+    #@columnItems =  changedNotes.uniq{|a| a[:folder].name}
 
     # summary rows, these are the
     @columnItems.each_with_index do |folder, col |

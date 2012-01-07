@@ -62,7 +62,7 @@
         font-size:20pt;
         float:left;
         width:5in;
-        margin: 17px;
+        margin: 10px;
         padding: 2px;
     }
 
@@ -77,9 +77,9 @@
         width:5in;
         height:3in;
         float:left;
-        border: 1px solid #000000;
+        border: 1px solid #d3d3d3;;
         margin: 10px;
-        padding: 10px;
+        padding: 0px;
         overflow-x:hidden;
         overflow-y : auto;
 
@@ -118,7 +118,12 @@
     {
         text-align: left;
         padding-bottom: 10px;
-        font-size:18pt;
+    }
+
+    .filename A:visited, .filename A:link
+    {
+        font-size:20pt;
+        color:black;
     }
 
     .date-file-updated
@@ -144,7 +149,16 @@
     .task
     {
         padding-left: 10px;
+        font-size:14pt;
+        padding-top:10px;
+        padding-bottom:10px;
+    }
 
+    .task-filename
+    {
+        font-size:10pt;
+        color:gray;
+        padding-left:5px
     }
 
     .file-tasks

@@ -94,11 +94,11 @@ class TaskFolderController < ApplicationController
     @columnItems.each_with_index do |folder, col |
 
       changes = folder[:folder].getChanges(@startDate, @endDate)
-      @matrix[[col,0]] = {
-          :changes => changes,
-          :folder =>folder,
-          :item => folder[:folder]
-      }
+      #@matrix[[col,0]] = {
+      #    :changes => changes,
+      #    :folder =>folder,
+      #    :item => folder[:folder]
+      #}
     end
 
     @columnItems.each_with_index do |folder, col |
@@ -107,7 +107,7 @@ class TaskFolderController < ApplicationController
         }
 
         rows.each_with_index do |item, row|
-            realrow = row +1
+            realrow = row
             @matrix[[col,realrow ]] = item
             if (realrow > @rows)
               @rows = realrow
@@ -258,8 +258,9 @@ class TaskFolderController < ApplicationController
             :end_date=>marker[:end_date],
             :percentTotal => percentTotal,
             :count => count,
-            :length => startDiff,
-            :text => diffs.select{|a| a[:revision_at] >= startDiff && a[:revision_at] <= endDiff}.length
+            :text => diffs.select{|a| a[:revision_at] >= startDiff && a[:revision_at] <= endDiff}.length,
+            :endDiff => endDiff,
+            :startDiff => startDiff
         })
 
     end
@@ -302,5 +303,7 @@ class TaskFolderController < ApplicationController
 
 
   end
+
+
 
 end

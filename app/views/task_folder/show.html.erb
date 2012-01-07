@@ -1,7 +1,7 @@
 <% timeline_width = 1000 %>
- <% if !@uplevel.nil? %>
+<% if !@uplevel.nil? %>
 <div><%= link_to "Up to " + @uplevel, :controller=> "task_folder", :action=>"show",  :path => @uplevel%></div>
-  <% end %>
+<% end %>
 
 <div class="timeline">
   <div style="height:20px;font-weight:bold;">Timeline</div>
@@ -22,8 +22,6 @@
   </div>
 </div>
 
-
-
 <!--
 <ul class="date-menu">
 <li>Dates: </li>
@@ -39,11 +37,7 @@
 <div class="header-bar">
 <% @columnItems.each_with_index do |folder, index| %>
     <div class="folder-header">
-      <% if index == 0 %>
-      <%= link_to folder[:folder].name, :controller=> "task_folder", :action=>"show",  :path => folder[:folder].name%>
-      <% else %>
       <%= link_to folder[:folder].shortName + "/", :controller=> "task_folder", :action=>"show",  :path => folder[:folder].name%>
-      <% end%>
     </div>
    <% end %>
 
@@ -59,33 +53,36 @@
           <% else %>
              <div class="box">
                <div class="box-header">
-                    <div class="filename">
+                    <div class="filename" style="">
                       <% if @matrix[[col,row]][:item].class.to_s == "TodoFile" %>
                           <%= link_to @matrix[[col,row]][:item].shortName, @matrix[[col,row]][:item]%></div>
                        <% else %>
-                      <% if row == 0 %>
-                              <%= link_to @matrix[[col,row]][:item].shortName + "/ summary", :controller=> "task_folder", :action=>"show",  :path => @matrix[[col,row]][:item].name%></div>
-                      <% else %>
-                              <%= link_to @matrix[[col,row]][:item].shortName + "/", :controller=> "task_folder", :action=>"show",  :path => @matrix[[col,row]][:item].name%></div>
+                          <% if row == 0 %>
+                                  <%= link_to @matrix[[col,row]][:item].shortName + "/ summary", :controller=> "task_folder", :action=>"show",  :path => @matrix[[col,row]][:item].name%></div>
+                          <% else %>
+                                  <%= link_to @matrix[[col,row]][:item].shortName + "/", :controller=> "task_folder", :action=>"show",  :path => @matrix[[col,row]][:item].name%></div>
 
-                      <% end %>
+                          <% end %>
                       <% end %>
                     </div>
                  <div class="task">
-                 <% if @matrix[[col,row]][:changes].length > 0%>
-                    <%@matrix[[col,row]][:changes].first(5).each do |change|
+                 <% if @matrix[[col,row]][:changes].length > 0
                        if @matrix[[col,row]][:item].class.to_s  == "TodoFile"
-                            rowCount = 10
+                            rowCount = 3
                        else
                             rowCount = 1
-                       end
-                       change[:changedLines].first(rowCount).each do |line|%>
-                           <div><%=line%></div>
+                       end%>
+                    <%@matrix[[col,row]][:changes].first(3).each do |change|
+                       change[:changedLines].last(rowCount).each do |line|%>
+                           <div class="task-line"><%=snippet(line, 8)%></div>
                        <% end %>
-                           <% if @matrix[[col,row]][:item].class.to_s  == "TaskFolder"%>
-                              <div style="color:gray;padding-left:5px">in <%=change[:file].filename%> (<%=change[:changedLines].length%> changes)</div>
-                           <% end%>
-
+                       <% if @matrix[[col,row]][:item].class.to_s  == "TaskFolder"%>
+                          <div class="task-filename">in <%=change[:file].shortName%> (<%=change[:changedLines].length%> changes)</div>
+                       <% else
+                            if (change[:changedLines].length > 3)%>
+                                   <div class="task-filename"> <%=change[:changedLines].length - 3%> more changes</div>
+                            <%end%>
+                       <% end%>
                     <% end %>
 
                  <% end %>

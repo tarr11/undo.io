@@ -116,9 +116,9 @@ end
       nextContents = TodoFile.encodeUtf8(nextContents)
       diff = Diffy::Diff.new(prevContents, nextContents)
 
-
       addedLines = diff.select{|line| line.match('^[+]')}
                     .map {|line| line.gsub(/^[+]/,'')}
+                    .select {|line| !line.blank?}
 
       if addedLines.length > 0
          [{

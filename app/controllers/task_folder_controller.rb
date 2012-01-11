@@ -7,12 +7,27 @@ class TaskFolderController < ApplicationController
          path = params[:path]
     end
 
-    @taskfolder = current_user.task_folder(path)
+    # if a file exists, then show it
+    @file = current_user.file(path)
+
+    if @file.nil?
+      @taskfolder = current_user.task_folder(path)
+    else
+      @taskfolder = @file.task_folder
+    end
+
+    if @taskfolder.nil?
+       raise 'No Folder'
+    end if
 
     parts = path.split('/')
 
     if (parts.length == 0)
       parts = [""]
+    end
+
+    if (!@file.nil?)
+      parts.pop
     end
 
     @path_parts = []
@@ -25,9 +40,69 @@ class TaskFolderController < ApplicationController
         })
     end
 
+    if @file.nil?
+      startDate = Date.today - 5.days
+      endDate = Date.tomorrow
+      @changes = @taskfolder.get_file_changes(startDate, endDate)
+      @changed_folders = []
+
+
+      if !@changes.nil?
+        groupedPaths = @changes.group_by{|a| a[:file].path}
+
+        groupedPaths.each do |path, group|
+          @changed_folders.push(
+              {
+                  :name => path,
+                  :files =>
+                      group.map{ |change|
+                          {
+                              :name => change[:file].shortName,
+                              :number_of_lines => change[:changedLines].length,
+                              :changes => change[:changedLines]
+                          }
+                      }
+              }
+
+          )
+        end
+      end
+
+    end
+
     @folders = @taskfolder.task_folders
     @files = @taskfolder.todo_files
+       sample_changed_folders= [
+          {
+              :name => "Career",
+              :files => [
+                {
+                    :name => "career-plan.txt",
+                    :number_of_lines => 2,
+                    :changes =>[
+                        "VP Engineering",
+                        "Consultant"
+                    ]
+                }
+              ]
 
+          },
+       {
+              :name => "PayScale",
+              :files => [
+                {
+                    :name => "LinkedIn/Meetings/Betsy.txt",
+                    :number_of_lines => 2,
+                    :changes =>[
+                        "Come up with a list of metrics and things we will learn for this release."
+                    ]
+                }
+              ]
+
+          }
+           ]
+
+    #@changed_folders = sample_changed_folders
   end
 
   def show

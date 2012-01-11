@@ -106,7 +106,7 @@ end
       revision_at = endDate
         if (nextRev.nil?)
         # if there are no changes in the range, skip it
-        return []
+        return nil
       else
         nextContents = nextRev.contents
         revision_at = nextRev.revision_at
@@ -121,15 +121,15 @@ end
                     .select {|line| !line.blank?}
 
       if addedLines.length > 0
-         [{
+         return {
             :file => self,
             :diff => diff,
             :revision_at => revision_at,
             :changedLines => addedLines
-         }]
-
+         }
       else
-        []
+        return nil
+
       end
 
   end
@@ -178,6 +178,24 @@ end
     parts = self.filename.split("/")
     parts.pop
     parts.join("/") + "/"
+  end
+
+  def task_folder
+    @task_folder = TaskFolder.new(self.user, path)
+  end
+
+  def get_lines
+
+    if (self.contents.nil?)
+      return
+    end
+
+    reader = StringIO.new(self.contents)
+    while (line = reader.gets)
+      # only lines that start with to do chars are considered todos
+        yield line
+    end
+
   end
 
   def latestNotes

@@ -48,6 +48,9 @@ class TaskFolder
     # find all the files with one more slash
     # then strip everything after the last slash
 
+    if user.nil?
+      raise 'No user!'
+    end
 
     user.todo_files.find(:all, :conditions => ["filename LIKE ?", "#{path}%"])
       .select {|file| file.filename.scan("/").length >= depth}
@@ -103,6 +106,20 @@ class TaskFolder
       @path.split("/").last
     end
 
+  end
+
+  def get_file_changes(start_date, end_date)
+
+    allChanges = []
+
+    todo_files_recursive.each do |file|
+      change = file.getChanges(start_date, end_date)
+      if (!change.nil?)
+        allChanges.push change
+      end
+    end
+
+    return allChanges
   end
 
   def getChanges(startDate, endDate, allChanges = [])

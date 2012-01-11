@@ -27,4 +27,8 @@ class User < ActiveRecord::Base
   def task_folder (path="/")
     TaskFolder.new(self, path)
   end
+
+  def file(filename)
+    self.todo_files.find(:all, :conditions => ["filename = ?", "#{filename}"]).first
+  end
 end

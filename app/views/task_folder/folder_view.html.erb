@@ -208,11 +208,13 @@
     <div class="summary-content">
     <% @changed_folders.each do |folder| %>
         <div class="change-foldername">
-            <%=folder[:name]%>
+          <%= link_to  folder[:name], :controller => "task_folder", :action=>"folder_view", :path=> folder[:name]%>
         </div>
         <% folder[:files].each do |file| %>
             <div class="change-file">
-            <div class="change-filename"><%=file[:name]%></div>
+            <div class="change-filename">
+                <%= link_to  file[:name], :controller => "task_folder", :action=>"folder_view", :path=> file[:file].filename%>
+               </div>
             <ul>
             <% file[:changes].first(3).each do |change| %>
                 <li><%=change%></li>

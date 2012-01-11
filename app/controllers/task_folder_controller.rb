@@ -113,6 +113,7 @@ class TaskFolderController < ApplicationController
                   :files =>
                       group.map{ |change|
                           {
+                              :file => change[:file],
                               :name => change[:file].shortName,
                               :number_of_lines => change[:changedLines].length,
                               :changes => change[:changedLines]

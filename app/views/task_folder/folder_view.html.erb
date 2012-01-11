@@ -1,0 +1,116 @@
+<style>
+  .header-path, .header-path A:link, .header-path A:visited
+  {
+      font-size:24pt;
+      margin-left:5pt;
+      margin-bottom:5pt;
+
+  }
+
+    .column
+    {
+        float:left;
+    }
+
+        .icon-image
+        {
+            width:40px;
+        }
+
+
+        .column-header
+        {
+
+
+        }
+
+  .box-header
+  {
+      font-size: 1.5em;
+
+
+
+  }
+        .box2
+        {
+              width:5in;
+              float: none;
+              border: 1px solid #d3d3d3;;
+              margin: 10px;
+              padding: 0px;
+              overflow-x:hidden;
+              overflow-y : auto;
+
+        }
+
+</style>
+<div class="header-path">
+  <%= link_to "Home", :controller => "task_folder", :action=>"folder_view", :path=>"/"%>
+
+  <% @path_parts.each do |part| %>
+    <%= link_to part[:name], :controller => "task_folder", :action=>"folder_view", :path=>part[:path] %> /
+<% end %>
+</div>
+
+ <% if @folders.length > 0 %>
+      <div class="column">
+
+      <% @folders.each do |folder|%>
+
+          <div class="box2">
+               <div class="box-header">
+                    <div class="filename" style="vertical-align: middle">
+                     <%=image_tag("folder.png", :class => "icon-image")%>
+                      <%= link_to folder.shortName, :controller => "task_folder", :action=>"folder_view", :path=>folder.path %>
+                    </div>
+                    </div>
+            </div>
+          <% end %>
+      </div>
+ <% end %>
+
+        <div class="column">
+
+
+     <% @files.each do |file|%>
+          <div class="box2">
+            <div class="box-header">
+
+                    <% if file.path == @taskfolder.path%>
+                  <div class="filename">
+                    <%=image_tag("text-file-icon.png", :class => "icon-image")%>
+                          <%= link_to file.shortName, :controller => "todo_files", :action=>"show", :id=> file.id%>
+                   <% else %>
+                  <div class="filename" style="background-color:white;">
+                  <%=image_tag("text-file-icon.png", :class => "icon-image")%>
+                        <%= link_to file.shortName, :controller => "todo_files", :action=>"show", :id=> file.id%>
+                   in <%=file.path%>
+                   <% end %>
+                    </div>
+
+                 </div>
+<!--              <div class="task">
+                <%file.latestNotes.each do |line|%>
+                <div class="task-line"><%=line%></div>
+                <% end %>
+              </div>-->
+
+         </div>
+          <div class="clear"></div>
+      <% end %>
+
+          </div>
+
+<!--         <div class="edit-column">
+          <div class="box" style="width:708px;height: 900px">
+          <div class="box-header">
+               <div class="filename" style="">
+                  <%=image_tag("text-file-icon.png", :class => "icon-image")%>  <a href="/task_folder/show?path=%2FUndo-Project%2FDev%2F">meetings.txt</a></div>
+               </div>        <textarea style="width:700px;height:800px;">
+        </textarea>
+          </div>
+    -->
+
+
+</div>
+ </div>

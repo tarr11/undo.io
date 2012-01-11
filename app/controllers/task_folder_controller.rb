@@ -1,6 +1,35 @@
 class TaskFolderController < ApplicationController
   before_filter :authenticate_user!
 
+  def folder_view
+    path = "/"
+    if (!params[:path].empty?)
+         path = params[:path]
+    end
+
+    @taskfolder = current_user.task_folder(path)
+
+    parts = path.split('/')
+
+    if (parts.length == 0)
+      parts = [""]
+    end
+
+    @path_parts = []
+    incremental_part = "/"
+    parts.each_with_index do |part|
+        incremental_part +=  part + "/"
+        @path_parts.push ({
+          :path => incremental_part,
+          :name => part
+        })
+    end
+
+    @folders = @taskfolder.task_folders
+    @files = @taskfolder.todo_files
+
+  end
+
   def show
 
     allFiles = current_user.todo_files

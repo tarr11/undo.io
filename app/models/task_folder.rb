@@ -12,6 +12,16 @@ class TaskFolder
     end
   end
 
+  def todo_files_recursive
+    temppath = @path
+    if !@path.starts_with?("/")
+      temppath = "/" + @path
+    end
+
+    user.todo_files.find(:all, :conditions => ["filename LIKE ?", "#{temppath}%"]).sort_by{|a| a.path}
+
+  end
+
 
   def todo_files
 

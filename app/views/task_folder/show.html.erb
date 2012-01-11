@@ -68,19 +68,19 @@
                  <div class="task">
                  <% if @matrix[[col,row]][:changes].length > 0
                        if @matrix[[col,row]][:item].class.to_s  == "TodoFile"
-                            rowCount = 3
+                            rowCount = 7
                        else
                             rowCount = 1
                        end%>
                     <%@matrix[[col,row]][:changes].first(3).each do |change|
-                       change[:changedLines].last(rowCount).each do |line|%>
-                           <div class="task-line"><%=snippet(line, 8)%></div>
+                       change[:changedLines].first(rowCount).each do |line|%>
+                           <div class="task-line"><%=snippet(line, 12)%></div>
                        <% end %>
                        <% if @matrix[[col,row]][:item].class.to_s  == "TaskFolder"%>
                           <div class="task-filename">in <%=change[:file].shortName%> (<%=change[:changedLines].length%> changes)</div>
                        <% else
-                            if (change[:changedLines].length > 3)%>
-                                   <div class="task-filename"> <%=change[:changedLines].length - 3%> more changes</div>
+                            if (change[:changedLines].length > 7)%>
+                                   <div class="task-filename"> <%=change[:changedLines].length - 7%> more changes</div>
                             <%end%>
                        <% end%>
                     <% end %>

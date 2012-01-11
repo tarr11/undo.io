@@ -173,6 +173,13 @@ end
   def shortName
     self.filename.split("/").last
   end
+
+  def path
+    parts = self.filename.split("/")
+    parts.pop
+    parts.join("/") + "/"
+  end
+
   def latestNotes
     if (self.contents.nil?)
       return [""]

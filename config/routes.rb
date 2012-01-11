@@ -25,6 +25,8 @@ Todo::Application.routes.draw do
 
   match 'task_folders/:path' => 'task_folder#show'
 
+  match "p:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}
+
  get "/apps/dropbox", :to => 'App::Dropbox#index', :as => :dropbox
 
   # The priority is based upon order of creation:

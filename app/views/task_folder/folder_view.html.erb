@@ -52,9 +52,7 @@
 <% end %>
 </div>
 
- <% if @folders.length > 0 %>
-      <div class="column">
-
+<div class="column">
       <% @folders.each do |folder|%>
 
           <div class="box2">
@@ -66,10 +64,6 @@
                     </div>
             </div>
           <% end %>
-      </div>
- <% end %>
-
-        <div class="column">
 
 
      <% @files.each do |file|%>
@@ -89,28 +83,79 @@
                     </div>
 
                  </div>
-<!--              <div class="task">
-                <%file.latestNotes.each do |line|%>
-                <div class="task-line"><%=line%></div>
-                <% end %>
-              </div>-->
-
-         </div>
-          <div class="clear"></div>
+               </div>
       <% end %>
-
-          </div>
-
-<!--         <div class="edit-column">
-          <div class="box" style="width:708px;height: 900px">
-          <div class="box-header">
-               <div class="filename" style="">
-                  <%=image_tag("text-file-icon.png", :class => "icon-image")%>  <a href="/task_folder/show?path=%2FUndo-Project%2FDev%2F">meetings.txt</a></div>
-               </div>        <textarea style="width:700px;height:800px;">
-        </textarea>
-          </div>
-    -->
-
+  </div>
 
 </div>
+  <div class="column">
+      <div style="padding:5px; width:800px; height:500px; margin-top:10px; border: solid gray 1px">
+ <div class="timeline">
+   <div style="height:20px;font-weight:bold;">Timeline</div>
+   <div style="float:left">
+   <div>
+   <div style="float:left; ;margin:1px;width:163.1459213519662px">11 Jan 05:02</div>
+   <div style="float:left; ;margin:1px;width:405.9148521286968px">08 Jan 05:02</div>
+   <div style="float:left; ;margin:1px;width:74.09814754631135px">05 Jan 05:02</div>
+   <div style="float:left; ;margin:1px;width:50.0px">02 Jan 05:02</div>
+   </div>
+   <div class="clear"></div>
+   <div>
+     <div class="timebox" href="/task_folder/show?end=2012-01-11T05%3A02%3A16%2B00%3A00&amp;path=%2F&amp;start=2012-01-08T05%3A02%3A16%2B00%3A00" style="width:163.1459213519662px">
+       &nbsp;
+     </div>
+     <div class="timebox" href="/task_folder/show?end=2012-01-08T05%3A02%3A16%2B00%3A00&amp;path=%2F&amp;start=2012-01-05T05%3A02%3A16%2B00%3A00" style="width:405.9148521286968px">
+       &nbsp;
+     </div>
+     <div class="timebox" href="/task_folder/show?end=2012-01-05T05%3A02%3A16%2B00%3A00&amp;path=%2F&amp;start=2012-01-02T05%3A02%3A16%2B00%3A00" style="width:74.09814754631135px">
+       &nbsp;
+     </div>
+     <div class="timebox" href="/task_folder/show?end=2012-01-02T05%3A02%3A16%2B00%3A00&amp;path=%2F&amp;start=2011-12-30T05%3A02%3A16%2B00%3A00" style="width:50.0px">
+       &nbsp;
+     </div>
+   </div>
+   </div>
+ </div>
+
+        <div class="clear"></div>
+        <div style="margin-left:10px;padding: 5px;">
+        <div style="padding: 5px;">
+          <div style="font-size:14pt;font-weight:bold;">Career</div>
+          <div class="task">
+                    <div class="task-line">This doc intends to describe my career plan</div>
+                   <div class="task-filename">in Career-Plan.txt (6 changes)</div>
+                    <div class="task-line">Conversation with Mike about ongoing role</div>
+                   <div class="task-filename">in New-role.txt (9 changes)</div>
+
+          </div>
+
+          </div>
+          <div style="padding: 5px;">
+            <div style="font-size:14pt;font-weight:bold;">Google Calendar</div>
+            <div class="task">
+                      <div class="task-line">Calendar item</div>
+                     <div class="task-filename">in calendar.txt (6 changes)</div>
+
+            </div>
+
+            </div>
+          <div style="padding: 5px;">
+            <div style="font-size:14pt;font-weight:bold;">Home</div>
+            <div class="task">
+                      <div class="task-line">This doc intends to describe my career plan</div>
+                     <div class="task-filename">in Career-Plan.txt (6 changes)</div>
+                      <div class="task-line">Conversation with Mike about ongoing role</div>
+                     <div class="task-filename">in New-role.txt (9 changes)</div>
+
+            </div>
+
+            </div>
+
+          </div>
+         </div>
+
+
+
+   </div>
+
  </div>

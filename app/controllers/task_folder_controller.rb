@@ -2,6 +2,53 @@ class TaskFolderController < ApplicationController
   before_filter :authenticate_user!
 
   def folder_view
+
+    @ranges = [
+        {
+             :name => "Today",
+             :start_date => Time.zone.now.beginning_of_day,
+             :end_date => Time.zone.now.beginning_of_day + 1.days
+            } ,
+            {
+             :name => "Yesterday",
+             :start_date => Time.zone.now.beginning_of_day - 1.days,
+             :end_date => Time.zone.now.beginning_of_day
+            }
+    ]
+
+    #(3..7).each do |index|
+    #  date = Time.zone.now - index.days
+    #  @ranges.push({
+    #    :name => date.strftime("%A"),
+    #    :start_date => date,
+    #    :end_date => date + 1.days
+    #  })
+    #end
+
+    @ranges.push({
+         :name => "Last 3 days",
+         :start_date => Time.zone.now.beginning_of_day - 3.days,
+         :end_date => Time.zone.now.beginning_of_day
+    })
+
+    @ranges.push({
+         :name => "Last week",
+         :start_date => Time.zone.now.beginning_of_day - 1.week,
+         :end_date => Time.zone.now.beginning_of_day
+    })
+
+    @ranges.push({
+         :name => "Last month",
+         :start_date => Time.zone.now.beginning_of_day - 1.month,
+         :end_date => Time.zone.now.beginning_of_day
+    })
+
+    @ranges.push({
+         :name => "All",
+         :start_date => Time.zone.now.beginning_of_day - 100.years,
+         :end_date => Time.zone.now.beginning_of_day
+    })
+
     path = "/"
     if (!params[:path].empty?)
          path = params[:path]
@@ -41,9 +88,18 @@ class TaskFolderController < ApplicationController
     end
 
     if @file.nil?
-      startDate = Date.today - 5.days
-      endDate = Date.tomorrow
-      @changes = @taskfolder.get_file_changes(startDate, endDate)
+      start_date= params[:start_date]
+      end_date = params[:end_date]
+
+      if (start_date.nil?)
+        start_date=   Time.zone.now.beginning_of_day - 1.week
+      end
+
+      if (end_date.nil?)
+        end_date = Time.zone.now
+      end
+
+      @changes = @taskfolder.get_file_changes(start_date, end_date)
       @changed_folders = []
 
 

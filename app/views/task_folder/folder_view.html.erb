@@ -122,6 +122,19 @@
             display: inline-block;
         }
 
+        .time-range
+        {
+            float:left;
+            padding: 1em;
+            background-color: #90ee90;
+            margin: .2em;
+        }
+
+        .time-filter
+        {
+            float: none;
+            overflow: hidden;
+        }
 
 </style>
 <div class="header-path">
@@ -187,8 +200,12 @@
     <div class="file-header">
       <div class="file-header-name"><%=@taskfolder.shortName%> Summary</div>
     </div>
+    <div class="time-filter">
+        <% @ranges.each do |range|%>
+      <div class="time-range"><%= link_to range[:name], :controller => "task_folder", :action=>"folder_view", :path=>params[:path], :end_date => range[:end_date], :start_date => range[:start_date] %></div>
+    <% end %>
+    </div>
     <div class="summary-content">
-    <div class="timeline-header">Timeline</div>
     <% @changed_folders.each do |folder| %>
         <div class="change-foldername">
             <%=folder[:name]%>

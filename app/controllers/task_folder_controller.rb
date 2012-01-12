@@ -6,12 +6,12 @@ class TaskFolderController < ApplicationController
     @ranges = [
         {
              :name => "Today",
-             :start_date => Time.zone.now.beginning_of_day,
+             :start_date => Time.zone.now.beginning_of_day - 1.days,
              :end_date => Time.zone.now.beginning_of_day + 1.days
             } ,
             {
              :name => "Yesterday",
-             :start_date => Time.zone.now.beginning_of_day - 1.days,
+             :start_date => Time.zone.now.beginning_of_day - 2.days,
              :end_date => Time.zone.now.beginning_of_day
             }
     ]
@@ -99,67 +99,12 @@ class TaskFolderController < ApplicationController
         end_date = Time.zone.now
       end
 
-      @changes = @taskfolder.get_file_changes(start_date, end_date)
-      @changed_folders = []
-
-
-      if !@changes.nil?
-        groupedPaths = @changes.group_by{|a| a[:file].path}
-
-        groupedPaths.each do |path, group|
-          @changed_folders.push(
-              {
-                  :name => path,
-                  :files =>
-                      group.map{ |change|
-                          {
-                              :file => change[:file],
-                              :name => change[:file].shortName,
-                              :number_of_lines => change[:changedLines].length,
-                              :changes => change[:changedLines]
-                          }
-                      }
-              }
-
-          )
-        end
-      end
-
+      @changed_folders = @taskfolder.get_summary(start_date, end_date)
     end
 
+    @only_path = true
     @folders = @taskfolder.task_folders
     @files = @taskfolder.todo_files
-       sample_changed_folders= [
-          {
-              :name => "Career",
-              :files => [
-                {
-                    :name => "career-plan.txt",
-                    :number_of_lines => 2,
-                    :changes =>[
-                        "VP Engineering",
-                        "Consultant"
-                    ]
-                }
-              ]
-
-          },
-       {
-              :name => "PayScale",
-              :files => [
-                {
-                    :name => "LinkedIn/Meetings/Betsy.txt",
-                    :number_of_lines => 2,
-                    :changes =>[
-                        "Come up with a list of metrics and things we will learn for this release."
-                    ]
-                }
-              ]
-
-          }
-           ]
-
-    #@changed_folders = sample_changed_folders
   end
 
   def show

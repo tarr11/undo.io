@@ -4,11 +4,9 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Daily todo list for <%= @user.email %></h1>
+    <h1>Daily notes for <%= @user.email %> - <%=Date.yesterday%></h1>
  
-    <% @tasks.each do |task| %>
-      <div><%= task.task %></div>
-    <% end %>
+    <%= render "task_folder/summary_notes", :changed_folders => @summary%>
   </body>
 </html>
 

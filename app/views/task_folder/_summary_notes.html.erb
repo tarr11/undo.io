@@ -1,0 +1,21 @@
+<% changed_folders.each do |folder| %>
+    <div class="change-foldername">
+      <%= link_to  folder[:name], :controller => "task_folder", :action=>"folder_view", :path=> folder[:name], :only_path => @only_path%>
+    </div>
+    <% folder[:files].each do |file| %>
+        <div class="change-file">
+        <div class="change-filename">
+            <%= link_to  file[:name], :controller => "task_folder", :action=>"folder_view", :path=> file[:file].filename, :only_path => @only_path%>
+           </div>
+        <ul>
+        <% file[:changes].first(3).each do |change| %>
+            <li><%=change%></li>
+        <% end %>
+
+          <% if file[:changes].length > 3 %>
+          <li class="change-line-count"><%=file[:number_of_lines] - 3%> more changes</li>
+          <% end %>
+        </ul>
+        </div>
+    <% end %>
+<% end %>

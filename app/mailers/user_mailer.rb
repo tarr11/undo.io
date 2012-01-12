@@ -1,12 +1,13 @@
 class UserMailer < ActionMailer::Base
 
-  default :from => "todo@douglastarr.com"
+  default :from => "notes@undo.io"
+  default_url_options[:host] = "undo.io"
    
-    def daily_email(user)
+    def daily_email(user, summary)
       @user = user
-      @url  = "http://young-cloud-4159.herokuapp.com"
-      @tasks = user.tasks.all
-      mail(:to => user.email, :subject => "Daily Todo List")
+      @summary = summary
+      @only_path = false
+      mail(:to => user.email, :subject => "Your daily notes")
     end
 
 

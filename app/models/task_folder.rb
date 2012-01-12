@@ -122,6 +122,34 @@ class TaskFolder
     return allChanges
   end
 
+  def get_summary(start_date, end_date)
+    changes = self.get_file_changes(start_date, end_date)
+    changed_folders = []
+    if !changes.nil?
+      groupedPaths = changes.group_by{|a| a[:file].path}
+
+      groupedPaths.each do |path, group|
+        changed_folders.push(
+            {
+                :name => path,
+                :files =>
+                    group.map{ |change|
+                        {
+                            :file => change[:file],
+                            :name => change[:file].shortName,
+                            :number_of_lines => change[:changedLines].length,
+                            :changes => change[:changedLines]
+                        }
+                    }
+            }
+
+        )
+      end
+    end
+    return changed_folders
+
+  end
+
   def getChanges(startDate, endDate, allChanges = [])
 
     todo_files.each do |file|

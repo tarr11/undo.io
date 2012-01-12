@@ -48,8 +48,13 @@ class TodoFilesController < ApplicationController
   def create
     @todo_file = current_user.todo_files.new(params[:todo_file])
 
+    if !@todo_file.filename.starts_with?("/")
+      @todo_file.filename = "/" + @todo_file.filename
+    end
+
     respond_to do |format|
       if @todo_file.save
+        DropboxNavigator.UpdateFileInDropbox(@todo_file)
         format.html { redirect_to @todo_file, notice: 'Todo file was successfully created.' }
         format.json { render json: @todo_file, status: :created, location: @todo_file }
       else

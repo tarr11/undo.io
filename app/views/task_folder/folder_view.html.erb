@@ -70,6 +70,9 @@
  <% if @file.nil? %>
   <div class="contents summary">
     <div class="file-header">
+      <div class="file-actions">
+            <%= link_to "New", :controller => "todo_files", :action=>"new"%>
+      </div>
       <div class="file-header-name"><%=@taskfolder.shortName%> Summary</div>
     </div>
     <div class="time-filter">

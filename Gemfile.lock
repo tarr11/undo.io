@@ -2,6 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     ZenTest (4.6.0)
+    ace-rails-ap (0.0.1)
     actionmailer (3.1.3)
       actionpack (= 3.1.3)
       mail (~> 2.3.0)
@@ -174,6 +175,7 @@ PLATFORMS
 
 DEPENDENCIES
   ZenTest (= 4.6.0)
+  ace-rails-ap
   autotest
   autotest-notification
   autotest-rails-pure

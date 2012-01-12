@@ -127,7 +127,6 @@
         {
             float:left;
             padding: 1em;
-            background-color: #90ee90;
             margin: .2em;
         }
 
@@ -209,6 +208,7 @@
       <div class="file-header-name"><%=@taskfolder.shortName%> Summary</div>
     </div>
     <div class="time-filter">
+       <div class="time-range">When:</div>
         <% @ranges.each do |range|%>
       <div class="time-range"><%= link_to range[:name], :controller => "task_folder", :action=>"folder_view", :path=>params[:path], :end_date => range[:end_date], :start_date => range[:start_date] %></div>
     <% end %>

@@ -1,148 +1,3 @@
-<style>
-  .header-path, .header-path A:link, .header-path A:visited
-  {
-      font-size:24pt;
-      margin-left:5pt;
-      margin-bottom:5pt;
-
-  }
-    .column
-    {
-        float:left;
-    }
-
-    .file-column
-    {
-        float:left;
-    }
-
-    .viewer-column
-    {
-        float:left;
-    }
-
-    .icon-image
-    {
-        width:40px;
-    }
-
-  .explorer
-  {
-      width:30em;
-      overflow: hidden;
-      float:left;
-  }
-
-  .box-header
-  {
-      font-size: 1.5em;
-
-  }
-        .box2
-        {
-              width:25em;
-              border: 1px solid #d3d3d3;;
-              margin: 10px;
-              padding: 0px;
-              overflow-x:hidden;
-              overflow-y : auto;
-
-        }
-
-    .file-line
-    {
-
-        padding: 5px;
-        font-size: 1.3em;
-    }
-
-      .summary-content
-      {
-          padding: 1em;
-          width:50em;
-      }
-
-
-        .contents
-        {
-            display: block;
-            margin: 10px;
-            border:  solid 1px #d3d3d3;
-            width: 100%;
-            min-width: 70em;
-            min-height: 40em;
-        }
-
-        .change-foldername
-        {
-            font-size: 1em;
-            padding:  .5em;
-        }
-
-        .change-file LI
-        {
-            font-size: 1.3em;
-        }
-        .change-filename
-        {
-            font-size: 1.2em;
-            margin-left: 1.5em;
-            margin-right: 1em;
-            margin-bottom: 0;
-        }
-
-        .change-line-count
-        {
-            font-style: italic;
-            color: gray;
-        }
-
-        .change-file UL
-        {
-            list-style-type: none;
-        }
-
-
-        .file-header
-        {
-            background-color: #dcdcdc;
-            padding: 1.5em;
-
-        }
-
-        .file-header-name
-        {
-            text-align: center;
-            margin:  0 auto;
-            font-size: 1.5em;
-        }
-
-        .file-actions
-        {
-            float:right;
-            display: inline-block;
-        }
-
-        .time-range
-        {
-            float:left;
-            padding: 1em;
-            margin: .2em;
-        }
-
-        .time-filter
-        {
-            float: none;
-            overflow: hidden;
-        }
-
-        .ace-editor {
-            width:100%;
-            height:100%;
-            display: none;
-    }
-
-</style>
 <div class="header-path">
   <%= link_to "Home", :controller => "task_folder", :action=>"folder_view", :path=>"/"%>
   <% @path_parts.each do |part| %>
@@ -166,6 +21,7 @@
                 </div>
             </div>
           <% end %>
+
     </div>
 <% end %>
 <% if @files.length > 0 %>
@@ -180,6 +36,15 @@
                   </div>
                 </div>
             <% end %>
+        <div class="box2">
+              <div class="box-header">
+                   <div class="filename" style="vertical-align: middle">
+                    <%=image_tag("HashTag.png", :class => "icon-image")%>
+                     <%= link_to "TODO", :controller => "task_folder", :action=>"folder_view", :path=>"TODO"%>
+                   </div>
+               </div>
+           </div>
+
       </div>
  <% end %>
  </div>

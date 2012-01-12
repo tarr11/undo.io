@@ -59,7 +59,7 @@ namespace :todo do
   task :dailyemail => :environment do
 
     User.all.each do |user|
-      summary = user.task_folder("/").get_summary(Time.zone.now.beginning_of_day - 7.days, Time.zone.now)
+      summary = user.task_folder("/").get_summary(Time.zone.now.beginning_of_day - 1.days, Time.zone.now)
       if summary.length == 0
         next
       end

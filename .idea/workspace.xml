@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8525da9e-be8a-43fe-912c-9d41aba25e68" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/task_folder/_summary_notes.html.erb" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/home/ga.html.erb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/lib/filesystems/dropbox.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mailers/user_mailer.rb" afterPath="$PROJECT_DIR$/app/mailers/user_mailer.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/task_folder.rb" afterPath="$PROJECT_DIR$/app/models/task_folder.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/folder_view.html.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/folder_view.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user_mailer/daily_email.html.erb" afterPath="$PROJECT_DIR$/app/views/user_mailer/daily_email.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tasks/todo.rake" afterPath="$PROJECT_DIR$/lib/tasks/todo.rake" />
     </list>
     <ignored path="todo.iws" />
@@ -41,10 +34,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="task_folder_controller.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="task_folder_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/task_folder_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="104" column="17" selection-start="2498" selection-end="2502" vertical-scroll-proportion="0.65436244">
+            <state line="104" column="17" selection-start="2498" selection-end="2502" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -77,10 +70,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="todo.rake" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="todo.rake" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/tasks/todo.rake">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="48" selection-start="1522" selection-end="1522" vertical-scroll-proportion="0.0">
+            <state line="61" column="84" selection-start="1377" selection-end="1377" vertical-scroll-proportion="0.6728188">
               <folding />
             </state>
           </provider>
@@ -163,12 +156,12 @@
         <option value="$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee" />
         <option value="$PROJECT_DIR$/app/controllers/home_controller.rb" />
         <option value="$PROJECT_DIR$/app/models/task_folder.rb" />
-        <option value="$PROJECT_DIR$/lib/tasks/todo.rake" />
         <option value="$PROJECT_DIR$/app/views/user_mailer/daily_email.html.erb" />
         <option value="$PROJECT_DIR$/app/mailers/user_mailer.rb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/folder_view.html.erb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/_summary_notes.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
+        <option value="$PROJECT_DIR$/lib/tasks/todo.rake" />
       </list>
     </option>
   </component>
@@ -953,13 +946,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tasks/todo.rake">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="48" selection-start="1522" selection-end="1522" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/user_mailer/daily_email.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="53" selection-start="178" selection-end="178" vertical-scroll-proportion="-3.75">
@@ -990,7 +976,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/task_folder_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="17" selection-start="2498" selection-end="2502" vertical-scroll-proportion="0.65436244">
+        <state line="104" column="17" selection-start="2498" selection-end="2502" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/tasks/todo.rake">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="84" selection-start="1377" selection-end="1377" vertical-scroll-proportion="0.6728188">
           <folding />
         </state>
       </provider>

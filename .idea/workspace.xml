@@ -4,11 +4,7 @@
     <list default="true" id="8525da9e-be8a-43fe-912c-9d41aba25e68" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/home/ga.html.erb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/lib/filesystems/dropbox.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/application.mobile.erb" afterPath="$PROJECT_DIR$/app/views/layouts/application.mobile.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/folder_view.mobile.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/folder_view.mobile.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/environments/development.rb" afterPath="$PROJECT_DIR$/config/environments/development.rb" />
     </list>
     <ignored path="todo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -83,7 +79,7 @@
       <file leaf-file-name="folder_view.mobile.erb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/task_folder/folder_view.mobile.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="6" selection-start="2170" selection-end="2170" vertical-scroll-proportion="0.8442907">
+            <state line="49" column="0" selection-start="1592" selection-end="1592" vertical-scroll-proportion="0.4463668">
               <folding />
             </state>
           </provider>
@@ -928,7 +924,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/task_folder/folder_view.mobile.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="6" selection-start="2170" selection-end="2170" vertical-scroll-proportion="0.8442907">
+        <state line="49" column="0" selection-start="1592" selection-end="1592" vertical-scroll-proportion="0.4463668">
           <folding />
         </state>
       </provider>

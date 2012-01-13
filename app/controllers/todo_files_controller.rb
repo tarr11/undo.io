@@ -47,6 +47,7 @@ class TodoFilesController < ApplicationController
   # POST /todo_files.json
   def create
     @todo_file = current_user.todo_files.new(params[:todo_file])
+    @todo_file.revision_at = DateTime.now.utc
 
     if !@todo_file.filename.starts_with?("/")
       @todo_file.filename = "/" + @todo_file.filename
@@ -68,6 +69,7 @@ class TodoFilesController < ApplicationController
   # PUT /todo_files/1.json
   def update
     @todo_file = current_user.todo_files.find(params[:id])
+    @todo_file.revision_at = DateTime.now.utc
 
     respond_to do |format|
       if @todo_file.saveFromWeb(params[:todo_file])

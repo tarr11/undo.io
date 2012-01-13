@@ -81,8 +81,58 @@
       <div class="time-range"><%= link_to range[:name], :controller => "task_folder", :action=>"folder_view", :path=>params[:path], :end_date => range[:end_date], :start_date => range[:start_date] %></div>
     <% end %>
     </div>
-    <div class="summary-content">
-        <%= render "summary_notes", :changed_folders => @changed_folders%>
+    <div class="tasks-content">
+      <table class="summary-table">
+        <tr>
+          <th>
+          </th>
+          <th>
+            Note
+          </th>
+          <th>
+            File
+          </th>
+          <th>
+            Folder
+          </th>
+          <th>
+            Date
+          </th>
+        </tr>
+        <% @tasks.each do |task| %>
+            <tr>
+              <td><%=check_box_tag "complete"%></td>
+              <td class="note"><%=task.contents%></td>
+              <td><%=task.file.shortName%></td>
+              <td><%=task.file.task_folder.name%></td>
+              <td><%=task.file.revision_at.strftime("%m/%d/%Y")%></td>
+            </tr>
+          <% end %>
+        <% @changed_folders.each do |folder| %>
+            <% folder[:files].each do |file| %>
+                <tr>
+                  <td></td>
+                  <td class="note">
+                    <% file[:changes].first(1).each do |change| %>
+                        <div><%=change%></div>
+                    <% end %>
+                      <% if file[:changes].length > 3 %>
+                      <div class="change-line-count"><%=file[:number_of_lines] - 3%> more changes</div>
+                      <% end %>
+                    </ul>
+                  </td>
+                  <td>
+                      <%= link_to  file[:name], :controller => "task_folder", :action=>"folder_view", :path=> file[:file].filename, :only_path => @only_path%>
+                  </td>
+                <td>
+                  <%= link_to  folder[:name], :controller => "task_folder", :action=>"folder_view", :path=> folder[:name], :only_path => @only_path%>
+                </td>
+                  <td><%=file[:file].revision_at.strftime("%m/%d/%Y")%></td>
+                </tr>
+            <% end %>
+        <% end %>
+
+      </table>
     </div>
   </div>
  <% end %>

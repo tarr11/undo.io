@@ -175,3 +175,43 @@
             display: none;
     }
 
+    .task-item
+    {
+        margin-left:3em;
+
+    }
+
+    .task-title
+    {
+
+        margin-left:1.5em;
+        font-size:1.5em;
+    }
+
+    TABLE.summary-table
+    {
+        width:90%;
+        margin: 2em;
+
+    }
+
+    .summary-table TH
+    {
+        text-align:left;
+    }
+
+    .summary-table TD
+    {
+        vertical-align:top;
+        padding-top:1em;
+        padding-bottom:1em;
+        border-bottom: solid lightgray 1px;
+        margin:0;
+    }
+
+    .summary-table TR
+    {
+
+    }
+
+

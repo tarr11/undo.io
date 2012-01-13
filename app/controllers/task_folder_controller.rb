@@ -100,6 +100,20 @@ class TaskFolderController < ApplicationController
       end
 
       @changed_folders = @taskfolder.get_summary(start_date, end_date)
+      @tasks = []
+      @changed_folders.each do |folder|
+        folder[:files].each do |file|
+          file[:changes].each do |change|
+            if (change.include?("#"))
+              task = Task.new
+              task.contents = change
+              task.file = file[:file]
+              @tasks.push task
+            end
+          end
+        end
+      end
+
     end
 
     @only_path = true

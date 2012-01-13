@@ -22,6 +22,13 @@ class TaskFolder
 
   end
 
+  def get_tasks
+    todo_files_recursive.each do |file|
+      file.get_tasks do |task|
+        yield task
+      end
+    end
+  end
 
   def todo_files
 

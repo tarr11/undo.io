@@ -141,23 +141,23 @@ end
 
   end
 
-  def tasks
-    if (self.notes.nil?)
-      return []
+  def get_tasks
+    if (self.contents.nil?)
+      return
     end
 
-    tempTasks = []
-    reader = StringIO.new(self.notes.strip)
+    reader = StringIO.new(self.contents.strip)
      while (line = reader.gets)
        # only lines that start with to do chars are considered todos
-       if (line.lstrip.downcase.start_with?("*","+","todo"))
+       if (line.lstrip.downcase.include?("#"))
          task = Task.new
          task.contents = line.strip
-         tempTasks.push task
+         task.file = self
+         yield task
        end
      end
-     return tempTasks
   end
+
   def summary
     if (self.notes.nil?)
       return [""]

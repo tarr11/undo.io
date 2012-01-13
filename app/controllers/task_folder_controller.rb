@@ -1,9 +1,9 @@
 class TaskFolderController < ApplicationController
   before_filter :authenticate_user!
-  respond_to_mobile_requests
+  respond_to_mobile_requests :skip_xhr_requests => false
 
   def folder_view
-    #session[:mobylette_override] = :force_
+    session[:mobylette_override] = :force_mobile
     @ranges = [
         {
              :name => "Today",

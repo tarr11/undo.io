@@ -23,7 +23,7 @@ Todo::Application.routes.draw do
 
   resources :todo_lines
 
-  #match 'task_folders/:path' => 'task_folder#show'
+  match 'task_folders/:path' => 'task_folder#show'
 
   match "p:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}
 

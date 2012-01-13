@@ -122,8 +122,8 @@ class TaskFolderController < ApplicationController
     is_mobile_request?
 
     respond_to do |format|
-      format.mobile
       format.html # index.html.erb
+      format.mobile
     end
 
   end

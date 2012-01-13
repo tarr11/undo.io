@@ -1,3 +1,4 @@
+<div data-role="page" id="explorer">
 <div data-role="header">
   <h1>
       <%= link_to "Home", :controller => "task_folder", :action=>"folder_view", :path=>"/"%>
@@ -33,4 +34,62 @@
         </div>
 <% end %>
 <div data-role="footer">
+  <a href="#tasks" data-role="button" data-icon="check">Tasks</a>
+  <a href="#summary" data-role="button" data-icon="grid">Summary</a>
 </div>
+</div>
+<% if @file.nil? %>
+
+<div data-role="page" id="tasks">
+  <div data-role="header">
+    <h1>Tasks</h1>
+    </div>
+  <div data-role="content">
+    <% @tasks.each_with_index do |task, index| %>
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" />
+                <label for="checkbox-1"><%=task.contents%></label>
+            </fieldset>
+        </div>
+     <% end%>
+  </div>
+  <div data-role="footer">
+    <a href="#explorer" data-role="button" data-icon="arrow-l">Files</a>
+    <a href="#tasks" data-role="button" data-icon="check">Tasks</a>
+    <a href="#summary" data-role="button" data-icon="grid">Summary</a>
+  </div>
+</div>
+
+<div data-role="page" id="summary">
+  <div data-role="header">
+    <h1>Summary</h1>
+    </div>
+
+<div data-role="content" class="ui-content">
+  <ul data-role="listview" class="ui-listview" data-theme="g">
+    <% @changed_folders.each do |folder| %>
+        <li data-role="list-divider" role="heading" tabindex="0" class="ui-li ui-li-divider ui-btn ui-bar-b">
+          <%=folder[:name]%><span class="ui-li-count ui-btn-up-c ui-btn-corner-all">1</span>
+        </li>
+        <% folder[:files].each do |file| %>
+        <li role="option" tabindex="-1" class="ui-li ui-btn ui-btn-icon-right ui-btn-up-c" data-theme="c">
+				<h3 class="ui-li-heading">
+                  <%= link_to file[:file].shortName, :controller => "task_folder", :action=>"folder_view", :path=>file[:file].filename%>
+                </h3>
+                  <% file[:changes].first(3).each do |change| %>
+                      <p class="ui-li-desc"><%=change%></p>
+                  <% end %>
+		</li>
+        <% end %>
+    <% end %>
+  </ul>
+
+  </div>
+  <div data-role="footer">
+    <a href="#explorer" data-role="button" data-icon="arrow-l">Files</a>
+    <a href="#tasks" data-role="button" data-icon="check">Tasks</a>
+    <a href="#summary" data-role="button" data-icon="grid">Summary</a>
+  </div>
+</div>
+<% end %>

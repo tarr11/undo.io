@@ -1,14 +1,12 @@
 <div data-role="header">
   <h1>
-    <div class="header-path">
       <%= link_to "Home", :controller => "task_folder", :action=>"folder_view", :path=>"/"%>
       <% @path_parts.each do |part| %>
         <%= link_to part[:name], :controller => "task_folder", :action=>"folder_view", :path=>part[:path] %> /
     <% end %>
       <% if !@file.nil? %>
           <%= link_to @file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>@file.filename %>
-        <%end%>
-    </div>
+        <%end%> - Undo.io
   </h1>
 </div>
 <div data-role="content">

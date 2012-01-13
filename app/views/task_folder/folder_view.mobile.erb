@@ -1,0 +1,38 @@
+<div data-role="header">
+  <h1>
+    <div class="header-path">
+      <%= link_to "Home", :controller => "task_folder", :action=>"folder_view", :path=>"/"%>
+      <% @path_parts.each do |part| %>
+        <%= link_to part[:name], :controller => "task_folder", :action=>"folder_view", :path=>part[:path] %> /
+    <% end %>
+      <% if !@file.nil? %>
+          <%= link_to @file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>@file.filename %>
+        <%end%>
+    </div>
+  </h1>
+</div>
+<div data-role="content">
+<% if @file.nil? %>
+  <ul data-role="listview">
+    <% if @folders.length > 0 %>
+          <% @folders.each do |folder|%>
+
+               <li><%= link_to folder.shortName, :controller => "task_folder", :action=>"folder_view", :path=>folder.path %></li>
+          <% end %>
+    <% end %>
+    <% if @files.length > 0 %>
+       <% @files.each do |file|%>
+           <li><%= link_to file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>file.filename%></li>
+        <% end %>
+     <% end %>
+  </ul>
+</div>
+<% else %>
+        <div>
+        <% @file.get_lines do |line|%>
+          <div><%=line%></div>
+        <% end %>
+        </div>
+<% end %>
+<div data-role="footer">
+</div>

@@ -1,8 +1,9 @@
 class TaskFolderController < ApplicationController
   before_filter :authenticate_user!
+  respond_to_mobile_requests
 
   def folder_view
-
+    #session[:mobylette_override] = :force_
     @ranges = [
         {
              :name => "Today",
@@ -119,6 +120,13 @@ class TaskFolderController < ApplicationController
     @only_path = true
     @folders = @taskfolder.task_folders
     @files = @taskfolder.todo_files
+    is_mobile_request?
+
+    respond_to do |format|
+      format.mobile
+      format.html # index.html.erb
+    end
+
   end
 
   def show

@@ -3,7 +3,7 @@ class TaskFolderController < ApplicationController
   respond_to_mobile_requests :skip_xhr_requests => false
 
   def folder_view
-    session[:mobylette_override] = :force_mobile
+#    session[:mobylette_override] = :force_mobile
     @ranges = [
         {
              :name => "Today",

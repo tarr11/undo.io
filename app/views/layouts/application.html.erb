@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>Undo.io</title>
+
+  <%= stylesheet_link_tag    "bootstrap" %>
   <%= stylesheet_link_tag    "application" %>
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
   <%= javascript_include_tag "application" %>
@@ -9,22 +11,41 @@
   <%= render "home/ga"%>
 </head>
 <body>
-<div class="header-bar">
-  <div class="header-logo">
-  <span class="undo-un">un</span><span class="undo-do">do</span><span class="undo-io">.io</span>
-  </div>
-  <div class="header-account">
-<% if user_signed_in? %>
-      <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-      <% else %>
-      <%= link_to('Login', new_user_session_path)  %>
-<% end %>
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+    </style>
 
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="#"><span class="undo-un">un</span><span class="undo-do">do</span><span class="undo-io">.io</span></a>
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+            <% if !user_signed_in? %>
+          <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class=>"pull-right"}) do |f| %>
+            <%= f.email_field :email, :class=>"input-small"%>
+              <%= f.password_field :password, :class=>"input-small"%>
+               <button class="btn" type="submit">Sign in</button>
+          <% end %>
+            <% else %>
+          <p class="pull-right">Welcome <a href="#"><%=current_user.email%></a> </p>
+            <% end %>
+        </div>
+      </div>
     </div>
-</div>
-<div class="clear"></div>
 
-<%= yield %>
+    <div class="container">
+      <%=yield%>
+      <footer>
+        <p>&copy; Company 2011</p>
+      </footer>
+    </div> <!-- /container -->
+
 
 </body>
 </html>

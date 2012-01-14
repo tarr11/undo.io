@@ -60,9 +60,17 @@ class TaskFolderController < ApplicationController
 
     if @file.nil?
       @taskfolder = current_user.task_folder(path)
+
+      @header = @taskfolder.shortName
+      if @header.blank?
+        @header = "Home"
+      end
     else
       @taskfolder = @file.task_folder
+      @header = @file.shortName
     end
+
+
 
     if @taskfolder.nil?
        raise 'No Folder'

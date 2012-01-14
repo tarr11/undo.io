@@ -1,61 +1,50 @@
-<ul class="breadcrumb">
-  <li><%= link_to "Home", :controller => "task_folder", :action=>"folder_view", :path=>"/"%></li>
-  <% @path_parts.each_with_index do |part,index| %>
-     <li>
-       <% if index > 0 %>
-     <span class="divider">/</span>
-       <% end%>
-       <%= link_to part[:name], :controller => "task_folder", :action=>"folder_view", :path=>part[:path] %>
-     </li>
-  <% end %>
-  <% if !@file.nil? %>
-      <li>
-      <span class="divider">/</span>
-      <%= link_to @file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>@file.filename %>
-  </li>
-  <%end%>
-</ul>
-
-<div class="content">
-  <div class="page-header">
-    <h1><%=@header%></h1>
-  </div>
-
-<div class="row">
-<div class="span4">
-
 
 <% if @folders.length > 0 %>
-      <h3>Folders</h3>
-      <ul>
+    <div class="column folder-column">
       <% @folders.each do |folder|%>
-         <li> <%= link_to folder.shortName, :controller => "task_folder", :action=>"folder_view", :path=>folder.path %></li>
-      <% end %>
-</ul>
-  <% end %>
+
+          <div class="box2">
+               <div class="box-header">
+                    <div class="filename" style="vertical-align: middle">
+                      <%= link_to folder.shortName, :controller => "task_folder", :action=>"folder_view", :path=>folder.path %>
+                    </div>
+                </div>
+            </div>
+          <% end %>
+
+    </div>
+<% end %>
 
 <% if @files.length > 0 %>
-      <h3>Files</h3>
-      <ul>
+      <div class="column file-column">
            <% @files.each do |file|%>
-            <li>
-            <%= link_to file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>file.filename%>
-            </li>
-        <% end %>
-      </ul>
+                <div class="box2">
+                  <div class="box-header">
+                        <div class="filename">
+                                <%= link_to file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>file.filename%>
+                          </div>
+                  </div>
+                </div>
+            <% end %>
+        <div class="box2">
+              <div class="box-header">
+                   <div class="filename" style="vertical-align: middle">
+                     <%= link_to "TODO", :controller => "task_folder", :action=>"folder_view", :path=>"TODO"%>
+                   </div>
+               </div>
+           </div>
+
+      </div>
  <% end %>
 
-  <h3>Tasks</h3>
-   <ul>
-     <li><a href="#">#todo</a> </li>
-     <li><a href="#">#groceries</a> </li>
-   </ul>
-
-  </div>
- <div class="span12">
 <% if !@file.nil?%>
-       <h3>Note</h3>
       <div id="editor-holder" class="contents file">
+        <div class="file-header">
+          <div class="file-actions">
+                <%= link_to "edit", :controller => "todo_files", :action=>"edit", :id=>@file.id%>
+          </div>
+          <div class="file-header-name"><%=@file.filename%></div>
+        </div>
         <div class="summary-content">
       <% @file.get_lines do |line|%>
             <div class="file-line"><%=line%></div>
@@ -66,23 +55,22 @@
 <% end%>
 
  <% if @file.nil? %>
-       <h3>Summary</h3>
-  <div>
-<!--    <div class="file-header">
+  <div class="contents summary">
+    <div class="file-header">
       <div class="file-actions">
-
+            <%= link_to "New", :controller => "todo_files", :action=>"new"%>
       </div>
       <div class="file-header-name"><%=@taskfolder.shortName%> Summary</div>
-    </div>-->
-    <ul class="tabs">
-
+    </div>
+    <div class="time-filter">
+       <div class="time-range">When:</div>
         <% @ranges.each do |range|%>
-        <li><%= link_to range[:name], :controller => "task_folder", :action=>"folder_view", :path=>params[:path], :end_date => range[:end_date], :start_date => range[:start_date] %></li>
+      <div class="time-range"><%= link_to range[:name], :controller => "task_folder", :action=>"folder_view", :path=>params[:path], :end_date => range[:end_date], :start_date => range[:start_date] %></div>
     <% end %>
-    </ul>
-      <table>
+    </div>
+    <div class="tasks-content">
+      <table class="summary-table">
         <tr>
-        <thead>
           <th>
           </th>
           <th>
@@ -98,7 +86,6 @@
             Date
           </th>
         </tr>
-        </thead>
         <% @tasks.each do |task| %>
             <tr>
               <td><%=check_box_tag "complete"%></td>
@@ -135,7 +122,4 @@
       </table>
     </div>
  <% end %>
- </div>
-</div>
-
 </div>

@@ -29,6 +29,7 @@ Todo::Application.routes.draw do
 
  get "/apps/dropbox", :to => 'App::Dropbox#index', :as => :dropbox
 
+  match "/options" => "home#options"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

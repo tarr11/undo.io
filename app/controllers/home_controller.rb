@@ -1,6 +1,14 @@
 require 'matrix'
 class HomeController < ApplicationController
-   before_filter :authenticate_user! 
+   before_filter :authenticate_user!
+   respond_to_mobile_requests :skip_xhr_requests => false
+
+  def options
+    respond_to do |format|
+      format.html # index.html.erb
+      format.mobile
+    end
+  end
 
   def index
 

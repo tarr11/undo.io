@@ -1,4 +1,5 @@
-<div data-role="page" id="explorer">
+<% if params[:part] == "files" || params[:part].nil? %>
+<div data-theme="d" data-role="page" id="files">
 <div data-role="header">
   <h1>
       <%= link_to "Home", :controller => "task_folder", :action=>"folder_view", :path=>"/"%>
@@ -7,16 +8,22 @@
     <% end %>
       <% if !@file.nil? %>
           <%= link_to @file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>@file.filename %>
-        <%end%> - Undo.io
+        <%end%>
   </h1>
 </div>
+  <div data-theme="e"  data-role="navbar" >
+    <ul>
+     <li><%= link_to "Files", {:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"files"}, :class=>"ui-btn-active"%></li>
+     <li><%= link_to "Tasks", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"tasks" %></li>
+     <li><%= link_to "Summary", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"summary" %></li>
+     </ul>
+  </div>
 <div data-role="content">
 <% if @file.nil? %>
   <ul data-role="listview">
     <% if @folders.length > 0 %>
           <% @folders.each do |folder|%>
-
-               <li><%= link_to folder.shortName, :controller => "task_folder", :action=>"folder_view", :path=>folder.path %></li>
+               <li><a href="<%= url_for(:controller => "task_folder", :action=>"folder_view", :path=>folder.path, :trailing_slash => true)%>"><%=folder.shortName%></a></li>
           <% end %>
     <% end %>
     <% if @files.length > 0 %>
@@ -33,17 +40,31 @@
         <% end %>
         </div>
 <% end %>
-<div data-role="footer">
-  <a href="#tasks" data-role="button" data-icon="check">Tasks</a>
-  <a href="#summary" data-role="button" data-icon="grid">Summary</a>
-</div>
 </div>
 <% if @file.nil? %>
 
-<div data-role="page" id="tasks">
+<% end %>
+<% end %>
+<% if params[:part] == "tasks" %>
+<div data-role="page" data-theme="d" id="tasks">
   <div data-role="header">
-    <h1>Tasks</h1>
+    <h1>
+        <%= link_to "Home", :controller => "task_folder", :action=>"folder_view", :path=>"/"%>
+        <% @path_parts.each do |part| %>
+          <%= link_to part[:name], :controller => "task_folder", :action=>"folder_view", :path=>part[:path] %> /
+      <% end %>
+        <% if !@file.nil? %>
+            <%= link_to @file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>@file.filename %>
+          <%end%>
+    </h1>
     </div>
+  <div data-role="navbar">
+    <ul>
+     <li><%= link_to "Files", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"files" %></li>
+     <li><%= link_to "Tasks", {:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"tasks"}, :class=>"ui-btn-active" %></li>
+     <li><%= link_to "Summary", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"summary" %></li>
+     </ul>
+  </div>
   <div data-role="content">
     <div data-role="fieldcontain">
       <fieldset data-role="controlgroup">
@@ -54,18 +75,30 @@
       </fieldset>
     </div>
   </div>
-  <div data-role="footer">
-    <a href="#explorer" data-role="button" data-icon="arrow-l">Files</a>
-    <a href="#tasks" data-role="button" data-icon="check">Tasks</a>
-    <a href="#summary" data-role="button" data-icon="grid">Summary</a>
-  </div>
 </div>
+<% end %>
 
-<div data-role="page" id="summary">
+<% if params[:part] == "summary" %>
+<div data-role="page" data-theme="d"  id="summary">
   <div data-role="header">
-    <h1>Summary</h1>
+    <h1>
+        <%= link_to "Home", :controller => "task_folder", :action=>"folder_view", :path=>"/"%>
+        <% @path_parts.each do |part| %>
+          <%= link_to part[:name], :controller => "task_folder", :action=>"folder_view", :path=>part[:path] %> /
+      <% end %>
+        <% if !@file.nil? %>
+            <%= link_to @file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>@file.filename %>
+          <%end%>
+    </h1>
     </div>
 
+  <div data-role="navbar">
+    <ul>
+     <li><%= link_to "Files", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"files" %></li>
+     <li><%= link_to "Tasks", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"tasks" %></li>
+      <li><%= link_to "Summary", {:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"summary"}, :class=>"ui-btn-active" %></li>
+     </ul>
+  </div>
 <div data-role="content" class="ui-content">
   <ul data-role="listview" class="ui-listview" data-theme="g">
     <% @changed_folders.each do |folder| %>
@@ -85,11 +118,6 @@
     <% end %>
   </ul>
 
-  </div>
-  <div data-role="footer">
-    <a href="#explorer" data-role="button" data-icon="arrow-l">Files</a>
-    <a href="#tasks" data-role="button" data-icon="check">Tasks</a>
-    <a href="#summary" data-role="button" data-icon="grid">Summary</a>
   </div>
 </div>
 <% end %>

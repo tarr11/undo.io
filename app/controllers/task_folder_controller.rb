@@ -3,6 +3,7 @@ class TaskFolderController < ApplicationController
   respond_to_mobile_requests :skip_xhr_requests => false
 
   def folder_view
+    session[:mobylette_override] = :force_mobile
     @ranges = [
         {
              :name => "Today",
@@ -119,7 +120,8 @@ class TaskFolderController < ApplicationController
     @only_path = true
     @folders = @taskfolder.task_folders
     @files = @taskfolder.todo_files
-    is_mobile_request?
+    @dataUrlBase = url_for(:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :trailing_slash => true, :only_path =>true)
+    @hashPageId = params[:path].sub("/","_")
 
     respond_to do |format|
       format.html # index.html.erb

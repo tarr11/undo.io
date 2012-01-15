@@ -5,3 +5,6 @@
 // the compiled file.
 //
 //= require jquery_ujs
+//= require task_folder
+//= require ace
+//= require theme-textmate

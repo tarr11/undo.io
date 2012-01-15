@@ -58,6 +58,12 @@
 
   }
 
+  #ace-editor
+  {
+      display: none;
+      height:500px;
+      position: relative;
+  }
 
 </style>
 <ul class="breadcrumb">
@@ -110,12 +116,21 @@
    </ul>
 
   </div>
- <div class="span12">
+ <div id="main-body" class="span12">
 
 <% if !@file.nil?%>
-       <h2><%=@header%></h2>
-          <pre><%=@file.contents.strip%></pre>
-<% end%>
+       <div style="position: relative;">
+         <div style="float:right; display:inline-block; position: absolute; right:0; bottom:0; margin-right: .5em; margin-bottom: .5em;"><a href="#" id="edit-button" class="btn primary">Edit</a></div>
+       <h2 style="display:inline-block;"><%=@header%></h2>
+         </div>
+          <pre id="read-only-contents"><%=@file.contents.strip%></pre>
+         <div id="ace-editor"><%=@file.contents.strip%></div>
+       <%= form_for(@file, :remote => true) do |f| %>
+           <%= f.hidden_field :contents%>
+       <% end%>
+
+
+   <% end%>
 
  <% if @file.nil? %>
 
@@ -127,7 +142,7 @@
          <li><a href="">Tasks</a></li>
        </ul>
            </div>
-         <div><h2><%=@header%></h2></div>
+           <h2><%=@header%></h2>
       </div>
 
     <!--<ul class="tabs">-->

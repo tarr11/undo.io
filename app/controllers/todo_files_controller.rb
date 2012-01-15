@@ -75,9 +75,11 @@ class TodoFilesController < ApplicationController
       if @todo_file.saveFromWeb(params[:todo_file])
         format.html { redirect_to @todo_file, notice: 'Todo file was successfully updated.' }
         format.json { head :ok }
+        format.js
       else
         format.html { render action: "edit" }
         format.json { render json: @todo_file.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

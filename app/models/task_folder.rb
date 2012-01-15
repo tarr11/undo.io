@@ -129,6 +129,8 @@ class TaskFolder
     return allChanges
   end
 
+
+
   def get_summary(start_date, end_date)
     changes = self.get_file_changes(start_date, end_date)
     changed_folders = []

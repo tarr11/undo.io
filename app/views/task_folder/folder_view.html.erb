@@ -1,3 +1,65 @@
+
+
+<style>
+  li.undo-divider
+  {
+      list-style: none;
+      background-color: #5E87B0;
+      text-shadow: 0 -1px 1px #254F7A;
+      border: 1px solid #456F9A;
+      padding: .5em 15px;
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+      margin-top: 1em;
+  }
+
+
+  li.undo-ul-li-heading
+  {
+      list-style: none;
+        font-size: 1.2em;
+        font-weight: bold;
+        display: block;
+        margin-top: .6em;
+        margin-left: .6em;
+        margin-bottom: .3em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      padding-top:.5em;
+        white-space: nowrap;
+      border-top: solid #ccc 1px;
+  }
+
+  li.undo-ul-li-desc
+  {
+      color:#2F3E46;
+      list-style: none;
+        font-size: 1em;
+        display: block;
+        margin-top: 0em;
+        margin-left: .8em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+  }
+
+  li.italics
+  {
+      font-style: italic;
+      color:#808080;
+      font-size: .9em;
+  }
+  li.path
+  {
+      float:right;
+      margin-right:1em;
+      font-size: .8em;
+
+  }
+
+
+</style>
 <ul class="breadcrumb">
   <li><%= link_to "Home", :controller => "task_folder", :action=>"folder_view", :path=>"/"%></li>
   <% @path_parts.each_with_index do |part,index| %>
@@ -66,74 +128,47 @@
 <% end%>
 
  <% if @file.nil? %>
-       <h3>Summary</h3>
-  <div>
-<!--    <div class="file-header">
-      <div class="file-actions">
 
-      </div>
-      <div class="file-header-name"><%=@taskfolder.shortName%> Summary</div>
-    </div>-->
-    <ul class="tabs">
-
-        <% @ranges.each do |range|%>
-        <li><%= link_to range[:name], :controller => "task_folder", :action=>"folder_view", :path=>params[:path], :end_date => range[:end_date], :start_date => range[:start_date] %></li>
-    <% end %>
-    </ul>
-      <table>
-        <tr>
-        <thead>
-          <th>
-          </th>
-          <th>
-            Note
-          </th>
-          <th>
-            File
-          </th>
-          <th>
-            Folder
-          </th>
-          <th>
-            Date
-          </th>
-        </tr>
-        </thead>
+       <ul class="tabs">
+         <li><a href="">Notes</a></li>
+         <li><a href="">Tasks</a></li>
+       </ul>
+    <!--<ul class="tabs">-->
+        <!--<% @ranges.each do |range|%>-->
+        <!--<li><%= link_to range[:name], :controller => "task_folder", :action=>"folder_view", :path=>params[:path], :end_date => range[:end_date], :start_date => range[:start_date] %></li>-->
+    <!--<% end %>-->
+    <!--</ul>-->
+    <ul>
         <% @tasks.each do |task| %>
-            <tr>
-              <td><%=check_box_tag "complete"%></td>
-              <td class="note"><%=task.contents%></td>
+            <!--<div>
+              <div><%=check_box_tag "complete"%></div>
+              <div><%=task.contents%></div>
               <td><%=task.file.shortName%></td>
               <td><%=task.file.task_folder.name%></td>
               <td><%=task.file.revision_at.strftime("%m/%d/%Y")%></td>
-            </tr>
+            </tr>    -->
           <% end %>
-        <% @changed_folders.each do |folder| %>
-            <% folder[:files].each do |file| %>
-                <tr>
-                  <td></td>
-                  <td class="note">
-                    <% file[:changes].first(1).each do |change| %>
-                        <div><%=change%></div>
-                    <% end %>
-                      <% if file[:changes].length > 3 %>
-                      <div class="change-line-count"><%=file[:number_of_lines] - 3%> more changes</div>
-                      <% end %>
-                    </ul>
-                  </td>
-                  <td>
-                      <%= link_to  file[:name], :controller => "task_folder", :action=>"folder_view", :path=> file[:file].filename, :only_path => @only_path%>
-                  </td>
-                <td>
-                  <%= link_to  folder[:name], :controller => "task_folder", :action=>"folder_view", :path=> folder[:name], :only_path => @only_path%>
-                </td>
-                  <td><%=file[:file].revision_at.strftime("%m/%d/%Y")%></td>
-                </tr>
-            <% end %>
-        <% end %>
+        <% @changed_files_by_date.each do |date_item| %>
+          <li class="undo-divider"><%=date_item.first%></li>
+          <% date_item.second.each do |file| %>
+              <li class="undo-ul-li-heading"><%= link_to  file[:file].shortName, :controller => "task_folder", :action=>"folder_view", :path=> file[:file].filename, :only_path => @only_path%></li>
+              <%file[:changedLines].first(3).each do |line|%>
+                   <li class="undo-ul-li-desc"><%=line%></li>
+              <% end%>
 
-      </table>
-    </div>
+
+              <li class="undo-ul-li-desc path">in <%= link_to file[:file].path, :controller => "task_folder", :action=>"folder_view", :path=> file[:file].path, :only_path => @only_path%></li>
+              <% if file[:changedLines].length > 3 %>
+              <li class="undo-ul-li-desc italics"><%=file[:changedLines].length  - 3%> more changes</li>
+              <% else %>
+              <li class="undo-ul-li-desc italics"><%=file[:changedLines].length%> changes</li>
+              <% end %>
+
+
+
+          <% end %>
+        <% end %>
+      </ul>
  <% end %>
  </div>
 </div>

@@ -80,7 +80,7 @@
 <% end %>
 
 <% if params[:part] == "summary" %>
-<div data-role="page" data-theme="d"  id="summary">
+<div data-role="page" id="summary" class="type-interior">
   <div data-role="header">
     <h1>
         <%= link_to "Home", :controller => "task_folder", :action=>"folder_view", :path=>"/"%>
@@ -100,25 +100,30 @@
       <li><%= link_to "Summary", {:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"summary"}, :class=>"ui-btn-active" %></li>
      </ul>
   </div>
-<div data-role="content" class="ui-content">
-  <ul data-role="listview" class="ui-listview" data-theme="g">
-    <% @changed_folders.each do |folder| %>
-        <li data-role="list-divider" role="heading" tabindex="0" class="ui-li ui-li-divider ui-btn ui-bar-b">
-          <%=folder[:name]%><span class="ui-li-count ui-btn-up-c ui-btn-corner-all">1</span>
-        </li>
-        <% folder[:files].each do |file| %>
-        <li role="option" tabindex="-1" class="ui-li ui-btn ui-btn-icon-right ui-btn-up-c" data-theme="c">
-				<h3 class="ui-li-heading">
-                  <%= link_to file[:file].shortName, :controller => "task_folder", :action=>"folder_view", :path=>file[:file].filename%>
+<div data-role="content">
+  <ul data-role="listview">
+    <% @changed_files_by_date.each do |date_item| %>
+      <li data-role="list-divider" tabindex="0"><%=date_item.first%><span class="ui-li-count">1</span></li>
+      <% date_item.second.each do |file| %>
+            <li role="option" tabindex="-1" class="ui-li ui-btn ui-btn-icon-right ui-btn-up-c" data-theme="c">
+              <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=> file[:file].filename, :only_path => @only_path %>">
+                <h3>
+                  <%=file[:file].shortName%>
                 </h3>
-                  <% file[:changes].first(3).each do |change| %>
-                      <p class="ui-li-desc"><%=change%></p>
-                  <% end %>
-		</li>
-        <% end %>
-    <% end %>
-  </ul>
+                  <%file[:changedLines].first(3).each do |line|%>
+                       <p><%=line.strip%></p>
+                  <% end%>
+              <% if file[:changedLines].length > 3 %>
+              <p><%=file[:changedLines].length  - 3%> more changes</p>
+              <% else %>
+              <p><%=file[:changedLines].length%> changes</p>
+          <% end %>
+              </a>
+            </li>
 
+      <% end %>
+    <% end %>
+    </ul>
   </div>
 </div>
 <% end %>

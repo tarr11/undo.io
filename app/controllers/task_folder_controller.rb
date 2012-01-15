@@ -17,14 +17,7 @@ class TaskFolderController < ApplicationController
             }
     ]
 
-    #(3..7).each do |index|
-    #  date = Time.zone.now - index.days
-    #  @ranges.push({
-    #    :name => date.strftime("%A"),
-    #    :start_date => date,
-    #    :end_date => date + 1.days
-    #  })
-    #end
+
 
     @ranges.push({
          :name => "Last 3 days",
@@ -97,31 +90,36 @@ class TaskFolderController < ApplicationController
     end
 
     if @file.nil?
-      start_date= params[:start_date]
-      end_date = params[:end_date]
+      start_date= Date.today - 100.years
+      end_date = DateTime.now.utc
 
       if (start_date.nil?)
-        start_date=   Time.zone.now.beginning_of_day - 1.week
+        start_date = Time.zone.now.beginning_of_day - 1.week
       end
 
       if (end_date.nil?)
         end_date = Time.zone.now
       end
 
-      @changed_folders = @taskfolder.get_summary(start_date, end_date)
+      @changed_files_by_date = @taskfolder.get_file_changes(start_date, end_date)
+        .group_by {|note| note[:file].revision_at.strftime "%A, %B %e, %Y" }
+        .sort_by {|date| Date.strptime(date.first, "%A, %B %e, %Y")}
+        .reverse
+
       @tasks = []
-      @changed_folders.each do |folder|
-        folder[:files].each do |file|
-          file[:changes].each do |change|
-            if (change.include?("#"))
-              task = Task.new
-              task.contents = change
-              task.file = file[:file]
-              @tasks.push task
-            end
-          end
-        end
-      end
+
+      #@changed_folders.each do |date|
+      #  folder[:files].each do |file|
+      #    file[:changes].each do |change|
+      #      if (change.include?("#"))
+      #        task = Task.new
+      #        task.contents = change
+      #        task.file = file[:file]
+      #        @tasks.push task
+      #      end
+      #    end
+      #  end
+      #end
 
     end
 
@@ -226,11 +224,11 @@ class TaskFolderController < ApplicationController
     @count = changedNotes.length
 
     sortedColumnItems = []
-    changedNotes.group_by {|note| note[:folder].name}
-      .each do |folderName, notes|
+    datesortedNotes = changedNotes.group_by {|note| note[:file].revised_at.strftime "%m/%d/%Y" }
+      .each do |date, notes|
          sortedColumnItems.push(
           {
-            :folder => notes.first[:folder],
+            :date => date,
             :count =>notes.count
           }
          )

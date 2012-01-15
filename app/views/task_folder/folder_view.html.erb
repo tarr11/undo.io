@@ -79,13 +79,9 @@
 </ul>
 
 <div class="content">
-  <div class="page-header">
-    <h1><%=@header%></h1>
-  </div>
 
 <div class="row">
 <div class="span4">
-
 
 <% if @folders.length > 0 %>
       <h3>Folders</h3>
@@ -115,30 +111,32 @@
 
   </div>
  <div class="span12">
+
 <% if !@file.nil?%>
-       <h3>Note</h3>
-      <div id="editor-holder" class="contents file">
-        <div class="summary-content">
-      <% @file.get_lines do |line|%>
-            <div class="file-line"><%=line%></div>
-      <% end %>
-          </div>
-        <div id="editor" class="ace-editor"><% @file.get_lines do |line|%><%=line%><% end %></div>
-        </div>
+       <h2><%=@header%></h2>
+          <pre><%=@file.contents.strip%></pre>
 <% end%>
 
  <% if @file.nil? %>
 
-       <ul class="tabs">
-         <li><a href="">Notes</a></li>
+       <div class="row">
+         <div style="float: right;">
+           <ul class="tabs">
+         <li></li>
+         <li class="active"><a href="">Notes</a></li>
          <li><a href="">Tasks</a></li>
        </ul>
+           </div>
+         <div><h2><%=@header%></h2></div>
+      </div>
+
     <!--<ul class="tabs">-->
         <!--<% @ranges.each do |range|%>-->
         <!--<li><%= link_to range[:name], :controller => "task_folder", :action=>"folder_view", :path=>params[:path], :end_date => range[:end_date], :start_date => range[:start_date] %></li>-->
     <!--<% end %>-->
     <!--</ul>-->
-    <ul>
+
+    <ul style="margin-left:0em;">
         <% @tasks.each do |task| %>
             <!--<div>
               <div><%=check_box_tag "complete"%></div>

@@ -1,4 +1,4 @@
-<% if params[:part] == "files" || params[:part].nil? %>
+<% if params[:part] == "files"%>
 <div data-theme="d" data-role="page" id="files">
 <div data-role="header">
   <h1>
@@ -13,9 +13,9 @@
 </div>
   <div data-theme="e"  data-role="navbar" >
     <ul>
+      <li><%= link_to "Summary", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"summary" %></li>
+      <li><%= link_to "Tasks", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"tasks" %></li>
      <li><%= link_to "Files", {:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"files"}, :class=>"ui-btn-active"%></li>
-     <li><%= link_to "Tasks", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"tasks" %></li>
-     <li><%= link_to "Summary", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"summary" %></li>
      </ul>
   </div>
 <div data-role="content">
@@ -64,9 +64,9 @@
     </div>
   <div data-role="navbar">
     <ul>
-     <li><%= link_to "Files", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"files" %></li>
-     <li><%= link_to "Tasks", {:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"tasks"}, :class=>"ui-btn-active" %></li>
      <li><%= link_to "Summary", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"summary" %></li>
+     <li><%= link_to "Tasks", {:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"tasks"}, :class=>"ui-btn-active" %></li>
+     <li><%= link_to "Files", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"files" %></li>
      </ul>
   </div>
   <div data-role="content">
@@ -82,7 +82,7 @@
 </div>
 <% end %>
 
-<% if params[:part] == "summary" %>
+<% if params[:part] == "summary"  || params[:part].nil?  %>
 <div data-role="page" id="summary" class="type-interior">
   <div data-role="header">
     <h1>
@@ -98,16 +98,16 @@
 
   <div data-role="navbar">
     <ul>
-     <li><%= link_to "Files", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"files" %></li>
+     <li><%= link_to "Summary", {:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"summary"}, :class=>"ui-btn-active" %></li>
      <li><%= link_to "Tasks", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"tasks" %></li>
-      <li><%= link_to "Summary", {:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"summary"}, :class=>"ui-btn-active" %></li>
+     <li><%= link_to "Files", :controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :part=>"files" %></li>
      </ul>
   </div>
 <div data-role="content">
   <ul data-role="listview">
     <% @changed_files_by_date.each do |date_item| %>
       <li data-role="list-divider" tabindex="0"><%=date_item.first%><span class="ui-li-count">1</span></li>
-      <% date_item.second.each do |file| %>
+      <% date_item.second.sort_by{|a| a[:file].revision_at}.reverse.each do |file| %>
             <li role="option" tabindex="-1" class="ui-li ui-btn ui-btn-icon-right ui-btn-up-c" data-theme="c">
               <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=> file[:file].filename, :only_path => @only_path %>">
                 <h3>

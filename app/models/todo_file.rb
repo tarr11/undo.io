@@ -135,6 +135,10 @@ end
   end
 
   def self.encodeUtf8(untrusted_string)
+    if (untrusted_string.nil?)
+      return nil
+    end
+
     require ("iconv")
     ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
     valid_string = ic.iconv(untrusted_string + ' ')[0..-2]

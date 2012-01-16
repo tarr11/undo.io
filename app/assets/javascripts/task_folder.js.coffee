@@ -1,6 +1,12 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+initAce = () ->
+  $('#ace-editor').show()
+  if typeof window.editor  == "undefined"
+    window.editor = ace.edit("ace-editor")
+    window.editor.getSession().setUseWrapMode(true);
+
 $ ->
 
   $('#edit-button').click (event) ->
@@ -17,15 +23,10 @@ $ ->
       width = $('#main-body').width()
       $('#read-only-contents').hide()
       $('#ace-editor').width(width-50);
-      #$('#ace-editor').height(470);
-
-      $('#ace-editor').show()
-      if typeof window.editor  == "undefined"
-        window.editor = ace.edit("ace-editor")
-        window.editor.getSession().setUseWrapMode(true);
-#      window.editor.setTheme("ace/theme/textmate");
+      $('#ace-editor').height(470);
+      initAce()
       $('#edit-button').html('Save')
-
 
     #$('.timebox').click (event) ->
     #window.location =  $(event.target).attr('href')
+

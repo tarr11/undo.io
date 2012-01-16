@@ -1,6 +1,12 @@
 class TaskFolderController < ApplicationController
   before_filter :authenticate_user!
   respond_to_mobile_requests :skip_xhr_requests => false
+  include TaskFolderHelper
+
+  def new_file
+    @todo_file = TodoFile.new
+    @path_parts = get_path_parts(false, params[:path])
+  end
 
   def folder_view
 #    session[:mobylette_override] = :force_mobile
@@ -49,7 +55,9 @@ class TaskFolderController < ApplicationController
     end
 
     # if a file exists, then show it
-    @file = current_user.file(path)
+    if (path != "/")
+      @file = current_user.file(path)
+    end
 
     if @file.nil?
       @taskfolder = current_user.task_folder(path)
@@ -63,31 +71,11 @@ class TaskFolderController < ApplicationController
       @header = @file.shortName
     end
 
-
-
     if @taskfolder.nil?
        raise 'No Folder'
     end if
 
-    parts = path.split('/')
-
-    if (parts.length == 0)
-      parts = [""]
-    end
-
-    if (!@file.nil?)
-      parts.pop
-    end
-
-    @path_parts = []
-    incremental_part = "/"
-    parts.each_with_index do |part|
-        incremental_part +=  part + "/"
-        @path_parts.push ({
-          :path => incremental_part,
-          :name => part
-        })
-    end
+    @path_parts = get_path_parts(!@file.nil?, path)
 
     if @file.nil?
       start_date= Date.today - 100.years
@@ -103,8 +91,10 @@ class TaskFolderController < ApplicationController
 
       @changed_files_by_date = @taskfolder.get_file_changes(start_date, end_date)
         .group_by {|note| note[:file].revision_at.strftime "%A, %B %e, %Y" }
-        .sort_by {|date| Date.strptime(date.first, "%A, %B %e, %Y")}
+        .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
         .reverse
+
+
 
       @tasks = []
 

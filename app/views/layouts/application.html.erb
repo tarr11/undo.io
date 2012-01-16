@@ -7,6 +7,7 @@
   <%= stylesheet_link_tag    "application" %>
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
   <%= javascript_include_tag "application" %>
+  <%= yield :javascript_includes %>
   <%= csrf_meta_tags %>
   <%= render "home/ga"%>
 </head>

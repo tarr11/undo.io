@@ -1,0 +1,88 @@
+<script type="text/javascript ">
+function convertToSlug(Text)
+{
+    return Text
+        .toLowerCase()
+        .replace(/[^\w ]+/g,'')
+        .replace(/ +/g,'-')
+        ;
+}
+
+</script>
+<style>
+    #ace-editor
+    {
+        display: none;
+        height:200px;
+        width:500px;
+        position: relative;
+    }
+
+</style>
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "task_folder.new_file"  %>
+  <%= javascript_include_tag "twitter/bootstrap/bootstrap-modal"  %>
+<% end %>
+<ul class="breadcrumb">
+  <li><%= link_to "Home", :controller => "task_folder", :action=>"folder_view", :path=>"/"%></li>
+  <% @path_parts.each_with_index do |part,index| %>
+     <li>
+       <% if index > 0 %>
+     <span class="divider">/</span>
+       <% end%>
+       <%= link_to part[:name], :controller => "task_folder", :action=>"folder_view", :path=>part[:path] %>
+     </li>
+  <% end %>
+      <li>
+      <span class="divider">/</span>
+      New
+  </li>
+</ul>
+
+<h1>New File</h1>
+<%= form_for(@todo_file, :html => {:class=>"form-stacked"}) do |f| %>
+  <% if @todo_file.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@todo_file.errors.count, "error") %> prohibited this file from being saved:</h2>
+
+      <ul>
+      <% @todo_file.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="clearfix">
+    <%= f.label :contents %>
+    <div id="ace-editor"></div>
+  </div>
+  <div>
+    <%= hidden_field_tag 'current-path', params[:path] %>
+    <%= f.hidden_field 'contents'%>
+    <%= f.hidden_field 'filename'%>
+
+    <%= f.submit "Save", :id=>"save-button", :class=>"btn primary"%>
+    <button type="reset" class="btn">Cancel</button>
+  </div>
+    <div id="save-modal" class="modal hide fade">
+      <div class="modal-header">
+        <a href="#" class="close">&times;</a>
+        <h3>Save New File</h3>
+      </div>
+      <div class="modal-body">
+          <div class="clearfix">
+          <div>Filename</div>
+          <div class="input">
+                <input id="filename" class="xlarge">
+          </div>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <a href="#" id="confirm-save-file" class="btn primary">Save</a>
+        <a href="#" id="cancel-save-file" class="btn secondary">Cancel</a>
+      </div>
+    </div>
+
+<% end %>

@@ -1,8 +1,4 @@
 Todo::Application.routes.draw do
-  get "task_folder/show"
-
-  get "todo_lines/show"
-
   resources :oauth_consumers do
     member do
       get :callback
@@ -23,13 +19,14 @@ Todo::Application.routes.draw do
 
   resources :todo_lines
 
-  match 'task_folders/:path' => 'task_folder#show'
-
   match "p:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}
+
+  match 'file/new' => "task_folder#new_file"
+
+  match "/options" => "home#options"
 
  get "/apps/dropbox", :to => 'App::Dropbox#index', :as => :dropbox
 
-  match "/options" => "home#options"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

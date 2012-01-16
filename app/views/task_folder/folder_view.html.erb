@@ -118,11 +118,14 @@
          <div style="float:right; display:inline-block; position: absolute; right:0; bottom:0; margin-right: .5em; margin-bottom: .5em;"><a href="#" id="edit-button" class="btn primary">Edit</a></div>
        <h2 style="display:inline-block;"><%=@header%></h2>
          </div>
+       <% if !@file.contents.nil? %>
           <pre id="read-only-contents"><%=@file.contents.strip%></pre>
+
          <div id="ace-editor"><%=@file.contents.strip%></div>
        <%= form_for(@file, :remote => true) do |f| %>
            <%= f.hidden_field :contents%>
        <% end%>
+       <% end %>
 
 
    <% end%>
@@ -130,7 +133,9 @@
  <% if @file.nil? %>
 
        <div style="position: relative;">
-         <div style="float:right; display:inline-block; position: absolute; right:0; bottom:0; margin-right: .5em; margin-bottom: .5em;"><a href="/todo_files/new" id="new-button" class="btn primary">New</a></div>
+         <div style="float:right; display:inline-block; position: absolute; right:0; bottom:0; margin-right: .5em; margin-bottom: .5em;">
+           <%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}, :class=>"btn primary"%>
+         </div>
        <h2 style="display:inline-block;"><%=@header%></h2>
          </div>
 
@@ -152,7 +157,7 @@
           <% end %>
         <% @changed_files_by_date.each do |date_item| %>
           <li class="undo-divider"><%=date_item.first%></li>
-          <% date_item.second.each do |file| %>
+          <% date_item.second.sort_by{|a| a[:file].revision_at}.reverse.each do |file| %>
               <li class="undo-ul-li-heading"><%= link_to  file[:file].shortName, :controller => "task_folder", :action=>"folder_view", :path=> file[:file].filename, :only_path => @only_path%></li>
               <%file[:changedLines].first(3).each do |line|%>
                    <li class="undo-ul-li-desc"><%=line%></li>

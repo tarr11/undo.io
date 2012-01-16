@@ -22,8 +22,10 @@ $ ->
       $('#ace-editor').show()
       if typeof window.editor  == "undefined"
         window.editor = ace.edit("ace-editor")
+        window.editor.getSession().setUseWrapMode(true);
 #      window.editor.setTheme("ace/theme/textmate");
       $('#edit-button').html('Save')
+
 
     #$('.timebox').click (event) ->
     #window.location =  $(event.target).attr('href')

@@ -101,7 +101,7 @@
    <% end %>
 
 <% if @folders.length > 0 %>
-      <h3>/Folders</h3>
+      <h3>Folders</h3>
       <ul>
       <% @folders.each do |folder|%>
          <li> <%= link_to folder.shortName, :controller => "task_folder", :action=>"folder_view", :path=>folder.path %></li>

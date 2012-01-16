@@ -1,4 +1,4 @@
-<% if params[:part] == "files"%>
+<% if params[:part] == "files" || !@file.nil? %>
 <div data-theme="d" data-role="page" id="files">
 <div data-role="header">
   <h1>
@@ -82,7 +82,7 @@
 </div>
 <% end %>
 
-<% if params[:part] == "summary"  || params[:part].nil?  %>
+<% if params[:part] == "summary"  || (params[:part].nil? && @file.nil?) %>
 <div data-role="page" id="summary" class="type-interior">
   <div data-role="header">
     <h1>

@@ -1,6 +1,6 @@
 require 'matrix'
 class HomeController < ApplicationController
-   before_filter :authenticate_user!
+   before_filter :authenticate_user!, :except => :index
    respond_to_mobile_requests :skip_xhr_requests => false
 
   def options
@@ -12,7 +12,10 @@ class HomeController < ApplicationController
 
   def index
 
-    redirect_to :controller=>"task_folder", :action => "folder_view", :path => "/"
+    if user_signed_in?
+     redirect_to :controller=>"task_folder", :action => "folder_view", :path => "/"
+    end
+    #
     #topfolders = current_user.task_folder.task_folders
     #
     #@topfolders = current_user.task_folder.task_folders.push(current_user.task_folder)

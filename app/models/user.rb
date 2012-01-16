@@ -21,7 +21,10 @@ class User < ActiveRecord::Base
   before_validation :whitelisted
 
   def whitelisted
-      errors.add :email, "is not on our invitation list"
+      beta_user = BetaTester.find_by_email self.email
+      if beta_user.nil?
+        errors.add self.email, "is not on our invitation list"
+      end
   end
 
   def task_folder (path="/")

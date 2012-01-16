@@ -88,10 +88,10 @@ class TodoFilesController < ApplicationController
   # DELETE /todo_files/1.json
   def destroy
     @todo_file = current_user.todo_files.find(params[:id])
-    @todo_file.destroy
+    TodoFile.deleteFromWeb current_user, @todo_file.filename
 
     respond_to do |format|
-      format.html { redirect_to todo_files_url }
+      format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @todo_file.path, notice: 'File was deleted.' }
       format.json { head :ok }
     end
   end

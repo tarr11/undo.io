@@ -8,6 +8,11 @@ initAce = () ->
     window.editor.getSession().setUseWrapMode(true);
 
 $ ->
+  $('#delete-button').click (event) ->
+    $('#delete-modal').modal('show')
+
+  $('#cancel-delete-file').click (event) ->
+    $('#delete-modal').modal('hide')
 
   $('#edit-button').click (event) ->
     if $('#edit-button').html() == 'Save'

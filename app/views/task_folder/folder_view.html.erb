@@ -1,4 +1,7 @@
+<% content_for :javascript_includes do %>
 
+  <%= javascript_include_tag "twitter/bootstrap/bootstrap-modal"  %>
+<% end %>
 
 <style>
   li.undo-divider
@@ -115,7 +118,26 @@
 
 <% if !@file.nil?%>
        <div style="position: relative;">
-         <div style="float:right; display:inline-block; position: absolute; right:0; bottom:0; margin-right: .5em; margin-bottom: .5em;"><a href="#" id="edit-button" class="btn primary">Edit</a></div>
+         <div style="float:right; display:inline-block; position: absolute; right:0; bottom:0; margin-right: .5em; margin-bottom: .5em;">
+           <a href="#" id="edit-button" class="btn primary">Edit</a>
+           <a href="#" id="delete-button" class="btn danger">Delete</a>
+         </div>
+         <div id="delete-modal" class="modal hide fade">
+           <div class="modal-header">
+             <a href="#" class="close">&times;</a>
+             <h3>Delete <%=@file.shortName%>?</h3>
+           </div>
+           <div class="modal-body">
+               <div class="clearfix">
+               <div>Are you sure you want to delete <%=@file.filename%>?</div>
+               </div>
+           </div>
+           <div class="modal-footer">
+             <%= link_to 'Delete', @file, method: :delete, :class => "btn danger"%>
+             <a href="#" id="cancel-delete-file" class="btn secondary">Cancel</a>
+           </div>
+         </div>
+
        <h2 style="display:inline-block;"><%=@header%></h2>
          </div>
        <% if !@file.contents.nil? %>

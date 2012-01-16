@@ -20,6 +20,10 @@ class TodoFile < ActiveRecord::Base
     file.destroy
   end
 
+  def self.deleteFromWeb(user, filename)
+    TodoFile.deleteFile user, filename
+    DropboxNavigator.DeleteFileInDropbox user, filename
+  end
 =begin
  =begin
 

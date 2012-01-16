@@ -10,6 +10,10 @@ class DropboxNavigator
 
   end
 
+  def self.DeleteFileInDropbox(user, filename)
+    user.dropbox.client.file_delete filename
+  end
+
   def self.UpdateFileInDropbox(todofile)
     # check if there is an existing file previous the current one
 

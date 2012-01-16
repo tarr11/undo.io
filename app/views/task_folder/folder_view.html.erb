@@ -89,8 +89,19 @@
 <div class="row">
 <div class="span4">
 
+  <% if @files.length > 0 %>
+        <h3>Files</h3>
+        <ul>
+             <% @files.each do |file|%>
+              <li>
+              <%= link_to file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>file.filename%>
+              </li>
+          <% end %>
+        </ul>
+   <% end %>
+
 <% if @folders.length > 0 %>
-      <h3>Folders</h3>
+      <h3>/Folders</h3>
       <ul>
       <% @folders.each do |folder|%>
          <li> <%= link_to folder.shortName, :controller => "task_folder", :action=>"folder_view", :path=>folder.path %></li>
@@ -98,22 +109,24 @@
 </ul>
   <% end %>
 
-<% if @files.length > 0 %>
-      <h3>Files</h3>
-      <ul>
-           <% @files.each do |file|%>
-            <li>
-            <%= link_to file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>file.filename%>
-            </li>
-        <% end %>
-      </ul>
- <% end %>
-
-  <h3>Tasks</h3>
+  <h3>#Tags</h3>
    <ul>
-     <li><a href="#">#todo</a> </li>
-     <li><a href="#">#groceries</a> </li>
+     <li><a href="#">#work</a> </li>
+     <li><a href="#">#home</a> </li>
    </ul>
+
+  <h3>!Tasks</h3>
+   <ul>
+     <li><a href="#">!todo</a> </li>
+     <li><a href="#">!bug</a> </li>
+   </ul>
+
+  <h3>@People</h3>
+   <ul>
+     <li><a href="#">@jamy</a> </li>
+     <li><a href="#">@elijah</a> </li>
+   </ul>
+
 
   </div>
  <div id="main-body" class="span12">
@@ -134,16 +147,10 @@
 
  <% if @file.nil? %>
 
-       <div class="row">
-         <div style="float: right;">
-           <ul class="tabs">
-         <li></li>
-         <li class="active"><a href="">Notes</a></li>
-         <li><a href="">Tasks</a></li>
-       </ul>
-           </div>
-           <h2><%=@header%></h2>
-      </div>
+       <div style="position: relative;">
+         <div style="float:right; display:inline-block; position: absolute; right:0; bottom:0; margin-right: .5em; margin-bottom: .5em;"><a href="/todo_files/new" id="new-button" class="btn primary">New</a></div>
+       <h2 style="display:inline-block;"><%=@header%></h2>
+         </div>
 
     <!--<ul class="tabs">-->
         <!--<% @ranges.each do |range|%>-->

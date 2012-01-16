@@ -1,4 +1,4 @@
-<% if params[:part] == "files" || !@file.nil? %>
+@<% if params[:part] == "files" || !@file.nil? %>
 <div data-theme="d" data-role="page" id="files">
 <div data-role="header">
   <h1>
@@ -34,11 +34,7 @@
   </ul>
 </div>
 <% else %>
-        <div>
-        <% @file.get_lines do |line|%>
-          <div><%=line%></div>
-        <% end %>
-        </div>
+        <pre><%=@file.contents%></pre>
 <% end %>
   <div data-role="footer" class="ui-bar">
        <!--<div style="padding-right:20px;text-align:right;float:right;"><a href="/options" data-icon="gear" class="ui-btn-right">options</a></div>-->

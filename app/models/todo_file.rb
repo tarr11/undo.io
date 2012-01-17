@@ -78,9 +78,12 @@ end
 
   end
 
-  def getChanges(startDate, endDate)
-      revs = self.task_file_revisions#.where(['revision_at between ? and ?',startDate, endDate]).map {|a| a}
-      firstversion = revs.first
+  def getChanges(startDate, endDate, all_revisions)
+      revs = all_revisions.select {|a| a.todo_file_id == self.id && !a.revision_at.nil?}
+        .sort_by{|a| a.revision_at}
+        .reverse
+
+     firstversion = revs.first
 
       if (firstversion.nil?)
           return []

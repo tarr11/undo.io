@@ -119,8 +119,10 @@ class TaskFolder
 
     allChanges = []
 
+    revisions = self.user.task_file_revisions.map{|a| a}
+
     todo_files_recursive.each do |file|
-      change = file.getChanges(start_date, end_date)
+      change = file.getChanges(start_date, end_date, revisions)
       if (!change.nil?)
         allChanges.push change
       end

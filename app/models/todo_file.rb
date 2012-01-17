@@ -1,4 +1,8 @@
 require 'DropboxNavigator'
+require "iconv"
+require 'diff/lcs'
+require 'diff/lcs/array'
+
 class TodoFile < ActiveRecord::Base
 
   belongs_to :user
@@ -78,12 +82,19 @@ end
 
   end
 
+  def getLcsDiff(arrayA, arrayB)
+
+#    return nil
+   return Diff::LCS::diff(arrayA, arrayB)
+  end
+
   def getChanges(startDate, endDate, all_revisions)
       revs = all_revisions.select {|a| a.todo_file_id == self.id && !a.revision_at.nil?}
         .sort_by{|a| a.revision_at}
         .reverse
 
-     firstversion = revs.first
+      firstversion = revs.first
+
 
       if (firstversion.nil?)
           return []
@@ -92,18 +103,21 @@ end
       if (revs.nil?)
         return []
       end
-      # prev = first rev before the start
-      prevRev = revs.select{|a| !a.revision_at.nil? && a.revision_at < startDate }
-                    .sort_by{|a| a.revision_at}
-                    .reverse
-                    .first
+
 
       nextRev = revs.select{|a| !a.revision_at.nil? && a.revision_at > startDate && a.revision_at < endDate}
                     .sort_by{|a| a.revision_at}
                     .reverse
                     .first
 
+      if (!nextRev.nil?)
+      # prev = first rev on a different day
+      prevRev = revs.select{|a| !a.revision_at.nil? && a.revision_at < nextRev.revision_at.beginning_of_day}
+                    .sort_by{|a| a.revision_at}
+                    .reverse
+                    .first
 
+      end
       if (prevRev.nil?)
         prevContents = ""
       else
@@ -111,7 +125,7 @@ end
       end
 
       revision_at = endDate
-        if (nextRev.nil?)
+      if (nextRev.nil?)
         # if there are no changes in the range, skip it
         return nil
       else
@@ -121,11 +135,27 @@ end
 
       prevContents = TodoFile.encodeUtf8(prevContents)
       nextContents = TodoFile.encodeUtf8(nextContents)
-      diff = Diffy::Diff.new(prevContents, nextContents)
 
-      addedLines = diff.select{|line| line.match('^[+]')}
-                    .map {|line| line.gsub(/^[+]/,'')}
-                    .select {|line| !line.blank?}
+      if (prevContents.nil? || nextContents.nil?)
+        return nil
+      end
+
+      #diff = Diffy::Diff.new(prevContents, nextContents)
+      arrayA = prevContents.split("\n")
+      arrayB = nextContents.split("\n")
+      diff = getLcsDiff(arrayA, arrayB)
+
+      #lines = diff
+      #        .map {|a| a.action + ' ' + a.element}
+
+      addedLines = []
+      diff.flatten.each{|a|
+          if (a.action == "+")
+            a.element.split('\n').each{|b|
+                addedLines.push b
+                }
+          end
+      }
 
       if addedLines.length > 0
          return {
@@ -146,7 +176,6 @@ end
       return nil
     end
 
-    require ("iconv")
     ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
     valid_string = ic.iconv(untrusted_string + ' ')[0..-2]
 

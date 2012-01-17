@@ -4,7 +4,7 @@
     <list default="true" id="8525da9e-be8a-43fe-912c-9d41aba25e68" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/home/ga.html.erb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/lib/filesystems/dropbox.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/user_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/user_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/folder_view.mobile.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/folder_view.mobile.erb" />
     </list>
     <ignored path="todo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,10 +40,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user_controller.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="user_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/user_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="0" selection-start="436" selection-end="436" vertical-scroll-proportion="0.57251906">
+            <state line="20" column="0" selection-start="436" selection-end="436" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -85,10 +85,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="folder_view.mobile.erb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="folder_view.mobile.erb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/task_folder/folder_view.mobile.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="26" selection-start="1933" selection-end="1933" vertical-scroll-proportion="-7.5">
+            <state line="133" column="0" selection-start="6350" selection-end="6350" vertical-scroll-proportion="0.93839836">
               <folding />
             </state>
           </provider>
@@ -151,10 +151,10 @@
         <option value="$PROJECT_DIR$/app/views/task_folder/folder_view.html.erb" />
         <option value="$PROJECT_DIR$/app/models/user.rb" />
         <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/task_folder/folder_view.mobile.erb" />
         <option value="$PROJECT_DIR$/app/views/user/show.mobile.erb" />
         <option value="$PROJECT_DIR$/app/views/layouts/application.mobile.erb" />
         <option value="$PROJECT_DIR$/app/controllers/user_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/task_folder/folder_view.mobile.erb" />
       </list>
     </option>
   </component>
@@ -884,13 +884,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/task_folder/folder_view.mobile.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="26" selection-start="1933" selection-end="1933" vertical-scroll-proportion="-7.5">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/user/show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="51" selection-start="0" selection-end="703" vertical-scroll-proportion="-11.25">
@@ -935,7 +928,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/user_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="436" selection-end="436" vertical-scroll-proportion="0.57251906">
+        <state line="20" column="0" selection-start="436" selection-end="436" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/task_folder/folder_view.mobile.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="133" column="0" selection-start="6350" selection-end="6350" vertical-scroll-proportion="0.93839836">
           <folding />
         </state>
       </provider>

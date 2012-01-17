@@ -1,6 +1,7 @@
 class SessionsController < Devise::SessionsController
 
   before_filter :force_ssl, :only => :new
+  #@respond_to_mobile_requests :skip_xhr_requests => false
 
   private
 

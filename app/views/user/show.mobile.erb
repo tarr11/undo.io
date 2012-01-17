@@ -1,0 +1,21 @@
+<h1>Settings</h1>
+<h2>Time Zone</h2>
+<%=form_for @user, :url=> "/settings", :include_id=>false, :html => {:id=>"edit_user", :class=>"form-stacked"} do |f|%>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <fieldset>
+     <%=time_zone_select( "user", 'time_zone', ActiveSupport::TimeZone.us_zones, :default => "Pacific Time (US & Canada)")%>
+      </fieldset>
+    <div> <%=f.submit "Save"%></div>
+<% end %>
+<h2>Logout</h2>
+<%= link_to('Logout', destroy_user_session_path, :method => :delete, "data-role"=>"button") %>

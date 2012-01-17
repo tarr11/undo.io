@@ -45,14 +45,14 @@
 #      :key=>"",
 #      :secret=>"",
 #      :oauth_version => 2
-#      :options=>{ # OAuth::Consumer options
+#      :settings=>{ # OAuth::Consumer settings
 #        :site=>"http://hourfeed.com" # Remember to add a site for a generic OAuth site
 #      }
 #   },
 #   :hour_feed=>{
 #     :key=>"",
 #     :secret=>"",
-#     :options=>{ # OAuth::Consumer options
+#     :settings=>{ # OAuth::Consumer settings
 #       :site=>"http://hourfeed.com" # Remember to add a site for a generic OAuth site
 #     }
 #   },
@@ -62,7 +62,7 @@
 #     :super_class=>"OpenTransactToken",  # if a OAuth service follows a particular standard 
 #                                         # with a token implementation you can set the superclass
 #                                         # to use
-#     :options=>{ # OAuth::Consumer options
+#     :settings=>{ # OAuth::Consumer settings
 #       :site=>"http://nubux.heroku.com" 
 #     }
 #   }

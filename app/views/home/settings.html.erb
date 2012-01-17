@@ -1,0 +1,5 @@
+<h1>Settings</h1>
+<%=form_for @user do |f|%>
+    <%=time_zone_select( "user", 'time_zone', ActiveSupport::TimeZone.us_zones, :default => "Pacific Time (US & Canada)")%>
+    <%=f.submit "Save"%>
+<% end %>

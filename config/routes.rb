@@ -1,4 +1,23 @@
 Todo::Application.routes.draw do
+
+  root :to => 'home#index'
+
+  devise_for :users
+
+  resources :tasks
+  resources :applications
+  resources :todo_files
+#  resources :user
+
+  match '/settings' => 'user#update', :via => [:put, :post]
+  match '/settings' => 'user#show'
+
+
+  match "p:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}
+  match 'file/new' => "task_folder#new_file"
+
+  get "/apps/dropbox", :to => 'App::Dropbox#index', :as => :dropbox
+
   resources :oauth_consumers do
     member do
       get :callback
@@ -7,25 +26,7 @@ Todo::Application.routes.draw do
     end
   end
 
-  resources :tasks
 
-  resources :applications
-
-  get "home/index"
-
-  devise_for :users
-
-  resources :todo_files
-
-  resources :todo_lines
-
-  match "p:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}
-
-  match 'file/new' => "task_folder#new_file"
-
-  match "/options" => "home#options"
-
- get "/apps/dropbox", :to => 'App::Dropbox#index', :as => :dropbox
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -41,7 +42,7 @@ Todo::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
-  # Sample resource route with options:
+  # Sample resource route with settings:
   #   resources :products do
   #     member do
   #       get 'short'
@@ -74,9 +75,6 @@ Todo::Application.routes.draw do
   #     resources :products
   #   end
 
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  root :to => 'home#index'
 
   # See how all your routes lay out with "rake routes"
 

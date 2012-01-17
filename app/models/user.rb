@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :time_zone
 
   has_many :client_applications
   has_many :tokens, :class_name => "OauthToken", :order => "authorized_at desc", :include => [:client_application]
@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_one :dropbox, :class_name => "DropboxToken", :dependent => :destroy
   has_many :task_file_revisions
 
-  before_validation :whitelisted
+  before_create :whitelisted
 
   def whitelisted
       beta_user = BetaTester.find_by_email self.email

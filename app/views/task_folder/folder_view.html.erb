@@ -144,6 +144,7 @@
           <pre id="read-only-contents"><%=@file.contents.strip%></pre>
 
          <div id="ace-editor"><%=@file.contents.strip%></div>
+           <div>Last updated <%=@file.revision_at%></div>
        <%= form_for(@file, :remote => true) do |f| %>
            <%= f.hidden_field :contents%>
        <% end%>

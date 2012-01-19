@@ -43,8 +43,7 @@
     </div>
 
     <div class="container">
-
-      <%=yield%>
+        <%= content_for?(:content) ? yield(:content) : yield %>
       <footer>
         <p>&copy; Undo.io 2012</p>
       </footer>

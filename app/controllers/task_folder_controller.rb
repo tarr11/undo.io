@@ -1,54 +1,75 @@
+require 'ostruct'
 class TaskFolderController < ApplicationController
   before_filter :authenticate_user!
   respond_to_mobile_requests :skip_xhr_requests => false
   include TaskFolderHelper
 
-  def new_file
-    @todo_file = TodoFile.new
-    @path_parts = get_path_parts(false, params[:path])
+  def mark_task_completed
+    todo_file = params[:file]
+    current_user.file(todo_file[:file_name]).mark_completed(todo_file[:line_number].to_i)
+    respond_to do |format|
+      format.html { head :ok }
+      format.json { head :ok }
+      format.js
+    end
   end
 
-  def folder_view
-#    session[:mobylette_override] = :force_mobile
-    @ranges = [
-        {
-             :name => "Today",
-             :start_date => Time.zone.now.beginning_of_day - 1.days,
-             :end_date => Time.zone.now.beginning_of_day + 1.days
-            } ,
+  def new_file
+    @todo_file = TodoFile.new
+    get_header_data
+
+  end
+
+  def task_view
+    get_header_data
+
+    foo = OpenStruct.new(:foo=>"bar")
+    sample_tasks = tasks_by_date = [
+      {
+          :date_item => "January 13, 2012",
+          :tasks => [
             {
-             :name => "Yesterday",
-             :start_date => Time.zone.now.beginning_of_day - 2.days,
-             :end_date => Time.zone.now.beginning_of_day
+                :title => "Buy Groceries",
+                :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.hour),
+                :lines => ["Milk","Eggs"]
+            },
+            {
+                :title => "Pay Bills",
+                :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.hour),
+                 :lines => ["Electricity Bill"]
             }
+          ]
+
+      },
+      {
+          :date_item => "January 11, 2012",
+          :tasks => [
+            {
+                :title => "Ski lessons",
+                :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.week),
+                 :lines => ["Eli and Lilah"]
+            }
+          ]
+
+      }
+
     ]
 
+    tasks = []
+    @taskfolder.get_tasks{|a| tasks.push (a)}
 
 
-    @ranges.push({
-         :name => "Last 3 days",
-         :start_date => Time.zone.now.beginning_of_day - 3.days,
-         :end_date => Time.zone.now.beginning_of_day
-    })
+    @tasks_by_date = tasks
+      .select {|task| !task.completed}
+      .group_by {|task| task.file.revision_at.strftime "%A, %B %e, %Y" }
+            .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
+            .reverse
 
-    @ranges.push({
-         :name => "Last week",
-         :start_date => Time.zone.now.beginning_of_day - 1.week,
-         :end_date => Time.zone.now.beginning_of_day
-    })
 
-    @ranges.push({
-         :name => "Last month",
-         :start_date => Time.zone.now.beginning_of_day - 1.month,
-         :end_date => Time.zone.now.beginning_of_day
-    })
+  end
 
-    @ranges.push({
-         :name => "All",
-         :start_date => Time.zone.now.beginning_of_day - 100.years,
-         :end_date => Time.zone.now.beginning_of_day
-    })
 
+  def get_header_data
     path = "/"
     if (!params[:path].empty?)
          path = params[:path]
@@ -64,7 +85,7 @@ class TaskFolderController < ApplicationController
 
       @header = @taskfolder.shortName
       if @header.blank?
-        @header = "Home"
+        @header = "Start"
       end
     else
       @taskfolder = @file.task_folder
@@ -76,6 +97,17 @@ class TaskFolderController < ApplicationController
     end if
 
     @path_parts = get_path_parts(!@file.nil?, path)
+    @only_path = true
+    @folders = @taskfolder.task_folders
+    @files = @taskfolder.todo_files
+    @dataUrlBase = url_for(:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :trailing_slash => true, :only_path =>true)
+    @hashPageId = params[:path].sub("/","_")
+
+
+  end
+  def folder_view
+
+    get_header_data
 
     if @file.nil?
       start_date= Date.today - 100.years
@@ -94,30 +126,11 @@ class TaskFolderController < ApplicationController
         .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
         .reverse
 
-
-
       @tasks = []
 
-      #@changed_folders.each do |date|
-      #  folder[:files].each do |file|
-      #    file[:changes].each do |change|
-      #      if (change.include?("#"))
-      #        task = Task.new
-      #        task.contents = change
-      #        task.file = file[:file]
-      #        @tasks.push task
-      #      end
-      #    end
-      #  end
-      #end
 
     end
 
-    @only_path = true
-    @folders = @taskfolder.task_folders
-    @files = @taskfolder.todo_files
-    @dataUrlBase = url_for(:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :trailing_slash => true, :only_path =>true)
-    @hashPageId = params[:path].sub("/","_")
 
     respond_to do |format|
       format.html # index.html.erb

@@ -4,17 +4,16 @@ Todo::Application.routes.draw do
 
   devise_for :users, :controllers =>{:sessions => "sessions"}
 
-
-  resources :tasks
-  resources :applications
   resources :todo_files
 #  resources :user
 
   match '/settings' => 'user#update', :via => [:put, :post]
   match '/settings' => 'user#show'
 
+  match 'file/complete_task' => 'task_folder#mark_task_completed', :via => [:put, :post]
 
-  match "p:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}
+  match "notes:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}
+  match "tasks:path" => "task_folder#task_view", :constraints => {:path=> /.*/}
   match 'file/new' => "task_folder#new_file"
 
   get "/apps/dropbox", :to => 'App::Dropbox#index', :as => :dropbox

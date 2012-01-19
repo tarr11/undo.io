@@ -22,13 +22,7 @@ class TaskFolder
 
   end
 
-  def get_tasks
-    todo_files_recursive.each do |file|
-      file.get_tasks do |task|
-        yield task
-      end
-    end
-  end
+
 
   def todo_files
 
@@ -46,6 +40,17 @@ class TaskFolder
       #true
       file.filename.scan("/").length == depth && !file.filename.ends_with?("/")
     end
+  end
+
+  def get_tasks
+
+    self.todo_files_recursive.each do |file|
+       file.get_tasks do |task|
+          yield task
+      end
+    end
+
+
   end
 
   def task_folders

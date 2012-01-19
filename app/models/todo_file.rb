@@ -10,6 +10,7 @@ class TodoFile < ActiveRecord::Base
   has_many :task_file_revisions
 
   after_save :save_revision
+  attr_accessor :path
 
 
   def self.pushChangesFromText(user, filename, text, revisionDate, revisionCode)
@@ -45,6 +46,26 @@ class TodoFile < ActiveRecord::Base
 
 end
 =end
+
+  def mark_completed(line_number)
+
+    i = 1
+    new_file = ""
+    reader = StringIO.new(self.contents.strip)
+     while (line = reader.gets)
+       # only lines that start with to do chars are considered todos
+
+       if i == line_number
+          new_line = 'x ' + line
+       else
+          new_line = line
+       end
+       new_file = new_file + new_line
+       i = i+1
+     end
+
+    saveFromWeb(:contents=>new_file)
+  end
 
   def self.saveFile(user, filename, file, revisionDate, revisionCode)
 
@@ -187,12 +208,32 @@ end
     end
 
     reader = StringIO.new(self.contents.strip)
+
+    # if the first line has a !, every non-blank,non-tabbed line is a task
+    line = reader.gets
+
+    all_tasks = false
+    if line.lstrip.downcase.include?("!")
+      all_tasks = true
+    end
+
+    if (line.nil?)
+      return
+    end
+
+    i = 1
      while (line = reader.gets)
+       i = i + 1
        # only lines that start with to do chars are considered todos
-       if (line.lstrip.downcase.include?("#"))
+       if (line.lstrip.downcase.include?("!") || (all_tasks && !line.include?("\t") && !line.blank?))
          task = Task.new
-         task.contents = line.strip
+         task.title = line.strip.sub("!","")
          task.file = self
+         task.line_number = i
+         task.lines = []
+         if task.title.starts_with?("x")
+           task.completed = true
+         end
          yield task
        end
      end

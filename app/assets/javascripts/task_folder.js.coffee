@@ -14,6 +14,12 @@ $ ->
   $('#cancel-delete-file').click (event) ->
     $('#delete-modal').modal('hide')
 
+  $('.task-checkbox').click (event) ->
+    $('#file_file_name').val($(event.target).attr('file_name'))
+    $('#file_line_number').val($(event.target).attr('line_number'))
+    $('form[data-remote]').submit();
+
+
   $('#edit-button').click (event) ->
     if $('#edit-button').html() == 'Save'
       contents = window.editor.getSession().getValue();

@@ -1,121 +1,3 @@
-<% content_for :javascript_includes do %>
-
-  <%= javascript_include_tag "twitter/bootstrap/bootstrap-modal"  %>
-<% end %>
-
-<style>
-  li.undo-divider
-  {
-      list-style: none;
-      background-color: #5E87B0;
-      text-shadow: 0 -1px 1px #254F7A;
-      border: 1px solid #456F9A;
-      padding: .5em 15px;
-      font-size: 14px;
-      font-weight: bold;
-      color: white;
-      margin-top: 1em;
-  }
-
-
-  li.undo-ul-li-heading
-  {
-      list-style: none;
-        font-size: 1.2em;
-        font-weight: bold;
-        display: block;
-        margin-top: .6em;
-        margin-left: .6em;
-        margin-bottom: .3em;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      padding-top:.5em;
-        white-space: nowrap;
-      border-top: solid #ccc 1px;
-  }
-
-  li.undo-ul-li-desc
-  {
-      color:#2F3E46;
-      list-style: none;
-        font-size: 1em;
-        display: block;
-        margin-top: 0em;
-        margin-left: .8em;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-  }
-
-  li.italics
-  {
-      font-style: italic;
-      color:#808080;
-      font-size: .9em;
-  }
-  li.path
-  {
-      float:right;
-      margin-right:1em;
-      font-size: .8em;
-
-  }
-
-  #ace-editor
-  {
-      display: none;
-      height:500px;
-      position: relative;
-  }
-
-</style>
-<ul class="breadcrumb">
-  <li><%= link_to "Home", :controller => "task_folder", :action=>"folder_view", :path=>"/"%></li>
-  <% @path_parts.each_with_index do |part,index| %>
-     <li>
-       <% if index > 0 %>
-     <span class="divider">/</span>
-       <% end%>
-       <%= link_to part[:name], :controller => "task_folder", :action=>"folder_view", :path=>part[:path] %>
-     </li>
-  <% end %>
-  <% if !@file.nil? %>
-      <li>
-      <span class="divider">/</span>
-      <%= link_to @file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>@file.filename %>
-  </li>
-  <%end%>
-</ul>
-
-<div class="content">
-
-<div class="row">
-<div class="span4">
-
-  <% if @files.length > 0 %>
-        <h3>Files</h3>
-        <ul>
-             <% @files.each do |file|%>
-              <li>
-              <%= link_to file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>file.filename%>
-              </li>
-          <% end %>
-        </ul>
-   <% end %>
-
-<% if @folders.length > 0 %>
-      <h3>Folders</h3>
-      <ul>
-      <% @folders.each do |folder|%>
-         <li> <%= link_to folder.shortName, :controller => "task_folder", :action=>"folder_view", :path=>folder.path %></li>
-      <% end %>
-</ul>
-  <% end %>
-
-
-  </div>
- <div id="main-body" class="span12">
-
 <% if !@file.nil?%>
        <div style="position: relative;">
          <div style="float:right; display:inline-block; position: absolute; right:0; bottom:0; margin-right: .5em; margin-bottom: .5em;">
@@ -133,7 +15,7 @@
                </div>
            </div>
            <div class="modal-footer">
-             <%= link_to 'Delete', @file, method: :delete, :class => "btn danger"%>
+             <%= link_to 'Delete', @file, methodf: :delete, :class => "btn danger"%>
              <a href="#" id="cancel-delete-file" class="btn secondary">Cancel</a>
            </div>
          </div>
@@ -155,29 +37,24 @@
 
  <% if @file.nil? %>
 
-       <div style="position: relative;">
-         <div style="float:right; display:inline-block; position: absolute; right:0; bottom:0; margin-right: .5em; margin-bottom: .5em;">
-           <%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}, :class=>"btn primary"%>
-         </div>
-       <h2 style="display:inline-block;"><%=@header%></h2>
-         </div>
+    <div class="row" style="margin-bottom: .5em;">
+      <div  class="span10">
+        <h2><%=@header%></h2>
+      </div>
+    </div>
 
-    <!--<ul class="tabs">-->
-        <!--<% @ranges.each do |range|%>-->
-        <!--<li><%= link_to range[:name], :controller => "task_folder", :action=>"folder_view", :path=>params[:path], :end_date => range[:end_date], :start_date => range[:start_date] %></li>-->
-    <!--<% end %>-->
-    <!--</ul>-->
+    <div>
+        <ul style="display: inline-block;margin-bottom: 0px;" class="pills">
+          <li class="active"><%= link_to "Notes", {:controller => "task_folder", :action=>"folder_view", :path=>params[:path]}%></li>
+          <li><%= link_to "Tasks", {:controller => "task_folder", :action=>"task_view", :path=>params[:path]}%></li>
+        </ul>
+        <div style="float: right">
+          <%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}, :class=>"btn primary"%>
+        </div>
+      </div>
+
 
     <ul style="margin-left:0em;">
-        <% @tasks.each do |task| %>
-            <!--<div>
-              <div><%=check_box_tag "complete"%></div>
-              <div><%=task.contents%></div>
-              <td><%=task.file.shortName%></td>
-              <td><%=task.file.task_folder.name%></td>
-              <td><%=task.file.revision_at.strftime("%m/%d/%Y")%></td>
-            </tr>    -->
-          <% end %>
         <% @changed_files_by_date.each do |date_item| %>
           <li class="undo-divider"><%=date_item.first%></li>
           <% date_item.second.sort_by{|a| a[:file].revision_at}.reverse.each do |file| %>
@@ -185,22 +62,13 @@
               <%file[:changedLines].first(3).each do |line|%>
                    <li class="undo-ul-li-desc"><%=line%></li>
               <% end%>
-
-
               <li class="undo-ul-li-desc path">in <%= link_to file[:file].path, :controller => "task_folder", :action=>"folder_view", :path=> file[:file].path, :only_path => @only_path%></li>
               <% if file[:changedLines].length > 3 %>
               <li class="undo-ul-li-desc italics"><%=file[:changedLines].length  - 3%> more changes</li>
               <% else %>
               <li class="undo-ul-li-desc italics"><%=file[:changedLines].length%> changes</li>
               <% end %>
-
-
-
           <% end %>
         <% end %>
       </ul>
  <% end %>
- </div>
-</div>
-
-</div>

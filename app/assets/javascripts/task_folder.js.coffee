@@ -17,6 +17,7 @@ $ ->
   $('.task-checkbox').click (event) ->
     $('#file_file_name').val($(event.target).attr('file_name'))
     $('#file_line_number').val($(event.target).attr('line_number'))
+    $('#file_is_completed').val($(event.target).checked)
     $('form[data-remote]').submit();
 
 

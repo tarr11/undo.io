@@ -47,6 +47,9 @@
         <ul style="display: inline-block;margin-bottom: 0px;" class="pills">
           <li class="active"><%= link_to "Notes", {:controller => "task_folder", :action=>"folder_view", :path=>params[:path]}%></li>
           <li><%= link_to "Tasks", {:controller => "task_folder", :action=>"task_view", :path=>params[:path]}%></li>
+          <li><%= link_to "People", {:controller => "task_folder", :action=>"folder_view", :path=>params[:path]}%></li>
+          <li><%= link_to "Agenda", {:controller => "task_folder", :action=>"folder_view", :path=>params[:path]}%></li>
+          <li><%= link_to "Topics", {:controller => "task_folder", :action=>"folder_view", :path=>params[:path]}%></li>
         </ul>
         <div style="float: right">
           <%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}, :class=>"btn primary"%>
@@ -62,7 +65,7 @@
               <%file[:changedLines].first(3).each do |line|%>
                    <li class="undo-ul-li-desc"><%=line%></li>
               <% end%>
-              <li class="undo-ul-li-desc path">in <%= link_to file[:file].path, :controller => "task_folder", :action=>"folder_view", :path=> file[:file].path, :only_path => @only_path%></li>
+              <li class="undo-ul-li-desc path"><%=time_ago_in_words(file[:file].revision_at)%> ago in <%= link_to file[:file].path, :controller => "task_folder", :action=>"folder_view", :path=> file[:file].path, :only_path => @only_path%></li>
               <% if file[:changedLines].length > 3 %>
               <li class="undo-ul-li-desc italics"><%=file[:changedLines].length  - 3%> more changes</li>
               <% else %>

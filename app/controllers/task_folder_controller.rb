@@ -6,7 +6,7 @@ class TaskFolderController < ApplicationController
 
   def mark_task_completed
     todo_file = params[:file]
-    current_user.file(todo_file[:file_name]).mark_completed(todo_file[:line_number].to_i)
+    current_user.file(todo_file[:file_name]).mark_task_status(todo_file[:line_number].to_i, todo_file[:is_completed].to_b)
     respond_to do |format|
       format.html { head :ok }
       format.json { head :ok }

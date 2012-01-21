@@ -47,7 +47,7 @@ class TodoFile < ActiveRecord::Base
 end
 =end
 
-  def mark_completed(line_number)
+  def mark_task_status(line_number, is_completed)
 
     i = 1
     new_file = ""
@@ -56,7 +56,12 @@ end
        # only lines that start with to do chars are considered todos
 
        if i == line_number
-          new_line = 'x ' + line
+          if is_completed
+            new_line = 'x ' + line
+          else
+            # remove an x from the beginning of the line
+            new_line = line.gsub("^x","")
+          end
        else
           new_line = line
        end
@@ -222,21 +227,35 @@ end
     end
 
     i = 1
+    task = nil
      while (line = reader.gets)
        i = i + 1
-       # only lines that start with to do chars are considered todos
-       if (line.lstrip.downcase.include?("!") || (all_tasks && !line.include?("\t") && !line.blank?))
-         task = Task.new
-         task.title = line.strip.sub("!","")
-         task.file = self
-         task.line_number = i
-         task.lines = []
-         if task.title.starts_with?("x")
-           task.completed = true
-         end
+
+       new_task  = ((line.lstrip.downcase.starts_with?("!") || all_tasks) &&  # task marker
+            (!line.starts_with?("\t") && !line.starts_with?("  ")) && # not part of another task
+            !line.blank?)
+
+       if (new_task && !task.nil?)
          yield task
+         task = nil
        end
+
+       if new_task
+           task = Task.new
+           task.title = line.strip.sub("!","")
+           task.file = self
+           task.line_number = i
+           task.lines = []
+           if task.title.starts_with?("x")
+                task.completed = true
+           end
+         elsif (!task.nil? && (line.starts_with?("\t") || line.starts_with?("  ")))
+             task.lines.push line.strip
+         end
      end
+    if !task.nil?
+      yield task
+    end
   end
 
   def summary

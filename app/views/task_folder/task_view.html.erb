@@ -1,64 +1,47 @@
 <style>
-
   A.completed:link , A.completed:visited
   {
       text-decoration: line-through;
   }
-
-
 </style>
-<div class="row" style="margin-bottom: .5em;">
-  <div  class="span10">
-    <h2><%=@header%></h2>
-  </div>
-</div>
 
 <div>
-    <ul style="display: inline-block;margin-bottom: 0px;" class="pills">
-      <li><%= link_to "Notes", {:controller => "task_folder", :action=>"folder_view", :path=>params[:path]}%></li>
-      <li class="active"><%= link_to "Tasks", {:controller => "task_folder", :action=>"task_view", :path=>params[:path]}%></li>
-      <li><%= link_to "People", {:controller => "task_folder", :action=>"folder_view", :path=>params[:path]}%></li>
-      <li><%= link_to "Agenda", {:controller => "task_folder", :action=>"folder_view", :path=>params[:path]}%></li>
-      <li><%= link_to "Topics", {:controller => "task_folder", :action=>"folder_view", :path=>params[:path]}%></li>
-    </ul>
-    <div style="float: right">
-      <%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}, :class=>"btn primary"%>
-    </div>
+  <% content_for :buttons do %>
+  <%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}, :class=>"btn primary"%>
+  <% if !@file.nil? %>
+    <a href="#" id="edit-button" class="btn primary">Edit</a>
+    <a href="#" id="delete-button" class="btn danger">Delete</a>
+  <% end %>
+  <% end %>
+
+    <%= render 'pill_views', :selected_view => :tasks %>
   </div>
-<ul style="margin-left:0em;">
 
-  <% @tasks_by_date.each do |date, tasklist| %>
-      <li class="undo-divider"><%=date%></li>
-      <% tasklist.each do |task| %>
-          <li class="undo-ul-li-heading">
-
-            <% if task.completed
-               link_class = "completed"
-               checked= "checked = ""true"""
-            else
-               link_class = "not-completed"
-               checked = ""
-            end%>
-            <input type="checkbox" <%=checked%> class="task-checkbox" file_name="<%=task.file.filename%>" line_number="<%=task.line_number.to_s%>">
-            <%=link_to task.title, {:controller => "task_folder", :action => "folder_view", :path=>task.file.filename, :line_number=>task.line_number.to_s}, :class=>link_class %>
-            <% task.lines.first(3).each do |line| %>
-              <li class="undo-ul-li-desc" style="margin-left:2.5em"><%=line%></li>
-            <% end %>
-          <li class="undo-ul-li-desc path" style="margin-left:2em"><%=time_ago_in_words(task.file.revision_at)%> ago in <%=link_to task.file.path, :controller => "task_folder", :action => "folder_view", :path=>task.file.path%></a></li>
-          <% if task.lines.length > 3 %>
-              <li class="undo-ul-li-desc italics" style="margin-left:2.4em"><%=(task.lines.length - 3)%> more changes</li>
-          <% else%>
-              <li class="undo-ul-li-desc italics" style="margin-left:2.4em">&nbsp;</li>
-          <% end %>
-
-      <% end %>
-   <% end %>
-
-
-</ul>
-
-<%= form_for(:file, :url=>'/file/complete_task', :remote => true) do |f| %>
-    <%= f.hidden_field :file_name%>
-    <%= f.hidden_field :line_number%>
-    <%= f.hidden_field :is_completed%>
+<% if @show_list_view %>
+    <ul style="margin-left:0em;">
+      <% @tasks_by_date.each do |date, tasklist| %>
+          <li class="undo-divider"><%=date%></li>
+          <% tasklist.each do |task| %>
+            <%=render 'task_item', :task => task%>
+           <% end %>
+       <% end %>
+    </ul>
+<% else %>
+    <div>
+      <input type="checkbox" class="task-checkbox" file_name="<%=@task.file.filename%>" line_number="<%=@task.line_number.to_s%>">
+      <%=@task.title%>
+    </div>
+    <div style="margin-left:1em">
+    <% @task.lines.each do |line| %>
+        <div><%=line%></div>
+    <% end %>
+    </div>
+    <div class="time-ago-in-words"><%=time_ago_in_words(@task.file.revision_at)%> ago</div>
+<% end %>
+<%= form_tag('/file/complete_task' ,:remote=>true) do %>
+    <%= hidden_field_tag :file_name%>
+    <%= hidden_field_tag :line_number%>
+    <%= hidden_field_tag :is_completed%>
 <% end%>
+
+

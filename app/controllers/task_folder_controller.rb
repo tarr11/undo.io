@@ -5,8 +5,7 @@ class TaskFolderController < ApplicationController
   include TaskFolderHelper
 
   def mark_task_completed
-    todo_file = params[:file]
-    current_user.file(todo_file[:file_name]).mark_task_status(todo_file[:line_number].to_i, todo_file[:is_completed].to_b)
+    current_user.file(params[:file_name]).mark_task_status(params[:line_number].to_i, params[:is_completed] == "true")
     respond_to do |format|
       format.html { head :ok }
       format.json { head :ok }
@@ -20,43 +19,33 @@ class TaskFolderController < ApplicationController
 
   end
 
+
+
+  def task_file_view
+
+  end
+
   def task_view
     get_header_data
 
-    foo = OpenStruct.new(:foo=>"bar")
-    sample_tasks = tasks_by_date = [
-      {
-          :date_item => "January 13, 2012",
-          :tasks => [
-            {
-                :title => "Buy Groceries",
-                :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.hour),
-                :lines => ["Milk","Eggs"]
-            },
-            {
-                :title => "Pay Bills",
-                :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.hour),
-                 :lines => ["Electricity Bill"]
-            }
-          ]
-
-      },
-      {
-          :date_item => "January 11, 2012",
-          :tasks => [
-            {
-                :title => "Ski lessons",
-                :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.week),
-                 :lines => ["Eli and Lilah"]
-            }
-          ]
-
-      }
-
-    ]
-
     tasks = []
-    @taskfolder.get_tasks{|a| tasks.push (a)}
+    if !@file.nil?
+      @file.get_tasks{|a| tasks.push (a)}
+      if !params[:line_number].nil?
+        @task = tasks.find{|a| a.line_number == params[:line_number].to_i}
+        @show_list_view = false
+        @header = @header + ":" + @task.title
+        #@path_parts.push ({
+        #    :path => "",
+        #    :name => "Line " + @task.line_number.to_s
+        #    })
+      else
+        @show_list_view = true
+      end
+    else
+      @taskfolder.get_tasks{|a| tasks.push (a)}
+      @show_list_view = true
+    end
 
 
     @tasks_by_date = tasks
@@ -68,8 +57,50 @@ class TaskFolderController < ApplicationController
 
   end
 
+  def person_view
+    get_header_data
+
+  end
+
+  def event_view
+    get_header_data
+
+  end
+
+  def topic_view
+    get_header_data
+
+  end
 
   def get_header_data
+    @views = [
+      OpenStruct.new(
+          :id => :notes,
+          :name => "Notes",
+          :action => "folder_view"
+      ),
+      OpenStruct.new(
+          :id => :tasks,
+          :name => "Tasks",
+          :action => "task_view"
+      ),
+      OpenStruct.new(
+          :id => :people,
+          :name => "People",
+          :action => "person_view"
+      ),
+      OpenStruct.new(
+          :id => :events,
+          :name => "Events",
+          :action => "event_view"
+      ),
+      OpenStruct.new(
+          :id => :topics,
+          :name => "Topics",
+          :action => "topic_view"
+      )
+    ]
+
     path = "/"
     if (!params[:path].empty?)
          path = params[:path]
@@ -458,5 +489,39 @@ class TaskFolderController < ApplicationController
   end
 
 
+  def sample_tasks
+     foo = OpenStruct.new(:foo=>"bar")
+     sample_tasks = tasks_by_date = [
+       {
+           :date_item => "January 13, 2012",
+           :tasks => [
+             {
+                 :title => "Buy Groceries",
+                 :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.hour),
+                 :lines => ["Milk","Eggs"]
+             },
+             {
+                 :title => "Pay Bills",
+                 :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.hour),
+                  :lines => ["Electricity Bill"]
+             }
+           ]
+
+       },
+       {
+           :date_item => "January 11, 2012",
+           :tasks => [
+             {
+                 :title => "Ski lessons",
+                 :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.week),
+                  :lines => ["Eli and Lilah"]
+             }
+           ]
+
+       }
+
+     ]
+
+   end
 
 end

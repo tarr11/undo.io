@@ -1,0 +1,16 @@
+<div>
+      <ul style="display: inline-block;margin-bottom: 0px;" class="pills">
+        <% @views.each do |view| %>
+            <% if selected_view == view.id %>
+            <li class="active">
+            <% else %>
+            <li>
+            <% end %>
+            <%= link_to view.name, {:controller => "task_folder", :action=>view.action, :path=>params[:path]}%></li>
+        <% end %>
+      </ul>
+      <div style="float: right">
+        <%= content_for?(:buttons) ? yield(:buttons) : yield %>
+      </div>
+</div>
+

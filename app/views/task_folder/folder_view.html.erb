@@ -1,61 +1,14 @@
 <% if !@file.nil?%>
-       <div style="position: relative;">
-         <div style="float:right; display:inline-block; position: absolute; right:0; bottom:0; margin-right: .5em; margin-bottom: .5em;">
-           <a href="#" id="edit-button" class="btn primary">Edit</a>
-           <a href="#" id="delete-button" class="btn danger">Delete</a>
-         </div>
-         <div id="delete-modal" class="modal hide fade">
-           <div class="modal-header">
-             <a href="#" class="close">&times;</a>
-             <h3>Delete <%=@file.shortName%>?</h3>
-           </div>
-           <div class="modal-body">
-               <div class="clearfix">
-               <div>Are you sure you want to delete <%=@file.filename%>?</div>
-               </div>
-           </div>
-           <div class="modal-footer">
-             <%= link_to 'Delete', @file, methodf: :delete, :class => "btn danger"%>
-             <a href="#" id="cancel-delete-file" class="btn secondary">Cancel</a>
-           </div>
-         </div>
+    <%= render 'note_view' %>
+<% end%>
 
-       <h2 style="display:inline-block;"><%=@header%></h2>
-         </div>
-       <% if !@file.contents.nil? %>
-          <pre id="read-only-contents"><%=@file.contents.strip%></pre>
+<% if @file.nil? %>
 
-         <div id="ace-editor"><%=@file.contents.strip%></div>
-           <div>Last updated <%=@file.revision_at%></div>
-       <%= form_for(@file, :remote => true) do |f| %>
-           <%= f.hidden_field :contents%>
-       <% end%>
-       <% end %>
+    <% content_for :buttons do %>
+        <%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}, :class=>"btn primary"%>
+    <% end %>
 
-
-   <% end%>
-
- <% if @file.nil? %>
-
-    <div class="row" style="margin-bottom: .5em;">
-      <div  class="span10">
-        <h2><%=@header%></h2>
-      </div>
-    </div>
-
-    <div>
-        <ul style="display: inline-block;margin-bottom: 0px;" class="pills">
-          <li class="active"><%= link_to "Notes", {:controller => "task_folder", :action=>"folder_view", :path=>params[:path]}%></li>
-          <li><%= link_to "Tasks", {:controller => "task_folder", :action=>"task_view", :path=>params[:path]}%></li>
-          <li><%= link_to "People", {:controller => "task_folder", :action=>"folder_view", :path=>params[:path]}%></li>
-          <li><%= link_to "Agenda", {:controller => "task_folder", :action=>"folder_view", :path=>params[:path]}%></li>
-          <li><%= link_to "Topics", {:controller => "task_folder", :action=>"folder_view", :path=>params[:path]}%></li>
-        </ul>
-        <div style="float: right">
-          <%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}, :class=>"btn primary"%>
-        </div>
-      </div>
-
+    <%= render 'pill_views', :selected_view => :notes%>
 
     <ul style="margin-left:0em;">
         <% @changed_files_by_date.each do |date_item| %>

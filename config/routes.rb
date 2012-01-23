@@ -14,6 +14,9 @@ Todo::Application.routes.draw do
 
   match "notes:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}
   match "tasks:path" => "task_folder#task_view", :constraints => {:path=> /.*/}
+  match "people:path" => "task_folder#person_view", :constraints => {:path=> /.*/}
+  match "events:path" => "task_folder#event_view", :constraints => {:path=> /.*/}
+  match "topics:path" => "task_folder#topic_view", :constraints => {:path=> /.*/}
   match 'file/new' => "task_folder#new_file"
 
   get "/apps/dropbox", :to => 'App::Dropbox#index', :as => :dropbox

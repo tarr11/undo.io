@@ -231,7 +231,7 @@ end
      while (line = reader.gets)
        i = i + 1
 
-       new_task  = ((line.lstrip.downcase.starts_with?("!") || all_tasks) &&  # task marker
+       new_task  = ((line.lstrip.downcase.include?("!") || all_tasks) &&  # task marker
             (!line.starts_with?("\t") && !line.starts_with?("  ")) && # not part of another task
             !line.blank?)
 

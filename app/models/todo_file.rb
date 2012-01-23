@@ -284,6 +284,35 @@ end
     @task_folder = TaskFolder.new(self.user, path)
   end
 
+  def formatted_lines
+
+    # there's prb some more elegant way to cache data, it's not thread-safe anyway
+    if !@lines.nil?
+      return @lines
+    end
+
+    @lines = []
+    self.get_lines do |line|
+      @lines.push line
+    end
+
+    previous = nil
+    @lines.each do |line|
+
+      if line.tab_count == 1 && !previous.nil? && previous.tab_count == 0
+        previous.line_type = :outline_header
+      end
+      previous = line
+
+    end
+    first_line = @lines.first
+    if (!first_line.nil? && !first_line.blank?)
+      first_line.line_type = :document_title
+    end
+    return @lines
+
+  end
+
   def get_lines
 
     if (self.contents.nil?)
@@ -291,10 +320,42 @@ end
     end
 
     reader = StringIO.new(self.contents)
+    prev_line = nil
     while (line = reader.gets)
       # only lines that start with to do chars are considered todos
-        yield line
+        todo_line = TodoLine.new
+        todo_line.text = line
+        todo_line.tab_count = TodoFile.get_tab_count(line)
+        yield todo_line
     end
+
+  end
+
+  def self.get_tab_count(line)
+    # each tab counts as 1 tab for now
+    # 4 spaces count as a tab
+
+    tab_count = 0
+    space_count = 0
+    line.each_char{ |c|
+      if c == "\t"
+        if space_count > 0
+          tab_count += (space_count / 4).to_i
+          space_count = 0
+        end
+        tab_count += 1
+      elsif c == " "
+        space_count += 1
+      else
+        # stop when we hit a non-whitespace character
+        if space_count > 0
+          tab_count += (space_count / 4).to_i
+        end
+        break
+      end
+    }
+
+    return tab_count
 
   end
 

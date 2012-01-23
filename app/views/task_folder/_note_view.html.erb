@@ -25,10 +25,13 @@
 <%= render 'pill_views', :selected_view => :notes%>
 
 <% if !@file.contents.nil? %>
-   <pre id="read-only-contents"><%=@file.contents.strip%></pre>
+    <div id="loading" style="display:none">Saving...</div>
+    <div id="read-only-contents" style="font-family: courier new">
+     <%= render 'note_divs', :file=>@file%>
+      </div>
 
   <div id="ace-editor"><%=@file.contents.strip%></div>
-    <div>Last updated <%=@file.revision_at%></div>
+    <div>Last updated <%=time_ago_in_words(@file.revision_at)%> ago</div>
 <%= form_for(@file, :remote => true) do |f| %>
     <%= f.hidden_field :contents%>
 <% end%>

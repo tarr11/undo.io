@@ -7,5 +7,4 @@
 //= require jquery_ujs
 //= require task_folder
 //= require ace
-//= require theme-textmate
 //= require twitter/bootstrap/bootstrap-dropdown

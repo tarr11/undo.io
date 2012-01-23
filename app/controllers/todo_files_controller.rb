@@ -1,5 +1,5 @@
 class TodoFilesController < ApplicationController
-
+ helper :task_folder
  before_filter :authenticate_user!
 
 
@@ -73,7 +73,7 @@ class TodoFilesController < ApplicationController
 
     respond_to do |format|
       if @todo_file.saveFromWeb(params[:todo_file])
-        format.html { redirect_to @todo_file, notice: 'Todo file was successfully updated.' }
+        format.html { render action: "update", :layout => false}
         format.json { head :ok }
         format.js
       else

@@ -26,11 +26,23 @@ $ ->
       contents = window.editor.getSession().getValue();
       $('#todo_file_contents').val(contents)
       # post the form
-      $('form[data-remote]').submit();
-      $('#edit-button').html('Edit')
-      $('#read-only-contents').text(contents)
-      $('#read-only-contents').show()
-      $('#ace-editor').hide()
+      $("#loading").show()
+
+      $("form[data-remote]")
+          .data('type', 'html')
+          .bind('ajax:complete', ->
+            $("#loading").hide()
+          )
+          .bind('ajax:success', (event, data, status, xhr) ->
+              $("#read-only-contents").html(data)
+              $('#edit-button').html('Edit')
+              $('#read-only-contents').show()
+              $('#ace-editor').hide()
+          )
+          .bind('ajax:error', (xhr, status, error) ->
+          )
+      $('form[data-remote]').submit()
+
     else
       width = $('#main-body').width()
       $('#read-only-contents').hide()

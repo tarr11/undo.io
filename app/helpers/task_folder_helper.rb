@@ -1,3 +1,4 @@
+require 'ostruct'
 module TaskFolderHelper
 
     def render_line(line)

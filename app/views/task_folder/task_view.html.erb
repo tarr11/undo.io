@@ -14,7 +14,9 @@
   <% end %>
   <% end %>
 
+  <% if @show_list_view %>
     <%= render 'pill_views', :selected_view => :tasks %>
+  <% end %>
   </div>
 
 <% if @show_list_view %>
@@ -27,9 +29,10 @@
        <% end %>
     </ul>
 <% else %>
-    <div>
-      <input type="checkbox" class="task-checkbox" file_name="<%=@task.file.filename%>" line_number="<%=@task.line_number.to_s%>">
-      <%=@task.title%>
+    <div style="margin: 1em">
+      <a href="#" id="complete-button" class="btn primary" file_name="<%=@task.file.filename%>" line_number="<%=@task.line_number.to_s%>">
+        <%=@task.completed ? "Mark incomplete" : "Complete" %>
+      </a>
     </div>
     <div style="margin-left:1em">
     <% @task.lines.each do |line| %>

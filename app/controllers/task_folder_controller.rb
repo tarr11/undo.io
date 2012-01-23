@@ -1,4 +1,3 @@
-require 'ostruct'
 class TaskFolderController < ApplicationController
   before_filter :authenticate_user!
   respond_to_mobile_requests :skip_xhr_requests => false
@@ -16,7 +15,6 @@ class TaskFolderController < ApplicationController
   def new_file
     @todo_file = TodoFile.new
     get_header_data
-
   end
 
 
@@ -34,7 +32,7 @@ class TaskFolderController < ApplicationController
       if !params[:line_number].nil?
         @task = tasks.find{|a| a.line_number == params[:line_number].to_i}
         @show_list_view = false
-        @header = @header + ":" + @task.title
+        @header = "Task:" + @task.title
         #@path_parts.push ({
         #    :path => "",
         #    :name => "Line " + @task.line_number.to_s
@@ -72,71 +70,7 @@ class TaskFolderController < ApplicationController
 
   end
 
-  def get_header_data
-    @views = [
-      OpenStruct.new(
-          :id => :notes,
-          :name => "Notes",
-          :action => "folder_view"
-      ),
-      OpenStruct.new(
-          :id => :tasks,
-          :name => "Tasks",
-          :action => "task_view"
-      ),
-      OpenStruct.new(
-          :id => :people,
-          :name => "People",
-          :action => "person_view"
-      ),
-      OpenStruct.new(
-          :id => :events,
-          :name => "Events",
-          :action => "event_view"
-      ),
-      OpenStruct.new(
-          :id => :topics,
-          :name => "Topics",
-          :action => "topic_view"
-      )
-    ]
-
-    path = "/"
-    if (!params[:path].empty?)
-         path = params[:path]
-    end
-
-    # if a file exists, then show it
-    if (path != "/")
-      @file = current_user.file(path)
-    end
-
-    if @file.nil?
-      @taskfolder = current_user.task_folder(path)
-
-      @header = @taskfolder.shortName
-      if @header.blank?
-        @header = "Start"
-      end
-    else
-      @taskfolder = @file.task_folder
-      @header = @file.shortName
-    end
-
-    if @taskfolder.nil?
-       raise 'No Folder'
-    end if
-
-    @path_parts = get_path_parts(!@file.nil?, path)
-    @only_path = true
-    @folders = @taskfolder.task_folders
-    @files = @taskfolder.todo_files
-    @dataUrlBase = url_for(:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :trailing_slash => true, :only_path =>true)
-    @hashPageId = params[:path].sub("/","_")
-
-
-  end
-  def folder_view
+   def folder_view
 
     get_header_data
 
@@ -489,39 +423,5 @@ class TaskFolderController < ApplicationController
   end
 
 
-  def sample_tasks
-     foo = OpenStruct.new(:foo=>"bar")
-     sample_tasks = tasks_by_date = [
-       {
-           :date_item => "January 13, 2012",
-           :tasks => [
-             {
-                 :title => "Buy Groceries",
-                 :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.hour),
-                 :lines => ["Milk","Eggs"]
-             },
-             {
-                 :title => "Pay Bills",
-                 :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.hour),
-                  :lines => ["Electricity Bill"]
-             }
-           ]
-
-       },
-       {
-           :date_item => "January 11, 2012",
-           :tasks => [
-             {
-                 :title => "Ski lessons",
-                 :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.week),
-                  :lines => ["Eli and Lilah"]
-             }
-           ]
-
-       }
-
-     ]
-
-   end
 
 end

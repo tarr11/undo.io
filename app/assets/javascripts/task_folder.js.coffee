@@ -20,6 +20,12 @@ $ ->
     $('#is_completed').val($(event.target).is(':checked'))
     $('form[data-remote]').submit();
 
+  $('#complete-button').click (event) ->
+    $('#file_name').val($(event.target).attr('file_name'))
+    $('#line_number').val($(event.target).attr('line_number'))
+    $('#is_completed').val('true')
+    $('form[data-remote]').submit();
+    $('#complete-button').html('Mark incomplete')
 
   $('#edit-button').click (event) ->
     if $('#edit-button').html() == 'Save'

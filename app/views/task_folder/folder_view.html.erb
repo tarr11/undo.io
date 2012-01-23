@@ -20,9 +20,9 @@
               <% end%>
               <li class="undo-ul-li-desc path"><%=time_ago_in_words(file[:file].revision_at)%> ago in <%= link_to file[:file].path, :controller => "task_folder", :action=>"folder_view", :path=> file[:file].path, :only_path => @only_path%></li>
               <% if file[:changedLines].length > 3 %>
-              <li class="undo-ul-li-desc italics"><%=file[:changedLines].length  - 3%> more changes</li>
+              <li class="undo-ul-li-desc italics"><%=pluralize([:changedLines].length,"change", "more changes")%></li>
               <% else %>
-              <li class="undo-ul-li-desc italics"><%=file[:changedLines].length%> changes</li>
+              <li class="undo-ul-li-desc italics"><%=pluralize([:changedLines].length,"change")%></li>
               <% end %>
           <% end %>
         <% end %>

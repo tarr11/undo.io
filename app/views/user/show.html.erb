@@ -1,3 +1,6 @@
+<ul class="breadcrumb">
+  <li>Settings</li>
+</ul>
 <h1>Settings</h1>
 <%=form_for @user, :url=> "/settings", :include_id=>false, :html => {:id=>"edit_user", :class=>"form-stacked"} do |f|%>
   <% if @user.errors.any? %>

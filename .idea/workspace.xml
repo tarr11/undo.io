@@ -4,12 +4,9 @@
     <list default="true" id="8525da9e-be8a-43fe-912c-9d41aba25e68" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/home/ga.html.erb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/lib/filesystems/dropbox.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/task_folder_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/task_folder_helper.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/task_folder.rb" afterPath="$PROJECT_DIR$/app/models/task_folder.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/task_folder.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/task_folder.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/_person_note_item.html.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/_person_note_item.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/todo_file.rb" afterPath="$PROJECT_DIR$/app/models/todo_file.rb" />
     </list>
     <ignored path="todo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,19 +33,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="task_folder_controller.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="task_folder_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/task_folder_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="66" selection-start="1691" selection-end="1691" vertical-scroll-proportion="0.5943396">
+            <state line="71" column="40" selection-start="1665" selection-end="1665" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="task_folder_helper.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="task_folder_helper.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/helpers/task_folder_helper.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="127" column="0" selection-start="2850" selection-end="2850" vertical-scroll-proportion="0.0">
+            <state line="151" column="8" selection-start="3573" selection-end="3573" vertical-scroll-proportion="0.36415094">
               <folding />
             </state>
           </provider>
@@ -66,7 +63,7 @@
       <file leaf-file-name="task_folder.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/layouts/task_folder.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="128" column="82" selection-start="3092" selection-end="3092" vertical-scroll-proportion="-17.333334">
+            <state line="124" column="119" selection-start="2928" selection-end="2928" vertical-scroll-proportion="-14.833333">
               <folding />
             </state>
           </provider>
@@ -93,7 +90,7 @@
       <file leaf-file-name="todo_file.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/todo_file.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="315" column="22" selection-start="7049" selection-end="7065" vertical-scroll-proportion="0.0">
+            <state line="321" column="50" selection-start="7191" selection-end="7191" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -158,11 +155,11 @@
         <option value="$PROJECT_DIR$/app/models/todo_line.rb" />
         <option value="$PROJECT_DIR$/app/models/person_note.rb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/_person_note_item.html.erb" />
-        <option value="$PROJECT_DIR$/app/models/todo_file.rb" />
         <option value="$PROJECT_DIR$/app/models/task_folder.rb" />
         <option value="$PROJECT_DIR$/app/views/layouts/task_folder.html.erb" />
-        <option value="$PROJECT_DIR$/app/helpers/task_folder_helper.rb" />
         <option value="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
+        <option value="$PROJECT_DIR$/app/helpers/task_folder_helper.rb" />
+        <option value="$PROJECT_DIR$/app/models/todo_file.rb" />
       </list>
     </option>
   </component>
@@ -892,9 +889,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="40" selection-start="532" selection-end="532" vertical-scroll-proportion="-13.75">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/todo_file.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="315" column="22" selection-start="7049" selection-end="7065" vertical-scroll-proportion="0.0">
+        <state line="321" column="50" selection-start="7191" selection-end="7191" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -906,30 +910,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/task_folder.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/task_folder_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="82" selection-start="3092" selection-end="3092" vertical-scroll-proportion="-17.333334">
+        <state line="71" column="40" selection-start="1665" selection-end="1665" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/task_folder.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="40" selection-start="532" selection-end="532" vertical-scroll-proportion="-13.75">
+        <state line="124" column="119" selection-start="2928" selection-end="2928" vertical-scroll-proportion="-14.833333">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/helpers/task_folder_helper.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="0" selection-start="2850" selection-end="2850" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/task_folder_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="66" selection-start="1691" selection-end="1691" vertical-scroll-proportion="0.5943396">
+        <state line="151" column="8" selection-start="3573" selection-end="3573" vertical-scroll-proportion="0.36415094">
           <folding />
         </state>
       </provider>

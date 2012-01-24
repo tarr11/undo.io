@@ -319,7 +319,7 @@ end
     note = nil
     formatted_lines.each do |line|
 
-      people = line.get_people
+      people = line.get_people.map{|a| a.downcase}
       if !people.nil? && people.length > 0
         if !note.nil?
           yield note

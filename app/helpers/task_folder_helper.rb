@@ -145,7 +145,7 @@ module TaskFolderHelper
         people = []
         person_notes.each {|a|
           a.people.each {|person|
-            people.push (person)
+            people.push (person.downcase)
           }
         }
 

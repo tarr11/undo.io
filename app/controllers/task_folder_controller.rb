@@ -71,6 +71,7 @@ class TaskFolderController < ApplicationController
     if !params[:person].nil?
       lines = lines.select{|a| a.people.include?(params[:person])}
     end
+
     @people_notes_by_date = lines
       .group_by {|line| line.file.revision_at.strftime "%A, %B %e, %Y" }
             .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}

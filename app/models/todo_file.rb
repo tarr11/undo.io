@@ -313,6 +313,40 @@ end
 
   end
 
+  def get_person_notes
+
+    last_tab_count = 0
+    note = nil
+    formatted_lines.each do |line|
+
+      people = line.get_people
+      if !people.nil? && people.length > 0
+        if !note.nil?
+          yield note
+          note = nil
+        end
+        note = PersonNote.new
+        note.people = people
+        note.title = line
+        note.line_number = line.line_number
+        note.lines = []
+        last_tab_count = line.tab_count
+        note.file = self
+      elsif !note.nil? && line.tab_count > last_tab_count
+        note.lines.push line
+      elsif !note.nil?
+        yield note
+        note = nil
+      end
+    end
+
+    if !note.nil?
+      yield note
+    end
+
+  end
+
+
   def get_lines
 
     if (self.contents.nil?)
@@ -321,11 +355,14 @@ end
 
     reader = StringIO.new(self.contents)
     prev_line = nil
+    line_number = 1
     while (line = reader.gets)
       # only lines that start with to do chars are considered todos
         todo_line = TodoLine.new
         todo_line.text = line
         todo_line.tab_count = TodoFile.get_tab_count(line)
+        todo_line.line_number = line_number
+        line_number += 1
         yield todo_line
     end
 

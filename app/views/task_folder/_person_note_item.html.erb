@@ -1,0 +1,11 @@
+<li class="undo-ul-li-heading">
+   <%=link_to note.title, {:controller => "task_folder", :action => "person_view", :path=>note.file.filename, :line_number=>note.line_number.to_s}%>
+   <% note.lines.first(3).each do |line| %>
+     <li class="undo-ul-li-desc" style="margin-left:2.5em"><%=line%></li>
+   <% end %>
+ <li class="undo-ul-li-desc path" style="margin-left:2em"><%=time_ago_in_words(note.file.revision_at)%> ago in <%=link_to note.file.filename, :controller => "task_folder", :action => "person_view", :path=>note.file.path%></li>
+ <% if note.lines.length > 3 %>
+     <li class="undo-ul-li-desc italics" style="margin-left:2.4em"><%=(note.lines.length - 3)%> more changes</li>
+ <% else%>
+     <li class="undo-ul-li-desc italics" style="margin-left:2.4em">&nbsp;</li>
+ <% end %>

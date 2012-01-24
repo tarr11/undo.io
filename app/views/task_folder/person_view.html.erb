@@ -1,6 +1,14 @@
 <%= render 'pill_views', :selected_view => :people%>
 <ul style="margin-left:0em;">
-    <li class="undo-divider">Sunday, January 22, 2012</li>
+  <ul style="margin-left:0em;">
+    <% @people_notes_by_date.each do |date, noteslist| %>
+        <li class="undo-divider"><%=date%></li>
+        <% noteslist.each do |note| %>
+          <%=render 'person_note_item', :note => note%>
+         <% end %>
+     <% end %>
+  </ul>
+<!--    <li class="undo-divider">Sunday, January 22, 2012</li>
     <li class="undo-ul-li-heading"><a href="">Talk to Stacey about accounting records</a></li>
     <li class="undo-ul-li-desc">Need to get taxes filed by Jan 31</li>
     <li class="undo-ul-li-desc path">2 days ago in <a href="">/PayScale/finance.txt</a></li>
@@ -23,5 +31,5 @@
   <li class="undo-ul-li-heading"><a href="">Sign up for Eli's ski Feb lessons</a></li>
   <li class="undo-ul-li-desc path">2 days ago in <a href="">/home/eli/ski.txt</a></li>
   <li class="undo-ul-li-desc italics">with <a href="">Eli</a></li>
-
+    -->
 </ul>

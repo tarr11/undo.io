@@ -22,6 +22,15 @@ class TaskFolder
 
   end
 
+  def lines_with_people
+    self.todo_files_recursive.each do |file|
+       file.get_person_notes do |line|
+          yield line
+      end
+    end
+
+  end
+
 
 
   def todo_files

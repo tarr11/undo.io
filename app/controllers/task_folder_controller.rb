@@ -57,6 +57,21 @@ class TaskFolderController < ApplicationController
 
   def person_view
     get_header_data
+    lines = []
+    if !@file.nil?
+      @file.lines_with_people do |line|
+        lines.push line
+      end
+    else
+      @taskfolder.lines_with_people do |line|
+        lines.push line
+      end
+    end
+
+    @people_notes_by_date = lines
+      .group_by {|line| line.file.revision_at.strftime "%A, %B %e, %Y" }
+            .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
+            .reverse
 
   end
 

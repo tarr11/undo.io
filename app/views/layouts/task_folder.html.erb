@@ -121,6 +121,17 @@
               <% end %>
             </ul>
        <% end %>
+       <% if @people.length > 0 %>
+          <h3>People</h3>
+          <ul>
+               <% @people.each do |person|%>
+                <li>
+                <%= link_to person, :controller => "task_folder", :action=>"person_view", :path=>params[:path], :person=>person%>
+                </li>
+            <% end %>
+          </ul>
+
+       <% end %>
       </div>
      <div id="main-body" class="span12">
        <div class="row" style="margin-bottom: .5em;">

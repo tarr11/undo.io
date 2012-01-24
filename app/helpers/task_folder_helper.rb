@@ -117,9 +117,13 @@ module TaskFolderHelper
           if @header.blank?
             @header = "Start"
           end
+
         else
           @taskfolder = @file.task_folder
           @header = @file.shortName
+        end
+        if !params[:person].nil?
+          @header += " (" + params[:person] + ")"
         end
 
         if @taskfolder.nil?
@@ -133,8 +137,22 @@ module TaskFolderHelper
         @dataUrlBase = url_for(:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :trailing_slash => true, :only_path =>true)
         @hashPageId = params[:path].sub("/","_")
 
+        person_notes = []
+        @taskfolder.get_person_notes do |note|
+          person_notes.push (note)
+        end
 
-      end
+        people = []
+        person_notes.each {|a|
+          a.people.each {|person|
+            people.push (person)
+          }
+        }
+
+        @people = people.uniq
+
+    end
+
     def sample_tasks
        foo = OpenStruct.new(:foo=>"bar")
        sample_tasks = tasks_by_date = [

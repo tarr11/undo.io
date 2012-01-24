@@ -59,15 +59,18 @@ class TaskFolderController < ApplicationController
     get_header_data
     lines = []
     if !@file.nil?
-      @file.lines_with_people do |line|
+      @file.get_person_notes do |line|
         lines.push line
       end
     else
-      @taskfolder.lines_with_people do |line|
+      @taskfolder.get_person_notes do |line|
         lines.push line
       end
     end
 
+    if !params[:person].nil?
+      lines = lines.select{|a| a.people.include?(params[:person])}
+    end
     @people_notes_by_date = lines
       .group_by {|line| line.file.revision_at.strftime "%A, %B %e, %Y" }
             .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}

@@ -22,7 +22,7 @@ class TaskFolder
 
   end
 
-  def lines_with_people
+  def get_person_notes
     self.todo_files_recursive.each do |file|
        file.get_person_notes do |line|
           yield line

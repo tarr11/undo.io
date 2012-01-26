@@ -1,4 +1,4 @@
-class Notes::TodoLinesController < ApplicationController
+class TodoLinesController < ApplicationController
   def show
      @todo_line = TodoLine.find(params[:id])
 

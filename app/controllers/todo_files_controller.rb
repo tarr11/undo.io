@@ -1,6 +1,7 @@
-class Notes::TodoFilesController < ApplicationController
- helper :task_folder
+class TodoFilesController < ApplicationController
+ helper 'notes/task_folder'
  before_filter :authenticate_user!
+
 
 
   # GET /todo_files

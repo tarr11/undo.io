@@ -68,7 +68,7 @@
 #   }
 # }
 # 
-OAUTH_CREDENTIALS={
-} unless defined? OAUTH_CREDENTIALS
+#OAUTH_CREDENTIALS={
+#} unless defined? OAUTH_CREDENTIALS
 
 load 'oauth/models/consumers/service_loader.rb'

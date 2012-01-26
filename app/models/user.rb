@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+
+  include ::Notes
+  include ::Apps
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -9,7 +13,7 @@ class User < ActiveRecord::Base
 
   has_many :client_applications
   has_many :tokens, :class_name => "OauthToken", :order => "authorized_at desc", :include => [:client_application]
-  has_many :todo_files 
+  has_many :todo_files
   has_many :tasks
   has_many :applications
   has_many :todo_lines

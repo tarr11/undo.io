@@ -1,5 +1,5 @@
 require 'ostruct'
-module TaskFolderHelper
+module Notes::TaskFolderHelper
 
     def render_line(line)
 
@@ -75,7 +75,7 @@ module TaskFolderHelper
         @views = [
           OpenStruct.new(
               :id => :notes,
-              :name => "Notes",
+              :name => "notes",
               :action => "folder_view"
           ),
           OpenStruct.new(

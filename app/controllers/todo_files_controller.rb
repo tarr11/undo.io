@@ -1,4 +1,4 @@
-class TodoFilesController < ApplicationController
+class Notes::TodoFilesController < ApplicationController
  helper :task_folder
  before_filter :authenticate_user!
 

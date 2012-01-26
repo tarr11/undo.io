@@ -5,6 +5,7 @@ require 'diff/lcs/array'
 
 class TodoFile < ActiveRecord::Base
 
+
   belongs_to :user
 #  has_many :todo_lines
   has_many :task_file_revisions

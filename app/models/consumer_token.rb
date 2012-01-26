@@ -6,7 +6,7 @@ class ConsumerToken < ActiveRecord::Base
   #   before_create :make_user
   
   #     # Modify this with class_name etc to match your application
-   belongs_to :user
+  belongs_to :user
   validates_presence_of :user
 
     private

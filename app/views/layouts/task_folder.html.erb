@@ -82,7 +82,7 @@
   }
 
 </style>
-<ul class="breadcrumb">
+  <ul class="breadcrumb">
   <li><%= link_to "Start", :controller => "task_folder", :action=>"folder_view", :path=>"/"%></li>
   <% @path_parts.each_with_index do |part,index| %>
      <li>
@@ -135,8 +135,13 @@
       </div>
      <div id="main-body" class="span12">
        <div class="row" style="margin-bottom: .5em;">
-         <div  class="span10">
+         <div  class="span6">
            <h2><%=@header%></h2>
+         </div>
+         <div class="span6" style="text-align: right;">
+               <form>
+               <input class="span3" placeholder="search">
+             </form>
          </div>
        </div>
 

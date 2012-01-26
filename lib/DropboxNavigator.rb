@@ -17,10 +17,12 @@ class DropboxNavigator
   def self.UpdateFileInDropbox(todofile)
     # check if there is an existing file previous the current one
 
+    myuser = todofile.user
+    if myuser.dropbox.nil?
+      return
+    end
 
     revs = todofile.task_file_revisions.map {|a| a}
-
-    myuser = todofile.user
 
     revision = ""
     if revs.length > 1

@@ -2,7 +2,7 @@ class TaskFolderController < ApplicationController
   before_filter :authenticate_user!
   respond_to_mobile_requests :skip_xhr_requests => false
   include Notes::TaskFolderHelper
-
+  include Notes
   def mark_task_completed
     current_user.file(params[:file_name]).mark_task_status(params[:line_number].to_i, params[:is_completed] == "true")
     respond_to do |format|

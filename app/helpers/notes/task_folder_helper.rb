@@ -75,7 +75,7 @@ module Notes::TaskFolderHelper
         @views = [
           OpenStruct.new(
               :id => :notes,
-              :name => "notes",
+              :name => "Notes",
               :action => "folder_view"
           ),
           OpenStruct.new(

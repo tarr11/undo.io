@@ -1,4 +1,4 @@
-class Notes::TasksController < ApplicationController
+class TasksController < ApplicationController
   before_filter :authenticate_user! 
   # GET /tasks
   # GET /tasks.json

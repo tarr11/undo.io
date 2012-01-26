@@ -7,6 +7,10 @@ class TodoLine
   attr_accessor :tab_count
   attr_accessor :line_type
   attr_accessor :line_number
+  attr_accessor :event_date
+  attr_accessor :lines
+  attr_accessor :people
+
 
   def to_s
     self.text

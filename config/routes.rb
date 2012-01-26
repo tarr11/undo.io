@@ -6,6 +6,8 @@ Todo::Application.routes.draw do
   match '/settings' => 'user#show'
 
 
+  resources :todo_files
+
   match 'file/complete_task' => 'task_folder#mark_task_completed', :via => [:put, :post]
   match "notes:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}
   match "tasks:path" => "task_folder#task_view", :constraints => {:path=> /.*/}

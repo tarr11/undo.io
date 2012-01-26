@@ -1,6 +1,5 @@
 class Task
 
-
   attr_accessor :title
   attr_accessor :completed
   attr_accessor :file

@@ -141,11 +141,19 @@ class TaskFolder
       if result.filename.starts_with?(self.path)
 
         addedLines = []
+
         hit.highlights(:contents).each do |highlight|
           highlight.format{|word| "<span class='highlight'>#{word}</span>"}.split("\n").each do |line|
             addedLines.push (line)
           end
         end
+
+        if addedLines.length == 0
+          result.contents.split("\n").first(3).each do |line|
+            addedLines.push (line)
+          end
+        end
+
         allChanges.push (
                 {
                :file => result,
@@ -154,7 +162,6 @@ class TaskFolder
                :changedLines => addedLines
             }
         )
-
 
       end
 

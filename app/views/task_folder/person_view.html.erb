@@ -1,35 +1,11 @@
 <%= render 'pill_views', :selected_view => :people%>
 <ul style="margin-left:0em;">
   <ul style="margin-left:0em;">
-    <% @people_notes_by_date.each do |date, noteslist| %>
+    <% @notes_by_date.each do |date, noteslist| %>
         <li class="undo-divider"><%=date%></li>
         <% noteslist.each do |note| %>
           <%=render 'person_note_item', :note => note%>
          <% end %>
      <% end %>
   </ul>
-<!--    <li class="undo-divider">Sunday, January 22, 2012</li>
-    <li class="undo-ul-li-heading"><a href="">Talk to Stacey about accounting records</a></li>
-    <li class="undo-ul-li-desc">Need to get taxes filed by Jan 31</li>
-    <li class="undo-ul-li-desc path">2 days ago in <a href="">/PayScale/finance.txt</a></li>
-    <li class="undo-ul-li-desc italics">with <a href="">Stacey</a></li>
-
-  <li class="undo-ul-li-heading"><a href="">Meet with Geary about IT hire</a></li>
-  <li class="undo-ul-li-desc path">2 days ago in <a href="">/PayScale/it.txt</a></li>
-  <li class="undo-ul-li-desc italics">with <a href="">Geary</a></li>
-
-  <li class="undo-ul-li-heading"><a href="">LinkedIn meeting prep with Betsy</a></li>
-  <li class="undo-ul-li-desc">Agenda, decks</li>
-  <li class="undo-ul-li-desc path">2 days ago in <a href="">/PayScale/linkedin/linkedin.txt</a></li>
-  <li class="undo-ul-li-desc italics">with <a href="">Betsy</a></li>
-
-  <li class="undo-ul-li-heading"><a href="">2012 Budget - Betsy</a></li>
-  <li class="undo-ul-li-desc path">2 days ago in <a href="">/PayScale/finance.txt</a></li>
-  <li class="undo-ul-li-desc italics">with <a href="">Betsy</a></li>
-
-  <li class="undo-divider">Sunday, January 20, 2012</li>
-  <li class="undo-ul-li-heading"><a href="">Sign up for Eli's ski Feb lessons</a></li>
-  <li class="undo-ul-li-desc path">2 days ago in <a href="">/home/eli/ski.txt</a></li>
-  <li class="undo-ul-li-desc italics">with <a href="">Eli</a></li>
-    -->
 </ul>

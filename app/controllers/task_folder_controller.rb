@@ -93,7 +93,7 @@ class TaskFolderController < ApplicationController
       lines = lines.select{|a| a.people.include?(params[:person])}
     end
 
-    @people_notes_by_date = lines
+    @notes_by_date = lines
       .group_by {|line| line.file.revision_at.strftime "%A, %B %e, %Y" }
             .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
             .reverse
@@ -102,6 +102,28 @@ class TaskFolderController < ApplicationController
 
   def event_view
     get_header_data
+    lines = []
+      if !@file.nil?
+        @file.get_event_notes do |line|
+          lines.push line
+        end
+      else
+        @taskfolder.get_event_notes do |line|
+          lines.push line
+        end
+      end
+
+      #if !params[:person].nil?
+      #  lines = lines.select{|a| a.people.include?(params[:person])}
+      #end
+
+      @notes_by_date = lines
+        .select {|line| line.event.start_at > Date.today}
+        .group_by {|line| line.event.start_at.strftime "%A, %B %e, %Y" }
+              .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
+
+
+
 
   end
 

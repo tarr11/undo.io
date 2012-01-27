@@ -23,6 +23,16 @@ class TaskFolder
   end
 
 
+  def get_event_notes
+
+    self.todo_files_recursive.each do |file|
+       file.get_event_notes do |line|
+          yield line
+      end
+    end
+  end
+
+
   def get_person_notes
     self.todo_files_recursive.each do |file|
        file.get_person_notes do |line|

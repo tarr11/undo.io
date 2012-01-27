@@ -335,6 +335,42 @@ end
 
   end
 
+  def get_event_notes
+    # copy/paste from get_person_notes
+    # forgive me, future me!
+
+    last_tab_count = 0
+    note = nil
+
+    formatted_lines.each do |line|
+      line.created_at = self.revision_at
+      event = line.get_event
+      if !event.nil?
+        if !note.nil?
+          yield note
+          note = nil
+        end
+        note = TodoLine.new
+        note.event = event
+        note.title = line
+        note.line_number = line.line_number
+        note.lines = []
+        last_tab_count = line.tab_count
+        note.file = self
+      elsif !note.nil? && line.tab_count > last_tab_count
+        note.lines.push line
+      elsif !note.nil?
+        yield note
+        note = nil
+      end
+    end
+
+    if !note.nil?
+      yield note
+    end
+  end
+
+
   def get_person_notes
 
     last_tab_count = 0

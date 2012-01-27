@@ -1,20 +1,11 @@
 <%= render 'pill_views', :selected_view => :events%>
 <ul style="margin-left:0em;">
-
-  <li class="undo-divider">Tuesday, January 25, 2012</li>
-  <li class="undo-ul-li-heading"><a href="">Trip to LinkedIn</a></li>
-  <li class="undo-ul-li-desc">Get agenda done</li>
-  <li class="undo-ul-li-desc path">2 days ago in <a href="">/PayScale/linkedin/finance.txt</a></li>
-  <li class="undo-ul-li-desc italics"><%=pluralize(1 ,"change")%></li>
-
-    <li class="undo-divider">Monday, January 31, 2012</li>
-    <li class="undo-ul-li-heading"><a href="">Need to get taxes filed by Jan 31</a></li>
-    <li class="undo-ul-li-desc path">2 days ago in <a href="">/PayScale/finance.txt</a></li>
-    <li class="undo-ul-li-desc italics"><%=pluralize(1 ,"change")%></li>
-
-  <li class="undo-divider">Thursday, February 14, 2012</li>
-  <li class="undo-ul-li-heading"><a href="">Maui Trip</a></li>
-  <li class="undo-ul-li-desc path">2 days ago in <a href="">/Home/vacation/maui.txt</a></li>
-  <li class="undo-ul-li-desc italics"><%=pluralize(1 ,"change")%></li>
-
+  <ul style="margin-left:0em;">
+    <% @notes_by_date.each do |date, noteslist| %>
+        <li class="undo-divider"><%=date%></li>
+        <% noteslist.each do |note| %>
+          <%=render 'event_note_item', :note => note%>
+         <% end %>
+     <% end %>
+  </ul>
 </ul>

@@ -105,7 +105,13 @@ class TaskFolderController < ApplicationController
         end_date = Time.zone.now
       end
 
-      @changed_files_by_date = @taskfolder.get_file_changes(start_date, end_date)
+      unless (params[:q].nil?)
+        changed_files = @taskfolder.search_for_changes(params[:q])
+      else
+        changed_files = @taskfolder.get_file_changes(start_date, end_date)
+      end
+
+      @changed_files_by_date = changed_files
         .group_by {|note| note[:file].revision_at.strftime "%A, %B %e, %Y" }
         .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
         .reverse

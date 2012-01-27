@@ -67,3 +67,9 @@ gem 'twitter-bootstrap-rails'
 gem 'diff-lcs'
 gem 'twitter-text'
 gem 'chronic'
+gem 'sunspot_rails'
+group :development do
+  gem 'sunspot_solr'
+end
+gem 'progress_bar'
+

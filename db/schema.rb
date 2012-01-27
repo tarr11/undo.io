@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120126222847) do
+ActiveRecord::Schema.define(:version => 20120127040325) do
 
   create_table "applications", :force => true do |t|
     t.string   "name"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20120126222847) do
     t.integer  "user_id"
     t.datetime "revision_at"
     t.string   "dropbox_revision"
+    t.text     "diff"
   end
 
   create_table "tasks", :force => true do |t|
@@ -73,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20120126222847) do
     t.text     "notes"
     t.datetime "revision_at"
     t.string   "dropbox_revision"
+    t.text     "diff"
   end
 
   create_table "todo_lines", :force => true do |t|

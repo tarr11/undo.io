@@ -15,8 +15,8 @@
           <li class="undo-divider"><%=date_item.first%></li>
           <% date_item.second.sort_by{|a| a[:file].revision_at}.reverse.each do |file| %>
               <li class="undo-ul-li-heading"><%= link_to  file[:file].shortName, :controller => "task_folder", :action=>"folder_view", :path=> file[:file].filename, :only_path => @only_path%></li>
-              <%file[:changedLines].first(3).each do |line|%>
-                   <li class="undo-ul-li-desc"><%=line%></li>
+              <%file[:changedLines].each do |line|%>
+                   <li class="undo-ul-li-desc"><%=line.html_safe%></li>
               <% end%>
               <li class="undo-ul-li-desc path"><%=time_ago_in_words(file[:file].revision_at)%> ago in <%= link_to file[:file].path, :controller => "task_folder", :action=>"folder_view", :path=> file[:file].path, :only_path => @only_path%></li>
               <% if file[:changedLines].length > 3 %>

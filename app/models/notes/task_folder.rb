@@ -22,6 +22,7 @@ class TaskFolder
 
   end
 
+
   def get_person_notes
     self.todo_files_recursive.each do |file|
        file.get_person_notes do |line|
@@ -30,8 +31,6 @@ class TaskFolder
     end
 
   end
-
-
 
   def todo_files
 
@@ -127,6 +126,42 @@ class TaskFolder
       @path.split("/").last
     end
 
+  end
+
+  def search_for_changes(query)
+    results = self.user.todo_files.search do
+      keywords query, :highlight=>true
+      with(:user_id, user.id)
+    end
+
+
+    allChanges = []
+    results.each_hit_with_result do |hit, result|
+
+      if result.filename.starts_with?(self.path)
+
+        addedLines = []
+        hit.highlights(:contents).each do |highlight|
+          highlight.format{|word| "<span class='highlight'>#{word}</span>"}.split("\n").each do |line|
+            addedLines.push (line)
+          end
+        end
+        allChanges.push (
+                {
+               :file => result,
+               :diff => result.diff,
+               :revision_at => result.revision_at,
+               :changedLines => addedLines
+            }
+        )
+
+
+      end
+
+    end
+
+
+    return allChanges
   end
 
   def get_file_changes(start_date, end_date)

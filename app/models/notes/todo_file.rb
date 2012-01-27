@@ -5,20 +5,24 @@ require 'diff/lcs/array'
 
 class TodoFile < ActiveRecord::Base
 
-
   belongs_to :user
 #  has_many :todo_lines
   has_many :task_file_revisions
 
   after_save :save_revision
   attr_accessor :path
+  serialize :diff
 
+  searchable do
+    text :contents, :stored => true
+    text :filename, :stored => true
+    time :revision_at
+    integer :user_id
+  end
 
   def self.pushChangesFromText(user, filename, text, revisionDate, revisionCode)
-
     newFile = TodoFile.saveFile(user, filename, text,revisionDate, revisionCode)
     #TodoFile.pushChanges(user, newFile)
-
   end
 
   def self.deleteFile(user, filename)
@@ -81,6 +85,14 @@ end
     todofile.contents = utfEncodedFile
     todofile.revision_at = revisionDate
     todofile.dropbox_revision = revisionCode
+    previous = self.task_file_revisions.last
+    unless (previous.nil?)
+      arrayA = previous.contents.split("\n")
+      arrayB = self.contents.split("\n")
+      diff = getLcsDiff(arrayA, arrayB)
+      todofile.diff = diff
+    end
+
     todofile.save
 
     return todofile
@@ -88,12 +100,21 @@ end
 
   def save_revision
    # also save revisions
+
+    previous = self.task_file_revisions.last
     revision = self.task_file_revisions.new
     revision.filename = self.filename
     revision.contents = self.contents
     revision.user_id = self.user_id
     revision.revision_at = self.revision_at
     revision.dropbox_revision = self.dropbox_revision
+
+    unless (previous.nil?)
+      arrayA = previous.contents.split("\n")
+      arrayB = self.contents.split("\n")
+      diff = getLcsDiff(arrayA, arrayB)
+      revision.diff = diff
+    end
     revision.save
 
   end

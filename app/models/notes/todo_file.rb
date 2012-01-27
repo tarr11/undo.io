@@ -210,7 +210,7 @@ end
             :file => self,
             :diff => diff,
             :revision_at => revision_at,
-            :changedLines => addedLines
+            :changedLines => addedLines.first(3)
          }
       else
         return nil

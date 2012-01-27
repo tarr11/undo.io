@@ -105,11 +105,10 @@ class TaskFolderController < ApplicationController
         end_date = Time.zone.now
       end
 
-
       unless (params[:q].nil?)
         changed_files = @taskfolder.search_for_changes(params[:q])
       else
-        changed_files = @taskfolder.search_for_changes("")
+        changed_files = @taskfolder.get_file_changes(start_date, end_date)
       end
 
       @changed_files_by_date = changed_files

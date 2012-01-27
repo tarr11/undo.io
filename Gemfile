@@ -72,4 +72,5 @@ group :development do
   gem 'sunspot_solr'
 end
 gem 'progress_bar'
-
+gem 'delayed_job_active_record'
+gem 'delayed_task'

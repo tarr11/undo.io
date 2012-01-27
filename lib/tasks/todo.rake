@@ -18,6 +18,7 @@ namespace :todo do
     end
   end
 
+
   task :compare => :environment do
     user = User.first
     filename1 =  "/home/douglastarr/dev/todo/sample.txt" 

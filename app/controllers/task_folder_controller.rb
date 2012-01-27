@@ -31,6 +31,13 @@ class TaskFolderController < ApplicationController
       end
     end
 
+    unless @taskfolder.nil?
+      oldName = @taskfolder.path
+      # find all files in this path, and change their names
+      # TODO: deal with overwriting
+
+
+      end
   end
 
   def task_file_view

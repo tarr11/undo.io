@@ -52,6 +52,12 @@ GEM
     coffee-script-source (1.2.0)
     commonjs (0.2.0)
       therubyracer (~> 0.9.9)
+    delayed_job (3.0.1)
+      activesupport (~> 3.0)
+    delayed_job_active_record (0.3.1)
+      activerecord (> 2.1.0)
+      delayed_job (~> 3.0.0)
+    delayed_task (0.1.4)
     devise (1.5.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -219,6 +225,8 @@ DEPENDENCIES
   autotest-rails-pure
   chronic
   coffee-rails (~> 3.1.1)
+  delayed_job_active_record
+  delayed_task
   devise
   diff-lcs
   execjs

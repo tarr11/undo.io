@@ -14,6 +14,15 @@ class DropboxNavigator
     user.dropbox.client.file_delete filename
   end
 
+  def self.move_file(oldPath, newFile)
+
+    if newFile.user.dropbox.nil?
+      return
+    end
+    newFile.user.dropbox.client.file_move oldPath, newFile.filename
+  end
+
+
   def self.UpdateFileInDropbox(todofile)
     # check if there is an existing file previous the current one
 

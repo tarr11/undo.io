@@ -9,13 +9,13 @@ Todo::Application.routes.draw do
   resources :todo_files
 
   match 'file/complete_task' => 'task_folder#mark_task_completed', :via => [:put, :post]
-  match "notes:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}
+  match "notes:path" => "task_folder#move", :constraints => {:path=> /.*/}, :via => :post
+  match "notes:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}, :via => :get
   match "tasks:path" => "task_folder#task_view", :constraints => {:path=> /.*/}
   match "people:path" => "task_folder#person_view", :constraints => {:path=> /.*/}
   match "events:path" => "task_folder#event_view", :constraints => {:path=> /.*/}
   match "topics:path" => "task_folder#topic_view", :constraints => {:path=> /.*/}
   match 'file/new' => "task_folder#new_file"
-
 
   resources :oauth_consumers do
     member do
@@ -24,9 +24,6 @@ Todo::Application.routes.draw do
       match 'client/*endpoint' => 'oauth_consumers#client'
     end
   end
-
-
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

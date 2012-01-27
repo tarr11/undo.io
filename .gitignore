@@ -16,3 +16,6 @@
 
 # swap files
 /*.swp
+
+# Ignore solr
+/solr

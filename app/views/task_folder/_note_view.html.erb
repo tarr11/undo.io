@@ -11,15 +11,36 @@
     </div>
     <div class="modal-footer">
       <%= link_to 'Delete', @file, method: :delete, :class => "btn danger"%>
-      <a href="#" id="cancel-delete-file" class="btn secondary">Cancel</a>
+      <a href="#" id="cancel-delete-file" class="btn secondary cancel">Cancel</a>
     </div>
   </div>
+  <div id="move-modal" class="modal hide fade">
+    <%=form_tag(url_for(:action=>"move", :path=>params[:path]), :method=>"move", :id=>"move-form") do %>
+    <div class="modal-header">
+      <a href="#" class="close">&times;</a>
+      <h3>Move <%=@file.shortName%></h3>
+    </div>
+    <div class="modal-body">
+        <div class="clearfix">
+        <div>Enter a new filename and path</div>
+        <div><input type="text" name="filename" class="span8" value="<%=@file.filename%>"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn primary">Move</button>
+      <a href="#" id="cancel-move-file" class="btn secondary cancel">Cancel</a>
+    </div>
+     <% end %>
+  </div>
 </div>
+
 
 <% content_for :buttons do %>
 <%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}, :class=>"btn primary"%>
 <a href="#" id="edit-button" class="btn primary">Edit</a>
 <a href="#" id="delete-button" class="btn danger">Delete</a>
+<a href="#" id="move-button" class="btn">Move</a>
+<a href="#" id="copy-button" class="btn">Copy</a>
 <% end %>
 
 <%= render 'pill_views', :selected_view => :notes%>

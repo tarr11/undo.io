@@ -8,11 +8,26 @@ initAce = () ->
     window.editor.getSession().setUseWrapMode(true);
 
 $ ->
+
   $('#delete-button').click (event) ->
-    $('#delete-modal').modal('show')
+    $('#delete-modal').modal({
+      keyboard: true,
+      show : true
+    })
+
+  $('.cancel').click (event) ->
+    $('#move-modal').modal('hide')
+
 
   $('#cancel-delete-file').click (event) ->
     $('#delete-modal').modal('hide')
+
+
+  $('#move-button').click (event) ->
+    $('#move-modal').modal
+      keyboard: true,
+      show : true
+
 
   $('.task-checkbox').click (event) ->
     $('#file_name').val($(event.target).attr('file_name'))
@@ -20,12 +35,14 @@ $ ->
     $('#is_completed').val($(event.target).is(':checked'))
     $('form[data-remote]').submit();
 
+
   $('#complete-button').click (event) ->
     $('#file_name').val($(event.target).attr('file_name'))
     $('#line_number').val($(event.target).attr('line_number'))
     $('#is_completed').val('true')
     $('form[data-remote]').submit();
     $('#complete-button').html('Mark incomplete')
+
 
   $('#edit-button').click (event) ->
     if $('#edit-button').html() == 'Save'

@@ -1,3 +1,46 @@
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "edit_file"  %>
+<% end %>
+<style>
+
+    .fullscreen {
+        display: block;
+        position: absolute;
+        background-color: white;
+        top: 40px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        margin: 0;
+        padding: 0;
+        border: 0px solid #BBBBBB;
+        opacity: 1;
+    }
+
+</style>
+<script>
+   function toggleFullscreenEditing()
+    {
+        var editorDiv = $('#read-only-contents');
+        if (!editorDiv.hasClass('fullscreen')) {
+            toggleFullscreenEditing.beforeFullscreen = { height: editorDiv.height(), width: editorDiv.width() }
+            editorDiv.addClass('fullscreen');
+            editorDiv.height('100%');
+            editorDiv.width('100%');
+            editor.refresh();
+        }
+        else {
+            editorDiv.removeClass('fullscreen');
+            editorDiv.height(toggleFullscreenEditing.beforeFullscreen.height);
+            editorDiv.width(toggleFullscreenEditing.beforeFullscreen.width);
+            editor.refresh();
+        }
+    }
+
+</script>
+<%= render 'layouts/breadcrumb'%>
+<h2><%=@header%></h2>
 <div style="position: relative;">
   <div id="delete-modal" class="modal hide fade">
     <div class="modal-header">
@@ -47,11 +90,11 @@
 
 <% if !@file.contents.nil? %>
     <div id="loading" style="display:none">Saving...</div>
-    <div id="read-only-contents" style="font-family: courier new">
-     <%= render 'note_divs', :file=>@file%>
+    <div id="read-only-contents" style="font-family: courier new;width:100%;border: solid black 1px">
+      <textarea id="editor"><%=@file.contents%></textarea>
       </div>
 
-  <div id="ace-editor"><%=@file.contents.strip%></div>
+
     <div>Last updated <%=time_ago_in_words(@file.revision_at)%> ago</div>
 <%= form_for(@file, :remote => true) do |f| %>
     <%= f.hidden_field :contents%>

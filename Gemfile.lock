@@ -43,6 +43,8 @@ GEM
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
     chronic (0.6.6)
+    codemirror-rails (2.21)
+      railties (~> 3.0)
     coffee-rails (3.1.1)
       coffee-script (>= 2.2.0)
       railties (~> 3.1.0)
@@ -224,6 +226,7 @@ DEPENDENCIES
   autotest-notification
   autotest-rails-pure
   chronic
+  codemirror-rails
   coffee-rails (~> 3.1.1)
   delayed_job_active_record
   delayed_task

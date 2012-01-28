@@ -7,6 +7,7 @@ initAce = () ->
     window.editor = ace.edit("ace-editor")
     window.editor.getSession().setUseWrapMode(true);
 
+
 $ ->
 
   $('#delete-button').click (event) ->

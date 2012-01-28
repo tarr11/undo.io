@@ -74,3 +74,4 @@ end
 gem 'progress_bar'
 gem 'delayed_job_active_record'
 gem 'delayed_task'
+gem 'codemirror-rails'

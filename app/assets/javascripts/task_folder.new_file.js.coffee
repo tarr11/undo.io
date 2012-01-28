@@ -4,8 +4,12 @@ initAce = () ->
     window.editor = ace.edit("ace-editor")
     window.editor.getSession().setUseWrapMode(true);
 
+initCodeMirror = () ->
+  textArea = document.getElementById('editor')
+  myCodeMirror = CodeMirror.fromTextArea(textArea)
+
 $ ->
-  initAce()
+  initCodeMirror()
   $('#save-button').click (event) ->
     event.preventDefault()
     contents = window.editor.getSession().getValue();

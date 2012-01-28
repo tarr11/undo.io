@@ -1,0 +1,17 @@
+  <ul class="breadcrumb">
+  <li><%= link_to "Start", :controller => "task_folder", :action=>"folder_view", :path=>"/"%></li>
+  <% @path_parts.each_with_index do |part,index| %>
+     <li>
+       <% if index > 0 %>
+     <span class="divider">/</span>
+       <% end%>
+       <%= link_to part[:name], :controller => "task_folder", :action=>"folder_view", :path=>part[:path] %>
+     </li>
+  <% end %>
+  <% if !@file.nil? %>
+      <li>
+      <span class="divider">/</span>
+      <%= link_to @file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>@file.filename %>
+  </li>
+  <%end%>
+</ul>

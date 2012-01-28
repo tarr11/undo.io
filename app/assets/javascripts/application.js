@@ -7,5 +7,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require task_folder
-//= require ace
 //= require twitter/bootstrap/bootstrap-dropdown
+//= require codemirror

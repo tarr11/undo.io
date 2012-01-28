@@ -161,14 +161,19 @@ class TaskFolderController < ApplicationController
 
       @tasks = []
 
+      respond_to do |format|
+        format.html # index.html.erb
+        format.mobile
+      end
+    else
+      respond_to do |format|
+        format.html { render '_note_view', :layout => 'application'}
+      end
 
     end
 
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.mobile
-    end
+
 
   end
 

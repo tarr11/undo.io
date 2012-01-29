@@ -3,12 +3,21 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
 
-  $('#read-only-contents').delegate ".cm-undo-link", "click", (event) ->
-     url = $(event.target).text()
-     if url.indexOf('http') != 0
+#  $('#read-only-contents').delegate ".cm-undo-link", "mouseup", (event) ->
+
+  $('#read-only-contents').mouseup (event) ->
+    if (!event.shiftKey)
+      return
+    if $.trim($('#status').text()) != ""
+      url = $('#status').text()
+      if url.indexOf("#") == 0
+        url = '?tag=' + url
+      else if url.indexOf("@") == 0
+        url = '?person=' + url
+      else if url.indexOf('http') != 0
         url = 'http://' + url
 
-     window.open url, '_blank'
+      window.open url, '_blank'
 
   $('#save-new').click (event) ->
      event.preventDefault()

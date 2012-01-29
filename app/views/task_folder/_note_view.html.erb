@@ -15,14 +15,42 @@ function convertToSlug(Text)
 
 </script>
 <style>
-        span.cm-undo-task {color: green;}
-        span.cm-undo-link
+
+        .CodeMirror-scroll
         {
+
+             height: auto; overflow: visible;
+            min-height: 300px;
+        }
+        span.cm-undo-task
+        {
+            color: green;
             text-decoration: underline;
-            color:blue;
             cursor: pointer;
             cursor: hand;
 
+        }
+        span.cm-undo-people
+        {
+            color: #8b4513;
+            text-decoration: underline;
+            cursor: pointer;
+            cursor: hand;
+        }
+        span.cm-undo-link
+        {
+            color:blue;
+            text-decoration: underline;
+            cursor: pointer;
+            cursor: hand;
+
+        }
+        span.cm-undo-tag
+        {
+            color:purple;
+            text-decoration: underline;
+            cursor: pointer;
+            cursor: hand;
         }
 
     .fullscreen {
@@ -62,7 +90,7 @@ function convertToSlug(Text)
 
 </script>
 <%= render 'layouts/breadcrumb'%>
-<h2><%=@header%></h2>
+
 <% if !@is_new_file %>
 <div style="position: relative;">
 
@@ -127,32 +155,40 @@ function convertToSlug(Text)
 </style>
 
 <% content_for :buttons do %>
-<% if @is_new_file
-    new_button_style = ""
-    edit_button_style = "display:none"
-else
-    new_button_style = "display:none"
-    edit_button_style = ""
-end %>
-     <div class="edit-mode-buttons" style="<%=edit_button_style%>">
-        <a href="#" id="edit-button" class="btn primary">Save</a>
-    <%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}, :class=>"btn"%>
-<a href="#" id="move-button" class="btn">Move</a>
-<a href="#" id="copy-button" class="btn">Copy</a>
-    <a href="#" id="delete-button" class="btn danger">Delete</a>
-     </div>
-    <div class="new-mode-buttons"  style="<%=new_button_style%>">
-    <a href="#" id="save-new" class="btn primary">Save</a>
-    </div>
 <% end %>
 
-<%= render 'pill_views', :selected_view => :notes%>
+<div class="row">
+<div class="span12">
+<div class="row">
+  <div class="span6">
+  <h2><%=@header%></h2>
+  </div>
+  <div class="span6" style="text-align: right">
+    <% if @is_new_file
+        new_button_style = ""
+        edit_button_style = "display:none"
+    else
+        new_button_style = "display:none"
+        edit_button_style = ""
+    end %>
+         <div class="edit-mode-buttons" style="<%=edit_button_style%>">
+            <a href="#" id="edit-button" class="btn primary">Save</a>
+        <%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}, :class=>"btn"%>
+    <a href="#" id="move-button" class="btn">Move</a>
+    <a href="#" id="copy-button" class="btn">Copy</a>
+        <a href="#" id="delete-button" class="btn danger">Delete</a>
+         </div>
+        <div class="new-mode-buttons"  style="<%=new_button_style%>">
+        <a href="#" id="save-new" class="btn primary">Save</a>
+        </div>
+  </div>
+</div>
+  <div id="status" style="display:none">&nbsp;</div>
 
     <div id="loading" style="display:none">Saving...</div>
     <div id="read-only-contents" style="font-family: courier new;width:100%;border: solid black 1px">
       <textarea id="editor"><%=@file.contents%></textarea>
       </div>
-
 
 <% if !@file.contents.nil? %>
     <div>Last updated <%=time_ago_in_words(@file.revision_at)%> ago</div>
@@ -162,5 +198,29 @@ end %>
     <%= f.hidden_field 'filename'%>
     <%= hidden_field_tag 'current-path', params[:path] %>
 <% end %>
+  </div>
 
+<div class="span4">
+  <h3>Related</h3>
+  <div>
+    <a href="">@JAmy</a>
+    <ul>
+      <li><a href="">/jamytarr/photoshoot.txt</a></li>
+      <li><a href="">/home/budget.txt</a></li>
+      <li><a href="">/home/elijah.txt</a></li>
+    </ul>
+  </div>
+  <div>
+    <a href="">#photoshoot</a>
+    <ul>
+      <li><a href="">/jamytarr/photoshoot.txt</a></li>
+      <li><a href="">/home/budget.txt</a></li>
+      <li><a href="">/home/elijah.txt</a></li>
+      <li><a href="">5 more</a></li>
+    </ul>
+  </div>
+
+</div>
+
+</div>
 

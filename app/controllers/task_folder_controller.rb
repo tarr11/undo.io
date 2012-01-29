@@ -13,8 +13,13 @@ class TaskFolderController < ApplicationController
   end
 
   def new_file
-    @todo_file = TodoFile.new
     get_header_data
+    @file = TodoFile.new
+    @is_new_file = true
+    respond_to do |format|
+      format.html { render '_note_view', :layout => 'application'}
+    end
+
   end
 
   def move
@@ -24,7 +29,7 @@ class TaskFolderController < ApplicationController
       oldName = @file.filename
       @file.filename = params[:filename]
       if @file.save
-        DropboxNavigator.move_file oldName, @file
+        DropboxNavigator.delay.move_file oldName, @file
         respond_to do |format|
           format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @file.filename, notice: 'File was moved.' }
         end

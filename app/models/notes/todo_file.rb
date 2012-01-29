@@ -19,7 +19,8 @@ class TodoFile < ActiveRecord::Base
     time :revision_at
     integer :user_id
   end
-
+  handle_asynchronously :solr_index
+  handle_asynchronously :remove_from_index
   def self.pushChangesFromText(user, filename, text, revisionDate, revisionCode)
     newFile = TodoFile.saveFile(user, filename, text,revisionDate, revisionCode)
     #TodoFile.pushChanges(user, newFile)
@@ -32,7 +33,7 @@ class TodoFile < ActiveRecord::Base
 
   def self.deleteFromWeb(user, filename)
     TodoFile.deleteFile user, filename
-    DropboxNavigator.DeleteFileInDropbox user, filename
+    DropboxNavigator.delay.DeleteFileInDropbox user, filename
   end
 =begin
  =begin
@@ -122,7 +123,7 @@ end
   def saveFromWeb(todofileParams)
 
     if self.update_attributes!(todofileParams)
-      DropboxNavigator.UpdateFileInDropbox(self)
+      DropboxNavigator.delay.UpdateFileInDropbox(self)
       return true
     else
       return false

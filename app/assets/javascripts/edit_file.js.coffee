@@ -1,7 +1,9 @@
 initCodeMirror = () ->
   textArea = document.getElementById('editor')
-  myCodeMirror = CodeMirror.fromTextArea textArea
-  myCodeMirror.focus()
+  window.myCodeMirror = CodeMirror.fromTextArea textArea,
+    mode: "undo"
+
+  window.myCodeMirror.focus()
 
 
 $ ->

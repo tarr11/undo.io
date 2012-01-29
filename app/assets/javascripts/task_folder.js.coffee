@@ -1,14 +1,44 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-initAce = () ->
-  $('#ace-editor').show()
-  if typeof window.editor  == "undefined"
-    window.editor = ace.edit("ace-editor")
-    window.editor.getSession().setUseWrapMode(true);
-
-
 $ ->
+
+  $('#read-only-contents').delegate ".cm-undo-link", "click", (event) ->
+     url = $(event.target).text()
+     if url.indexOf('http') != 0
+        url = 'http://' + url
+
+     window.open url, '_blank'
+
+  $('#save-new').click (event) ->
+     event.preventDefault()
+     contents = window.myCodeMirror.getValue()
+     $('#todo_file_contents').val(contents)
+     path = $('#current-path').val()
+     title = contents.split('\n')[0]
+     slug = convertToSlug(title)
+     if slug == ''
+       slug = 'new-file'
+
+     $('#filename').val(path + "/" + slug + '.txt')
+     $('#save-modal').modal('show')
+     $('#filename').focus()
+
+  $('#confirm-save-file').click (event) ->
+      $('#todo_file_filename').val($('#filename').val())
+      $("form[data-remote]")
+           .data('type', 'html')
+           .bind('ajax:complete', ->
+              $('#save-modal').modal('hide'))
+           .bind('ajax:success', (event, data, status, xhr) ->
+               parts = $('#filename').val().split('/')
+               $("H2").html(parts[parts.length-1])
+               $(".edit-mode-buttons").show()
+               $(".new-mode-buttons").hide())
+           .bind('ajax:error', (xhr, status, error) ->
+             alert error)
+      $('form[data-remote]').submit()
+
 
   $('#delete-button').click (event) ->
     $('#delete-modal').modal({
@@ -47,7 +77,7 @@ $ ->
 
   $('#edit-button').click (event) ->
     if $('#edit-button').html() == 'Save'
-      contents = window.editor.getSession().getValue();
+      contents = window.myCodeMirror.getValue()
       $('#todo_file_contents').val(contents)
       # post the form
       $("#loading").show()
@@ -58,22 +88,15 @@ $ ->
             $("#loading").hide()
           )
           .bind('ajax:success', (event, data, status, xhr) ->
-              $("#read-only-contents").html(data)
-              $('#edit-button').html('Edit')
-              $('#read-only-contents').show()
-              $('#ace-editor').hide()
+#              $("#read-only-contents").html(data)
+#              $('#edit-button').html('Edit')
+#              $('#read-only-contents').show()
+#              $('#ace-editor').hide()
           )
           .bind('ajax:error', (xhr, status, error) ->
           )
       $('form[data-remote]').submit()
 
-    else
-      width = $('#main-body').width()
-      $('#read-only-contents').hide()
-      $('#ace-editor').width(width-50);
-      $('#ace-editor').height(470);
-      initAce()
-      $('#edit-button').html('Save')
 
     #$('.timebox').click (event) ->
     #window.location =  $(event.target).attr('href')

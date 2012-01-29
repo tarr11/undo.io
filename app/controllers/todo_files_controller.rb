@@ -31,11 +31,10 @@ class TodoFilesController < ApplicationController
   # GET /todo_files/new
   # GET /todo_files/new.json
   def new
-    @todo_file = current_user.todo_files.new
+    @file = current_user.todo_files.new
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @todo_file }
+      format.html { render '_note_view', :layout => 'application'}
     end
   end
 
@@ -56,7 +55,7 @@ class TodoFilesController < ApplicationController
 
     respond_to do |format|
       if @todo_file.save
-        DropboxNavigator.UpdateFileInDropbox(@todo_file)
+        DropboxNavigator.delay.UpdateFileInDropbox(@todo_file)
         format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @todo_file.filename, notice: 'File was successfully created.' }
         format.json { render json: @todo_file, status: :created, location: @todo_file }
       else

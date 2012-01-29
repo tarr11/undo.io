@@ -8,7 +8,7 @@
        <%= link_to part[:name], :controller => "task_folder", :action=>"folder_view", :path=>part[:path] %>
      </li>
   <% end %>
-  <% if !@file.nil? %>
+  <% if !@file.nil? && !@is_new_file%>
       <li>
       <span class="divider">/</span>
       <%= link_to @file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>@file.filename %>

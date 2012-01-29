@@ -5,6 +5,12 @@ $ ->
 
 #  $('#read-only-contents').delegate ".cm-undo-link", "mouseup", (event) ->
 
+  $('#read-only-contents').keyup (event) ->
+    if event.which == 33
+      cursor = window.myCodeMirror.getCursor()
+      if cursor.line == 0
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
+
   $('#read-only-contents').mouseup (event) ->
     if (!event.shiftKey)
       return

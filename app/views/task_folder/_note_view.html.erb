@@ -202,25 +202,17 @@ function convertToSlug(Text)
 
 <div class="span4">
   <h3>Related</h3>
+  <% @people.each do |person|%>
   <div>
-    <a href="">@JAmy</a>
-    <ul>
-      <li><a href="">/jamytarr/photoshoot.txt</a></li>
-      <li><a href="">/home/budget.txt</a></li>
-      <li><a href="">/home/elijah.txt</a></li>
-    </ul>
-  </div>
-  <div>
-    <a href="">#photoshoot</a>
-    <ul>
-      <li><a href="">/jamytarr/photoshoot.txt</a></li>
-      <li><a href="">/home/budget.txt</a></li>
-      <li><a href="">/home/elijah.txt</a></li>
-      <li><a href="">5 more</a></li>
-    </ul>
-  </div>
-
+      <%=link_to person.name, :controller => "task_folder", :action => "person_view", :path=>@file.path , :person=>person.name%>
+      <ul>
+      <%person.files.each do |file|%>
+        <li>
+          <%=link_to file.file.shortName, :controller => "task_folder", :action => "folder_view", :path=>file.file.filename %></li>
+      <% end %>
+      </ul>
+  <% end %>
 </div>
-
+</div>
 </div>
 

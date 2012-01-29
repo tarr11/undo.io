@@ -171,6 +171,55 @@ class TaskFolderController < ApplicationController
         format.mobile
       end
     else
+      @people = [
+        OpenStruct.new(:name => "@Doug",
+                       :files => [
+                        OpenStruct.new(:shortName => "chores.txt",
+                                       :filename => "/chores.txt"
+      )
+                       ]
+
+        )
+      ]
+
+      people = []
+      # get a list of people, and all the notes that they are in
+
+      these_peeps = []
+      @file.get_person_notes do |note|
+        note.people.each do |person|
+          these_peeps.push person
+        end
+      end
+
+      these_peeps = these_peeps.uniq
+
+      current_user.task_folder("/").get_person_notes do |note|
+        if note.file.filename == @file.filename
+          next
+        end
+
+        note.people.each do |person|
+          unless these_peeps.include?(person)
+            next
+          end
+
+          people.push ({
+            :person => person,
+            :file => note.file
+          })
+        end
+      end
+
+      @people = people.group_by {|group| group[:person]}
+        .map {|key, group|
+          OpenStruct.new(:name=> key,
+            :files=>group.map { |b|
+              OpenStruct.new(:file=>b[:file])
+            }
+          )
+      }
+
       respond_to do |format|
         format.html { render '_note_view', :layout => 'application'}
       end

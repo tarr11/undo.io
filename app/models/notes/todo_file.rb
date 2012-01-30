@@ -372,7 +372,7 @@ end
   end
 
 
-  def get_person_notes
+  def get_person_notes(&block)
 
     last_tab_count = 0
     note = nil
@@ -405,6 +405,36 @@ end
 
   end
 
+  def get_tag_notes
+    last_tab_count = 0
+    note = nil
+    formatted_lines.each do |line|
+      tags = line.get_tags.map{|a| a.downcase}
+      if !tags.nil? && tags.length > 0
+        if !note.nil?
+          yield note
+          note = nil
+        end
+        note = TagNote.new
+        note.tags = tags
+        note.title = line
+        note.line_number = line.line_number
+        note.lines = []
+        last_tab_count = line.tab_count
+        note.file = self
+      elsif !note.nil? && line.tab_count > last_tab_count
+        note.lines.push line
+      elsif !note.nil?
+        yield note
+        note = nil
+      end
+    end
+
+    if !note.nil?
+      yield note
+    end
+
+  end
 
   def get_lines
 

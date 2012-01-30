@@ -10,6 +10,7 @@ class TodoLine
   attr_accessor :line_number
   attr_accessor :event
   attr_accessor :lines
+  attr_accessor :tags
   attr_accessor :people
   attr_accessor :file
   attr_accessor :created_at
@@ -21,6 +22,11 @@ class TodoLine
   def get_people
     #return text.scan(/\b@([a-z0-9_]+)/i)
     return extract_mentioned_screen_names(text)
+  end
+
+  def get_tags
+    #return text.scan(/\b@([a-z0-9_]+)/i)
+    return extract_hashtags(text)
   end
 
   def get_event

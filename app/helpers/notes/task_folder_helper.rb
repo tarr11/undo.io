@@ -188,6 +188,93 @@ module Notes::TaskFolderHelper
 
     end
 
+    def get_related_tags
+      tags = []
+      # get a list of people, and all the notes that they are in
+
+      these_tags = []
+      @file.get_tag_notes do |note|
+        note.tags.each do |tag|
+          these_tags.push tag
+        end
+      end
+
+      these_tags = these_tags.uniq
+
+      current_user.task_folder("/").get_tag_notes do |note|
+        if note.file.filename == @file.filename
+          next
+        end
+
+        note.tags.each do |tag|
+          unless these_tags.include?(tag)
+            next
+          end
+
+          tags.push ({
+            :tag=> tag,
+            :file => note.file
+          })
+        end
+      end
+
+      tags = tags.uniq{|a| [a[:tag], a[:file]]}
+
+      @these_tags = these_tags
+      @related_tags = tags.group_by {|group| group[:tag]}
+        .map {|key, group|
+          OpenStruct.new(:name=> key,
+            :files=>group.map { |b|
+              OpenStruct.new(:file=>b[:file])
+            }
+          )
+      }
+
+      #@related_tags = tags
+
+    end
+
+    def get_related_people
+      people = []
+      # get a list of people, and all the notes that they are in
+
+      these_peeps = []
+      @file.get_person_notes do |note|
+        note.people.each do |person|
+          these_peeps.push person
+        end
+      end
+
+      these_peeps = these_peeps.uniq
+
+      current_user.task_folder("/").get_person_notes do |note|
+        if note.file.filename == @file.filename
+          next
+        end
+
+        note.people.each do |person|
+          unless these_peeps.include?(person)
+            next
+          end
+
+          people.push ({
+            :person => person,
+            :file => note.file
+          })
+        end
+      end
+
+      @people = people.group_by {|group| group[:person]}
+        .map {|key, group|
+          OpenStruct.new(:name=> key,
+            :files=>group.map { |b|
+              OpenStruct.new(:file=>b[:file])
+            }
+          )
+      }
+
+    end
+
     def show
 
        allFiles = current_user.todo_files

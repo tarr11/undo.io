@@ -42,6 +42,16 @@ class TaskFolder
 
   end
 
+  def get_tag_notes
+    self.todo_files_recursive.each do |file|
+       file.get_tag_notes do |line|
+          yield line
+      end
+    end
+
+  end
+
+
   def todo_files
 
     # select all files that don't have a slash after the path

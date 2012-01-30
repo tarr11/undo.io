@@ -201,6 +201,7 @@ function convertToSlug(Text)
   </div>
 
 <div class="span4">
+  <% unless @is_new_file%>
   <h3>Related</h3>
   <% @people.each do |person|%>
       <%=link_to person.name, :controller => "task_folder", :action => "person_view", :path=>@file.path , :person=>person.name%>
@@ -219,6 +220,7 @@ function convertToSlug(Text)
         <li><%=link_to file.file.shortName, :controller => "task_folder", :action => "folder_view", :path=>file.file.filename %></li>
       <% end %>
       </ul>
+  <% end %>
   <% end %>
 </div>
 </div>

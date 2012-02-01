@@ -13,6 +13,9 @@
     </div>
   <% end %>
     <fieldset>
+      <div><%= f.label :email %>
+      <%= f.email_field :email%></div>
+
      <%=time_zone_select( "user", 'time_zone', ActiveSupport::TimeZone.us_zones, :default => "Pacific Time (US & Canada)")%>
       </fieldset>
     <div> <%=f.submit "Save"%></div>

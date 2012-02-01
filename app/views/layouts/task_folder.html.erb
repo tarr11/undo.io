@@ -1,92 +1,10 @@
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "twitter/bootstrap/bootstrap-modal"  %>
 <% end %>
+<% content_for :stylesheet_includes do %>
+  <%= stylesheet_link_tag "task_folder"  %>
+<% end %>
 <% content_for :content do %>
-<style>
-  li.undo-divider
-  {
-      list-style: none;
-      background-color: #5E87B0;
-      text-shadow: 0 -1px 1px #254F7A;
-      border: 1px solid #456F9A;
-      padding: .5em 15px;
-      font-size: 14px;
-      font-weight: bold;
-      color: white;
-      margin-top: 1em;
-  }
-
-
-  li.undo-ul-li-heading
-  {
-      list-style: none;
-        font-size: 1.2em;
-        font-weight: bold;
-        display: block;
-        margin-top: .6em;
-        margin-left: .6em;
-        margin-bottom: .3em;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      padding-top:.5em;
-        white-space: nowrap;
-      border-top: solid #ccc 1px;
-  }
-
-  li.undo-ul-li-desc
-  {
-      color:#2F3E46;
-      list-style: none;
-        font-size: 1em;
-        display: block;
-        margin-top: 0em;
-        margin-left: .8em;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-  }
-
-  li.italics
-  {
-      font-style: italic;
-      color:#808080;
-      font-size: .9em;
-  }
-
-  .time-ago-in-words
-  {
-      font-style: italic;
-      color:#808080;
-      font-size: .9em;
-  }
-
-  li.path
-  {
-      float:right;
-      margin-right:1em;
-      font-size: .8em;
-      display: inline-block;
-  }
-
-  #ace-editor
-  {
-      display: none;
-      height:500px;
-      position: relative;
-  }
-
-  li.more-changes
-  {
-      color: #808080;
-      margin-left:2em;
-  }
-
-  .highlight
-  {
-      font-weight: bold;
-  }
-
-</style>
 <%= render 'layouts/breadcrumb'%>
     <div class="content">
     <div class="row">

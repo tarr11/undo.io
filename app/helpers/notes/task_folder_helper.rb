@@ -59,6 +59,7 @@ module Notes::TaskFolderHelper
       end
 
       path_parts = []
+
       incremental_part = "/"
       parts.each do |part|
           incremental_part +=  part + "/"
@@ -72,6 +73,9 @@ module Notes::TaskFolderHelper
 
     end
     def get_header_data
+
+        @file_user = User.find_by_username(params[:username])
+
         @views = [
           OpenStruct.new(
               :id => :notes,
@@ -107,21 +111,31 @@ module Notes::TaskFolderHelper
 
         # if a file exists, then show it
         if (path != "/")
-          @file = current_user.file(path)
+          @file = @file_user.file(path)
+          unless @file.nil?
+            unless @file.is_public
+              unless @file.user_id == current_user.id
+                raise ActionController::RoutingError.new('Not Found')
+              end
+            end
+          end
         end
 
         if @file.nil?
-          @taskfolder = current_user.task_folder(path)
+          @taskfolder = @file_user.task_folder(path)
+          if @taskfolder.todo_files_recursive.length == 0
+              raise ActionController::RoutingError.new('Not Found')
+          end
 
           @header = @taskfolder.shortName
           if @header.blank?
             @header = "Start"
           end
-
         else
           @taskfolder = @file.task_folder
           @header = @file.shortName
         end
+
         if !params[:person].nil?
           @header += " (" + params[:person] + ")"
         end

@@ -10,7 +10,7 @@ class TodoFile < ActiveRecord::Base
   has_many :task_file_revisions
 
   after_save :save_revision
-  attr_accessor :path
+  attr_accessor :path, :is_public
   serialize :diff
 
   searchable do
@@ -53,6 +53,14 @@ class TodoFile < ActiveRecord::Base
 end
 =end
 
+  def make_public()
+      saveFromWeb(:is_public=>true)
+  end
+
+  def make_private()
+      saveFromWeb(:is_public=>false)
+  end
+
   def mark_task_status(line_number, is_completed)
 
     i = 1
@@ -86,11 +94,11 @@ end
     todofile.contents = utfEncodedFile
     todofile.revision_at = revisionDate
     todofile.dropbox_revision = revisionCode
-    previous = self.task_file_revisions.last
+    previous = todofile.task_file_revisions.last
     unless (previous.nil?)
       arrayA = previous.contents.split("\n")
-      arrayB = self.contents.split("\n")
-      diff = getLcsDiff(arrayA, arrayB)
+      arrayB = todofile.contents.split("\n")
+      diff = TodoFile.getLcsDiff(arrayA, arrayB)
       todofile.diff = diff
     end
 
@@ -113,7 +121,7 @@ end
     unless (previous.nil?)
       arrayA = previous.contents.split("\n")
       arrayB = self.contents.split("\n")
-      diff = getLcsDiff(arrayA, arrayB)
+      diff = TodoFile.getLcsDiff(arrayA, arrayB)
       revision.diff = diff
     end
     revision.save
@@ -131,7 +139,7 @@ end
 
   end
 
-  def getLcsDiff(arrayA, arrayB)
+  def self.getLcsDiff(arrayA, arrayB)
 
 #    return nil
    return Diff::LCS::diff(arrayA, arrayB)
@@ -192,7 +200,7 @@ end
       #diff = Diffy::Diff.new(prevContents, nextContents)
       arrayA = prevContents.split("\n")
       arrayB = nextContents.split("\n")
-      diff = getLcsDiff(arrayA, arrayB)
+      diff = TodoFile.getLcsDiff(arrayA, arrayB)
 
       #lines = diff
       #        .map {|a| a.action + ' ' + a.element}

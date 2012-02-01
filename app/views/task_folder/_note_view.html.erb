@@ -3,6 +3,9 @@
     <%= javascript_include_tag "twitter/bootstrap/bootstrap-modal"  %>
   <%= javascript_include_tag "undo_mode" %>
 <% end %>
+<% content_for :stylesheet_includes do %>
+  <%= stylesheet_link_tag "task_folder"  %>
+<% end %>
 <script type="text/javascript ">
 function convertToSlug(Text)
 {
@@ -160,10 +163,10 @@ function convertToSlug(Text)
 <div class="row">
 <div class="span12">
 <div class="row">
-  <div class="span6">
-  <h2><%=@header%></h2>
+  <div class="span4">
+  <h3><%=@header%></h3>
   </div>
-  <div class="span6" style="text-align: right">
+  <div class="span8" style="text-align: right">
     <% if @is_new_file
         new_button_style = ""
         edit_button_style = "display:none"
@@ -176,7 +179,12 @@ function convertToSlug(Text)
         <%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}, :class=>"btn"%>
     <a href="#" id="move-button" class="btn">Move</a>
     <a href="#" id="copy-button" class="btn">Copy</a>
-        <a href="#" id="delete-button" class="btn danger">Delete</a>
+        <a href="#" id="delete-button" class="btn danger">Del</a>
+           <% if @file.is_public %>
+            <a href="#" id="publish-button" class="btn">Prv</a>
+           <% else %>
+            <a href="#" id="publish-button" class="btn">Publish</a>
+           <% end %>
          </div>
         <div class="new-mode-buttons"  style="<%=new_button_style%>">
         <a href="#" id="save-new" class="btn primary">Save</a>
@@ -203,26 +211,30 @@ function convertToSlug(Text)
 <div class="span4">
   <% unless @is_new_file%>
   <h3>Related</h3>
+      <ul style="margin-left:0">
   <% @people.each do |person|%>
-      <%=link_to person.name, :controller => "task_folder", :action => "person_view", :path=>@file.path , :person=>person.name%>
-      <ul>
+      <li class="undo-divider"><%=link_to person.name, :controller => "task_folder", :action => "person_view", :path=>@file.path , :person=>person.name%> </li>
       <%person.files.each do |file|%>
-        <li>
+        <li class="undo-ul-li-heading">
           <%=link_to file.file.shortName, :controller => "task_folder", :action => "folder_view", :path=>file.file.filename %></li>
+          <%file.file.to_enum(:get_lines).first(3).each do |line|%>
+                <li class="undo-ul-li-desc"><%=line%></li>
+          <% end%>
       <% end %>
-      </ul>
+
   <% end %>
 
   <%@related_tags.each do |tag|%>
-      <%=link_to "#" + tag.name, :controller => "task_folder", :action => "topic_view", :path=>@file.path , :topic=>tag.name%>
-      <ul>
+      <li class="undo-divider"><%=link_to "#" + tag.name, :controller => "task_folder", :action => "topic_view", :path=>@file.path , :topic=>tag.name%></li>
       <%tag.files.each do |file|%>
-        <li><%=link_to file.file.shortName, :controller => "task_folder", :action => "folder_view", :path=>file.file.filename %></li>
+        <li class="undo-ul-li-heading"><%=link_to file.file.shortName, :controller => "task_folder", :action => "folder_view", :path=>file.file.filename %></li>
+        <%file.file.to_enum(:get_lines).first(3).each do |line|%>
+              <li class="undo-ul-li-desc"><%=line%></li>
+        <% end%>
       <% end %>
-      </ul>
   <% end %>
+   </ul>
   <% end %>
-</div>
 </div>
 </div>
 

@@ -12,6 +12,35 @@ class TaskFolderController < ApplicationController
     end
   end
 
+  def home_view
+
+    @public_files = TodoFile.find_by_is_public(true, :order=>"REVISION_AT desc")
+    respond_to do |format|
+       format.html {render 'home_view', :layout => 'application'}
+    end
+
+  end
+
+  def make_public
+    current_user.file(params[:file_name]).make_public()
+    respond_to do |format|
+      format.html { head :ok }
+      format.json { head :ok }
+      format.js
+    end
+
+  end
+
+  def make_private
+    current_user.file(params[:file_name]).make_private()
+    respond_to do |format|
+      format.html { head :ok }
+      format.json { head :ok }
+      format.js
+    end
+
+  end
+
   def new_file
     get_header_data
     @file = TodoFile.new

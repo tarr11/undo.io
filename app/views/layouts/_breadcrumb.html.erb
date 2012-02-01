@@ -1,5 +1,5 @@
   <ul class="breadcrumb">
-  <li><%= link_to "Start", :controller => "task_folder", :action=>"folder_view", :path=>"/"%></li>
+  <li><%= link_to @file_user.username, :controller => "task_folder", :action=>"folder_view", :path=>"/"%></li>
   <% @path_parts.each_with_index do |part,index| %>
      <li>
        <% if index > 0 %>

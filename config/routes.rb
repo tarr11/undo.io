@@ -9,13 +9,18 @@ Todo::Application.routes.draw do
   resources :todo_files
 
   match 'file/complete_task' => 'task_folder#mark_task_completed', :via => [:put, :post]
-  match "notes:path" => "task_folder#move", :constraints => {:path=> /.*/}, :via => :post
-  match "notes:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}, :via => :get
-  match "tasks:path" => "task_folder#task_view", :constraints => {:path=> /.*/}
-  match "people:path" => "task_folder#person_view", :constraints => {:path=> /.*/}
-  match "events:path" => "task_folder#event_view", :constraints => {:path=> /.*/}
-  match "topics:path" => "task_folder#topic_view", :constraints => {:path=> /.*/}
-  match 'file/new' => "task_folder#new_file"
+
+  match ":username/" => "task_folder#home_view", :via => :get
+
+  match ":username/notes:path" => "task_folder#move", :constraints => {
+      :path=> /.*/
+  }, :via => :post
+  match ":username/notes:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}, :via => :get
+  match ":username/tasks:path" => "task_folder#task_view", :constraints => {:path=> /.*/}
+  match ":username/people:path" => "task_folder#person_view", :constraints => {:path=> /.*/}
+  match ":username/events:path" => "task_folder#event_view", :constraints => {:path=> /.*/}
+  match ":username/topics:path" => "task_folder#topic_view", :constraints => {:path=> /.*/}
+  match ':username/file/new' => "task_folder#new_file"
 
   resources :oauth_consumers do
     member do

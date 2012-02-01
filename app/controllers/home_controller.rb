@@ -6,7 +6,9 @@ class HomeController < ApplicationController
   def index
 
     if user_signed_in?
-     redirect_to :controller=>"task_folder", :action => "folder_view", :path => "/"
+
+      #format.html {:render '_home_view'}
+      redirect_to :controller=>"task_folder", :action => "home_view", :username => current_user.username
     else
       respond_to do |format|
         format.html # index.html.erb

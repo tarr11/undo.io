@@ -43,7 +43,6 @@ class TaskFolderController < ApplicationController
 
   def new_file
 
-    c
     @file = TodoFile.new
     @is_new_file = true
     respond_to do |format|

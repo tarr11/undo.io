@@ -90,7 +90,6 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/solr/data/development/index/segments_k" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/controllers/app/dropbox_controller_spec.rb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/helpers/app/dropbox_helper_spec.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
     </list>
     <ignored path="todo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -135,19 +134,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="production.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="production.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="15" selection-start="1234" selection-end="1234" vertical-scroll-proportion="0.0">
+            <state line="35" column="15" selection-start="1234" selection-end="1234" vertical-scroll-proportion="0.5905512">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Gemfile" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Gemfile" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Gemfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="82" selection-start="1279" selection-end="1279" vertical-scroll-proportion="0.696288">
+            <state line="65" column="82" selection-start="1279" selection-end="1279" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -985,16 +984,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
+    <entry file="file://$PROJECT_DIR$/Gemfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="15" selection-start="1234" selection-end="1234" vertical-scroll-proportion="0.0">
+        <state line="65" column="82" selection-start="1279" selection-end="1279" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Gemfile">
+    <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="82" selection-start="1279" selection-end="1279" vertical-scroll-proportion="0.696288">
+        <state line="35" column="15" selection-start="1234" selection-end="1234" vertical-scroll-proportion="0.5905512">
           <folding />
         </state>
       </provider>

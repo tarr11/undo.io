@@ -36,8 +36,7 @@ class User < ActiveRecord::Base
    end
 
   def whitelisted
-      return true
-    beta_user = BetaTester.find_by_email self.email
+      beta_user = BetaTester.find_by_email self.email
       if beta_user.nil?
         errors.add self.email, "is not on our invitation list"
         return false

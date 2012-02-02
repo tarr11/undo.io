@@ -7,9 +7,9 @@ class HomeController < ApplicationController
 
   def index
 
-    get_header_data
     if user_signed_in?
 
+      get_header_data
       changed_files = @taskfolder.search_for_changes("test")
 
        @changed_files_by_date = changed_files

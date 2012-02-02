@@ -1,10 +1,11 @@
+<%= render 'layouts/breadcrumb'%>
 <h1>Home View</h1>
 <div class="row">
-  <div class="span8">
+  <div class="span6">
     <h2>You</h2>
-    <%=link_to "Your Notes", :controller=>"task_folder", :action => "folder_view", :path=>"/" %>
+    <%=link_to "Your Notes", :controller=>"task_folder", :action => "folder_view", :username=> current_user.username %>
   </div>
-  <div class="span8">
+  <div class="span6">
     <h2>The World</h2>
   </div>
 

@@ -105,7 +105,7 @@ module Notes::TaskFolderHelper
         ]
 
         path = "/"
-        if (!params[:path].empty?)
+        if (!params[:path].nil? && !params[:path].empty?)
              path = params[:path]
         end
 
@@ -149,7 +149,7 @@ module Notes::TaskFolderHelper
         @folders = @taskfolder.task_folders
         @files = @taskfolder.todo_files
         @dataUrlBase = url_for(:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :trailing_slash => true, :only_path =>true)
-        @hashPageId = params[:path].sub("/","_")
+        @hashPageId = path.sub("/","_")
 
         person_notes = []
         @taskfolder.get_person_notes do |note|
@@ -164,7 +164,7 @@ module Notes::TaskFolderHelper
         }
 
         @people = people.uniq
-
+        @path = path
     end
 
     def sample_tasks

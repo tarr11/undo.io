@@ -42,6 +42,7 @@ class TaskFolderController < ApplicationController
   end
 
   def new_file
+
     get_header_data
     @file = TodoFile.new
     @is_new_file = true

@@ -161,12 +161,20 @@ function convertToSlug(Text)
 <% end %>
 
 <div class="row">
-<div class="span12">
+<div class="span8">
 <div class="row">
   <div class="span4">
-  <h3><%=@header%></h3>
+  <h3><%=@header%>
+    <% if @file.is_public %>
+        <span class="label label-success">Public</span>
+
+    <% else %>
+        <span class="label">Private</span>
+    <% end %>
+</h3>
+
   </div>
-  <div class="span8" style="text-align: right">
+  <div class="span4">
     <% if @is_new_file
         new_button_style = ""
         edit_button_style = "display:none"
@@ -174,17 +182,24 @@ function convertToSlug(Text)
         new_button_style = "display:none"
         edit_button_style = ""
     end %>
-         <div class="edit-mode-buttons" style="<%=edit_button_style%>">
-            <a href="#" id="edit-button" class="btn primary">Save</a>
-        <%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}, :class=>"btn"%>
-    <a href="#" id="move-button" class="btn">Move</a>
-    <a href="#" id="copy-button" class="btn">Copy</a>
-        <a href="#" id="delete-button" class="btn danger">Del</a>
+         <div class="pull-right" style="<%=edit_button_style%>">
+           <div class="btn-group">
+            <a href="#" id="edit-button" class="btn">Save</a>
+             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="caret"></span>
+              </a>
+           <ul class="dropdown-menu" style="text-align: left;">
+            <li><%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}%></li>
+            <li><a href="#" id="move-button">Move</a></li>
+            <li><a href="#" id="copy-button" >Copy</a></li>
+            <li><a href="#" id="delete-button">Delete</a></li>
            <% if @file.is_public %>
-            <a href="#" id="publish-button" class="btn">Prv</a>
+            <li><a href="#" id="publish-button">Prv</a></li>
            <% else %>
-            <a href="#" id="publish-button" class="btn">Publish</a>
+            <li><a href="#" id="publish-button">Publish</a></li>
            <% end %>
+       </ul>
+           </div>
          </div>
         <div class="new-mode-buttons"  style="<%=new_button_style%>">
         <a href="#" id="save-new" class="btn primary">Save</a>
@@ -210,7 +225,7 @@ function convertToSlug(Text)
 
 <div class="span4">
   <% unless @is_new_file%>
-  <h3>Related</h3>
+  <h3>Feed</h3>
       <ul style="margin-left:0">
   <% @people.each do |person|%>
       <li class="undo-divider"><%=link_to person.name, :controller => "task_folder", :action => "person_view", :path=>@file.path , :person=>person.name%> </li>

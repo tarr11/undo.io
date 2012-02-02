@@ -56,7 +56,7 @@ class TodoFilesController < ApplicationController
     respond_to do |format|
       if @todo_file.save
         DropboxNavigator.delay.UpdateFileInDropbox(@todo_file)
-        format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @todo_file.filename, notice: 'File was successfully created.' }
+        format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :username=>current_user.username, :path=> @todo_file.filename, notice: 'File was successfully created.' }
         format.json { render json: @todo_file, status: :created, location: @todo_file }
       else
         format.html { render action: "new" }
@@ -91,7 +91,7 @@ class TodoFilesController < ApplicationController
     TodoFile.deleteFromWeb current_user, @todo_file.filename
 
     respond_to do |format|
-      format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @todo_file.path, notice: 'File was deleted.' }
+      format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :username=>current_user.username, :path=> @todo_file.path, notice: 'File was deleted.' }
       format.json { head :ok }
     end
   end

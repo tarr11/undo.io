@@ -8,7 +8,9 @@ class HomeController < ApplicationController
     if user_signed_in?
 
       #format.html {:render '_home_view'}
-      redirect_to :controller=>"task_folder", :action => "home_view", :username => current_user.username
+      respond_to do |format|
+          format.html { render 'task_folder/home_view', :layout => 'application' }
+      end
     else
       respond_to do |format|
         format.html # index.html.erb

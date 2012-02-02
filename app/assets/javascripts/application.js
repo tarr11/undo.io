@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require task_folder
 //= require twitter/bootstrap/bootstrap-dropdown
 //= require codemirror

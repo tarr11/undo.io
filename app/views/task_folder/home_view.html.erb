@@ -1,12 +1,25 @@
+<% content_for :stylesheet_includes do %>
+  <%= stylesheet_link_tag "task_folder"  %>
+<% end %>
 <%= render 'layouts/breadcrumb'%>
-<h1>Home View</h1>
-<div class="row">
-  <div class="span6">
-    <h2>You</h2>
-    <%=link_to "Your Notes", :controller=>"task_folder", :action => "folder_view", :username=> current_user.username %>
-  </div>
-  <div class="span6">
-    <h2>The World</h2>
-  </div>
+    <div class="content">
+    <div class="row">
+    <div class="span4">
+        <%= render 'layouts/folder_list'%>
+      </div>
+     <div id="main-body" class="span8">
+       <div class="row" style="margin-bottom: .5em;">
+         <div class="span4" style="margin: 0">
+           <h2>Latest Notes</h2>
+         </div>
+         <div class="span4" style="text-align: right;">
+           <%= render 'layouts/search_form' %>
+         </div>
+       </div>
+       <div class="row">
+         <%= render 'task_folder/file_feed'%>
+       </div>
+     </div>
+    </div>
 
-</div>
+    </div>

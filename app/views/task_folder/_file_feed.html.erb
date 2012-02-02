@@ -1,0 +1,17 @@
+<ul style="margin-left:0em;">
+    <% @changed_files_by_date.each do |date_item| %>
+      <li class="undo-divider"><%=date_item.first%></li>
+      <% date_item.second.sort_by{|a| a[:file].revision_at}.reverse.each do |file| %>
+          <li class="undo-ul-li-heading"><%= link_to  file[:file].shortName, :controller => "task_folder", :action=>"folder_view", :path=> file[:file].filename, :only_path => @only_path, :username=>file[:file].user.username%></li>
+          <%file[:changedLines].each do |line|%>
+               <li class="undo-ul-li-desc"><%=line.html_safe%></li>
+          <% end%>
+          <li class="undo-ul-li-desc path"><%=time_ago_in_words(file[:file].revision_at)%> ago in <%= link_to file[:file].path, :controller => "task_folder", :action=>"folder_view", :path=> file[:file].path, :only_path => @only_path, :username=>file[:file].user.username%></li>
+          <% if file[:changedLines].length > 3 %>
+          <li class="undo-ul-li-desc italics"><%=pluralize([:changedLines].length,"change", "more changes")%></li>
+          <% else %>
+          <li class="undo-ul-li-desc italics"><%=pluralize([:changedLines].length,"change")%></li>
+          <% end %>
+      <% end %>
+    <% end %>
+</ul>

@@ -63,7 +63,8 @@ gem 'ZenTest', '4.6.0'
 gem 'ace-rails-ap'
 gem 'mobylette'
 gem 'jquery_mobile_rails'
-gem 'twitter-bootstrap-rails', :group => :assets,:git => 'http://github.com/tarr11/twitter-bootstrap-rails.git'
+
+gem 'twitter-bootstrap-rails',"~> 2.0rc0",:group => :assets
 gem 'diff-lcs'
 gem 'twitter-text'
 gem 'chronic'

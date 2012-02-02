@@ -16,7 +16,7 @@ class TaskFolderController < ApplicationController
 
     @public_files = TodoFile.find_by_is_public(true, :order=>"REVISION_AT desc")
     respond_to do |format|
-       format.html {render 'home_view', :layout => 'application'}
+       format.html {render 'home_view', :layout => 'task_folder'}
     end
 
   end
@@ -43,7 +43,7 @@ class TaskFolderController < ApplicationController
 
   def new_file
 
-    get_header_data
+    c
     @file = TodoFile.new
     @is_new_file = true
     respond_to do |format|

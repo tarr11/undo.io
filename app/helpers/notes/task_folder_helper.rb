@@ -74,7 +74,14 @@ module Notes::TaskFolderHelper
     end
     def get_header_data
 
-        @file_user = User.find_by_username(params[:username])
+        if params[:username].nil?
+          username = current_user.username
+        else
+          username = params[:username]
+        end
+
+
+        @file_user = User.find_by_username(username)
 
         @views = [
           OpenStruct.new(
@@ -129,7 +136,7 @@ module Notes::TaskFolderHelper
 
           @header = @taskfolder.shortName
           if @header.blank?
-            @header = "Start"
+            @header = @file_user.username + " -  Notes"
           end
         else
           @taskfolder = @file.task_folder
@@ -148,7 +155,7 @@ module Notes::TaskFolderHelper
         @only_path = true
         @folders = @taskfolder.task_folders
         @files = @taskfolder.todo_files
-        @dataUrlBase = url_for(:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :trailing_slash => true, :only_path =>true)
+        @dataUrlBase = url_for(:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :trailing_slash => true, :only_path =>true, :username=>username)
         @hashPageId = path.sub("/","_")
 
         person_notes = []

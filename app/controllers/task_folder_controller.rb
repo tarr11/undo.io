@@ -44,6 +44,8 @@ class TaskFolderController < ApplicationController
   def new_file
 
     @file = TodoFile.new
+    @file_user = current_user
+    @file.user = current_user
     @is_new_file = true
     respond_to do |format|
       format.html { render '_note_view', :layout => 'application'}

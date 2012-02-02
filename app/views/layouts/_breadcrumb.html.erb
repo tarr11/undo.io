@@ -3,7 +3,8 @@
     <% unless params[:username].nil? %>
     <span class="divider">/</span>
   <li><%= link_to @file_user.username, :controller => "task_folder", :action=>"folder_view", :path=>"/", :username=> @file_user.username%></li>
-  <% @path_parts.each_with_index do |part,index| %>
+  <% unless @path_parts.nil?%>
+    <% @path_parts.each_with_index do |part,index| %>
      <li>
        <% if index > 0 %>
      <span class="divider">/</span>
@@ -11,11 +12,13 @@
        <%= link_to part[:name], :controller => "task_folder", :action=>"folder_view", :path=>part[:path], :username=> @file_user.username %>
      </li>
   <% end %>
+  <% end %>
   <% if !@file.nil? && !@is_new_file%>
       <li>
       <span class="divider">/</span>
       <%= link_to @file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>@file.filename, :username=> @file_user.username%>
   </li>
+
   <%end%>
    <% end %>
 </ul>

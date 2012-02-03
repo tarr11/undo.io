@@ -1,3 +1,10 @@
+checkAutoSave = ->
+  contents = window.myCodeMirror.getValue()
+  if contents != window.lastContents
+    $('#edit-button').click
+    window.lastContents = contents
+
+
 initCodeMirror = () ->
   textArea = document.getElementById('editor')
   window.myCodeMirror = CodeMirror.fromTextArea textArea,
@@ -11,8 +18,7 @@ initCodeMirror = () ->
       else
         $('#status').html("")
 
-
-
+  setInterval checkAutoSave, 10000
   window.myCodeMirror.focus()
 
 

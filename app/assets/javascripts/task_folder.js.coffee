@@ -5,6 +5,8 @@ $ ->
 
 #  $('#read-only-contents').delegate ".cm-undo-link", "mouseup", (event) ->
 
+
+
   $('#read-only-contents').keyup (event) ->
     if event.which == 33
       cursor = window.myCodeMirror.getCursor()
@@ -105,12 +107,12 @@ $ ->
       $('#contents').val(contents)
       $('#filename').val($('#current-path').val())
       # post the form
-      $("#loading").show()
+      #$("#loading").fadeIn(1000)
 
       $("#update-form")
           .data('type', 'json')
           .bind('ajax:complete', ->
-            $("#loading").hide()
+           # $("#loading").fadeOut(2000)
           )
           .bind('ajax:success', (event, data, status, xhr) ->
 #              $("#read-only-contents").html(data)

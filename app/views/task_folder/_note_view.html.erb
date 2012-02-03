@@ -240,6 +240,7 @@ function convertToSlug(Text)
   </div>
 </div>
   <div id="status" style="display:none">&nbsp;</div>
+  <div id="page-path" style="display:none"><%=url_for(:controller => "task_folder", :action=>"folder_view", :path=> @file.filename, :only_path => true, :username=>@file.user.username)%></div>
 
 
     <div id="read-only-contents" style="font-family: courier new;width:100%;border: solid black 1px">
@@ -259,29 +260,9 @@ function convertToSlug(Text)
 <div class="span4">
   <% unless @is_new_file%>
   <h3>Feed</h3>
-      <ul style="margin-left:0">
-  <% @people.each do |person|%>
-      <li class="undo-divider"><%=link_to person.name, :controller => "task_folder", :action => "person_view", :path=>@file.path , :person=>person.name%> </li>
-      <%person.files.each do |file|%>
-        <li class="undo-ul-li-heading">
-          <%=link_to file.file.shortName, :controller => "task_folder", :action => "folder_view", :path=>file.file.filename %></li>
-          <%file.file.to_enum(:get_lines).first(3).each do |line|%>
-                <li class="undo-ul-li-desc"><%=line%></li>
-          <% end%>
-      <% end %>
-
-  <% end %>
-
-  <%@related_tags.each do |tag|%>
-      <li class="undo-divider"><%=link_to "#" + tag.name, :controller => "task_folder", :action => "topic_view", :path=>@file.path , :topic=>tag.name%></li>
-      <%tag.files.each do |file|%>
-        <li class="undo-ul-li-heading"><%=link_to file.file.shortName, :controller => "task_folder", :action => "folder_view", :path=>file.file.filename %></li>
-        <%file.file.to_enum(:get_lines).first(3).each do |line|%>
-              <li class="undo-ul-li-desc"><%=line%></li>
-        <% end%>
-      <% end %>
-  <% end %>
-   </ul>
+      <div id="right-rail-feed">
+    <%= render 'right_rail'%>
+      </div>
   <% end %>
 </div>
 </div>

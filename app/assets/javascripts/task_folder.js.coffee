@@ -1,6 +1,22 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+
+getNewRightRail = ->
+  $.ajax $('#page-path').text() + "?rail=true",
+    type: 'GET'
+    dataType: 'html'
+    error: (jqXHR, textStatus, errorThrown) ->
+        $('body').append "AJAX Error: #{textStatus}"
+    success: (data, textStatus, jqXHR) ->
+        if window.lastdata != data
+          window.lastdata = data
+          $('#right-rail-feed').hide()
+          $('#right-rail-feed').html(data)
+          $('#right-rail-feed').fadeIn('slow')
+
+
+
 $ ->
 
 #  $('#read-only-contents').delegate ".cm-undo-link", "mouseup", (event) ->
@@ -115,6 +131,7 @@ $ ->
            # $("#loading").fadeOut(2000)
           )
           .bind('ajax:success', (event, data, status, xhr) ->
+               window.setTimeout getNewRightRail, 1000
 #              $("#read-only-contents").html(data)
 #              $('#edit-button').html('Edit')
 #              $('#read-only-contents').show()

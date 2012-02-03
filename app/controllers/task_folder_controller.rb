@@ -226,7 +226,11 @@ class TaskFolderController < ApplicationController
 
   end
 
-   def folder_view
+  def note_feed
+    get_header_data
+  end
+
+  def folder_view
 
     get_header_data
 
@@ -272,8 +276,11 @@ class TaskFolderController < ApplicationController
       get_related_people
       get_related_tags
 
-
-      if @file.user.id == current_user.id
+      if params[:rail] == "true"
+        respond_to do |format|
+            format.html { render '_right_rail', :layout => false}
+         end
+      elsif @file.user.id == current_user.id
         respond_to do |format|
            format.html { render '_note_view', :layout => 'application'}
         end

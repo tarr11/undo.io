@@ -21,6 +21,8 @@ initCodeMirror = () ->
   setInterval checkAutoSave, 1000
   window.myCodeMirror.focus()
 
+  setInterval getNewRightRail, 5000
+
 
 $ ->
   initCodeMirror()

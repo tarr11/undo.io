@@ -28,7 +28,7 @@ $ ->
   $('#save-new').click (event) ->
      event.preventDefault()
      contents = window.myCodeMirror.getValue()
-     $('#todo_file_contents').val(contents)
+     $('#contents').val(contents)
      path = $('#current-path').val()
      title = contents.split('\n')[0]
      slug = convertToSlug(title)
@@ -40,19 +40,15 @@ $ ->
      $('#filename').focus()
 
   $('#confirm-save-file').click (event) ->
-      $('#todo_file_filename').val($('#filename').val())
-      $("form[data-remote]")
-           .data('type', 'html')
+      $("#save-new-form")
+           .data('type', 'json')
            .bind('ajax:complete', ->
               $('#save-modal').modal('hide'))
            .bind('ajax:success', (event, data, status, xhr) ->
-               parts = $('#filename').val().split('/')
-               $("H2").html(parts[parts.length-1])
-               $(".edit-mode-buttons").show()
-               $(".new-mode-buttons").hide())
+               window.location.href = data.location)
            .bind('ajax:error', (xhr, status, error) ->
              alert error)
-      $('form[data-remote]').submit()
+      $("#save-new-form").submit()
 
 
   $('#delete-button').click (event) ->
@@ -106,12 +102,13 @@ $ ->
   $('#edit-button').click (event) ->
     if $('#edit-button').html() == 'Save'
       contents = window.myCodeMirror.getValue()
-      $('#todo_file_contents').val(contents)
+      $('#contents').val(contents)
+      $('#filename').val($('#current-path').val())
       # post the form
       $("#loading").show()
 
-      $("form[data-remote]")
-          .data('type', 'html')
+      $("#update-form")
+          .data('type', 'json')
           .bind('ajax:complete', ->
             $("#loading").hide()
           )
@@ -123,7 +120,7 @@ $ ->
           )
           .bind('ajax:error', (xhr, status, error) ->
           )
-      $('form[data-remote]').submit()
+      $('#update-form').submit()
 
 
     #$('.timebox').click (event) ->

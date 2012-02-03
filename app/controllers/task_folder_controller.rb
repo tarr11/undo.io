@@ -21,15 +21,68 @@ class TaskFolderController < ApplicationController
 
   end
 
+  def create
+    @todo_file = current_user.todo_files.new(:filename => params[:filename], :contents => params[:contents], :is_public => false)
+    @todo_file.revision_at = DateTime.now.utc
+
+    if !@todo_file.filename.starts_with?("/")
+      @todo_file.filename = "/" + @todo_file.filename
+    end
+
+    respond_to do |format|
+      if @todo_file.save
+        DropboxNavigator.delay.UpdateFileInDropbox(@todo_file)
+        format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :username=>current_user.username, :path=> @todo_file.filename, notice: 'File was successfully created.' }
+        format.json { render json: @todo_file, status: :created}
+      else
+        format.html { render action: "new" }
+        format.json { render json: @todo_file.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
   def publish
     get_header_data
     current_user.file(@file.filename).make_public()
+    respond_to do |format|
+      format.html {redirect_to :controller => "task_folder", :action=>"folder_view", :path=> @file.filename, :only_path=>true, :username =>@file.user.username }
+    end
 
   end
 
   def unpublish
     get_header_data
     current_user.file(@file.filename).make_private()
+    respond_to do |format|
+      format.html {redirect_to :controller => "task_folder", :action=>"folder_view", :path=> @file.filename, :only_path=>true, :username =>@file.user.username }
+    end
+
+  end
+
+  def create_or_update
+    filename = params[:filename]
+    @todo_file = current_user.todo_files.find_by_filename(filename)
+    if @todo_file.nil?
+      @todo_file = current_user.todo_files.new(:filename => params[:filename], :contents => params[:contents], :is_public => false)
+      @todo_file.revision_at = DateTime.now.utc
+      if !@todo_file.filename.starts_with?("/")
+        @todo_file.filename = "/" + @todo_file.filename
+      end
+    else
+      @todo_file.contents = params[:contents]
+    end
+    if @todo_file.save
+      DropboxNavigator.delay.UpdateFileInDropbox(@todo_file)
+      respond_to do |format|
+        format.json  { render json: {"location" => url_for(:controller => "task_folder", :action=>"folder_view", :path=> @todo_file.filename, :only_path=>true, :username =>@todo_file.user.username)}}
+      end
+    else
+      respond_to do |format|
+        format.html { render action: "new" }
+        format.json { render json: @todo_file.errors, status: :unprocessable_entity }
+      end
+    end
 
   end
 
@@ -39,9 +92,8 @@ class TaskFolderController < ApplicationController
       publish
     elsif params[:method] == "unpublish"
       unpublish
-    end
-    respond_to do |format|
-      format.json { head :ok }
+    else
+      create_or_update
     end
 
   end

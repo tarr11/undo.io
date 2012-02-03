@@ -166,6 +166,25 @@ function convertToSlug(Text)
     </div>
      <% end %>
   </div>
+  <div id="copy-modal" class="modal hide fade">
+    <%=form_tag(url_for(:action=>"update", :path=>params[:path],:method=>"copy"), :method=>:put, :id=>"copy-form") do %>
+    <div class="modal-header">
+      <a href="#" class="close">&times;</a>
+      <h3>Copy <%=@file.shortName%></h3>
+    </div>
+    <div class="modal-body">
+        <div class="clearfix">
+        <div>Enter a new filename and path</div>
+        <div><input type="text" name="filename" class="span4" value="<%=@file.filename%>"></div>
+          <%=hidden_field_tag "contents"%>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn primary">Copy</button>
+      <a href="#" id="cancel-copy-file" class="btn secondary cancel">Cancel</a>
+    </div>
+     <% end %>
+  </div>
 </div>
 <% else %>
     <%=form_tag url_for(:action=>"update", :controller => "task_folder"), :method=>:put, :remote=>true, :id => "save-new-form"  do %>

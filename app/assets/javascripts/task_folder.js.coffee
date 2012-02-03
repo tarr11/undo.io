@@ -101,6 +101,10 @@ $ ->
       keyboard: true,
       show : true
 
+  $('#copy-button').click (event) ->
+    $('#copy-modal').modal
+      keyboard: true,
+      show : true
 
   $('.task-checkbox').click (event) ->
     $('#file_name').val($(event.target).attr('file_name'))

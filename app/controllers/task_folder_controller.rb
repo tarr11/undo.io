@@ -93,6 +93,8 @@ class TaskFolderController < ApplicationController
       unpublish
     elsif params[:method] == "move"
       move
+    elsif params[:method] == "copy"
+      copy
     else
       create_or_update
     end
@@ -133,6 +135,34 @@ class TaskFolderController < ApplicationController
 
       end
   end
+
+  def copy
+      get_header_data
+      # if this is a file. move it
+      unless @file.nil?
+
+        @newFile = TodoFile.new
+        @newFile.filename = params[:filename]
+        @newfile.contents = params[:contents]
+        @newfile.user = current_user
+
+        if @newFile.save
+          DropboxNavigator.delay.UpdateFileInDropbox(@newFile)
+          respond_to do |format|
+            format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @newFile.filename, :username=>@newFile.user.username, notice: 'File was copied.' }
+          end
+        end
+      end
+
+      unless @taskfolder.nil?
+        oldName = @taskfolder.path
+        # find all files in this path, and change their names
+        # TODO: deal with overwriting
+
+
+        end
+    end
+
 
   def task_file_view
 

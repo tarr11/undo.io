@@ -149,7 +149,7 @@ function convertToSlug(Text)
     </div>
   </div>
   <div id="move-modal" class="modal hide fade">
-    <%=form_tag(url_for(:action=>"move", :path=>params[:path]), :method=>"move", :id=>"move-form") do %>
+    <%=form_tag(url_for(:action=>"update", :path=>params[:path],:method=>"move"), :method=>:put, :id=>"move-form") do %>
     <div class="modal-header">
       <a href="#" class="close">&times;</a>
       <h3>Move <%=@file.shortName%></h3>
@@ -157,7 +157,7 @@ function convertToSlug(Text)
     <div class="modal-body">
         <div class="clearfix">
         <div>Enter a new filename and path</div>
-        <div><input type="text" name="filename" class="span8" value="<%=@file.filename%>"></div>
+        <div><input type="text" name="filename" class="span4" value="<%=@file.filename%>"></div>
         </div>
     </div>
     <div class="modal-footer">

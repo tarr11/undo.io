@@ -91,6 +91,8 @@ class TaskFolderController < ApplicationController
       publish
     elsif params[:method] == "unpublish"
       unpublish
+    elsif params[:method] == "move"
+      move
     else
       create_or_update
     end
@@ -118,7 +120,7 @@ class TaskFolderController < ApplicationController
       if @file.save
         DropboxNavigator.delay.move_file oldName, @file
         respond_to do |format|
-          format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @file.filename, notice: 'File was moved.' }
+          format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @file.filename, :username=>@file.user.username, notice: 'File was moved.' }
         end
       end
     end
@@ -283,8 +285,6 @@ class TaskFolderController < ApplicationController
       end
 
     end
-
-
 
 
   end

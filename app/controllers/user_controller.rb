@@ -1,12 +1,12 @@
 class UserController < ApplicationController
 
-  respond_to_mobile_requests :skip_xhr_requests => false
-  respond_to do |format|
-    if current_user.update_attributes(params[:user])
-      format.html
-      format.mobile
-    end
-  end
+  #respond_to_mobile_requests :skip_xhr_requests => false
+  #respond_to do |format|
+  #  if current_user.update_attributes(params[:user])
+  #    format.html
+  #    format.mobile
+  #  end
+  #end
 
   def show
     @user = current_user

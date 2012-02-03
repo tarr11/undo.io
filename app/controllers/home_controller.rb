@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
    before_filter :authenticate_user!, :except => :index
-   respond_to_mobile_requests :skip_xhr_requests => false
    include Notes::TaskFolderHelper
    include Notes
 
@@ -31,7 +30,6 @@ class HomeController < ApplicationController
     else
       respond_to do |format|
         format.html # index.html.erb
-        format.mobile
       end
 
     end

@@ -10,7 +10,8 @@ class TodoFile < ActiveRecord::Base
   has_many :task_file_revisions
 
   after_save :save_revision
-  attr_accessor :path, :is_public
+#  attr_accessible :is_public, :contents
+
   serialize :diff
 
   searchable do
@@ -18,6 +19,7 @@ class TodoFile < ActiveRecord::Base
     text :filename, :stored => true
     time :revision_at
     integer :user_id
+    boolean :is_public
   end
   handle_asynchronously :solr_index
   handle_asynchronously :remove_from_index
@@ -544,58 +546,6 @@ end
 
   end
 
-=begin
-  def self.pushChanges(user, newFile)
-
-    #   newFile = TodoFile.importFile(newFileName, user)
-    oldFile = user.todo_files.where(["filename=? and id <> ?", newFile.filename,newFile.id]).order("revision_at DESC").first
-
-    if (!oldFile.nil?)
-      puts "Deleted"
-
-      TodoFile.App
-      deleted = TodoFile.compareFiles(oldFile, newFile)
-      deletedGuids = deleted.map do |line|
-        line.guid
-      end
-
-      user.tasks.where([ "client_id in (?)", deletedGuids ]).delete_all
-      deleted.map do |line|
-        puts line.line
-      end
-
-    end
-
-    puts "Inserted"
-    inserted = TodoFile.compareFiles(newFile, oldFile)
-
-    inserted.each do |line|
-      newTask = user.tasks.new  
-      newTask.task = line.line
-      newTask.client_id = line.guid
-      newTask.save
-      puts line.line 
-    end
-  end                                    f
-
-  def self.pushChangesFromTwoFiles(user, oldFile, newFile)
-    
-    deleted = TodoFile.compareFiles(oldFile, newFile)
-    inserted = TodoFile.compareFiles(newFile, oldFile)
-
-    deletedGuids = deleted.map do |line|
-      line.guid
-    end
-
-    user.tasks.where([ "client_id in (?)", deletedGuids ]).delete_all
-
-    inserted.each do |line|
-      newTask = user.tasks.new  
-      newTask.task = line.line
-      newTask.client_id = line.guid
-      newTask.save
-    end
-=end
 
 
 end

@@ -21,22 +21,27 @@ class TaskFolderController < ApplicationController
 
   end
 
-  def make_public
-    current_user.file(params[:file_name]).make_public()
-    respond_to do |format|
-      format.html { head :ok }
-      format.json { head :ok }
-      format.js
-    end
+  def publish
+    get_header_data
+    current_user.file(@file.filename).make_public()
 
   end
 
-  def make_private
-    current_user.file(params[:file_name]).make_private()
+  def unpublish
+    get_header_data
+    current_user.file(@file.filename).make_private()
+
+  end
+
+  def update
+
+    if params[:method] == "publish"
+      publish
+    elsif params[:method] == "unpublish"
+      unpublish
+    end
     respond_to do |format|
-      format.html { head :ok }
       format.json { head :ok }
-      format.js
     end
 
   end
@@ -207,8 +212,15 @@ class TaskFolderController < ApplicationController
       get_related_tags
 
 
-      respond_to do |format|
-        format.html { render '_note_view', :layout => 'application'}
+      if @file.user.id == current_user.id
+        respond_to do |format|
+           format.html { render '_note_view', :layout => 'application'}
+        end
+      else
+        respond_to do |format|
+           format.html { render '_note_view_other_user', :layout => 'application'}
+        end
+
       end
 
     end

@@ -61,6 +61,19 @@ $ ->
       show : true
     })
 
+  $('#publish-button').click (event) ->
+    $('#publish-modal').modal({
+      keyboard: true,
+      show : true
+    })
+
+  $('#unpublish-button').click (event) ->
+    $('#unpublish-modal').modal({
+      keyboard: true,
+      show : true
+    })
+
+
   $('.cancel').click (event) ->
     $('#move-modal').modal('hide')
 

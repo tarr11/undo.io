@@ -97,6 +97,38 @@ function convertToSlug(Text)
 <% if !@is_new_file %>
 <div style="position: relative;">
 
+    <div id="publish-modal" class="modal hide fade">
+      <div class="modal-header">
+        <a href="#" class="close">&times;</a>
+        <h3>Publish <%=@file.shortName%>?</h3>
+      </div>
+      <div class="modal-body">
+          <div class="clearfix">
+          <div>Publish <%=@file.filename%>?</div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <%= link_to  'Publish', {:controller=>"task_folder", :action=>"update", :method=>:publish}, :method=>:put, :remote => true, :form => { "data-type" => "json", "filename" => @file.filename},  :class => "btn btn-success"%>
+        <a href="#" id="cancel-publish-file" class="btn secondary cancel">Cancel</a>
+      </div>
+    </div>
+
+  <div id="unpublish-modal" class="modal hide fade">
+     <div class="modal-header">
+       <a href="#" class="close">&times;</a>
+       <h3>Unpublish <%=@file.shortName%>?</h3>
+     </div>
+     <div class="modal-body">
+         <div class="clearfix">
+         <div>Unpublish <%=@file.filename%>?</div>
+         </div>
+     </div>
+     <div class="modal-footer">
+       <%= link_to 'Unpublish', {:controller=>"task_folder", :action=>"update", :method=>:unpublish}, :method=>:put, :remote => true, :form => { "data-type" => "json", "filename" => @file.filename},  :class => "btn btn-success"%>
+       <a href="#" id="cancel-publish-file" class="btn secondary cancel">Cancel</a>
+     </div>
+   </div>
+
      <div id="delete-modal" class="modal hide fade">
     <div class="modal-header">
       <a href="#" class="close">&times;</a>
@@ -163,47 +195,42 @@ function convertToSlug(Text)
 <div class="row">
 <div class="span8">
 <div class="row">
-  <div class="span4">
+  <div class="span3">
   <h3><%=@header%>
     <% if @file.is_public %>
         <span class="label label-success">Public</span>
-
     <% else %>
         <span class="label">Private</span>
     <% end %>
 </h3>
-
   </div>
-  <div class="span4">
-    <% if @is_new_file
-        new_button_style = ""
-        edit_button_style = "display:none"
-    else
-        new_button_style = "display:none"
-        edit_button_style = ""
-    end %>
-         <div class="pull-right" style="<%=edit_button_style%>">
-           <div class="btn-group">
-            <a href="#" id="edit-button" class="btn">Save</a>
-             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                <span class="caret"></span>
-              </a>
-           <ul class="dropdown-menu" style="text-align: left;">
-            <li><%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}%></li>
-            <li><a href="#" id="move-button">Move</a></li>
-            <li><a href="#" id="copy-button" >Copy</a></li>
-            <li><a href="#" id="delete-button">Delete</a></li>
-           <% if @file.is_public %>
-            <li><a href="#" id="publish-button">Prv</a></li>
-           <% else %>
-            <li><a href="#" id="publish-button">Publish</a></li>
-           <% end %>
-       </ul>
-           </div>
+  <div class="span5">
+    <div class="pull-right">
+    <% if !@is_new_file%>
+            <div class="btn-group">
+              <% if @file.is_public %>
+                <a href="#" id="unpublish-button" class="btn btn-success">Unpublish</a>
+              <% else %>
+                <a href="#" id="publish-button" class="btn btn-success">Publish</a>
+              <% end %>
+            <a href="#" class="btn btn-primary" id="edit-button">Save</a>
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            More
+            <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+            <li style="text-align: right"><%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>params[:path]}%></li>
+            <li style="text-align: right"><a href="#" id="move-button">Move</a></li>
+            <li style="text-align: right"><a href="#"  id="copy-button" >Copy</a></li>
+            <li style="text-align: right"><a href="#" id="delete-button">Delete</a></li>
+            </ul>
          </div>
-        <div class="new-mode-buttons"  style="<%=new_button_style%>">
+    <% else %>
+        <div class="new-mode-buttons">
         <a href="#" id="save-new" class="btn primary">Save</a>
         </div>
+    <% end %>
+       </div>
   </div>
 </div>
   <div id="status" style="display:none">&nbsp;</div>

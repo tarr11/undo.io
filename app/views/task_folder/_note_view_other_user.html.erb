@@ -1,0 +1,108 @@
+<% content_for :javascript_includes do %>
+
+  <%= javascript_include_tag "undo_mode" %>
+
+<% end %>
+<% content_for :stylesheet_includes do %>
+  <%= stylesheet_link_tag "task_folder"  %>
+<% end %>
+
+<%= render 'layouts/breadcrumb'%>
+
+<div style="position: relative;">
+
+    <div id="save-modal" class="modal hide fade">
+      <div class="modal-header">
+        <a href="#" class="close">&times;</a>
+        <h3>Save New File</h3>
+      </div>
+      <div class="modal-body">
+          <div class="clearfix">
+          <div>Filename</div>
+          <div class="input">
+                <input id="filename" class="xlarge">
+          </div>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <a href="#" id="confirm-save-file" class="btn primary">Save</a>
+        <a href="#" id="cancel-save-file" class="btn secondary">Cancel</a>
+      </div>
+    </div>
+
+<style>
+
+</style>
+
+<% content_for :buttons do %>
+<% end %>
+
+<div class="row">
+<div class="span8">
+<div class="row">
+  <div class="span3">
+  <h3><%=@header%></h3>
+  </div>
+  <div class="span5">
+    <div class="pull-right">
+    <% if !@is_new_file%>
+            <div class="btn-group">
+            <a href="#" class="btn btn-primary" id="clip-button">Copy this note</a>
+         </div>
+    <% else %>
+        <div class="new-mode-buttons">
+        <a href="#" id="save-new" class="btn primary">Save</a>
+        </div>
+    <% end %>
+       </div>
+  </div>
+</div>
+  <div id="status" style="display:none">&nbsp;</div>
+    <div id="loading" style="display:none">Saving...</div>
+    <div id="read-only-contents" style="width:100%;margin: .5em;">
+      <%@file.formatted_lines.each do |line|%>
+         <%=render_line(line).html_safe%>
+      <% end %>
+      </div>
+
+<% if !@file.contents.nil? %>
+    <div>Last updated <%=time_ago_in_words(@file.revision_at)%> ago</div>
+<% end %>
+    <%= form_for(@file, :remote => true) do |f| %>
+    <%= f.hidden_field :contents%>
+    <%= f.hidden_field 'filename'%>
+    <%= hidden_field_tag 'current-path', params[:path] %>
+<% end %>
+  </div>
+
+<div class="span4">
+  <% unless @is_new_file%>
+  <h3>Feed</h3>
+      <ul style="margin-left:0">
+  <% @people.each do |person|%>
+      <li class="undo-divider"><%=link_to person.name, :controller => "task_folder", :action => "person_view", :path=>@file.path , :person=>person.name%> </li>
+      <%person.files.each do |file|%>
+        <li class="undo-ul-li-heading">
+          <%=link_to file.file.shortName, :controller => "task_folder", :action => "folder_view", :path=>file.file.filename %></li>
+          <%file.file.to_enum(:get_lines).first(3).each do |line|%>
+                <li class="undo-ul-li-desc"><%=line%></li>
+          <% end%>
+      <% end %>
+
+  <% end %>
+
+  <%@related_tags.each do |tag|%>
+      <li class="undo-divider"><%=link_to "#" + tag.name, :controller => "task_folder", :action => "topic_view", :path=>@file.path , :topic=>tag.name%></li>
+      <%tag.files.each do |file|%>
+        <li class="undo-ul-li-heading"><%=link_to file.file.shortName, :controller => "task_folder", :action => "folder_view", :path=>file.file.filename %></li>
+        <%file.file.to_enum(:get_lines).first(3).each do |line|%>
+              <li class="undo-ul-li-desc"><%=line%></li>
+        <% end%>
+      <% end %>
+  <% end %>
+   </ul>
+  <% end %>
+</div>
+</div>
+</div>

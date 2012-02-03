@@ -148,17 +148,12 @@ class TaskFolder
 
   end
 
-  def search_for_changes(query)
-    results = self.user.todo_files.search do
-      keywords query, :highlight=>true
-      with(:user_id, user.id)
-    end
 
-
+  def self.process_search_results(results, path)
     allChanges = []
     results.each_hit_with_result do |hit, result|
 
-      if result.filename.starts_with?(self.path)
+      if result.filename.starts_with?(path)
 
         addedLines = []
 
@@ -187,6 +182,18 @@ class TaskFolder
 
     end
 
+
+    return allChanges
+
+  end
+
+  def search_for_changes(query)
+    results = self.user.todo_files.search do
+      keywords query, :highlight=>true
+      with(:user_id, user.id)
+    end
+
+    allChanges = TaskFolder.process_search_results results, self.path
 
     return allChanges
   end

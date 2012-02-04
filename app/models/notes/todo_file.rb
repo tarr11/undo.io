@@ -23,6 +23,12 @@ class TodoFile < ActiveRecord::Base
   end
   handle_asynchronously :solr_index
   handle_asynchronously :remove_from_index
+
+  validates_inclusion_of :is_public, :in => [true, false]
+  validates_presence_of :revision_at, :filename, :contents, :user_id
+  validates_uniqueness_of :filename, :scope => :user_id
+
+
   def self.pushChangesFromText(user, filename, text, revisionDate, revisionCode)
     newFile = TodoFile.saveFile(user, filename, text,revisionDate, revisionCode)
     #TodoFile.pushChanges(user, newFile)

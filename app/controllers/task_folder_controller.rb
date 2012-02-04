@@ -141,16 +141,21 @@ class TaskFolderController < ApplicationController
       # if this is a file. move it
       unless @file.nil?
 
-        @newFile = TodoFile.new
-        @newFile.filename = params[:filename]
-        @newfile.contents = params[:contents]
-        @newfile.user = current_user
+        @new_file= current_user.todo_files.new
+        @new_file.filename = params[:copy_filename]
+        @new_file.contents = @file.contents
+        @new_file.user = current_user
+        @new_file.revision_at = DateTime.now
+        @new_file.is_public = false
 
-        if @newFile.save
-          DropboxNavigator.delay.UpdateFileInDropbox(@newFile)
+        if @new_file.save!
+          DropboxNavigator.delay.UpdateFileInDropbox(@new_file)
           respond_to do |format|
-            format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @newFile.filename, :username=>@newFile.user.username, notice: 'File was copied.' }
+            format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @new_file.filename, :username=>@new_file.user.username, notice: 'File was copied.' }
           end
+        else
+          @errors = @new_file.errors
+          folder_view
         end
       end
 

@@ -9,31 +9,7 @@
 
 <%= render 'layouts/breadcrumb'%>
 
-<div style="position: relative;">
-
-    <div id="save-modal" class="modal hide fade">
-      <div class="modal-header">
-        <a href="#" class="close">&times;</a>
-        <h3>Save New File</h3>
-      </div>
-      <div class="modal-body">
-          <div class="clearfix">
-          <div>Filename</div>
-          <div class="input">
-                <input id="filename" class="xlarge">
-          </div>
-          </div>
-
-      </div>
-      <div class="modal-footer">
-        <a href="#" id="confirm-save-file" class="btn primary">Save</a>
-        <a href="#" id="cancel-save-file" class="btn secondary">Cancel</a>
-      </div>
-    </div>
-
-<style>
-
-</style>
+<%= render 'modals'%>
 
 <% content_for :buttons do %>
 <% end %>
@@ -48,7 +24,7 @@
     <div class="pull-right">
     <% if !@is_new_file%>
             <div class="btn-group">
-            <a href="#" class="btn btn-primary" id="clip-button">Copy this note</a>
+            <a href="#" class="btn btn-success" id="copy-button">Copy this note</a>
          </div>
     <% else %>
         <div class="new-mode-buttons">
@@ -103,6 +79,5 @@
   <% end %>
    </ul>
   <% end %>
-</div>
 </div>
 </div>

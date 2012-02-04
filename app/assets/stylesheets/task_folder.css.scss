@@ -152,6 +152,59 @@
         display:inline;
      }
 
+             .CodeMirror-scroll
+             {
+
+                  height: auto; overflow: visible;
+                 min-height: 300px;
+             }
+             span.cm-undo-task
+             {
+                 color: green;
+                 text-decoration: underline;
+                 cursor: pointer;
+                 cursor: hand;
+
+             }
+             span.cm-undo-people
+             {
+                 color: #8b4513;
+                 text-decoration: underline;
+                 cursor: pointer;
+                 cursor: hand;
+             }
+             span.cm-undo-link
+             {
+                 color:blue;
+                 text-decoration: underline;
+                 cursor: pointer;
+                 cursor: hand;
+
+             }
+             span.cm-undo-tag
+             {
+                 color:purple;
+                 text-decoration: underline;
+                 cursor: pointer;
+                 cursor: hand;
+             }
+
+         .fullscreen {
+             display: block;
+             position: absolute;
+             background-color: white;
+             top: 40px;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             z-index: 9999;
+             margin: 0;
+             padding: 0;
+             border: 0px solid #BBBBBB;
+             opacity: 1;
+         }
+
+
 
 /*
     .icon-image

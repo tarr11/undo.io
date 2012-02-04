@@ -2,7 +2,7 @@
   <div>Copied from <%=link_to file_local_path(@file.copied_from), :controller=> "task_folder", :action => "folder_view", :path=>@file.copied_from.filename, :username => @file.copied_from.user.username%></div>
 <% end %>
 <% if @file.all_copies.length > 0%>
-  <div>Copied <%=pluralize @file.published_copies.length, 'time'%></div>
+  <div>Copied <%=pluralize @file.all_copies.length, 'time'%></div>
 <% end%>
 
 <% if @file.published_copies.length > 0%>

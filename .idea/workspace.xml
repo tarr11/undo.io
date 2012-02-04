@@ -8,6 +8,7 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/app/helpers/app/dropbox_helper.rb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/home/ga.html.erb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/lib/filesystems/dropbox.rb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/sunspot-solr-development.log.lck" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/solr/data/development/index/_a.fdt" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/solr/data/development/index/_a.fdx" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/solr/data/development/index/_a.fnm" afterPath="" />
@@ -90,13 +91,8 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/solr/pids/development/sunspot-solr-development.pid" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/controllers/app/dropbox_controller_spec.rb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/helpers/app/dropbox_helper_spec.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/notes/task_folder_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/notes/task_folder_helper.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/notes/todo_file.rb" afterPath="$PROJECT_DIR$/app/models/notes/todo_file.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/_file_feed.html.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/_file_feed.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/_note_view_other_user.html.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/_note_view_other_user.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/schema.rb" afterPath="$PROJECT_DIR$/db/schema.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/_note_file_details.html.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/_note_file_details.html.erb" />
     </list>
     <ignored path="todo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -132,10 +128,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_note_file_details.html.erb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="_note_file_details.html.erb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/task_folder/_note_file_details.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="244" selection-end="244" vertical-scroll-proportion="0.0">
+            <state line="4" column="43" selection-start="333" selection-end="333" vertical-scroll-proportion="0.09615385">
               <folding />
             </state>
           </provider>
@@ -159,10 +155,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_file_feed.html.erb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="_file_feed.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/task_folder/_file_feed.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="97" selection-start="1342" selection-end="1342" vertical-scroll-proportion="0.375">
+            <state line="15" column="97" selection-start="1342" selection-end="1342" vertical-scroll-proportion="-9.375">
               <folding />
             </state>
           </provider>
@@ -171,7 +167,7 @@
       <file leaf-file-name="20120204182915_add_copied_from_id_to_todo_file.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/migrate/20120204182915_add_copied_from_id_to_todo_file.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="40" selection-start="111" selection-end="111" vertical-scroll-proportion="0.0">
+            <state line="5" column="38" selection-start="135" selection-end="135" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -244,10 +240,10 @@
         <option value="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
         <option value="$PROJECT_DIR$/app/helpers/notes/task_folder_helper.rb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/task_folder/_note_file_details.html.erb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/_note_view_other_user.html.erb" />
         <option value="$PROJECT_DIR$/app/models/notes/todo_file.rb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/_file_feed.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/task_folder/_note_file_details.html.erb" />
       </list>
     </option>
   </component>
@@ -347,11 +343,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
+              <option name="myItemId" value="db" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
+              <option name="myItemId" value="migrate" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -370,10 +366,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="task_folder" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1021,13 +1013,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrate/20120204182915_add_copied_from_id_to_todo_file.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="40" selection-start="111" selection-end="111" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/task_folder_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="150" column="0" selection-start="4602" selection-end="4602" vertical-scroll-proportion="0.0">
@@ -1049,16 +1034,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_note_file_details.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/models/notes/todo_file.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="244" selection-end="244" vertical-scroll-proportion="0.0">
+        <state line="36" column="25" selection-start="951" selection-end="970" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/notes/todo_file.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_file_feed.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="25" selection-start="951" selection-end="970" vertical-scroll-proportion="0.0">
+        <state line="15" column="97" selection-start="1342" selection-end="1342" vertical-scroll-proportion="-9.375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20120204182915_add_copied_from_id_to_todo_file.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="38" selection-start="135" selection-end="135" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1070,9 +1062,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_file_feed.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_note_file_details.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="97" selection-start="1342" selection-end="1342" vertical-scroll-proportion="0.375">
+        <state line="4" column="43" selection-start="333" selection-end="333" vertical-scroll-proportion="0.09615385">
           <folding />
         </state>
       </provider>

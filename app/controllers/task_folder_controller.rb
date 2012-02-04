@@ -63,13 +63,13 @@ class TaskFolderController < ApplicationController
     filename = params[:filename]
     @todo_file = current_user.todo_files.find_by_filename(filename)
     if @todo_file.nil?
-      @todo_file = current_user.todo_files.new(:filename => params[:filename], :contents => params[:contents], :is_public => false)
+      @todo_file = current_user.todo_files.new(:filename => params[:filename], :contents => params[:savecontents], :is_public => false)
       @todo_file.revision_at = DateTime.now.utc
       if !@todo_file.filename.starts_with?("/")
         @todo_file.filename = "/" + @todo_file.filename
       end
     else
-      @todo_file.contents = params[:contents]
+      @todo_file.contents = params[:savecontents]
     end
     if @todo_file.save
       DropboxNavigator.delay.UpdateFileInDropbox(@todo_file)

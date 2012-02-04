@@ -90,8 +90,9 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/solr/pids/development/sunspot-solr-development.pid" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/controllers/app/dropbox_controller_spec.rb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/helpers/app/dropbox_helper_spec.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/edit_file.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/edit_file.js.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" />
     </list>
     <ignored path="todo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -118,28 +119,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="application.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/application.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="24" selection-start="427" selection-end="427" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="task_folder.css.scss" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/task_folder.css.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state line="296" column="61" selection-start="4991" selection-end="4991" vertical-scroll-proportion="-7.92">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="applications.css.scss" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/applications.css.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="14" selection-start="205" selection-end="205" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -175,16 +158,25 @@
       <file leaf-file-name="task_folder.js.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="137" column="48" selection-start="3963" selection-end="3978" vertical-scroll-proportion="0.0">
+            <state line="126" column="22" selection-start="3590" selection-end="3602" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit_file.js.coffee" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="_note_view.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="272" column="39" selection-start="9038" selection-end="9038" vertical-scroll-proportion="-21.75">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="edit_file.js.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/edit_file.js.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="29" selection-start="678" selection-end="678" vertical-scroll-proportion="0.35433072">
+            <state line="21" column="29" selection-start="678" selection-end="678" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -202,7 +194,16 @@
       <file leaf-file-name="_folder_list.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/layouts/_folder_list.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="11" selection-start="630" selection-end="662" vertical-scroll-proportion="-10.0">
+            <state line="16" column="43" selection-start="662" selection-end="662" vertical-scroll-proportion="-10.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="task_folder_controller.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/controllers/task_folder_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="71" column="40" selection-start="2525" selection-end="2525" vertical-scroll-proportion="0.41894978">
               <folding />
             </state>
           </provider>
@@ -232,15 +233,15 @@
         <option value="$PROJECT_DIR$/app/views/task_folder/home_view.html.erb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/_right_rail.html.erb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/_note_view_other_user.html.erb" />
-        <option value="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee" />
-        <option value="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/bootstrap-responsive.css" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/application.css" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/applications.css.scss" />
         <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
         <option value="$PROJECT_DIR$/app/views/layouts/_folder_list.html.erb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/edit_file.js.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee" />
+        <option value="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" />
+        <option value="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
       </list>
     </option>
   </component>
@@ -405,33 +406,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stylesheets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="todo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="todo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -990,11 +965,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/controllers/task_folder_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="142" column="8" selection-start="4287" selection-end="4287" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/task_folder/home_view.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="0" selection-start="812" selection-end="812" vertical-scroll-proportion="-15.625">
@@ -1012,13 +982,6 @@
     <entry file="file://$PROJECT_DIR$/app/controllers/application_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="229" column="145" selection-start="6626" selection-end="6951" vertical-scroll-proportion="-33.458332">
           <folding />
         </state>
       </provider>
@@ -1058,23 +1021,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/_folder_list.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="11" selection-start="630" selection-end="662" vertical-scroll-proportion="-10.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/bootstrap-responsive.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="8" selection-start="536" selection-end="536" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/task_folder.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1086,16 +1035,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/edit_file.js.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="48" selection-start="3963" selection-end="3978" vertical-scroll-proportion="0.0">
+        <state line="21" column="29" selection-start="678" selection-end="678" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/edit_file.js.coffee">
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/task_folder.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="29" selection-start="678" selection-end="678" vertical-scroll-proportion="0.35433072">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/_folder_list.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="43" selection-start="662" selection-end="662" vertical-scroll-proportion="-10.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="272" column="39" selection-start="9038" selection-end="9038" vertical-scroll-proportion="-21.75">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="126" column="22" selection-start="3590" selection-end="3602" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/task_folder_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="40" selection-start="2525" selection-end="2525" vertical-scroll-proportion="0.41894978">
           <folding />
         </state>
       </provider>

@@ -176,7 +176,7 @@ function convertToSlug(Text)
         <div class="clearfix">
         <div>Enter a new filename and path</div>
         <div><input type="text" name="filename" class="span4" value="<%=@file.filename%>"></div>
-          <%=hidden_field_tag "contents"%>
+          <%=hidden_field_tag "contents", :id=>"copy-contents"%>
         </div>
     </div>
     <div class="modal-footer">
@@ -203,7 +203,7 @@ function convertToSlug(Text)
 
       </div>
       <div class="modal-footer">
-        <%=hidden_field_tag "contents"%>
+        <%=hidden_field_tag "savecontents"%>
         <a href="#"  id="confirm-save-file" class="btn btn-primary">Save</a>
         <a href="#" id="cancel-save-file" class="btn secondary">Cancel</a>
       </div>
@@ -270,7 +270,7 @@ function convertToSlug(Text)
     <div>Last updated <%=time_ago_in_words(@file.revision_at)%> ago</div>
 <% end %>
     <%= form_tag(url_for(:controller=>"task_folder", :action=>"update"), :remote => true, :method=>:put,:format => :json, :id => "update-form") do  %>
-    <%= hidden_field_tag :contents%>
+    <%= hidden_field_tag 'savecontents'%>
     <%= hidden_field_tag 'filename'%>
     <%= hidden_field_tag 'current-path', params[:path] %>
 <% end %>

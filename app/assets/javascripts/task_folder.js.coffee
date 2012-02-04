@@ -124,7 +124,7 @@ $ ->
   $('#edit-button').click (event) ->
     if $('#edit-button').html() == 'Save'
       contents = window.myCodeMirror.getValue()
-      $('#contents').val(contents)
+      $('#savecontents').val(contents)
       $('#filename').val($('#current-path').val())
       # post the form
       #$("#loading").fadeIn(1000)

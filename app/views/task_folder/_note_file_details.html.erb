@@ -1,0 +1,18 @@
+<% unless @file.copied_from.nil?%>
+  <div>Copied from <%=link_to file_local_path(@file.copied_from), :controller=> "task_folder", :action => "folder_view", :path=>@file.copied_from.filename, :username => @file.copied_from.user.username%></div>
+<% end %>
+<% if @file.all_copies.length > 0%>
+  <div>Copied <%=pluralize @file.published_copies.length, 'time'%></div>
+<% end%>
+
+<% if @file.published_copies.length > 0%>
+  <div>Republished <%=pluralize @file.published_copies.length, 'time'%> by
+   <% @file.published_copies.first(3).each_with_index do |file, index| %>
+        <%= index > 0 ? ",": ""%>
+        <%=link_to file.user.username, file_local_path(file)%>
+   <% end %>
+   </div>
+<% end%>
+<% if !@file.contents.nil? %>
+    <div>Last updated <%=time_ago_in_words(@file.revision_at)%> ago</div>
+<% end %>

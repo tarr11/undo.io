@@ -121,9 +121,8 @@ function convertToSlug(Text)
       <textarea id="editor"><%=@file.contents%></textarea>
       </div>
 
-<% if !@file.contents.nil? %>
-    <div>Last updated <%=time_ago_in_words(@file.revision_at)%> ago</div>
-<% end %>
+<%=render 'note_file_details'%>
+
     <%= form_tag(url_for(:controller=>"task_folder", :action=>"update"), :remote => true, :method=>:put,:format => :json, :id => "update-form") do  %>
     <%= hidden_field_tag 'savecontents'%>
     <%= hidden_field_tag 'filename'%>

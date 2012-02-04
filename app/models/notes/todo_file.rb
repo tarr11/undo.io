@@ -8,6 +8,8 @@ class TodoFile < ActiveRecord::Base
   belongs_to :user
 #  has_many :todo_lines
   has_many :task_file_revisions
+  belongs_to :copied_from, :class_name => "TodoFile", :foreign_key => "copied_from_id"
+  has_many :copied_to, :class_name => "TodoFile", :foreign_key => "copied_from_id"
 
   after_save :save_revision
 #  attr_accessible :is_public, :contents
@@ -27,6 +29,18 @@ class TodoFile < ActiveRecord::Base
   validates_inclusion_of :is_public, :in => [true, false]
   validates_presence_of :revision_at, :filename, :contents, :user_id
   validates_uniqueness_of :filename, :scope => :user_id
+
+  def all_copies
+    return self.copied_to.map{|a| a}
+  end
+
+  def other_people_copies
+    return all_copies.select {|a| a.user.id != self.user.id}
+  end
+
+  def published_copies
+    other_people_copies.select{|a| a.is_public == true}
+  end
 
 
   def self.pushChangesFromText(user, filename, text, revisionDate, revisionCode)

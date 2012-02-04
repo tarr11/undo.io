@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120201031356) do
+ActiveRecord::Schema.define(:version => 20120204182915) do
 
   create_table "applications", :force => true do |t|
     t.string   "name"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20120201031356) do
     t.string   "dropbox_revision"
     t.text     "diff"
     t.boolean  "is_public"
+    t.integer  "copied_from_id"
   end
 
   create_table "todo_lines", :force => true do |t|

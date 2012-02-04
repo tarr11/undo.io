@@ -174,6 +174,11 @@ module Notes::TaskFolderHelper
         @path = path
     end
 
+
+    def file_local_path file
+      url_for :controller=>"task_folder", :action => "folder_view", :username=>file.user.username, :path => file.filename
+    end
+
     def sample_tasks
        foo = OpenStruct.new(:foo=>"bar")
        sample_tasks = tasks_by_date = [

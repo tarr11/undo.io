@@ -12,10 +12,10 @@
                <li class="undo-ul-li-desc"><%=line.html_safe%></li>
           <% end%>
           <li class="undo-ul-li-desc path"><%=time_ago_in_words(file[:file].revision_at)%> ago in <%= link_to file[:file].path, :controller => "task_folder", :action=>"folder_view", :path=> file[:file].path, :only_path => @only_path, :username=>file[:file].user.username%></li>
-          <% if file[:changedLines].length > 3 %>
-          <li class="undo-ul-li-desc italics"><%=pluralize([:changedLines].length,"change", "more changes")%></li>
-          <% else %>
-          <li class="undo-ul-li-desc italics"><%=pluralize([:changedLines].length,"change")%></li>
+          <% if file[:file].other_people_copies.length > 0%>
+          <li class="undo-ul-li-desc italics">Copied <%=pluralize(file[:file].other_people_copies.length,"time")%></li>
+          <%else%>
+          <li class="undo-ul-li-desc">&nbsp;</li>
           <% end %>
       <% end %>
     <% end %>

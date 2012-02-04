@@ -147,6 +147,7 @@ class TaskFolderController < ApplicationController
         @new_file.user = current_user
         @new_file.revision_at = DateTime.now
         @new_file.is_public = false
+        @new_file.copied_from_id = @file.id
 
         if @new_file.save!
           DropboxNavigator.delay.UpdateFileInDropbox(@new_file)

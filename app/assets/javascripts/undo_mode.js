@@ -47,21 +47,6 @@ CodeMirror.newFoldFunction = function(rangeFinder, markText) {
   };
 };
 
-CodeMirror.getSpaceCount = function(line){
-
-    var spaceCount = 0;
-
-    for (var i=0; i< line.length; i++)
-    {
-        if (line[i] != ' ' &&  line[i] != '\t')
-        {
-            break;
-        }
-        spaceCount++;
-    }
-
-    return spaceCount;
-}
 
 CodeMirror.isBlank = function(str)
 {
@@ -90,7 +75,7 @@ CodeMirror.indentRangeFinder = function(cm, line) {
         }
         else
         {
-            return i - 1;
+            return i;
         }
     }
 

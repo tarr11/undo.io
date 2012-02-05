@@ -9,12 +9,23 @@ padding-top: 60px;
 
 .left-nav-section
 {
-    margin-bottom:.5em;
+    margin-bottom:.3em;
 }
 
 .mobile-header
 {
     display:none;
+}
+
+.section-contents LI
+{
+    padding-bottom: .3em;
+}
+
+UL.section-contents
+{
+    margin-bottom:0;
+    padding-bottom: .3em;
 }
 
 @media (max-width: 480px){
@@ -23,9 +34,7 @@ padding-top: 60px;
     {
         display:none;
     }
-    .person-hide-small {
-        display:none;
-    }
+
 
     .search-query
     {

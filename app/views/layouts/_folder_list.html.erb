@@ -7,12 +7,16 @@
   <ul class="nav nav-list ">
    <li class="nav-header">Site</li>
     <li class="site-hide-small nav-collapse">
-      <a href="/"><i class="icon-home"></i>Home</a>
+    <ul class="nav section-contents" >
+        <li>
+          <a href="/"><i class="icon-home"></i>Home</a>
+        </li>
+        <li>
+         <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>"/", :username=>@file_user.username %>">
+       <i class="icon-inbox"></i>Your notes</a>
+       </li>
+    </ul>
     </li>
-    <li class="site-hide-small nav-collapse">
-     <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>"/", :username=>@file_user.username %>">
-   <i class="icon-inbox"></i>Your notes</a>
-   </li>
     </ul>
 </div>
 
@@ -20,8 +24,12 @@
   <%=render 'layouts/collapse_button', :site_section => 'recent'%>
 <ul class="nav nav-list ">
   <li class="nav-header">Recent</li>
-   <li class="recent-hide-small nav-collapse"><a href="/"><i class="icon-flag"></i>Some-file.txt</a> </li>
-  <li class="recent-hide-small nav-collapse"><a href="/"><i class="icon-flag"></i>other-file.txt</a> </li>
+  <li class="recent-hide-small nav-collapse">
+      <ul class="nav section-contents" >
+       <li><a href="/"><i class="icon-flag"></i>Some-file.txt</a> </li>
+      <li><a href="/"><i class="icon-flag"></i>other-file.txt</a> </li>
+      </ul>
+  </li>
 </ul>
 </div>
 
@@ -34,53 +42,57 @@
     </a>
 <ul class="nav nav-list">
   <li class="nav-header">Folders</li>
+  <li class="folder-hide-small nav-collapse">
+    <ul class="nav section-contents">
       <% @folders.each do |folder|%>
-         <li class="folder-hide-small nav-collapse"> <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>folder.path, :username=>@file_user.username %>">
+           <li> <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>folder.path, :username=>@file_user.username %>">
            <i class="icon-folder-open"></i><%=folder.shortName%>
          </a></li>
       <% end %>
+     </ul>
+   </li>
+ </ul>
+
 </ul>
 </div>
   <% end %>
 <% if @files.length > 0 %>
 <div class="left-nav-section">
-    <a class="btn btn-navbar" data-toggle="collapse" data-target=".file-hide-small">
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    </a>
+  <%=render 'layouts/collapse_button', :site_section => 'file'%>
 
     <ul class="nav nav-list">
       <li class="nav-header">Files</li>
+      <li class="file-hide-small nav-collapse">
+      <ul class="nav section-contents">
            <% @files.each do |file|%>
-            <li class="file-hide-small nav-collapse">
+            <li>
             <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>file.filename, :username=>@file_user.username %>">
                 <i class="icon-file"></i><%=file.shortName%>
             </a>
             </li>
         <% end %>
       </ul>
+      </li>
+      </ul>
  </div>
 <% end %>
 
  <% if @people.length > 0 %>
     <div class="left-nav-section">
-     <a class="btn btn-navbar" data-toggle="collapse" data-target=".p-hide-small">
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    </a>
-
+      <%=render 'layouts/collapse_button', :site_section => 'person'%>
      <ul class="nav nav-list">
       <li class="nav-header">People</li>
+       <li class="person-hide-small nav-collapse">
+       <ul class="nav section-contents">
          <% @people.each do |person|%>
-          <li class="p-hide-small nav-collapse">
+          <li>
             <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>@path, :q=>person, :username=>@file_user.username %>">
              <i class="icon-user"> </i><%=person%>
            </a>
-
           </li>
       <% end %>
-    </ul>
+       </ul>
+       </li>
+       </ul>
     </div>
  <% end %>

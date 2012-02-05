@@ -117,6 +117,7 @@ $ ->
 
 
   $('#complete-button').click (event) ->
+
     $('#file_name').val($(event.target).attr('file_name'))
     $('#line_number').val($(event.target).attr('line_number'))
     $('#is_completed').val('true')

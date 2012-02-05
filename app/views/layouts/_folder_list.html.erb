@@ -36,7 +36,7 @@
       <li class="nav-header">People</li>
          <% @people.each do |person|%>
           <li>
-            <a href="<%= url_for :controller => "task_folder", :action=>"person_view", :path=>@path, :person=>person, :username=>@file_user.username %>">
+            <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>@path, :q=>person, :username=>@file_user.username %>">
              <i class="icon-user"> </i><%=person%>
 
             </a>

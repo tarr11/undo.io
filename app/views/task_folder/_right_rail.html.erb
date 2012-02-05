@@ -12,7 +12,7 @@
 <% end %>
 
 <%@related_tags.each do |tag|%>
-<li class="undo-divider"><%=link_to "#" + tag.name, :controller => "task_folder", :action => "topic_view", :path=>@file.path , :topic=>tag.name%></li>
+<li class="undo-divider"><%=link_to "#" + tag.name, :controller => "task_folder", :action => "folder_view", :path=>@file.path , :q=>tag.name%></li>
 <%tag.files.each do |file|%>
   <li class="undo-ul-li-heading"><%=link_to file.file.shortName, :controller => "task_folder", :action => "folder_view", :path=>file.file.filename %></li>
   <%file.file.to_enum(:get_lines).first(3).each do |line|%>

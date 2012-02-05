@@ -273,7 +273,7 @@ end
     line = reader.gets
 
     all_tasks = false
-    if line.lstrip.downcase.include?("!")
+    if !line.nil? && line.lstrip.downcase.include?("!")
       all_tasks = true
     end
 

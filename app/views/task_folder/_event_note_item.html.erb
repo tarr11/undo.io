@@ -5,7 +5,7 @@
         title = note.event.start_at.strftime("%I:%M%p") + " - "  + note.title.to_s
     end
     %>
-   <%=link_to title, {:controller => "task_folder", :action => "event_view", :path=>note.file.filename, :line_number=>note.line_number.to_s}%>
+   <%=link_to title, {:controller => "task_folder", :action => "folder_view", :path=>note.file.filename, :line_number=>note.line_number.to_s}%>
 </li>
    <% note.lines.first(3).each do |line| %>
      <li class="undo-ul-li-desc" style="margin-left:2.5em"><%=line%></li>

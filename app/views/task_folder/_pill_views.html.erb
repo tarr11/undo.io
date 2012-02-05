@@ -6,7 +6,7 @@
             <% else %>
             <li>
             <% end %>
-            <%= link_to view.name, {:controller => "task_folder", :action=>view.action, :path=>@path}%></li>
+            <%= link_to view.name, {:controller => "task_folder", :action=>"folder_view", :path=>@path, :view=>view.querystring}%></li>
         <% end %>
       </ul>
       <div style="float: right">

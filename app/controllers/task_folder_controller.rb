@@ -240,6 +240,10 @@ class TaskFolderController < ApplicationController
             .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
             .reverse
 
+    respond_to do |format|
+      format.html {render 'task_folder/task_view'}
+    end
+
 
   end
 
@@ -290,7 +294,9 @@ class TaskFolderController < ApplicationController
               .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
 
 
-
+    respond_to do |format|
+      format.html {render 'task_folder/event_view'}
+    end
 
   end
 
@@ -303,7 +309,19 @@ class TaskFolderController < ApplicationController
     get_header_data
   end
 
+
   def folder_view
+
+    if params[:view] == "tasks"
+      task_view
+    elsif params[:view] == "events"
+      event_view
+    else
+      note_view
+    end
+  end
+
+  def note_view
 
     get_header_data
 

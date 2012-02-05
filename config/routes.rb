@@ -13,10 +13,7 @@ Todo::Application.routes.draw do
   match ":username:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}, :via => :get
   match ":username:path" => "task_folder#new_file", :constraints => {:path=> /.*/}, :via => [:post]
   match ":username:path" => "task_folder#update", :constraints => {:path=> /.*/}, :via => [:put]
-  match ":username/tasks:path" => "task_folder#task_view", :constraints => {:path=> /.*/}
-  match ":username/people:path" => "task_folder#person_view", :constraints => {:path=> /.*/}
-  match ":username/events:path" => "task_folder#event_view", :constraints => {:path=> /.*/}
-  match ":username/topics:path" => "task_folder#topic_view", :constraints => {:path=> /.*/}
+  match ":username:path" => "task_folder#task_view", :constraints => {:path=> /.*/}
 
   match ":username/:path" => "task_folder#move", :constraints => {
       :path=> /.*/
@@ -85,3 +82,5 @@ Todo::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 end
+
+

@@ -89,7 +89,9 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/solr/data/development/index/segments_k" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/controllers/app/dropbox_controller_spec.rb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/helpers/app/dropbox_helper_spec.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/undo_mode.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/undo_mode.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/edit_file.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/edit_file.js.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" />
     </list>
     <ignored path="todo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -116,15 +118,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="application.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="0" selection-start="130" selection-end="176" vertical-scroll-proportion="-2.4489796">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="_folder_list.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/layouts/_folder_list.html.erb">
           <provider selected="true" editor-type-id="text-editor">
@@ -134,10 +127,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="undo_mode.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="undo_mode.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/undo_mode.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="20" selection-start="2210" selection-end="2210" vertical-scroll-proportion="0.7975253">
+            <state line="77" column="20" selection-start="2210" selection-end="2210" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -146,7 +139,16 @@
       <file leaf-file-name="edit_file.js.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/edit_file.js.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="0" selection-start="552" selection-end="552" vertical-scroll-proportion="0.0">
+            <state line="21" column="21" selection-start="613" selection-end="632" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="task_folder.js.coffee" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="128" column="42" selection-start="3556" selection-end="3556" vertical-scroll-proportion="0.42632172">
               <folding />
             </state>
           </provider>
@@ -173,7 +175,7 @@
       <file leaf-file-name="_note_view.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="88" selection-end="88" vertical-scroll-proportion="18.333334">
+            <state line="85" column="45" selection-start="2493" selection-end="2508" vertical-scroll-proportion="-16.208334">
               <folding />
             </state>
           </provider>
@@ -220,7 +222,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/task_folder/task_view.html.erb" />
         <option value="$PROJECT_DIR$/app/models/notes/todo_file.rb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/_right_rail.html.erb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/_modals.html.erb" />
@@ -232,10 +233,11 @@
         <option value="$PROJECT_DIR$/app/assets/stylesheets/applications.css.scss" />
         <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
         <option value="$PROJECT_DIR$/app/views/layouts/_folder_list.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/application.js" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/edit_file.js.coffee" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/undo_mode.js" />
+        <option value="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/edit_file.js.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee" />
       </list>
     </option>
   </component>
@@ -995,13 +997,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/task_folder/folder_view.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="235" selection-end="235" vertical-scroll-proportion="-5.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/task_folder.css.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state line="135" column="29" selection-start="2708" selection-end="2708" vertical-scroll-proportion="0.0">
@@ -1072,13 +1067,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="88" selection-end="88" vertical-scroll-proportion="18.333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="0" selection-start="570" selection-end="570" vertical-scroll-proportion="0.0">
@@ -1093,16 +1081,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/edit_file.js.coffee">
+    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="552" selection-end="552" vertical-scroll-proportion="0.0">
+        <state line="85" column="45" selection-start="2493" selection-end="2508" vertical-scroll-proportion="-16.208334">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/undo_mode.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="20" selection-start="2210" selection-end="2210" vertical-scroll-proportion="0.7975253">
+        <state line="77" column="20" selection-start="2210" selection-end="2210" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/edit_file.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="21" selection-start="613" selection-end="632" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="128" column="42" selection-start="3556" selection-end="3556" vertical-scroll-proportion="0.42632172">
           <folding />
         </state>
       </provider>

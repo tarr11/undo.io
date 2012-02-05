@@ -21,6 +21,7 @@ $ ->
 
 
 
+
   $('#read-only-contents').keyup (event) ->
     if event.which == 33
       cursor = window.myCodeMirror.getCursor()
@@ -124,6 +125,8 @@ $ ->
     $('form[data-remote]').submit();
     $('#complete-button').html('Mark incomplete')
 
+  $('#collapse-button').click (event) ->
+    window.collapseAll(window.myCodeMirror)
 
   $('#edit-button').click (event) ->
     if $('#edit-button').html() == 'Save'

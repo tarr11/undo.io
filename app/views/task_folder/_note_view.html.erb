@@ -83,6 +83,7 @@ function convertToSlug(Text)
     <div class="pull-right">
     <% if !@is_new_file%>
             <div class="btn-group">
+              <a href="#" id="collapse-button" class="btn">Collapse</a>
               <% if @file.is_public %>
                 <a href="#" id="unpublish-button" class="btn">Unpublish</a>
               <% else %>

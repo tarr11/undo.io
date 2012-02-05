@@ -6,3 +6,45 @@ BODY
 {
 padding-top: 60px;
 }
+
+.left-nav-section
+{
+    margin-bottom:.5em;
+}
+
+.mobile-header
+{
+    display:none;
+}
+
+@media (max-width: 480px){
+
+    .breadcrumb
+    {
+        display:none;
+    }
+    .person-hide-small {
+        display:none;
+    }
+
+    .search-query
+    {
+        display:none;
+    }
+
+    .mobile-header
+    {
+        display:block;
+        font-size:2em;
+        font-weight:bold;
+        text-align:center;
+        margin:.2em;
+    }
+
+    H1
+    {
+        display:none;
+    }
+
+}
+

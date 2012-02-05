@@ -3,33 +3,9 @@
 <% end%>
 
 <% if @file.nil? %>
-    <div style="position: relative;">
-      <div id="move-modal" class="modal hide fade">
-        <%=form_tag(url_for(:action=>"move", :path=>@path), :method=>"move", :id=>"move-form") do %>
-        <div class="modal-header">
-          <a href="#" class="close">&times;</a>
-          <h3>Move Directory "<%=@taskfolder.path%>"</h3>
-        </div>
-        <div class="modal-body">
-            <div class="clearfix">
-             <div>This will move all files in this directory (and sub-directories) to a new path</div>
-            <div>Enter a new path</div>
-            <div><input type="text" name="filename" class="span8" value="<%=@taskfolder.path%>"></div>
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn primary">Move</button>
-          <a href="#" id="cancel-move-file" class="btn secondary cancel">Cancel</a>
-        </div>
-         <% end %>
-      </div>
-    </div>
 
     <% content_for :buttons do %>
         <%= button_to "New", {:controller => "task_folder", :action=>"new_file", :path=>@path}, :class=>"btn primary"%>
-        <% unless @taskfolder.path == "/" %>
-        <!--<a href="#" id="move-button" class="btn">Move</a>-->
-        <% end %>
     <% end %>
 
     <%= render 'pill_views', :selected_view => params[:view]%>

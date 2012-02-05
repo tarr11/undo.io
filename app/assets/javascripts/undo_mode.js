@@ -5,6 +5,102 @@
  * Time: 12:45 PM
  * To change this template use File | Settings | File Templates.
  */
+
+CodeMirror.newFoldFunction = function(rangeFinder, markText) {
+  var folded = [];
+  if (markText == null) markText = '<div style="position: absolute; left: 2px; color:#600">&#x25bc;</div>%N%';
+
+  function isFolded(cm, n) {
+    for (var i = 0; i < folded.length; ++i) {
+      var start = cm.lineInfo(folded[i].start);
+      if (!start) folded.splice(i--, 1);
+      else if (start.line == n) return {pos: i, region: folded[i]};
+    }
+  }
+
+  function expand(cm, region) {
+    cm.clearMarker(region.start);
+    for (var i = 0; i < region.hidden.length; ++i)
+      cm.showLine(region.hidden[i]);
+  }
+
+  return function(cm, line) {
+    cm.operation(function() {
+      var known = isFolded(cm, line);
+      if (known) {
+        folded.splice(known.pos, 1);
+        expand(cm, known.region);
+      } else {
+        var end = rangeFinder(cm, line);
+        if (end == null) return;
+        var hidden = [];
+        for (var i = line + 1; i < end; ++i) {
+          var handle = cm.hideLine(i);
+          if (handle) hidden.push(handle);
+        }
+        var first = cm.setMarker(line, markText);
+        var region = {start: first, hidden: hidden};
+        cm.onDeleteLine(first, function() { expand(cm, region); });
+        folded.push(region);
+      }
+    });
+  };
+};
+
+CodeMirror.getSpaceCount = function(line){
+
+    var spaceCount = 0;
+
+    for (var i=0; i< line.length; i++)
+    {
+        if (line[i] != ' ' &&  line[i] != '\t')
+        {
+            break;
+        }
+        spaceCount++;
+    }
+
+    return spaceCount;
+}
+
+CodeMirror.isBlank = function(str)
+{
+    return (!str || /^\s*$/.test(str));
+}
+
+CodeMirror.indentRangeFinder = function(cm, line) {
+  var handle = cm.getLineHandle(line);
+
+  // count how many spaces start the line
+
+  // look at each line until we find a line with that number of spaces
+  // if the second line has same or less spaces return immediately
+  var spaceCount = handle.indentation();
+
+  var count = 1, lastLine = cm.lineCount(), end;
+  for (var i = line + 1; i < lastLine; ++i) {
+    var curLineHandle = cm.getLineHandle(i);
+    var lineSpaceCount = curLineHandle.indentation();
+
+    if (lineSpaceCount <= spaceCount && !CodeMirror.isBlank(curLineHandle.text))
+    {
+        if ((i - 1) == line)
+        {
+            return;
+        }
+        else
+        {
+            return i - 1;
+        }
+    }
+
+  }
+
+  return lastLine - 1;
+};
+
+
+
 CodeMirror.defineMode("undo", function(config, parserConfig) {
     function ret(style, tp) {type = tp; return style;}
 

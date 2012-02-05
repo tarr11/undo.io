@@ -1,8 +1,10 @@
 <div class="mobile-header">
   <%=@header%>
+  <a href="#" class="btn btn-primary pull-right" data-toggle="collapse" data-target=".left-nav">Menu</a>
 </div>
-<div class="left-nav-section">
 
+<div class="left-nav nav-collapse">
+<div class="left-nav-section">
   <%=render 'layouts/collapse_button', :site_section => 'site'%>
   <ul class="nav nav-list ">
    <li class="nav-header">Site</li>
@@ -96,3 +98,5 @@
        </ul>
     </div>
  <% end %>
+ </div>
+

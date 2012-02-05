@@ -8,7 +8,6 @@
 <% end %>
 
 <%= render 'layouts/breadcrumb'%>
-
 <%= render 'modals'%>
 
 <% content_for :buttons do %>
@@ -39,11 +38,11 @@
 </div>
   <div id="status" style="display:none">&nbsp;</div>
     <div id="loading" style="display:none">Saving...</div>
-    <div id="read-only-contents" style="width:100%;margin: .5em; border: solid black 1px; padding: 1em;">
+    <article id="read-only-contents" style="width:100%;margin: .5em; border: solid black 1px; padding: 1em;">
       <%@file.formatted_lines.each do |line|%>
          <%=render_line(line).html_safe%>
       <% end %>
-      </div>
+      </article>
 
   <%=render 'note_file_details'%>
     <%= form_for(@file, :remote => true) do |f| %>

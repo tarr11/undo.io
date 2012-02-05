@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120204182915) do
+ActiveRecord::Schema.define(:version => 20120205004410) do
 
   create_table "applications", :force => true do |t|
     t.string   "name"
@@ -56,6 +56,13 @@ ActiveRecord::Schema.define(:version => 20120204182915) do
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "dropbox_wrappers", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "shared_files", :force => true do |t|
+    t.integer  "todo_file_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

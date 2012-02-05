@@ -13,7 +13,11 @@ class TaskFolderController < ApplicationController
 
   def home_view
 
-    @public_files = TodoFile.find_by_is_public(true, :order=>"REVISION_AT desc")
+    if params[:view] == "shared"
+      @public_files = current_user.shared_files
+    else
+      @public_files = TodoFile.find_by_is_public(true, :order=>"REVISION_AT desc")
+    end
     respond_to do |format|
        format.html {render 'home_view', :layout => 'task_folder'}
     end
@@ -21,7 +25,7 @@ class TaskFolderController < ApplicationController
   end
 
   def create
-    @todo_file = current_user.todo_files.new(:filename => params[:filename], :contents => params[:contents], :is_public => false)
+    @todo_file = current_user.todo_files.new(:filename => params[:filename], :contents => params[:save_new_contents], :is_public => false)
     @todo_file.revision_at = DateTime.now.utc
 
     if !@todo_file.filename.starts_with?("/")
@@ -95,6 +99,8 @@ class TaskFolderController < ApplicationController
       move
     elsif params[:method] == "copy"
       copy
+    elsif params[:method] == "share"
+      share
     else
       create_or_update
     end
@@ -131,9 +137,40 @@ class TaskFolderController < ApplicationController
       oldName = @taskfolder.path
       # find all files in this path, and change their names
       # TODO: deal with overwriting
+                                                                                                                      e
+
+      end
+  end
+
+  def share
+    get_header_data
+    # if this is a file. move it
+    unless @file.nil?
+
+      people = @file.get_people
+      people.each do |person|
+        user = User.find_by_username(person)
+        unless user.nil?
+          user.shared_files.create! :todo_file => @file
+          #shared_file = @file.shared_with_users.create(:user => user)
+          #shared_file.save
+        end
+
+      end
+      respond_to do |format|
+        format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @file.filename, :username=>@file.user.username, notice: 'File was shared.' }
+      end
+
+    end
+
+    unless @taskfolder.nil?
+      oldName = @taskfolder.path
+      # find all files in this path, and change their names
+      # TODO: deal with overwriting
 
 
       end
+
   end
 
   def copy

@@ -76,12 +76,7 @@ function convertToSlug(Text)
 <div class="row-fluid">
 <div class="span8">
 <div class="row-fluid" style="margin-bottom:.2em;">
-  <h1 style="display:inline; margin-right:.5em;"><%=@header%></h1>
-    <% if @file.is_public %>
-        <span class="label label-success">Published</span>
-    <% else %>
-        <span class="label">Private</span>
-    <% end %>
+  <h1 style="display:inline; margin-right:.5em;"><%=@header%><%=render 'access_labels'%></h1>
 
     <span id="loading" class="label" style="display:none">Saving...</span>
 
@@ -93,6 +88,8 @@ function convertToSlug(Text)
               <% else %>
                 <a href="#" id="publish-button" class="btn btn-success">Publish</a>
               <% end %>
+              <a href="#" id="share-button" class="btn btn-primary">Share</a>
+
             <a href="#" class="btn btn-primary hide" id="edit-button">Save</a>
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
             More

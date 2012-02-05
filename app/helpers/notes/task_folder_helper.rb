@@ -122,7 +122,9 @@ module Notes::TaskFolderHelper
           unless @file.nil?
             unless @file.is_public
               unless @file.user_id == current_user.id
-                raise ActionController::RoutingError.new('Not Found')
+                unless @file.shared_with_users.include?(current_user)
+                  raise ActionController::RoutingError.new('Not Found')
+                end
               end
             end
           end

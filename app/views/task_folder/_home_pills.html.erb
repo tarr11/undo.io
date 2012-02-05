@@ -1,0 +1,27 @@
+<%
+
+   views = [
+    {
+        :id => nil,
+        :label => "All the things",
+        :url => "/"
+    },
+    {
+        :id => "shared",
+        :label => "Shared to me",
+        :url => "/?view=shared"
+    }
+   ]
+   %>
+
+<ul style="display: inline-block;margin-bottom: 0px;" class="nav nav-pills">
+  <%views.each do |view|%>
+    <% if selected_view == view[:id] %>
+        <li class="active">
+    <% else %>
+        <li>
+     <% end %>
+      <%=link_to view[:label], view[:url] %></li>
+
+  <% end%>
+</ul>

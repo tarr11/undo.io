@@ -6,8 +6,6 @@ getNewRightRail = ->
   $.ajax $('#page-path').text() + "?rail=true",
     type: 'GET'
     dataType: 'html'
-    error: (jqXHR, textStatus, errorThrown) ->
-        $('body').append "AJAX Error: #{textStatus}"
     success: (data, textStatus, jqXHR) ->
         if window.lastdata != data
           window.lastdata = data
@@ -46,7 +44,7 @@ $ ->
   $('#save-new').click (event) ->
      event.preventDefault()
      contents = window.myCodeMirror.getValue()
-     $('#contents').val(contents)
+     $('#savecontents').val(contents)
      path = $('#current-path').val()
      title = contents.split('\n')[0]
      slug = convertToSlug(title)
@@ -87,6 +85,11 @@ $ ->
       show : true
     })
 
+  $('#share-button').click (event) ->
+    $('#share-modal').modal({
+      keyboard: true,
+      show : true
+    })
 
   $('.cancel').click (event) ->
     $('#move-modal').modal('hide')

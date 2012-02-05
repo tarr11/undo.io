@@ -26,6 +26,9 @@ class User < ActiveRecord::Base
   has_one :task_folder
   has_one :dropbox, :class_name => "DropboxToken", :dependent => :destroy
   has_many :task_file_revisions
+  has_many :files_shared_with_user, :through => :shared_files, :source => :todo_file
+  has_many :shared_files
+
 
   before_create :whitelisted
 

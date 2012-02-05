@@ -18,8 +18,11 @@
 <div class="span8">
 <div class="row">
   <div class="span3">
-  <h1><%=@header%></h1>
+  <h1><%=@header%>
+  <%=render 'access_labels'%>
+      </h1>
   </div>
+
   <div class="span5">
     <div class="pull-right">
     <% if !@is_new_file%>

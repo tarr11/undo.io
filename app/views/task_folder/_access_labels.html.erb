@@ -1,0 +1,9 @@
+<% if @file.is_public %>
+    <span class="label label-success">Published</span>
+<% else %>
+    <% if @file.shared_with_users.length > 0 %>
+    <span class="label label-info">Shared</span>
+    <% else %>
+    <span class="label">Private</span>
+    <% end %>
+<% end %>

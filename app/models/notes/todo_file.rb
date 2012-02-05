@@ -10,6 +10,8 @@ class TodoFile < ActiveRecord::Base
   has_many :task_file_revisions
   belongs_to :copied_from, :class_name => "TodoFile", :foreign_key => "copied_from_id"
   has_many :copied_to, :class_name => "TodoFile", :foreign_key => "copied_from_id"
+  has_many :shared_with_users, :through => :shared_files, :source=>:user
+  has_many :shared_files
 
   after_save :save_revision
 #  attr_accessible :is_public, :contents
@@ -401,6 +403,18 @@ end
     end
   end
 
+
+  def get_people
+    these_peeps = []
+    self.get_person_notes do |note|
+      note.people.each do |person|
+        these_peeps.push person
+      end
+    end
+
+    return these_peeps.uniq
+
+  end
 
   def get_person_notes(&block)
 

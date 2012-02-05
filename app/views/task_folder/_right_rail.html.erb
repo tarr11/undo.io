@@ -1,6 +1,6 @@
 <ul style="margin-left:0">
 <% @people.each do |person|%>
-<li class="undo-divider"><%=link_to person.name, :controller => "task_folder", :action => "person_view", :path=>@file.path , :person=>person.name%> </li>
+<li class="undo-divider"><%=link_to person.name, :controller => "task_folder", :action => "folder_view", :path=>@file.path , :q=>person.name%> </li>
 <%person.files.each do |file|%>
   <li class="undo-ul-li-heading">
     <%=link_to file.file.shortName, :controller => "task_folder", :action => "folder_view", :path=>file.file.filename %></li>

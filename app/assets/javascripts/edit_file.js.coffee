@@ -24,13 +24,18 @@ initCodeMirror = () ->
     lineWrapping: true,
     gutter: true,
     extraKeys: {"Ctrl-Q": collapseSection, "Ctrl-M": window.collapseAll},
-    onGutterClick: window.foldFunc,
+    onGutterClick: (cm, line, event) ->
+      myCodeMirror.setCursor(line, 0)
+      window.foldFunc(cm, line, event)
+
     onCursorActivity : (event) ->
       token = event.getTokenAt(event.getCursor())
       if (token.string != "" && token.className != null)
         $('#status').html(token.string)
       else
         $('#status').html("")
+    ,
+    onChange: (cm, event) ->
 
 
   window.lastContents = window.myCodeMirror.getValue()

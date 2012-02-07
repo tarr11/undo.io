@@ -85,11 +85,10 @@ function convertToSlug(Text)
             <div class="btn-group">
               <a href="#" id="collapse-button" class="btn">Collapse</a>
               <% if @file.is_public %>
-                <a href="#" id="unpublish-button" class="btn">Unpublish</a>
+                <a href="#" id="unpublish-button" class="btn">Revoke</a>
               <% else %>
-                <a href="#" id="publish-button" class="btn btn-success">Publish</a>
+                <a href="#" id="publish-button" class="btn btn-success">Lend this note</a>
               <% end %>
-              <a href="#" id="share-button" class="btn btn-primary">Share</a>
 
             <a href="#" class="btn btn-primary hide" id="edit-button">Save</a>
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">

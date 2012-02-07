@@ -60,28 +60,37 @@ CodeMirror.indentRangeFinder = function(cm, line) {
 
   // look at each line until we find a line with that number of spaces
   // if the second line has same or less spaces return immediately
-  var spaceCount = handle.indentation();
+  var spaceCount = handle.indentation(cm.tabSize);
 
   var count = 1, lastLine = cm.lineCount(), end;
-  for (var i = line + 1; i < lastLine; ++i) {
+  var indentTo = null;
+  for (var i = lastLine - 1; i > line ; --i) {
     var curLineHandle = cm.getLineHandle(i);
-    var lineSpaceCount = curLineHandle.indentation();
+    var lineSpaceCount = curLineHandle.indentation(cm.tabSize);
 
-    if (lineSpaceCount <= spaceCount && !CodeMirror.isBlank(curLineHandle.text))
+    if (CodeMirror.isBlank(curLineHandle.text))
     {
-        if ((i - 1) == line)
-        {
-            return;
-        }
-        else
-        {
-            return i;
-        }
+        continue;
     }
 
+    if (lineSpaceCount <= spaceCount )
+    {
+        indentTo = null;
+    }
+    else
+    {
+        if (indentTo == null)
+        {
+            indentTo = i;
+        }
+    }
   }
 
-  return lastLine - 1;
+  if (indentTo == null)
+  {
+      return;
+  }
+  return indentTo + 1;
 };
 
 
@@ -96,7 +105,7 @@ CodeMirror.defineMode("undo", function(config, parserConfig) {
       var wwwRegex = /^\b(www\.([^\s]+))\b/
       var tagRegex = /^(#[\w]+)\b/
       var peopleRegex = /^(@[\w]+)\b/
-      var taskRegex = /^(![\w]+)\b/
+      var taskRegex = /^(!.+)/
 
 
         while (!stream.eol())

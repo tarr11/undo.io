@@ -312,8 +312,23 @@ class TaskFolderController < ApplicationController
       task_view
     elsif params[:view] == "events"
       event_view
+    elsif params[:view] == "board"
+      board_view
     else
       note_view
+    end
+  end
+
+  def board_view
+
+    get_header_data
+    start_date= Date.today - 100.years
+    end_date = DateTime.now.utc
+    changed_files = @taskfolder.get_file_changes(start_date, end_date)
+    @changed_files_by_folder = changed_files
+      .group_by {|note| get_sub_folder(note[:file].path,@taskfolder.path) }
+    respond_to do |format|
+        format.html { render 'task_folder/boxed_view', :layout => 'application', :wildcard_user_name=>false}
     end
   end
 

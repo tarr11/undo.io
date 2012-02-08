@@ -1,0 +1,94 @@
+<% content_for :javascript_includes do %>
+  <%=javascript_include_tag "jquery.masonry.min"%>
+<% end %>
+
+<% content_for :stylesheet_includes do %>
+  <%= stylesheet_link_tag "task_folder"  %>
+<% end %>
+<style>
+.note-box {
+  width: 220px;
+  margin: 10px 10px 10px 10px;
+  float: left;
+  border:  solid black 1px;
+  padding: 1em;
+}
+
+.note-container
+{
+    width:100%;
+}
+.undo-new-header
+{
+    list-style: none;
+background-color: #5E87B0;
+    text-shadow: 0 -1px 1px #254F7A;
+border: 1px solid #456F9A;
+padding: .5em .5em;
+font-size: 14px;
+font-weight: bold;
+color: white;
+margin-top: .2em;
+border-image: initial;
+}
+
+.undo-new-header A:visited, .undo-new-header A:link
+{
+    color:white;
+}
+
+
+</style>
+<script>
+  $(function(){
+  $('.note-container').masonry({
+    // options
+    itemSelector : '.note-box'
+
+  });
+});
+
+</script>
+<%= render 'layouts/breadcrumb'%>
+<div class="content">
+<div class="row-fluid">
+ <div id="main-body">
+   <div class="row-fluid" style="margin-bottom: .5em;">
+     <div style="float: right;">
+       <%= render 'layouts/search_form' %>
+     </div>
+     <div style="margin: 0">
+       <h1><%=@header%></h1>
+     </div>
+   </div>
+ </div>
+
+</div>
+
+  <div class="note-container">
+    <%@changed_files_by_folder.each do |folder_item|%>
+    <div class="note-box">
+       <ul style="margin-left:0">
+         <%
+            header_name = folder_item.first.nil? ? folder_item.second.first[:file].task_folder.shortName: folder_item.first
+            if header_name.blank?
+                header_name = "Notes"
+            end
+
+            if @wildcard_user_name
+                user_name = "all"
+            else
+                user_name = folder_item.second.first[:file].user.username
+            end
+         %>
+       <li class="undo-new-header"><%=link_to header_name, :controller => "task_folder", :action=>"folder_view", :username=>user_name , :path=>folder_item.second.first[:file].path, :view=>:board  %></li>
+         <% folder_item.second.sort_by{|a| a[:file].revision_at}.reverse.each do |file| %>
+      <%=render 'task_folder/note_item', :file=>file[:file], :changed_lines => file[:changedLines] %>
+         <% end %>
+       </ul>
+
+     </div>
+     <% end %>
+  </div>
+</div>
+<div style="clear:both"></div>

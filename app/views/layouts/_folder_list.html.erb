@@ -17,22 +17,17 @@
          <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>"/", :username=>@file_user.username %>">
        <i class="icon-inbox"></i>My notes</a>
        </li>
+      <li>
+       <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>"/", :username=>@file_user.username %>">
+     <i class="icon-envelope"></i>Shared Notes</a>
+     </li>
+      <li>
+       <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>"/", :username=>@file_user.username %>">
+     <i class="icon-eye-open"></i>Recently Viewed</a>
+     </li>
     </ul>
     </li>
     </ul>
-</div>
-
-<div class="left-nav-section">
-  <%=render 'layouts/collapse_button', :site_section => 'recent'%>
-<ul class="nav nav-list ">
-  <li class="nav-header">Recent</li>
-  <li class="recent-hide-small nav-collapse">
-      <ul class="nav section-contents" >
-       <li><a href="/"><i class="icon-flag"></i>Some-file.txt</a> </li>
-      <li><a href="/"><i class="icon-flag"></i>other-file.txt</a> </li>
-      </ul>
-  </li>
-</ul>
 </div>
 
 <% if @folders.length > 0 %>

@@ -72,22 +72,45 @@ module Notes::TaskFolderHelper
       return path_parts
 
     end
+
+    def get_sub_folder(path, current_folder)
+      nextPath = path.gsub(/^#{current_folder}/,"")
+      parts = nextPath.split("/").reject{|c| c.empty?}
+      return parts.first
+    end
+
     def get_header_data
 
+
+        @is_home_page = false
         if params[:username].nil?
           username = current_user.username
+          #home page
+          @is_home_page = true
+
         else
           username = params[:username]
         end
 
-
         @file_user = User.find_by_username(username)
+
+        if @is_home_page
+          @folders = []
+          @files = []
+          @people = []
+          return
+        end
 
         @views = [
           OpenStruct.new(
               :id => nil,
               :name => "Notes",
               :querystring => {}
+          ),
+          OpenStruct.new(
+              :id => :board,
+              :name => "Board",
+              :querystring => "board"
           ),
           OpenStruct.new(
               :id => :tasks,
@@ -126,18 +149,20 @@ module Notes::TaskFolderHelper
               raise ActionController::RoutingError.new('Not Found')
           end
 
-          @header = @taskfolder.shortName
-          if @header.blank?
-            @header = @file_user.username + " -  Notes"
+          @header = @taskfolder.shortName + " (" + @file_user.username + ")"
+          if @taskfolder.shortName.blank?
+            @header = "My Notes"
           end
+
         else
           @taskfolder = @file.task_folder
-          @header = @file.shortName
+          @header = @file.shortName + "(" + @file_user.username + ")"
         end
 
         if !params[:person].nil?
-          @header += " (" + params[:person] + ")"
+          @header += " (" + params[:person] + ")x"
         end
+
 
         if @taskfolder.nil?
            raise 'No Folder'

@@ -32,7 +32,7 @@ class HomeController < ApplicationController
         end
         changed_files = TaskFolder.process_search_results(results, "/")
         changed_files = changed_files.select{|a| a[:file].is_public}
-        @header = "New Notes"
+        @header = "Public Notes"
 
       end
 

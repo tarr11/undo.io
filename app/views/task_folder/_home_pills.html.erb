@@ -3,13 +3,18 @@
    views = [
     {
         :id => nil,
-        :label => "All the things",
+        :label => "Published Notes",
         :url => "/"
     },
     {
-        :id => "lent",
-        :label => "Lent to me",
-        :url => "/?view=lent"
+        :id => "mine",
+        :label => "My Notes",
+        :url => user_path(current_user)
+    },
+    {
+        :id => "shared",
+        :label => "Shared to me",
+        :url => "/?view=shared"
     }
    ]
    %>

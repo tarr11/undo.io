@@ -13,11 +13,7 @@ class TaskFolderController < ApplicationController
 
   def home_view
 
-    if params[:view] == "shared"
-      @public_files = current_user.shared_files
-    else
-      @public_files = TodoFile.find_by_is_public(true, :order=>"REVISION_AT desc")
-    end
+   @public_files = TodoFile.find_by_is_public(true, :order=>"REVISION_AT desc")
     respond_to do |format|
        format.html {render 'home_view', :layout => 'task_folder'}
     end

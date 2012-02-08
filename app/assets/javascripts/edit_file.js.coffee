@@ -35,12 +35,31 @@ initCodeMirror = () ->
       else
         $('#status').html("")
     ,
-    onChange: (cm, event) ->
+    onChange : (cm, event) ->
+      if event.text[0] == "@"
+        previousChar = cm.getRange({ch:event.from.ch-1, line:event.from.line}, {ch:event.from.ch, line:event.from.line})
+        if previousChar == " " || previousChar == ""
+          CodeMirror.simpleHint cm, CodeMirror.javascriptHint
+
+      if event.text[0] == "/"
+        CodeMirror.simpleHint cm, CodeMirror.javascriptHint
+
+
+    #onHighlightComplete : (event) ->
+     # $('.cm-undo-task').each (index) ->
+        # just need to get the line from each item??
+
+
 
 
   window.lastContents = window.myCodeMirror.getValue()
   setInterval checkAutoSave, 1000
   window.myCodeMirror.focus()
+
+#  pos =
+#    line : 7
+#    ch : 1
+#  window.myCodeMirror.addWidget pos, document.getElementById('widget'), true
 
 
 $ ->

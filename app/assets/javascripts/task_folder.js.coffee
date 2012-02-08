@@ -17,11 +17,6 @@ getNewRightRail = ->
 
 $ ->
 
-#  $('#read-only-contents').delegate ".cm-undo-link", "mouseup", (event) ->
-
-
-
-
   $('#read-only-contents').keyup (event) ->
     if event.which == 33
       cursor = window.myCodeMirror.getCursor()
@@ -29,8 +24,8 @@ $ ->
         $('html, body').animate({ scrollTop: 0 }, 'slow');
 
   $('#read-only-contents').mouseup (event) ->
-    if (!event.shiftKey)
-      return
+    # todo - put line number in status col so we can edit the appropriate line
+
     if $.trim($('#status').text()) != ""
       url = $('#status').text()
       if url.indexOf("#") == 0
@@ -39,8 +34,7 @@ $ ->
         url = '?person=' + url
       else if url.indexOf('http') != 0
         url = 'http://' + url
-
-      window.open url, '_blank'
+        window.open url, '_blank'
 
   $('#save-new').click (event) ->
      event.preventDefault()

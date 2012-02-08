@@ -167,6 +167,10 @@ module Notes::TaskFolderHelper
     end
 
 
+    def user_path user
+      url_for :controller=>"task_folder", :action => "folder_view", :username=>user.username, :path => "/"
+    end
+
     def file_local_path file
       url_for :controller=>"task_folder", :action => "folder_view", :username=>file.user.username, :path => file.filename
     end

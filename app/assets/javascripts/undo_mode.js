@@ -104,22 +104,20 @@ CodeMirror.defineMode("undo", function(config, parserConfig) {
       var httpRegex = /^\b(ftp|http|https):\/\/([^\s]+)/;
       var wwwRegex = /^\b(www\.([^\s]+))\b/
       var tagRegex = /^(#[\w]+)\b/
-      var peopleRegex = /^(@[\w]+)\b/
-      var taskRegex = /^(!.+)/
+      var peopleRegex = /(@[\w]+)\b/
+      var taskRegex = /^!(.+)/
 
 
         while (!stream.eol())
         {
-            if (stream.sol())
-            {
-                if (stream.match(taskRegex))
-                {
-                    return "undo-task";
-                }
-            }
             if (stream.eatSpace())
             {
                 return null;
+            }
+
+            if (stream.match(taskRegex))
+            {
+                return "undo-task";
             }
 
             if (stream.match(wwwRegex))

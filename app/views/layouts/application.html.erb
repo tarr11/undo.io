@@ -8,13 +8,14 @@
   <%= stylesheet_link_tag    "application" %>
   <%= stylesheet_link_tag    "bootstrap-responsive" %>
   <%= javascript_include_tag "application" %>
+<link href='http://fonts.googleapis.com/css?family=Ruluko' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Asap' rel='stylesheet' type='text/css'>
   <%= yield :javascript_includes %>
   <%= yield :stylesheet_includes %>
   <%= csrf_meta_tags %>
   <%= render "home/ga"%>
 </head>
 <body>
-
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner" style="padding: 5px;">
         <div class="container" style="width:auto;">
@@ -26,12 +27,19 @@
           </a>
 
           <a class="brand" href="/"><span class="undo-un">un</span><span class="undo-do">do</span><span class="undo-io">.io</span></a>
+
+
           <div class="nav-collapse">
             <% if !user_signed_in? %>
               <ul class="nav pull-right">
               <li><%= link_to "Sign in", new_session_path(resource_name)%></li>
               </ul>
             <% else %>
+              <ul class="nav">
+                <%=content_tag :li, :class => (params[:username] != current_user.username ? "active" : nil)  do%><a href="/">Public Notes</a><%end%>
+                <%=content_tag :li, :class => ((params[:username] == current_user.username && params[:shared] == nil) ? "active" : nil)  do%><%=link_to "My Notes", user_path(current_user)%><%end%>
+                <%=content_tag :li, :class => (params[:username] == current_user.username && params[:shared] == "y" ? "active" : nil)  do%><%=link_to "Shared Notes", url_for(:controller=>"task_folder", :action => "folder_view", :username=>current_user.username, :path => "/", :shared=>"y")%><%end%>
+              </ul>
               <ul class="nav pull-right">
                    <li class="dropdown">
                      <a href="#" data-toggle="dropdown" class="dropdown-toggle">Welcome <%=current_user.username%> <b class="caret"></b></a>

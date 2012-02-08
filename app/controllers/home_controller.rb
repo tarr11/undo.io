@@ -33,7 +33,7 @@ class HomeController < ApplicationController
      changed_files = changed_files.select{|a| a[:file].is_public}
     @changed_files_by_folder = changed_files
       .group_by {|note| get_sub_folder(note[:file].path,"/") }
-    @header = "Root"
+    @header = "Public Notes"
     @wildcard_user_name = true
     respond_to do |format|
         format.html { render 'task_folder/boxed_view', :layout => 'application'}

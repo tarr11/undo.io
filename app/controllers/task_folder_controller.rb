@@ -208,7 +208,6 @@ class TaskFolderController < ApplicationController
   end
 
   def task_view
-    get_header_data
 
     tasks = []
     if !@file.nil?
@@ -268,7 +267,6 @@ class TaskFolderController < ApplicationController
   end
 
   def event_view
-    get_header_data
     lines = []
       if !@file.nil?
         @file.get_event_notes do |line|
@@ -308,20 +306,24 @@ class TaskFolderController < ApplicationController
 
   def folder_view
 
+    get_header_data
     if params[:view] == "tasks"
       task_view
     elsif params[:view] == "events"
       event_view
     elsif params[:view] == "feed"
-      note_view
+      feed_view
     else
-      board_view
+      if @file.nil?
+        board_view
+      else
+        note_view
+      end
     end
   end
 
   def board_view
 
-    get_header_data
     start_date= Date.today - 100.years
     end_date = DateTime.now.utc
     changed_files = @taskfolder.get_file_changes(start_date, end_date)
@@ -334,68 +336,67 @@ class TaskFolderController < ApplicationController
     end
   end
 
+  def feed_view
+    if current_user.username != params[:username]
+      respond_to do |format|
+        format.html { render 'public_folder_view', :layout=>'application'}
+      end
+      return
+    end
+    start_date= Date.today - 100.years
+    end_date = DateTime.now.utc
+
+    if (start_date.nil?)
+      start_date = Time.zone.now.beginning_of_day - 1.week
+    end
+
+    if (end_date.nil?)
+      end_date = Time.zone.now
+    end
+
+    unless (params[:q].nil?)
+      changed_files = @taskfolder.search_for_changes(params[:q])
+    else
+      changed_files = @taskfolder.get_file_changes(start_date, end_date)
+    end
+
+
+    @changed_files_by_date = changed_files
+      .group_by {|note| note[:file].revision_at.strftime "%A, %B %e, %Y" }
+      .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
+      .reverse
+
+    @tasks = []
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.mobile
+    end
+
+  end
+
+
   def note_view
 
-    get_header_data
+    get_related_people
+    get_related_tags
 
-
-    if @file.nil?
-      if current_user.username != params[:username]
-        respond_to do |format|
-          format.html { render 'public_folder_view', :layout=>'application'}
-        end
-        return
-      end
-      start_date= Date.today - 100.years
-      end_date = DateTime.now.utc
-
-      if (start_date.nil?)
-        start_date = Time.zone.now.beginning_of_day - 1.week
-      end
-
-      if (end_date.nil?)
-        end_date = Time.zone.now
-      end
-
-      unless (params[:q].nil?)
-        changed_files = @taskfolder.search_for_changes(params[:q])
-      else
-        changed_files = @taskfolder.get_file_changes(start_date, end_date)
-      end
-
-
-      @changed_files_by_date = changed_files
-        .group_by {|note| note[:file].revision_at.strftime "%A, %B %e, %Y" }
-        .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
-        .reverse
-
-      @tasks = []
-
+    if params[:rail] == "true"
       respond_to do |format|
-        format.html # index.html.erb
-        format.mobile
+          format.html { render '_right_rail', :layout => false}
+       end
+    elsif @file.user.id == current_user.id
+      respond_to do |format|
+         format.html { render '_note_view', :layout => 'application'}
       end
     else
-
-      get_related_people
-      get_related_tags
-
-      if params[:rail] == "true"
-        respond_to do |format|
-            format.html { render '_right_rail', :layout => false}
-         end
-      elsif @file.user.id == current_user.id
-        respond_to do |format|
-           format.html { render '_note_view', :layout => 'application'}
-        end
-      else
-        respond_to do |format|
-           format.html { render '_note_view_other_user', :layout => 'application'}
-        end
-
+      respond_to do |format|
+         format.html { render '_note_view_other_user', :layout => 'application'}
       end
 
     end
+
+
 
 
   end

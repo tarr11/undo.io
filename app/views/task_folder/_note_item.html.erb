@@ -4,8 +4,8 @@
       <%= link_to  "@" + file.user.username, {:controller => "task_folder", :action=>"folder_view", :path=> "/", :only_path => @only_path, :username=>file.user.username}, :class=>"user-link"%>
   <% end %>
   <%= link_to  file.shortName, :controller => "task_folder", :action=>"folder_view", :path=> file.filename, :only_path => @only_path, :username=>file.user.username%></li>
-<%changed_lines.each do |line|%>
-     <li class="undo-ul-li-desc"><%=line.html_safe%></li>
+<%file.to_enum(:get_lines).to_a.first(10).each do |line|%>
+     <li class="undo-ul-li-desc" style="margin-left:1em;font-size: .8em"><%=line.text.html_safe%></li>
 <% end%>
 <li class="undo-ul-li-desc path"><%=time_ago_in_words(file.revision_at)%> ago in <%= link_to (file.task_folder.shortName.empty? ? "/" : file.task_folder.shortName) , :controller => "task_folder", :action=>"folder_view", :path=> file.path, :only_path => @only_path, :username=>file.user.username%> </li>
 <% if file.other_people_copies.length > 0%>

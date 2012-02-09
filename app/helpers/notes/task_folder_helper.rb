@@ -102,23 +102,24 @@ module Notes::TaskFolderHelper
         end
 
         @views = [
+
           OpenStruct.new(
               :id => nil,
-              :name => "Notes",
-              :querystring => {}
-          ),
-          OpenStruct.new(
-              :id => :board,
               :name => "Board",
-              :querystring => "board"
+              :querystring => nil
+          ),
+            OpenStruct.new(
+              :id => "feed",
+              :name => "Feed",
+              :querystring => "feed"
           ),
           OpenStruct.new(
-              :id => :tasks,
+              :id => "tasks",
               :name => "Tasks",
               :querystring => "tasks"
           ),
           OpenStruct.new(
-              :id => :events,
+              :id => "events",
               :name => "Events",
               :querystring => "events"
           )

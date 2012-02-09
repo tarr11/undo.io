@@ -312,10 +312,10 @@ class TaskFolderController < ApplicationController
       task_view
     elsif params[:view] == "events"
       event_view
-    elsif params[:view] == "board"
-      board_view
-    else
+    elsif params[:view] == "feed"
       note_view
+    else
+      board_view
     end
   end
 
@@ -330,7 +330,7 @@ class TaskFolderController < ApplicationController
       .sort_by {|folder_item| folder_item.second.map{|a| a[:file].revision_at}.max}
       .reverse
     respond_to do |format|
-        format.html { render 'task_folder/boxed_view', :layout => 'application', :wildcard_user_name=>false}
+        format.html { render 'task_folder/boxed_view', :layout => 'task_folder', :wildcard_user_name=>false}
     end
   end
 

@@ -36,7 +36,7 @@ class HomeController < ApplicationController
     @header = "Public Notes"
     @wildcard_user_name = true
     respond_to do |format|
-        format.html { render 'task_folder/boxed_view', :layout => 'application'}
+        format.html { render 'task_folder/boxed_view', :layout => 'task_folder'}
     end
 
   end

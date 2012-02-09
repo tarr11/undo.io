@@ -45,22 +45,10 @@ border-image: initial;
 });
 
 </script>
-<%= render 'layouts/breadcrumb'%>
 <div class="content">
-<div class="row-fluid">
- <div id="main-body">
-   <div class="row-fluid" style="margin-bottom: .5em;">
-     <div style="float: right;">
-       <%= render 'layouts/search_form' %>
-     </div>
-     <div style="margin: 0">
-       <h1><%=@header%></h1>
-     </div>
-   </div>
- </div>
-
-</div>
-
+ <% unless @views.nil? %>
+  <%= render 'task_folder/pill_views', :selected_view => params[:view]%>
+ <% end %>
   <div class="note-container">
     <%@changed_files_by_folder.each do |folder_item|%>
     <div class="note-box">

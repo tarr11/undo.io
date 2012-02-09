@@ -11,7 +11,7 @@
     <li class="site-hide-small nav-collapse">
     <ul class="nav section-contents" >
         <li>
-          <a href="/"><i class="icon-home"></i>Home</a>
+          <a href="/"><i class="icon-home"></i>Public Notes</a>
         </li>
         <li>
          <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>"/", :username=>@file_user.username %>">
@@ -41,7 +41,7 @@
   <li class="nav-header">Folders</li>
   <li class="folder-hide-small nav-collapse">
     <ul class="nav section-contents">
-      <% @folders.each do |folder|%>
+      <% @folders.sort_by{|a| a.shortName.downcase}.each do |folder|%>
            <li> <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>folder.path, :username=>@file_user.username %>">
            <i class="icon-folder-open"></i><%=folder.shortName%>
          </a></li>
@@ -61,7 +61,7 @@
       <li class="nav-header">Files</li>
       <li class="file-hide-small nav-collapse">
       <ul class="nav section-contents">
-           <% @files.each do |file|%>
+           <% @files.sort_by{|a| a.shortName.downcase}.each do |file|%>
             <li>
             <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>file.filename, :username=>@file_user.username %>">
                 <i class="icon-file"></i><%=file.shortName%>

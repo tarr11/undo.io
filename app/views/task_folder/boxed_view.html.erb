@@ -1,6 +1,9 @@
 <% content_for :stylesheet_includes do %>
   <%= stylesheet_link_tag "task_folder"  %>
 <% end %>
+<% content_for :buttons do %>
+    <%= button_to "New", {:controller => "task_folder", :action=>"new_file", :path=>@path}, :class=>"btn primary"%>
+<% end %>
 <style>
 .note-box {
   width: 300px;

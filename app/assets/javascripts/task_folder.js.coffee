@@ -2,20 +2,25 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+window.checkNewRightRail = false
+
 getNewRightRail = ->
-  $.ajax $('#page-path').text() + "?rail=true",
-    type: 'GET'
-    dataType: 'html'
-    success: (data, textStatus, jqXHR) ->
-        if window.lastdata != data
-          window.lastdata = data
-          $('#right-rail-feed').hide()
-          $('#right-rail-feed').html(data)
-          $('#right-rail-feed').fadeIn('slow')
+  if window.checkNewRightRail
+    window.checkNewRightRail = false
+    $.ajax $('#page-path').text() + "?rail=true",
+      type: 'GET'
+      dataType: 'html'
+      success: (data, textStatus, jqXHR) ->
+          if window.lastdata != data
+            window.lastdata = data
+            $('#right-rail-feed').hide()
+            $('#right-rail-feed').html(data)
+            $('#right-rail-feed').fadeIn('slow')
 
 
 
 $ ->
+  window.setInterval getNewRightRail, 1000
 
   $('#read-only-contents').keyup (event) ->
     if event.which == 33
@@ -136,11 +141,7 @@ $ ->
            # $("#loading").fadeOut(2000)
           )
           .bind('ajax:success', (event, data, status, xhr) ->
-               window.setTimeout getNewRightRail, 1000
-#              $("#read-only-contents").html(data)
-#              $('#edit-button').html('Edit')
-#              $('#read-only-contents').show()
-#              $('#ace-editor').hide()
+            window.checkNewRightRail = true
           )
           .bind('ajax:error', (xhr, status, error) ->
           )

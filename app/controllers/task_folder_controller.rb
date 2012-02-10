@@ -133,8 +133,6 @@ class TaskFolderController < ApplicationController
       oldName = @taskfolder.path
       # find all files in this path, and change their names
       # TODO: deal with overwriting
-                                                                                                                      e
-
       end
   end
 

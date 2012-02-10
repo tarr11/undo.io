@@ -29,6 +29,9 @@ class User < ActiveRecord::Base
   has_many :files_shared_with_user, :through => :shared_files, :source => :todo_file
   has_many :shared_files
 
+  def thumbnail
+    return "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/369935_717081119_1425821949_q.jpg"
+  end
 
   before_create :whitelisted
 

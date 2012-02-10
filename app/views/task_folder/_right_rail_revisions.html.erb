@@ -1,0 +1,20 @@
+<ul class="history">
+<% @note_activities.each do |activity| %>
+  <li class="history-divider"></li>
+  <li>
+    <div style="float:left">
+      <%=image_tag activity.file.user.thumbnail%>
+    </div>
+    <div style="float:left;padding-left:1em;">
+      <%=link_to activity.file.user.username, user_path(activity.file.user)%>
+      <div style="margin-left:.5em;"> <%=activity.summary%></div>
+        <div style="margin-left:.5em;font-style: italic;color:gray;"> <i class="icon-retweet"></i> Republished <%=time_ago_in_words(activity.published_at)%> ago</div>
+      <div style="margin-left:.5em;">to <%=link_to file_local_path(activity.file),file_local_path(activity.file)%></div>
+      <div style="margin-left:.5em;"><%=link_to "Compare" ,url_for(:controller=>"task_folder", :action => "folder_view", :path=>@file.filename, :compare=>file_local_path(activity.file))%></div>
+    </div>
+  </li>
+<% end %>
+</ul>
+<div style="clear:both;padding-bottom: 1em;"></div>
+
+

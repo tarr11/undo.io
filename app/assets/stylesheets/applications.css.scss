@@ -58,3 +58,28 @@ UL.section-contents
 
 }
 
+
+  .history
+  {
+      list-style-type: none;
+      margin-left:.1em;
+
+  }
+
+  .history LI
+  {
+      padding: .2em;
+  }
+
+  .history-name
+  {
+      font-weight: bold;
+  }
+
+  .history-divider
+  {
+      border-bottom: 1px solid #d3d3d3;
+      clear:both;
+      margin-bottom:1em;
+  }
+

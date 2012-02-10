@@ -150,14 +150,19 @@ module Notes::TaskFolderHelper
               raise ActionController::RoutingError.new('Not Found')
           end
 
-          @header = @taskfolder.shortName + " (" + @file_user.username + ")"
+          if @file_user.id != current_user.id
+            raise ActionController::RoutingError.new('Not Found')
+          end
+
+
+          @header = @taskfolder.shortName
           if @taskfolder.shortName.blank?
             @header = "My Notes"
           end
 
         else
           @taskfolder = @file.task_folder
-          @header = @file.shortName + "(" + @file_user.username + ")"
+          @header = @file.shortName
         end
 
         if !params[:person].nil?

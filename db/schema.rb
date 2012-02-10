@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120205004410) do
+ActiveRecord::Schema.define(:version => 20120210212614) do
 
   create_table "applications", :force => true do |t|
     t.string   "name"
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(:version => 20120205004410) do
     t.datetime "revision_at"
     t.string   "dropbox_revision"
     t.text     "diff"
+    t.datetime "summary"
+    t.datetime "published_at"
   end
 
   create_table "tasks", :force => true do |t|
@@ -100,6 +102,8 @@ ActiveRecord::Schema.define(:version => 20120205004410) do
     t.text     "diff"
     t.boolean  "is_public"
     t.integer  "copied_from_id"
+    t.string   "summary"
+    t.datetime "published_at"
   end
 
   create_table "todo_lines", :force => true do |t|
@@ -126,6 +130,7 @@ ActiveRecord::Schema.define(:version => 20120205004410) do
     t.datetime "updated_at"
     t.string   "time_zone"
     t.string   "username"
+    t.string   "thumbnail"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -78,7 +78,7 @@ end
 =end
 
   def make_public()
-      saveFromWeb(:is_public=>true)
+      saveFromWeb(:is_public=>true, :published_at=> DateTime.now.utc)
   end
 
   def make_private()
@@ -167,6 +167,11 @@ end
 
 #    return nil
    return Diff::LCS::diff(arrayA, arrayB)
+  end
+
+  def self.getLcsDiff2(arrayA,arrayB)
+    return Diff::LCS::sdiff(arrayA, arrayB)
+
   end
 
   def getChanges(startDate, endDate, all_revisions)
@@ -313,13 +318,13 @@ end
     end
   end
 
-  def summary
-    if (self.notes.nil?)
-      return [""]
-    end
-    reader = StringIO.new(self.contents)
-    return [reader.gets]
-  end
+  #def summary
+  #  if (self.notes.nil?)
+  #    return [""]
+  #  end
+  #  reader = StringIO.new(self.contents)
+  #  return [reader.gets]
+  #end
 
   def name
     self.filename

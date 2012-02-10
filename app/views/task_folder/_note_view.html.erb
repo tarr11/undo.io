@@ -81,17 +81,29 @@ function convertToSlug(Text)
 <div class="span8">
 <div class="row-fluid" style="margin-bottom:.2em;">
   <h1 style="display:inline; margin-right:.5em;"><%=@header%><%=render 'access_labels'%></h1>
+   <% unless @compare_file.nil? %>
+   <div>Compared to <%=link_to file_local_path(@compare_file), file_local_path(@compare_file)%></div>
+   <% end %>
 
     <span id="loading" class="label" style="display:none">Saving...</span>
 
     <div class="pull-right">
+
+      <% if !@owned_by_user %>
+          <div class="btn-group">
+          <a href="#" class="btn btn-success" id="copy-button"><i class="icon-download icon-white"></i> Copy</a>
+       </div>
+      <% end %>
+      <% if @owned_by_user  %>
     <% if !@is_new_file%>
             <div class="btn-group">
-              <a href="#" id="collapse-button" class="btn">Collapse</a>
+              <% unless @compare_file.nil? %>
+              <a href="#" id="unpublish-button" class="btn"><i class="icon-repeat"></i> Merge</a>
+              <% end %>
               <% if @file.is_public %>
-                <a href="#" id="unpublish-button" class="btn">Revoke</a>
+                <a href="#" id="unpublish-button" class="btn"><i class="icon-remove-circle"></i> Unpublish</a>
               <% else %>
-                <a href="#" id="publish-button" class="btn btn-success">Lend this note</a>
+                <a href="#" id="publish-button" class="btn btn-success"><i class="icon-upload icon-white"></i> Publish</a>
               <% end %>
             <a href="#" class="btn btn-primary hide" id="edit-button">Save</a>
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -110,6 +122,7 @@ function convertToSlug(Text)
         <a href="#" id="save-new" class="btn btn-primary">Save</a>
         </div>
     <% end %>
+    <% end %>
 
   </div>
 </div>
@@ -117,10 +130,32 @@ function convertToSlug(Text)
   <div id="page-path" style="display:none"><%=url_for(:controller => "task_folder", :action=>"folder_view", :path=> @file.filename, :only_path => true, :username=>@file.user.username)%></div>
 
 
+  <% if @owned_by_user && params[:compare].nil?%>
     <div id="read-only-contents" style="font-family: courier new;width:100%;border: solid black 1px">
       <textarea id="editor"><%=@file.contents%></textarea>
       </div>
-
+ <% else %>
+      <article id="read-only-contents" style="width:95%;margin: .5em;">
+        <% unless params[:compare].nil? %>
+            <% @diff.each do |diff|%>
+                <% if diff.action == "="%>
+                    <div><%=diff.new_element%></div>
+                <% elsif diff.action == "-"%>
+                    <div style="color:red"><%=diff.old_element%></div>
+                <% elsif diff.action == "+"%>
+                   <div style="color:green"><%=diff.new_element%></div>
+                <% elsif diff.action == "!" %>
+                    <div style="color:red"><%=diff.old_element%></div>
+                    <div style="color:green"><%=diff.new_element%></div>
+                <% end %>
+             <% end %>
+        <% else %>
+            <%@file.formatted_lines.each do |line|%>
+               <%=render_line(line).html_safe%>
+            <% end %>
+        <% end %>
+        </article>
+<% end %>
 <%=render 'note_file_details'%>
 
     <%= form_tag(url_for(:controller=>"task_folder", :action=>"update"), :remote => true, :method=>:put,:format => :json, :id => "update-form") do  %>
@@ -132,6 +167,13 @@ function convertToSlug(Text)
 
 <div class="span4">
   <% unless @is_new_file%>
+      <div id="right-rail-created-by" style="padding-bottom:1em;">
+        <%= render 'right_rail_created_by'%>
+      </div>
+      <h3>Notestream</h3>
+      <div id="right-rail-revisions">
+        <%= render 'right_rail_revisions'%>
+      </div>
   <h3>Feed</h3>
       <div id="right-rail-feed">
     <%= render 'right_rail'%>

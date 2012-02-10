@@ -1,0 +1,26 @@
+<ul class="history">
+<li style="clear:both">
+<div style="float:left"><%=image_tag @file.user.thumbnail%></div>
+<div style="float:left;padding-left:1em;">
+  <h2><%=link_to @file_user.username, user_path(@file.user)%></h2>
+
+  <% if @file.is_public %>
+  <% unless @file.copied_from.nil? %>
+      <div style="margin-left:.5em; font-style: italic;color:gray;"> <i class="icon-retweet"></i> Republished <%=time_ago_in_words(@file.published_at ||= DateTime.now)%> ago</div>
+  <div style="margin-left:.5em;">from <%=link_to file_local_path(@file.copied_from), file_local_path(@file.copied_from)%></div>
+  <% end %>
+
+  <% if @file.copied_from.nil? %>
+      <div style="margin-left:.5em; font-style: italic;color:gray;"> <i class="icon-upload"></i>Published <%=time_ago_in_words(@file.published_at ||= DateTime.now)%> ago</div>
+  <% end %>
+  <% end %>
+  <% if @owned_by_user %>
+  <div style="margin-left:.5em; font-style: italic;color:gray;"> <i class="icon-pencil"></i>Created <%=time_ago_in_words(@file.created_at)%> ago</div>
+  <% end %>
+  <% unless @file.copied_from.nil? %>
+    <%=link_to "Compare to original" ,url_for(:controller=>"task_folder", :action => "folder_view", :path=>@file.filename, :compare=>file_local_path(@file.copied_from))%>
+  <% end %>
+</div>
+  </li>
+</ul>
+<div style="clear:both;"></div>

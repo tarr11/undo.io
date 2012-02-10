@@ -378,18 +378,51 @@ class TaskFolderController < ApplicationController
 
     get_related_people
     get_related_tags
+    if @file.user.id == current_user.id
+      @owned_by_user = true
+    else
+      @owned_by_user = false
+    end
+
+    @note_activities = @file.published_copies.sort_by{|a| a.revision_at}.reverse
+      .map{ |a|
+      OpenStruct.new(
+          :file=>a,
+          :summary=>a.summary,
+          :published_at=>a.published_at||=DateTime.now
+      )
+    }
+
+    unless params[:compare].nil?
+      parts = params[:compare].split('/')
+      parts = parts.reverse
+      parts.pop
+      compare_user_name = parts.last
+      parts.pop
+      parts = parts.reverse
+      compare_file_name = "/" + parts.join("/")
+      compare_user = User.find_by_username(compare_user_name)
+      logger.info compare_file_name
+      @compare_file = compare_user.file(compare_file_name)
+      unless @compare_file .is_public
+        raise ActionController::RoutingError.new('Not Found')
+      end
+      #
+      arrayA = @file.contents.split("\n")
+      arrayB = @compare_file .contents.split("\n")
+      @diff = TodoFile.getLcsDiff2(arrayA, arrayB)
+
+    end
+
+    #@note_activities = []
 
     if params[:rail] == "true"
       respond_to do |format|
           format.html { render '_right_rail', :layout => false}
        end
-    elsif @file.user.id == current_user.id
-      respond_to do |format|
-         format.html { render '_note_view', :layout => 'application'}
-      end
     else
       respond_to do |format|
-         format.html { render '_note_view_other_user', :layout => 'application'}
+         format.html { render '_note_view', :layout => 'application'}
       end
 
     end

@@ -89,9 +89,6 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/solr/data/development/index/segments_k" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/controllers/app/dropbox_controller_spec.rb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/helpers/app/dropbox_helper_spec.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/notes/task_folder_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/notes/task_folder_helper.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/application.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
     </list>
     <ignored path="todo.iws" />
@@ -194,7 +191,7 @@
       <file leaf-file-name="application.html.erb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="109" selection-start="1621" selection-end="1621" vertical-scroll-proportion="0.52400833">
+            <state line="4" column="31" selection-start="62" selection-end="62" vertical-scroll-proportion="0.12526096">
               <folding />
             </state>
           </provider>
@@ -1149,7 +1146,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="109" selection-start="1621" selection-end="1621" vertical-scroll-proportion="0.52400833">
+        <state line="4" column="31" selection-start="62" selection-end="62" vertical-scroll-proportion="0.12526096">
           <folding />
         </state>
       </provider>

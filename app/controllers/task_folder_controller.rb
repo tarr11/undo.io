@@ -325,7 +325,11 @@ class TaskFolderController < ApplicationController
 
     start_date= Date.today - 100.years
     end_date = DateTime.now.utc
-    changed_files = @taskfolder.get_file_changes(start_date, end_date)
+    if (params[:q].nil?)
+      changed_files = @taskfolder.get_file_changes(start_date, end_date)
+    else
+      changed_files = @taskfolder.search_for_changes(params[:q])
+    end
     @changed_files_by_folder = changed_files
       .group_by {|note| get_sub_folder(note[:file].path,@taskfolder.path)}
       .sort_by {|folder_item| folder_item.second.map{|a| a[:file].revision_at}.max}

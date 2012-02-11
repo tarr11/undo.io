@@ -25,8 +25,9 @@ class HomeController < ApplicationController
   end
 
   def boxed_view
+
     results = TodoFile.search do
-       keywords ""
+       keywords params[:q] ||= ""
        with(:is_public, true)
      end
      changed_files = TaskFolder.process_search_results(results, "/")

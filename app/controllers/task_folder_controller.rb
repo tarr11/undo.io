@@ -109,6 +109,7 @@ class TaskFolderController < ApplicationController
     @file_user = current_user
     @file.user = current_user
     @is_new_file = true
+    @owned_by_user  = true
     respond_to do |format|
       format.html { render '_note_view', :layout => 'application'}
     end

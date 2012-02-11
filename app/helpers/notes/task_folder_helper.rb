@@ -195,6 +195,11 @@ module Notes::TaskFolderHelper
 
         @people = people.uniq
         @path = path
+        unless @file.nil?
+          @folder_path = @file.path
+        else
+          @folder_path = @taskfolder.path
+        end
     end
 
 

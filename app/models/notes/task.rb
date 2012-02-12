@@ -5,9 +5,8 @@ class Task
   attr_accessor :file
   attr_accessor :lines
   attr_accessor :line_number
+  attr_accessor :parent
 
-  def self.MarkCompleted(user, filename, line_number)
 
-  end
 
 end

@@ -1,0 +1,12 @@
+<% group.each do |subgroup|%>
+    <% if subgroup.respond_to?(:first) %>
+    <div style="font-weight:bold;margin-left:<%=level%>em"><%=subgroup.first%></div>
+        <div style="margin-bottom:1em">
+    <%=render 'task_group', :group => subgroup.second, :level=>level+1%>
+        </div>
+    <% else %>
+        <div style="margin-left:<%=level%>em">
+          <input type="checkbox" style="margin-right:1em;"><%=subgroup.title%>
+        </div>
+    <% end %>
+ <% end %>

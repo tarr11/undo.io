@@ -4,6 +4,10 @@
 <div style="float:left;padding-left:1em;">
   <h2><%=link_to @file_user.username, user_path(@file.user)%></h2>
 
+<% if @is_new_file %>
+      <div style="margin-left:.5em; font-style: italic;color:gray;"> <i class="icon-pencil"></i> New File</div>
+<% end %>
+<% unless @is_new_file%>
   <% if @file.is_public %>
   <% unless @file.copied_from.nil? %>
       <div style="margin-left:.5em; font-style: italic;color:gray;"> <i class="icon-retweet"></i> Republished <%=time_ago_in_words(@file.published_at ||= DateTime.now)%> ago</div>
@@ -20,7 +24,8 @@
   <% unless @file.copied_from.nil? %>
     <%=link_to "Compare to original" ,url_for(:controller=>"task_folder", :action => "folder_view", :path=>@file.filename, :compare=>file_local_path(@file.copied_from))%>
   <% end %>
-</div>
+<% end %>
+    </div>
   </li>
 </ul>
 <div style="clear:both;"></div>

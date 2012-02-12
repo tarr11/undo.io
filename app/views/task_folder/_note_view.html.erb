@@ -194,11 +194,12 @@ function convertToSlug(Text)
 
          </div>
        <div style="padding:1em;">
-         <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#tasks"><i class="icon-check"></i> Tasks</a> (<%=@tasks.length%>)</h3>
+
+
+
+         <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#tasks"><i class="icon-check"></i> Tasks</a> (<%=@task_count%>)</h3>
             <div style="margin-left:.5em; margin-bottom:1em;" id="tasks" class="collapse out">
-             <% @tasks.each do |task|%>
-                  <div><input type="checkbox" style="margin-right:1em;"><%=task.title%></div>
-             <% end %>
+              <%= render 'task_group', :group=>@tasks_grouped, :level=>0%>
         </div>
        </div>
          </div>

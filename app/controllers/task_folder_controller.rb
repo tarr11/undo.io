@@ -384,7 +384,7 @@ class TaskFolderController < ApplicationController
     get_related_people
     get_related_tags
     @events = get_related_events
-    @tasks = get_related_tasks
+    get_related_tasks
 
     if @file.user.id == current_user.id
       @owned_by_user = true

@@ -250,7 +250,25 @@ module Notes::TaskFolderHelper
 
     def get_related_tasks
 
-      return @file.to_enum(:get_tasks).to_a
+      task_list = @file.to_enum(:get_tasks).to_a
+
+      @task_count = task_list.length
+      @tasks = task_list.group_by{|a| a.parent}
+
+      # roll up everything is nil
+      temp_groups = @tasks
+      @tasks_grouped = []
+      while(true)
+        temp_groups.select{|a| a.nil?}.each{|a| @tasks_grouped.push(a)}
+        temp_groups = temp_groups.select{|a| !a.nil?}.group_by{|a| (a.first.parent)}
+        if temp_groups.length == 0
+          break
+        end
+      end
+
+      @tasks_grouped = @tasks_grouped.reverse
+
+
 
     end
 

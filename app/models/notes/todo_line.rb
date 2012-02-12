@@ -14,6 +14,8 @@ class TodoLine
   attr_accessor :people
   attr_accessor :file
   attr_accessor :created_at
+  attr_accessor :parent
+
 
   def to_s
     self.text

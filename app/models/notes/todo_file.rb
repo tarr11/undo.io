@@ -283,6 +283,8 @@ end
 
     i = 1
     task = nil
+    parent_line = nil
+    prev_line = nil
      formatted_lines.each do |line|
        i = i + 1
 
@@ -296,6 +298,7 @@ end
        if new_task
            task = Task.new
            task.title = line.text.strip.sub("!","")
+           task.parent = line.parent
            task.file = self
            task.line_number = i
            task.lines = []
@@ -305,6 +308,7 @@ end
          elsif (!task.nil? && (line.text.starts_with?("\t") || line.text.starts_with?("  ")))
              task.lines.push line.text.strip
          end
+
      end
     if !task.nil?
       yield task
@@ -339,7 +343,7 @@ end
 
   def formatted_lines
 
-    # there's prb some more elegant way to cache data, it's not thread-safe anyway
+    # create a directed graph of the document
     if !@lines.nil?
       return @lines
     end
@@ -349,15 +353,35 @@ end
       @lines.push line
     end
 
-    previous = nil
+    stack = []
     @lines.each do |line|
 
-      if line.tab_count == 1 && !previous.nil? && previous.tab_count == 0
-        previous.line_type = :outline_header
-      end
-      previous = line
+        if stack.length == 0
+          stack.push line
+          next
+        end
+
+        if line.tab_count > stack.last.tab_count
+          line.parent = stack.last
+          stack.push line
+          next
+        end
+
+        while (true)
+          if stack.length == 0
+            break
+          end
+          next_item = stack.last
+          if next_item.tab_count < line.tab_count
+            line.parent = next_item
+            break
+          end
+          stack.pop()
+        end
+        stack.push line
 
     end
+
     first_line = @lines.first
     if (!first_line.nil? && !first_line.blank?)
       first_line.line_type = :document_title
@@ -509,7 +533,7 @@ end
     line.each_char{ |c|
       if c == "\t"
         if space_count > 0
-          tab_count += (space_count / 4).to_i
+          tab_count += (space_count / 1).to_i
           space_count = 0
         end
         tab_count += 1
@@ -518,7 +542,7 @@ end
       else
         # stop when we hit a non-whitespace character
         if space_count > 0
-          tab_count += (space_count / 4).to_i
+          tab_count += (space_count / 1).to_i
         end
         break
       end

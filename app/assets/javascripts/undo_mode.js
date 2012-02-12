@@ -106,6 +106,8 @@ CodeMirror.defineMode("undo", function(config, parserConfig) {
       var tagRegex = /^(#[\w]+)\b/
       var peopleRegex = /(@[\w]+)\b/
       var taskRegex = /^!(.+)/
+      var dateRegex = /^(0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d/
+
 
 
         while (!stream.eol())
@@ -118,6 +120,11 @@ CodeMirror.defineMode("undo", function(config, parserConfig) {
             if (stream.match(taskRegex))
             {
                 return "undo-task";
+            }
+
+            if (stream.match(dateRegex))
+            {
+                return "undo-date";
             }
 
             if (stream.match(wwwRegex))

@@ -30,7 +30,11 @@ class User < ActiveRecord::Base
   has_many :shared_files
 
   def thumbnail
-    return "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/369935_717081119_1425821949_q.jpg"
+    if self.username == "tarr11"
+      return "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/369783_599826078_209700476_q.jpg"
+    else
+      return "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/369935_717081119_1425821949_q.jpg"
+    end
   end
 
   before_create :whitelisted

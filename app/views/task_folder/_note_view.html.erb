@@ -1,7 +1,4 @@
 <% content_for :javascript_includes do %>
-    <%= javascript_include_tag "codemirror_full" %>
-    <%= javascript_include_tag "codemirror_simplehint"%>
-    <%= javascript_include_tag "codemirror_javascripthint"%>
     <%= javascript_include_tag "undo_mode" %>
   <%= javascript_include_tag "edit_file"  %>
 
@@ -78,7 +75,9 @@ function convertToSlug(Text)
 <% end %>
 
 <div class="row-fluid">
-<div class="span8">
+
+
+  <div class="span8">
 <div class="row-fluid" style="margin-bottom:.2em;">
   <h1 style="display:inline; margin-right:.5em;"><%=@header%><%=render 'access_labels'%></h1>
    <% unless @compare_file.nil? %>
@@ -165,20 +164,49 @@ function convertToSlug(Text)
 <% end %>
   </div>
 
-<div class="span4">
+
+ <div class="span4" style="background-color:#F2F4F8;">
+   <div id="right-rail-created-by" style="padding:1em;">
+     <%= render 'right_rail_created_by'%>
+   </div>
   <% unless @is_new_file%>
-      <div id="right-rail-created-by" style="padding-bottom:1em;">
-        <%= render 'right_rail_created_by'%>
-      </div>
-      <h3>Notestream</h3>
-      <div id="right-rail-revisions">
-        <%= render 'right_rail_revisions'%>
-      </div>
-  <h3>Feed</h3>
-      <div id="right-rail-feed">
-    <%= render 'right_rail'%>
-      </div>
-  <% end %>
-</div>
+
+       <div id="accordion-group">
+       <div style="padding:1em;">
+          <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#related-events"><i class="icon-calendar"></i> Related Events</a> (<%=@events.length%>)</h3>
+         <div style="margin-left:.5em;" id="related-events" class="collapse out">
+         <%@events.each do |event|%>
+               <div><a href=""><%=event.created_at.to_s%> - <%=event.title%> </a></div>
+         <% end%>
+          </div>
+         </div>
+
+       <div style="padding:1em;">
+         <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#notestream"><i class="icon-list-alt"></i> Notestream</a> (6)</h3>
+               <div id="notestream" class="collapse out">
+                 <div>
+           <%= render 'right_rail_revisions'%>
+         </div>
+       <div id="right-rail-folder-files">
+     <%= render 'right_rail_folder_files'%>
+       </div>
+         </div>
+
+         </div>
+       <div style="padding:1em;">
+         <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#tasks"><i class="icon-check"></i> Tasks</a> (<%=@tasks.length%>)</h3>
+            <div style="margin-left:.5em; margin-bottom:1em;" id="tasks" class="collapse out">
+             <% @tasks.each do |task|%>
+                  <div><input type="checkbox" style="margin-right:1em;"><%=task.title%></div>
+             <% end %>
+        </div>
+       </div>
+         </div>
+
+ <% end %>
+
+
+  </div>
 </div>
 
+    </div>

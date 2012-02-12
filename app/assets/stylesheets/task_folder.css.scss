@@ -92,13 +92,21 @@
 
         .CodeMirror
         {
-        font-family: 'Ruluko', sans-serif;
         }
          .CodeMirror-scroll
           {
 
                height: auto; overflow: visible;
               min-height: 300px;
+          }
+          span.cm-undo-date
+          {
+              padding-left:4px;
+              color: orange;
+              text-decoration: underline;
+              cursor: pointer;
+              cursor: hand;
+
           }
           span.cm-undo-task
           {

@@ -246,6 +246,20 @@ module Notes::TaskFolderHelper
 
     end
 
+
+
+    def get_related_tasks
+
+      return @file.to_enum(:get_tasks).to_a
+
+    end
+
+    def get_related_events
+
+      return @file.to_enum(:get_event_notes).to_a
+
+    end
+
     def get_related_tags
       tags = []
       # get a list of people, and all the notes that they are in

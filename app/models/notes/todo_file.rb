@@ -277,23 +277,16 @@ end
     # if the first line has a !, every non-blank,non-tabbed line is a task
     line = reader.gets
 
-    all_tasks = false
-    if !line.nil? && line.lstrip.downcase.include?("!")
-      all_tasks = true
-    end
-
-    if (line.nil?)
+     if (line.nil?)
       return
     end
 
     i = 1
     task = nil
-     while (line = reader.gets)
+     formatted_lines.each do |line|
        i = i + 1
 
-       new_task  = ((line.lstrip.downcase.include?("!") || all_tasks) &&  # task marker
-            (!line.starts_with?("\t") && !line.starts_with?("  ")) && # not part of another task
-            !line.blank?)
+       new_task  = (line.text.lstrip.downcase.starts_with?("!") )
 
        if (new_task && !task.nil?)
          yield task
@@ -302,15 +295,15 @@ end
 
        if new_task
            task = Task.new
-           task.title = line.strip.sub("!","")
+           task.title = line.text.strip.sub("!","")
            task.file = self
            task.line_number = i
            task.lines = []
            if task.title.starts_with?("x")
                 task.completed = true
            end
-         elsif (!task.nil? && (line.starts_with?("\t") || line.starts_with?("  ")))
-             task.lines.push line.strip
+         elsif (!task.nil? && (line.text.starts_with?("\t") || line.text.starts_with?("  ")))
+             task.lines.push line.text.strip
          end
      end
     if !task.nil?
@@ -393,6 +386,7 @@ end
         note.title = line
         note.line_number = line.line_number
         note.lines = []
+        note.created_at = event.start_at
         last_tab_count = line.tab_count
         note.file = self
       elsif !note.nil? && line.tab_count > last_tab_count

@@ -182,14 +182,9 @@ function convertToSlug(Text)
          </div>
 
        <div style="padding:1em;">
-         <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#notestream"><i class="icon-list-alt"></i> Notestream</a> (6)</h3>
-               <div id="notestream" class="collapse out">
-                 <div>
+         <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#notestream"><i class="icon-list-alt"></i> Notestream</a> (<%=@note_activities.length%>)</h3>
+           <div id="notestream" class="collapse out">
            <%= render 'right_rail_revisions'%>
-         </div>
-       <div id="right-rail-folder-files">
-     <%= render 'right_rail_folder_files'%>
-       </div>
          </div>
 
          </div>

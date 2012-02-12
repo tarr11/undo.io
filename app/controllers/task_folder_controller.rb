@@ -383,23 +383,15 @@ class TaskFolderController < ApplicationController
 
     get_related_people
     get_related_tags
-    @events = get_related_events
+    get_related_events
     get_related_tasks
+    get_notestream
 
     if @file.user.id == current_user.id
       @owned_by_user = true
     else
       @owned_by_user = false
     end
-
-    @note_activities = @file.published_copies.sort_by{|a| a.revision_at}.reverse
-      .map{ |a|
-      OpenStruct.new(
-          :file=>a,
-          :summary=>a.summary,
-          :published_at=>a.published_at||=DateTime.now
-      )
-    }
 
     unless params[:compare].nil?
       parts = params[:compare].split('/')

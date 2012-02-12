@@ -110,9 +110,9 @@
           }
           span.cm-undo-task
           {
-              padding-left:4px;
-              color: green;
-              text-decoration: underline;
+              padding:1px;
+              color:green;
+              font-weight:bold;
               cursor: pointer;
               cursor: hand;
 
@@ -187,14 +187,6 @@
 
                   height: auto; overflow: visible;
                  min-height: 300px;
-             }
-             span.cm-undo-task
-             {
-                 color: green;
-                 text-decoration: underline;
-                 cursor: pointer;
-                 cursor: hand;
-
              }
              span.cm-undo-people
              {

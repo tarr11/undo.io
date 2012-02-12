@@ -1,19 +1,44 @@
 <ul class="history">
-<% @note_activities.each do |activity| %>
-  <li class="history-divider"></li>
-  <li>
-    <div style="float:left">
-      <%=image_tag activity.file.user.thumbnail%>
-    </div>
-    <div style="float:left;padding-left:1em;">
-      <%=link_to activity.file.user.username, user_path(activity.file.user)%>
-      <div style="margin-left:.5em;"> <%=activity.summary%></div>
-        <div style="margin-left:.5em;font-style: italic;color:gray;"> <i class="icon-retweet"></i> Republished <%=time_ago_in_words(activity.published_at)%> ago</div>
-      <div style="margin-left:.5em;">to <%=link_to file_local_path(activity.file),file_local_path(activity.file)%></div>
-      <div style="margin-left:.5em;"><%=link_to "Compare" ,url_for(:controller=>"task_folder", :action => "folder_view", :path=>@file.filename, :compare=>file_local_path(activity.file))%></div>
-    </div>
-  </li>
-<% end %>
+
+  <% @note_activities.each_with_index do |activity, index|%>
+
+   <% if index > 0 %>
+          <li class="history-divider"></li>
+   <% end %>
+    <li>
+
+      <div style="float:left;padding-left:1em;">
+
+        <div style="float:left">
+          <%=image_tag activity.file.user.thumbnail%>
+        </div>
+        <div style="float:left;padding-left: .5em">
+        <% if activity.activity_type == :same_folder%>
+            <i class="icon-folder-open"></i>
+              <%=link_to activity.file.shortName, file_local_path(activity.file)%>
+
+            <div style="margin-left:.5em;font-style: italic;color:gray;">  in this folder <%=time_ago_in_words(activity.published_at)%> ago</div>
+        <% elsif activity.activity_type == :same_tag%>
+              <i class="icon-tag"></i>
+                <%=link_to activity.file.shortName, file_local_path(activity.file)%>
+              <div style="margin-left:.5em;font-style: italic;color:gray;">  tagged
+                <%activity.tags.each do |tag|%>
+                <%=link_to  tag, :controller => "task_folder", :action => "folder_view", :path=>"/" , :q=>tag%>
+                <% end %>
+                <%=time_ago_in_words(activity.published_at)%> ago</div>
+        <% elsif activity.activity_type == :republished%>
+            <div style="margin-left:.5em;"> <%=activity.summary%></div>
+            <i class="icon-retweet"></i> <%=link_to activity.file.user.username, user_path(activity.file.user)%>
+            <div style="margin-left:.5em;font-style: italic;color:gray;"> Republished <%=time_ago_in_words(activity.published_at)%> ago</div>
+            <div style="margin-left:.7em;">to <%=link_to file_local_path(activity.file),file_local_path(activity.file)%></div>
+            <div style="margin-left:.7em;"><i class="icon-resize-horizontal"></i> <%=link_to "compare" ,url_for(:controller=>"task_folder", :action => "folder_view", :path=>@file.filename, :compare=>file_local_path(activity.file))%></div>
+        <% end %>
+          </div>
+      </div>
+    </li>
+
+  <% end %>
+
 </ul>
 <div style="clear:both;padding-bottom: 1em;"></div>
 

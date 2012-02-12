@@ -1,5 +1,6 @@
-require 'ostruct'
 module Notes::TaskFolderHelper
+  require 'ostruct'
+
 
     def render_line(line)
 
@@ -272,9 +273,72 @@ module Notes::TaskFolderHelper
 
     end
 
+    def get_notestream
+
+      # copies that have been published
+      @note_activities = []
+      @file.published_copies
+        .each{ |a|
+
+          activity = Notes::FileActivity.new
+          activity.activity_type = :republished
+          activity.file = a
+          activity.summary= a.summary
+          activity.published_at = a.published_at||=DateTime.now
+          @note_activities.push(activity)
+      }
+
+      # files in the same folder
+      current_user.task_folder(@file.task_folder.path).todo_files.each do |file|
+          if file.filename != @file.filename
+            activity = Notes::FileActivity.new
+            activity.activity_type = :same_folder
+            activity.file = file
+            activity.summary= ""
+            activity.published_at = file.revision_at
+            @note_activities.push(activity)
+          end
+      end
+      #
+      # files with the same tags in any folder of mine
+      these_tags = []
+      @file.get_tag_notes do |note|
+        note.tags.each do |tag|
+          these_tags.push tag
+        end
+      end
+
+      these_tags = these_tags.uniq
+
+      current_user.task_folder("/").get_tag_notes do |note|
+        if note.file.filename == @file.filename
+          next
+        end
+
+        matching_tags = note.tags.select{|tag| these_tags.include?(tag)}
+        if matching_tags.length == 0
+          next
+        end
+
+        activity = Notes::FileActivity.new
+        activity.activity_type = :same_tag
+        activity.file = note.file
+        activity.summary= matching_tags
+        activity.tags = matching_tags
+        activity.published_at = note.file.revision_at
+        @note_activities.push(activity)
+      end
+
+
+      @note_activities = @note_activities.sort_by{|a| a.published_at}.reverse
+      # files that link to this file directly (either publicly or privately)
+
+
+    end
+
     def get_related_events
 
-      return @file.to_enum(:get_event_notes).to_a
+      @events = @file.to_enum(:get_event_notes).to_a
 
     end
 
@@ -311,7 +375,7 @@ module Notes::TaskFolderHelper
       tags = tags.uniq{|a| [a[:tag], a[:file]]}
 
       @these_tags = these_tags
-      @related_tags = tags.group_by {|group| group[:tag]}
+      related_tags = tags.group_by {|group| group[:tag]}
         .map {|key, group|
           OpenStruct.new(:name=> key,
             :files=>group.map { |b|
@@ -320,7 +384,7 @@ module Notes::TaskFolderHelper
           )
       }
 
-      #@related_tags = tags
+      return related_tags
 
     end
 

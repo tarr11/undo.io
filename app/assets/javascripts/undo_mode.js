@@ -105,7 +105,7 @@ CodeMirror.defineMode("undo", function(config, parserConfig) {
       var wwwRegex = /^\b(www\.([^\s]+))\b/
       var tagRegex = /^(#[\w]+)\b/
       var peopleRegex = /(@[\w]+)\b/
-      var taskRegex = /^!(.+)/
+      var taskRegex = /^!/
       var dateRegex = /^(0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d/
 
 

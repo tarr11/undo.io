@@ -89,13 +89,6 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/solr/data/development/index/segments_k" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/controllers/app/dropbox_controller_spec.rb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/helpers/app/dropbox_helper_spec.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/undo_mode.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/undo_mode.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/task_folder.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/task_folder.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/notes/todo_file.rb" afterPath="$PROJECT_DIR$/app/models/notes/todo_file.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/notes/todo_line.rb" afterPath="$PROJECT_DIR$/app/models/notes/todo_line.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/_task_group.html.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/_task_group.html.erb" />
     </list>
     <ignored path="todo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -149,10 +142,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="task_folder.js.coffee" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="task_folder.js.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="50" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.7148289">
+            <state line="33" column="50" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -203,10 +196,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="todo_line.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="todo_line.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/notes/todo_line.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="26" selection-start="591" selection-end="591" vertical-scroll-proportion="0.0">
+            <state line="31" column="26" selection-start="591" selection-end="591" vertical-scroll-proportion="0.8840304">
               <folding />
             </state>
           </provider>
@@ -1106,16 +1099,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/notes/todo_line.rb">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="26" selection-start="591" selection-end="591" vertical-scroll-proportion="0.0">
+        <state line="33" column="50" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee">
+    <entry file="file://$PROJECT_DIR$/app/models/notes/todo_line.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="50" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.7148289">
+        <state line="31" column="26" selection-start="591" selection-end="591" vertical-scroll-proportion="0.8840304">
           <folding />
         </state>
       </provider>

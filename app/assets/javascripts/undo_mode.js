@@ -104,13 +104,14 @@ CodeMirror.defineMode("undo", function(config, parserConfig) {
       var httpRegex = /^\b(ftp|http|https):\/\/([^\s]+)/;
       var wwwRegex = /^\b(www\.([^\s]+))\b/
       var tagRegex = /^(#[\w]+)\b/
-      var peopleRegex = /(@[\w]+)\b/
+      var peopleRegex = /^@[\w]+\b/
       var taskRegex = /^!/
       var completedtaskRegex = /^x[\s]*!.*/
       var dateRegex = /^(0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d/
+      var emailRegex = /^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i
 
 
-
+        var nextChar = '';
         while (!stream.eol())
         {
             if (stream.eatSpace())
@@ -118,9 +119,22 @@ CodeMirror.defineMode("undo", function(config, parserConfig) {
                 return null;
             }
 
-            if (stream.match(taskRegex))
+            if (nextChar != null && !nextChar.match(/\w/))
             {
-                return "undo-task";
+                if (stream.match(taskRegex))
+                {
+                    return "undo-task";
+                }
+
+                if (stream.match(peopleRegex))
+                {
+                    return "undo-people";
+                }
+            }
+
+            if (stream.match(emailRegex))
+            {
+                return "undo-email";
             }
 
             if (stream.match(completedtaskRegex))
@@ -148,12 +162,8 @@ CodeMirror.defineMode("undo", function(config, parserConfig) {
                 return "undo-tag";
             }
 
-            if (stream.match(peopleRegex))
-            {
-                return "undo-people";
-            }
 
-            stream.next()
+            nextChar = stream.next()
 
          }
 

@@ -137,11 +137,17 @@
               text-decoration: underline;
               cursor: pointer;
               cursor: hand;
-
           }
           span.cm-undo-tag
           {
               color:purple;
+              text-decoration: underline;
+              cursor: pointer;
+              cursor: hand;
+          }
+          span.cm-undo-email
+          {
+              color:blue;
               text-decoration: underline;
               cursor: pointer;
               cursor: hand;

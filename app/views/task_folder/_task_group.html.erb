@@ -6,7 +6,7 @@
         </div>
     <% else %>
         <div style="margin-left:<%=level%>em">
-          <input type="checkbox" style="margin-right:1em;"><%=subgroup.title%>
+          <input class="task-checkbox-in-file" line-number="<%=subgroup.line_number%>" type="checkbox" <%=subgroup.completed ? "CHECKED" : ""%> style="margin-right:1em;"><div style="display:inline" id="task_<%=subgroup.line_number%>"><%=subgroup.title%></div>
         </div>
     <% end %>
  <% end %>

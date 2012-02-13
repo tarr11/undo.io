@@ -268,6 +268,8 @@ end
   end
 
   def get_tasks
+
+
     if (self.contents.nil?)
       return
     end
@@ -288,7 +290,10 @@ end
      formatted_lines.each do |line|
        i = i + 1
 
-       new_task  = (line.text.lstrip.downcase.starts_with?("!") )
+      is_task = line.is_task #stripped.match(taskRegex)
+      completed_task = line.is_completed_task #stripped.match(completedtaskRegex)
+
+      new_task = is_task || completed_task
 
        if (new_task && !task.nil?)
          yield task
@@ -297,13 +302,15 @@ end
 
        if new_task
            task = Task.new
-           task.title = line.text.strip.sub("!","")
-           task.parent = line.parent
-           task.file = self
-           task.line_number = i
-           task.lines = []
-           if task.title.starts_with?("x")
-                task.completed = true
+           if new_task
+             task.title = line.get_cleaned_line
+             if completed_task
+               task.completed = true
+             end
+             task.parent = line.parent
+             task.file = self
+             task.line_number = i
+             task.lines = []
            end
          elsif (!task.nil? && (line.text.starts_with?("\t") || line.text.starts_with?("  ")))
              task.lines.push line.text.strip
@@ -516,7 +523,7 @@ end
       # only lines that start with to do chars are considered todos
         todo_line = TodoLine.new
         todo_line.text = line
-        todo_line.tab_count = TodoFile.get_tab_count(line)
+        #todo_line.tab_count = TodoFile.get_tab_count(line)
         todo_line.line_number = line_number
         line_number += 1
         yield todo_line
@@ -524,33 +531,6 @@ end
 
   end
 
-  def self.get_tab_count(line)
-    # each tab counts as 1 tab for now
-    # 4 spaces count as a tab
-
-    tab_count = 0
-    space_count = 0
-    line.each_char{ |c|
-      if c == "\t"
-        if space_count > 0
-          tab_count += (space_count / 1).to_i
-          space_count = 0
-        end
-        tab_count += 1
-      elsif c == " "
-        space_count += 1
-      else
-        # stop when we hit a non-whitespace character
-        if space_count > 0
-          tab_count += (space_count / 1).to_i
-        end
-        break
-      end
-    }
-
-    return tab_count
-
-  end
 
   def latestNotes
     if (self.contents.nil?)

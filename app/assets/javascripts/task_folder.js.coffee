@@ -20,7 +20,22 @@ getNewRightRail = ->
 
 
 $ ->
-  window.setInterval getNewRightRail, 1000
+#  window.setInterval getNewRightRail, 1000
+
+  $('#right-rail').delegate '.task-checkbox-in-file', 'click', (event) ->
+    completedtaskRegex = /^([\s]*)x([\s]*!)/
+
+    line_num = $(event.target).attr("line-number")
+
+    line = window.myCodeMirror.getLine(line_num-2)
+    if event.target.checked
+      line = 'x' + line
+    else
+      line = line.replace(completedtaskRegex,"$1$2")
+
+    window.myCodeMirror.setLine(line_num-2, line)
+
+
 
   $('#read-only-contents').keyup (event) ->
     if event.which == 33

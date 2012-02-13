@@ -108,15 +108,22 @@
               cursor: hand;
 
           }
+
           span.cm-undo-task
           {
-              padding:1px;
+
               color:green;
-              font-weight:bold;
               cursor: pointer;
               cursor: hand;
+              display:inline-block;
 
           }
+          span.cm-undo-task-completed
+          {
+              text-decoration:line-through;
+          }
+
+
           span.cm-undo-people
           {
               color: #8b4513;

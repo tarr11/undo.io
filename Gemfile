@@ -67,7 +67,7 @@ gem 'jquery_mobile_rails'
 gem 'twitter-bootstrap-rails',"~> 2.0rc0",:group => :assets
 gem 'diff-lcs'
 gem 'twitter-text'
-gem 'chronic'
+gem 'chronic',:git => 'git://github.com/tarr11/chronic.git'
 gem 'sunspot_rails'
 group :development do
   gem 'sunspot_solr'

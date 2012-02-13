@@ -106,11 +106,11 @@ class TodoLine
 
     date_regex =
 
-    match = text.match(/^(0?[1-9]|1[012])[- \/.](0?[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d/)
-    #date = Chronic.parse(text, :now=>self.created_at)
-    unless match.nil?
+    #match = text.match(/^(0?[1-9]|1[012])[- \/.](0?[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d/)
+    date = Chronic.parse(text, :now=>self.created_at)
+    unless date.nil?
       event = Event.new
-      event.start_at = Date.parse(match[0])
+      event.start_at = date
       event.title = text
       return event
     end

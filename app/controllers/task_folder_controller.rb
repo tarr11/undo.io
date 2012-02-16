@@ -110,6 +110,7 @@ class TaskFolderController < ApplicationController
     @file.user = current_user
     @is_new_file = true
     @owned_by_user  = true
+    @slides= []
     respond_to do |format|
       format.html { render '_note_view', :layout => 'application'}
     end

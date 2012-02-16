@@ -1,0 +1,5 @@
+<h1><%=slide.line.text %></h1>
+<%=image_tag slide.images.first, :class=>"thumbnail centered-slide"%>
+<% if slide.line.children.length > 0 %>
+    <h2><%=slide.line.children.first.text%></h2>
+<% end %>

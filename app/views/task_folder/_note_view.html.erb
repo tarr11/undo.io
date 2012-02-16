@@ -167,7 +167,7 @@ function convertToSlug(Text)
   <div class="slideshow">
     <div class="slideshow-foreground">
     <% @slides.each_with_index do |slide, index|%>
-        <div class="slide" id="slide<%=index%>">
+        <div class="slide <%=slide.slide_type.to_s%>" id="slide<%=index%>">
            <%=render "slide_" + slide.slide_type.to_s, :slide => slide%>
           <div class="slideshow-nav"><a href="#" class="slide-button" next-slide="slide<%=index+1%>">Next</a></div>
         </div>

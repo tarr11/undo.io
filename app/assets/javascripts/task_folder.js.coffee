@@ -81,6 +81,18 @@ $ ->
              alert error)
       $("#save-new-form").submit()
 
+  $('.slide-link').click (event) ->
+    $('.slideshow').show()
+    $('.slideshow-foreground').center()
+    $('#slide' + $(event.target).attr('slide-index')).show()
+
+  $('.slide-button').click (event) ->
+    $('.slide').hide()
+    nextSlide = $('#' + $(event.target).attr('next-slide'))
+    if nextSlide.length == 0
+      $('.slideshow').hide()
+    else
+      nextSlide.show()
 
   $('#delete-button').click (event) ->
     $('#delete-modal').modal({

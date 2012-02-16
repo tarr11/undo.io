@@ -11,3 +11,4 @@
 //= require twitter/bootstrap/bootstrap-dropdown
 //= require jquery.masonry.min
 //= require codemirror
+//= require slideshow

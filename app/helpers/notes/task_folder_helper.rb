@@ -273,6 +273,16 @@ module Notes::TaskFolderHelper
 
     end
 
+    def get_slideshow
+
+      @slides = @file.formatted_lines.select{|a| a.parent.nil? && !a.text.blank?}
+      .map {|a|
+          Notes::Slide.new(a)
+      }
+
+
+    end
+
     def get_notestream
 
       # copies that have been published

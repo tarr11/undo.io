@@ -385,6 +385,7 @@ class TaskFolderController < ApplicationController
     get_related_tags
     get_related_events
     get_related_tasks
+    get_slideshow
     get_notestream
 
     if @file.user.id == current_user.id

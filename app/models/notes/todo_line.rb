@@ -14,6 +14,11 @@ class TodoLine
   attr_accessor :file
   attr_accessor :created_at
   attr_accessor :parent
+  attr_accessor :children
+
+  def initialize
+    @children = []
+  end
 
   def self.taskRegex
     /^[\s]*!/

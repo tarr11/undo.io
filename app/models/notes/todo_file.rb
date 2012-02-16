@@ -370,6 +370,7 @@ end
 
         if line.tab_count > stack.last.tab_count
           line.parent = stack.last
+          stack.last.children.push line
           stack.push line
           next
         end
@@ -381,6 +382,7 @@ end
           next_item = stack.last
           if next_item.tab_count < line.tab_count
             line.parent = next_item
+            next_item.children.push line
             break
           end
           stack.pop()

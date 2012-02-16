@@ -1,0 +1,10 @@
+<% if level <= 6
+    tag = "h" + level.to_s
+   else
+    tag ="div"
+   end
+   %>
+<<%=tag%>><%=line.text%></<%=tag%>>
+<%line.children.each do |child|%>
+<%= render 'slide_note_body', :level=>level + 1, :line => child%>
+<% end%>

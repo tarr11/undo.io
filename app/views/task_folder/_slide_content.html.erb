@@ -1,0 +1,7 @@
+<% if content.content_type == :image %>
+<%=image_tag content.text%>
+<% elsif content.content_type == :link %>
+<%=link_to content.text, content.text%>
+<% else %>
+<%=content.text%>
+<% end %>

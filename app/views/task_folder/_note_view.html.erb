@@ -167,6 +167,7 @@ function convertToSlug(Text)
   <div class="slideshow" tabindex="10">
     <div class="slideshow-foreground">
     <% @slides.each_with_index do |slide, index|%>
+
         <div class="slide <%=slide.slide_type.to_s%>" slide-id="<%=index%>" id="slide<%=index%>">
            <%=render "slide_" + slide.slide_type.to_s, :slide => slide%>
           <div class="slideshow-nav">
@@ -264,7 +265,7 @@ function convertToSlug(Text)
             <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#slides"><i class="icon-picture"></i> Slides (<%=@slides.length%>)</a> </h3>
            <div style="margin-left:.5em;" id="slides" class="collapse out">
              <% @slides.each_with_index do |slide, index|%>
-                 <div><a class="slide-link" href="#" slide-index="<%=index%>"><%=slide.sections.first.line_sections.first.text%></a></div>
+                 <div><a class="slide-link" href="#" slide-index="<%=index%>"><%=slide.title%></a></div>
               <% end%>
             </div>
            </div>

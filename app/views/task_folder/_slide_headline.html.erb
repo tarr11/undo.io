@@ -1,7 +1,9 @@
-<h1><%=slide.sections.first.line_sections.first.text%></h1>
-<% if slide.images.length > 0%>
-<%= image_tag slide.images.first %>
-<% end %>
-<% if !slide.sections.second.nil? && slide.sections.second.line_sections.length > 0%>
-<h2><%= slide.sections.second.line_sections.first.text%></h2>
-<% end %>
+<% slide.sections.each_with_index do |section, index| %>
+        <h<%= index+1 %>>
+          <%= render 'task_checkbox', :section => section%>
+          <% section.slide_contents.each do |content| %>
+              <%= render 'slide_content', :content => content %>
+          <% end %>
+        </h<%= index + 1 %>>
+<% end%>
+

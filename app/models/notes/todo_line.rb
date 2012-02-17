@@ -24,8 +24,26 @@ class TodoLine
     /^[\s]*!/
   end
 
+  def has_children?
+    return children.length > 0
+  end
+
   def self.completedtaskRegex
     /^[\s]*x[\s]*!/
+  end
+
+  def get_level
+    start = 0
+    parent = self.parent
+    while true
+      if parent.nil?
+        return start
+      end
+      start = start + 1
+      parent = parent.parent
+    end
+
+
   end
 
   def tab_count

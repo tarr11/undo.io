@@ -21,6 +21,16 @@ class Notes::Slide
     @links = to_enum(:get_links).to_a
   end
 
+  def title
+
+    unless sections.first.slide_contents.first.nil?
+      return sections.first.slide_contents.first.text
+    end
+
+    return "DUNNO"
+
+  end
+
   def add_line(line)
 
     if line.is_task
@@ -33,7 +43,7 @@ class Notes::Slide
 
     current_text = []
     line_sections = []
-    line.text.split(/\s/).each do |word|
+    line.get_cleaned_line().split(/\s/).each do |word|
       if word.strip.match(httpRegex)
         if current_text.length > 0
           line_sections.push Notes::SlideContent.new(current_text.join(" "),:text)
@@ -56,7 +66,7 @@ class Notes::Slide
         line_sections.push Notes::SlideContent.new(current_text.join(" "), :text)
     end
 
-    @sections.push Notes::SlideSection.new(line_sections, line.is_task)
+    @sections.push Notes::SlideSection.new(line_sections, line.is_task, line.get_level, line.has_children?)
 
   end
 
@@ -66,7 +76,7 @@ class Notes::Slide
 
   def get_images
     @sections.each do |section|
-      section.line_sections.each do |part|
+      section.slide_contents.each do |part|
         if part.content_type == :image
           yield part.text
         end
@@ -76,7 +86,7 @@ class Notes::Slide
 
   def get_links
     @sections.each do |section|
-      section.line_sections.each do |part|
+      section.slide_contents.each do |part|
         if part.content_type == :link
           yield part.text
         end

@@ -1,12 +1,20 @@
 class Notes::SlideSection
   # To change this template use File | Settings | File Templates.
 
-  attr_accessor :line_sections
+  attr_accessor :slide_contents
   attr_accessor :is_task
-  def initialize(line_sections, is_task)
+  attr_accessor :level
 
-    @line_sections = line_sections
+  def has_children?
+    return @has_children
+  end
+
+  def initialize(slide_contents, is_task, level, has_children)
+
+    @slide_contents = slide_contents
     @is_task = is_task
+    @level = level
+    @has_children = has_children
 
   end
 end

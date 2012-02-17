@@ -1,7 +1,30 @@
-<h1><%=slide.sections.first.line_sections.first.text%></h1>
-<% slide.sections.each do |section|%>
-  <%section.line_sections.each do |line_section|%>
-   <h2><%= line_section.text %></h2>
+<% slide.sections.each_with_index do |section,index|%>
+  <% if index == 0%>
+  <h1>
+  <% elsif section.level < 6 %>
+   <%
+      header_class = ""
+      if section.has_children?%>
+        <h<%= section.level + 1 %> class="has-children">
+      <% else %>
+        <h<%= section.level + 1 %>>
+      <%end%>
+  <% else %>
+  <div>
+  <% end %>
+
+    <%= render 'task_checkbox', :section => section %>
+    <%section.slide_contents.each do |content|%>
+    <%= render 'slide_content', :content => content%>
     <% end %>
-   
+
+
+    <% if index == 0%>
+    </h1>
+    <% elsif section.level < 6 %>
+    </h<%= section.level + 1%>>
+    <% else %>
+    </div>
+    <% end %>
+
 <% end %>

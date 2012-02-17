@@ -6,4 +6,5 @@ class Notes::SlideContent
     @text = text
     @content_type = content_type
   end
+
 end

@@ -33,23 +33,13 @@ class Notes::Slideshow
         next
       end
 
-
-      if current_slide.nil?
-        current_slide = Notes::Slide.new
-        current_slide.add_line(last_line)
-        # TODO: check if this line is just a link
-        # if so, the title is probably something related to whatever it links to
-        last_line = line
-        next
-      end
-
       current_slide.add_line(last_line)
 
       # a new line with no parent means we are done
       if line.parent.nil?  || line.text.blank?
         current_slide.complete
         yield current_slide
-        current_slide = nil
+        current_slide = Notes::Slide.new
         last_line = line
         next
       end
@@ -58,7 +48,7 @@ class Notes::Slideshow
       if line.is_task && line.children.length > 0 && !current_slide.has_tasks
         current_slide.complete
         yield current_slide
-        current_slide = nil
+        current_slide = Notes::Slide.new
         last_line = line
         next
       end
@@ -66,8 +56,11 @@ class Notes::Slideshow
       last_line = line
     end
 
-    unless current_slide.nil?
+    unless last_line.text.blank?
       current_slide.add_line(last_line)
+    end
+
+    unless current_slide.sections.length == 0
       current_slide.complete
       yield current_slide
     end

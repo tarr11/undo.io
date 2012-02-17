@@ -1,5 +1,24 @@
-<h1><%=slide.sections.first.line_sections.first.text%></h1>
-<%=image_tag slide.images.first, :class=>"thumbnail centered-slide"%>
-<% unless slide.sections.second.nil?%>
-<h2><%=slide.sections.second.line_sections.first.text%></h2>
-<% end %>
+<h1>
+  <%= render 'task_checkbox', :section => slide.sections.first%>
+
+  <% slide.sections.first.slide_contents.each do |content| %>
+      <% if content.content_type != :image %>
+          <%= render 'slide_content', :content => content %>
+      <% end %>
+  <% end %>
+</h1>
+<%= image_tag slide.images.first, :class=>"thumbnail centered-slide" %>
+<% slide.sections.each_with_index do |section, index| %>
+    <% if index == 0
+        next
+       end
+    %>
+    <h<%= index+1 %>>
+      <%= render 'task_checkbox', :section => section%>
+          <% section.slide_contents.each do |content| %>
+              <% if content.content_type != :image %>
+                  <%= render 'slide_content', :content => content %>
+              <% end %>
+          <% end %>
+        </h<%= index + 1 %>>
+    <% end%>

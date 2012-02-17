@@ -261,24 +261,37 @@
         background-color:white;
         border: solid black 1px;
         position:relative;
+        overflow-y:auto;
+        overflow-x:auto;
+    }
+
+    .checkbox
+    {
+      width:1;
+      margin-right:5px;
+      line-height:1;
+      border: solid black 1px;
+      display:inline;
+
+
     }
 
     .slide
     {
         display:none;
         min-height:400px;
-        overflow:hidden;
+
         min-width:500px;
-        margin:1em;
+        margin:2em 1em;
     }
 
     .slideshow-nav
     {
         position:absolute;
         bottom:0;
+        right:10px;
         size:2em;
         font-weight:bold;
-        text-align:center;
         margin-bottom:1em;
     }
 
@@ -299,7 +312,7 @@
     {
         text-align:center;
         font-size:3em;
-        margin:1em;
+        margin:.5em;
     }
 
     .slideshow H2
@@ -309,6 +322,8 @@
     .headline
     {
         text-align:center;
+        overflow:hidden;
+
     }
 
     .headline H1
@@ -342,44 +357,71 @@
         max-width:500px;
     }
 
-    .single_pic H2
+    .single_pic H2, .single_pic H3, .single_pic H4
     {
         text-align:center;
     }
 
 
-     .note H1
-      {
-          margin-left:0em;
-      }
+
+
+
+
+   .note H1
+    {
+        margin-left:0em;
+    }
 
     .note H2
     {
-        margin-left:1em;
+        margin-left:10px;
+        margin-bottom:15px;
+        font-size:2em;
+        font-weight:normal
+    }
+
+    H2.has-children
+    {
+      border-bottom: solid lightgray 1px;
     }
 
 
     .note H3
     {
-        margin-left:2em;
+        margin-left:20px;
+      margin-bottom:15px;
+      font-size:1.5em;
+      font-weight:normal;
     }
 
     .note H4
     {
-        margin-left:3em;
+        margin-left:30px;
+      margin-bottom:15px;
+      font-size:1.2em;
+      font-weight:normal;
     }
 
     .note H5
     {
-        margin-left:4em;
+        margin-left:40px;
+      margin-bottom:15px;
+      font-size:1em;
+      font-weight:normal;
     }
 
     .note H6
     {
-        margin-left:5em;
+        margin-left:50px;
+      margin-bottom:15px;
+      font-size:1em;
+      font-weight:normal;
     }
 
     .note DIV
     {
-        margin-left:6em;
+        margin-left:60px;
+      margin-bottom:15px;
+      font-size:1em;
+      font-weight:normal;
     }

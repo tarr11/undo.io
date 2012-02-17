@@ -275,7 +275,7 @@ module Notes::TaskFolderHelper
 
     def get_slideshow
 
-      slideshow = Slideshow.new(@file)
+      slideshow = Notes::Slideshow.new(@file)
 
       @slides = slideshow.slides
       #@slides = @file.formatted_lines.select{|a| a.parent.nil? && !a.text.blank?}

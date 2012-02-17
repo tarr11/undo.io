@@ -4,14 +4,16 @@ class Notes::Slide
   attr_accessor :sections
   attr_accessor :has_tasks
 
+  attr_accessor :images
+  attr_accessor :links
   #attr_accessor :line
   #attr_accessor :all_lines
   #attr_accessor :links
   #attr_accessor :images
 
-  def initialize(line)
+  def initialize()
     @sections = []
-    add_line line
+#    add_line line
   end
 
   def complete
@@ -31,10 +33,10 @@ class Notes::Slide
 
     current_text = []
     line_sections = []
-    line.text.split(/b/).each do |word|
-      if word.match(httpRegex)
+    line.text.split(/\s/).each do |word|
+      if word.strip.match(httpRegex)
         if current_text.length > 0
-          line_sections.push current_text.join(" ")
+          line_sections.push Notes::SlideContent.new(current_text.join(" "),:text)
         end
           # TODO: use HTTP HEAD to really figure out what this thing is and then use content-type
         if word.end_with?("jpg","gif","png")
@@ -44,7 +46,9 @@ class Notes::Slide
         end
         current_text = []
       else
-        current_text.push word
+        unless word.blank?
+          current_text.push word
+        end
       end
     end
 

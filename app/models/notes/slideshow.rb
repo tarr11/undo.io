@@ -20,26 +20,33 @@ class Notes::Slideshow
     last_line = nil
     @file.formatted_lines.each_with_index do |line, index|
 
+      # first line is special, we initialize a new slide
       if index == 0
         last_line = line
-        current_slide = Notes::Slide.new(last_line)
+        current_slide = Notes::Slide.new
         next
       end
 
+      # blank lines should be skipped past, since they forced a new slide
+      if last_line.text.blank?
+        last_line = line
+        next
+      end
+
+
       if current_slide.nil?
-
-
-        unless last_line.nil?
-          current_slide = Notes::Slide.new(last_line)
-        end
+        current_slide = Notes::Slide.new
+        current_slide.add_line(last_line)
         # TODO: check if this line is just a link
         # if so, the title is probably something related to whatever it links to
         last_line = line
         next
       end
 
+      current_slide.add_line(last_line)
+
       # a new line with no parent means we are done
-      if line.parent.nil?
+      if line.parent.nil?  || line.text.blank?
         current_slide.complete
         yield current_slide
         current_slide = nil
@@ -56,15 +63,14 @@ class Notes::Slideshow
         next
       end
 
-      unless last_line.nil?
-        current_slide.add_line(last_line)
-      end
       last_line = line
     end
 
-    current_slide.add_line(last_line)
-    current_slide.complete
-    yield current_slide
+    unless current_slide.nil?
+      current_slide.add_line(last_line)
+      current_slide.complete
+      yield current_slide
+    end
 
   end
 end

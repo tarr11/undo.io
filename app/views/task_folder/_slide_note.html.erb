@@ -1,2 +1,7 @@
-Note Slide
-
+<h1><%=slide.sections.first.line_sections.first.text%></h1>
+<% slide.sections.each do |section|%>
+  <%section.line_sections.each do |line_section|%>
+   <h2><%= line_section.text %></h2>
+    <% end %>
+   
+<% end %>

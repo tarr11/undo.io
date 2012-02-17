@@ -1,5 +1,5 @@
-<h1><%=slide.line.text %></h1>
+<h1><%=slide.sections.first.line_sections.first.text%></h1>
 <%=image_tag slide.images.first, :class=>"thumbnail centered-slide"%>
-<% if slide.line.children.length > 0 %>
-    <h2><%=slide.line.children.first.text%></h2>
+<% unless slide.sections.second.nil?%>
+<h2><%=slide.sections.second.line_sections.first.text%></h2>
 <% end %>

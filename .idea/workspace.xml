@@ -90,7 +90,11 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/solr/data/development/index/segments_k" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/controllers/app/dropbox_controller_spec.rb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/helpers/app/dropbox_helper_spec.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/notes/task_folder_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/notes/task_folder_helper.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/slideshow.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/slideshow.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solr/pids/development/sunspot-solr-development.pid" afterPath="$PROJECT_DIR$/solr/pids/development/sunspot-solr-development.pid" />
     </list>
     <ignored path="todo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -116,42 +120,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="slide.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/notes/slide.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="0" selection-start="1630" selection-end="1630" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_slide_single_pic.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_single_pic.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="42" selection-start="211" selection-end="211" vertical-scroll-proportion="-1.875">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_slide_note.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_note.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="35" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_slide_multi_pic.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_multi_pic.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="47" selection-start="47" selection-end="47" vertical-scroll-proportion="-0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="_slide_note_body.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_note_body.html.erb">
           <provider selected="true" editor-type-id="text-editor">
@@ -164,7 +132,7 @@
       <file leaf-file-name="_slide_headline.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_headline.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="54" selection-start="278" selection-end="278" vertical-scroll-proportion="-3.125">
+            <state line="5" column="54" selection-start="278" selection-end="278" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -197,10 +165,46 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="task_folder_helper.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="task_folder_helper.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/helpers/notes/task_folder_helper.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="275" column="21" selection-start="6747" selection-end="6756" vertical-scroll-proportion="0.3329493">
+            <state line="275" column="21" selection-start="6747" selection-end="6756" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_note_view.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="169" column="55" selection-start="6372" selection-end="6372" vertical-scroll-proportion="-14.458333">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="task_folder.js.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="103" column="37" selection-start="3174" selection-end="3174" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user.js.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/user.js.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="slideshow.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/slideshow.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="37" column="31" selection-start="918" selection-end="918" vertical-scroll-proportion="0.625">
               <folding />
             </state>
           </provider>
@@ -222,12 +226,9 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/models/notes/slide_text.rb" />
-        <option value="$PROJECT_DIR$/app/models/notes/slide_line.rb" />
         <option value="$PROJECT_DIR$/spec/models/notes/slide_content_spec.rb" />
         <option value="$PROJECT_DIR$/app/models/notes/slide_content.rb" />
         <option value="$PROJECT_DIR$/app/models/notes/slide_section.rb" />
-        <option value="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" />
         <option value="$PROJECT_DIR$/Gemfile" />
         <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/app/models/notes/slide.rb" />
@@ -238,6 +239,9 @@
         <option value="$PROJECT_DIR$/app/views/task_folder/_slide_multi_pic.html.erb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/_slide_headline.html.erb" />
         <option value="$PROJECT_DIR$/app/helpers/notes/task_folder_helper.rb" />
+        <option value="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/slideshow.js" />
       </list>
     </option>
   </component>
@@ -249,8 +253,10 @@
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1910" />
-    <option name="height" value="1051" />
+    <option name="x" value="353" />
+    <option name="y" value="26" />
+    <option name="width" value="1926" />
+    <option name="height" value="1058" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -297,26 +303,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="RailsProjectView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="todo" />
-              <option name="myItemType" value="org.jetbrains.plugins.ruby.rails.projectView.v2.nodes.RailsProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -352,22 +338,8 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="todo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="todo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="helpers" />
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -385,12 +357,86 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="helpers" />
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="notes" />
+              <option name="myItemId" value="task_folder" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="todo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="todo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="todo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="todo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="todo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="todo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javascripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="RailsProjectView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="todo" />
+              <option name="myItemType" value="org.jetbrains.plugins.ruby.rails.projectView.v2.nodes.RailsProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -897,14 +943,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1910" height="1051" extended-state="0" />
+    <frame x="353" y="26" width="1926" height="1058" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32922253" sideWeight="0.61004275" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30703625" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905984" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41930294" sideWeight="0.38675213" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35290948" sideWeight="0.61206895" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35844016" sideWeight="0.61206895" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3869611" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -975,21 +1021,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.1.3/lib/action_controller/metal/rescue.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="494" selection-end="494" vertical-scroll-proportion="0.5152672" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/notes/slide_section.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="13" selection-start="13" selection-end="13" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Procfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="67" selection-start="72" selection-end="72" vertical-scroll-proportion="0.028680688" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Gemfile">
       <provider selected="true" editor-type-id="text-editor">
         <state line="60" column="9" selection-start="1109" selection-end="1109" vertical-scroll-proportion="0.2829828" />
@@ -1000,11 +1031,44 @@
         <state line="401" column="6" selection-start="9224" selection-end="9224" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/models/notes/slide.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="274" column="10" selection-start="13388" selection-end="13388" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="67" column="0" selection-start="1630" selection-end="1630" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_single_pic.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="42" selection-start="211" selection-end="211" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_note.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="35" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_multi_pic.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="47" selection-start="47" selection-end="47" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_note_body.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="0" selection-start="80" selection-end="80" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_headline.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="54" selection-start="278" selection-end="278" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/notes/slideshow.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="0" selection-start="1961" selection-end="1961" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/task_folder.css.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="279" column="0" selection-start="5696" selection-end="5696" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/task_folder_controller.rb">
@@ -1012,65 +1076,37 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_note_body.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/user.js.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="80" selection-end="80" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_note.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="35" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/notes/slide.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="0" selection-start="1630" selection-end="1630" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/task_folder.css.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="279" column="0" selection-start="5696" selection-end="5696" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/notes/slideshow.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="0" selection-start="1961" selection-end="1961" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_single_pic.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="42" selection-start="211" selection-end="211" vertical-scroll-proportion="-1.875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_multi_pic.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="47" selection-start="47" selection-end="47" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/task_folder/_slide_headline.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="54" selection-start="278" selection-end="278" vertical-scroll-proportion="-3.125">
+        <state line="169" column="55" selection-start="6372" selection-end="6372" vertical-scroll-proportion="-14.458333">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/helpers/notes/task_folder_helper.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="275" column="21" selection-start="6747" selection-end="6756" vertical-scroll-proportion="0.3329493">
+        <state line="275" column="21" selection-start="6747" selection-end="6756" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="103" column="37" selection-start="3174" selection-end="3174" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/slideshow.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="31" selection-start="918" selection-end="918" vertical-scroll-proportion="0.625">
           <folding />
         </state>
       </provider>

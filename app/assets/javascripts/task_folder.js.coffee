@@ -83,16 +83,27 @@ $ ->
 
   $('.slide-link').click (event) ->
     $('.slideshow').show()
+    $('.slideshow').focus()
     $('.slideshow-foreground').center()
     $('#slide' + $(event.target).attr('slide-index')).show()
 
-  $('.slide-button').click (event) ->
-    $('.slide').hide()
-    nextSlide = $('#' + $(event.target).attr('next-slide'))
-    if nextSlide.length == 0
+  $('.next-button').click (event) ->
+    $('.slideshow').nextSlide('next')
+
+  $('.prev-button').click (event) ->
+    $('.slideshow').nextSlide('prev')
+
+  $('.slideshow').keydown (event) ->
+    if event.keyCode == 27
       $('.slideshow').hide()
-    else
-      nextSlide.show()
+
+    if event.keyCode == 37
+      $('.slideshow').nextSlide('prev')
+
+    if event.keyCode == 39
+      $('.slideshow').nextSlide('next')
+
+
 
   $('#delete-button').click (event) ->
     $('#delete-modal').modal({

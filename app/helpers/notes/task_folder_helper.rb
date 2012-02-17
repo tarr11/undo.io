@@ -275,10 +275,13 @@ module Notes::TaskFolderHelper
 
     def get_slideshow
 
-      @slides = @file.formatted_lines.select{|a| a.parent.nil? && !a.text.blank?}
-      .map {|a|
-          Notes::Slide.new(a)
-      }
+      slideshow = Slideshow.new(@file)
+
+      @slides = slideshow.slides
+      #@slides = @file.formatted_lines.select{|a| a.parent.nil? && !a.text.blank?}
+      #.map {|a|
+      #    Notes::Slide.new(a)
+      #}
 
 
     end

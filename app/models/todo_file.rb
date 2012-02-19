@@ -40,8 +40,8 @@ class TodoFile < ActiveRecord::Base
     return all_copies.select {|a| a.user.id != self.user.id}
   end
 
-  def published_copies
-    other_people_copies.select{|a| a.is_public == true}
+  def replies
+    other_people_copies.select{|a| a.is_public == true || a.shared_with_users.include?(self.user)}
   end
 
 
@@ -76,6 +76,14 @@ class TodoFile < ActiveRecord::Base
 
 end
 =end
+
+  def reply()
+    # shares this version back to the original owner
+    original_user = copied_from.user
+    original_user.shared_files.create! :todo_file => self
+    original_user.alerts.create! :message => ReplyAlert.new
+
+  end
 
   def make_public()
       saveFromWeb(:is_public=>true, :published_at=> DateTime.now.utc)

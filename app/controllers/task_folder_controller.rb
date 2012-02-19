@@ -41,6 +41,14 @@ class TaskFolderController < ApplicationController
 
   end
 
+  def reply
+    get_header_data
+    current_user.file(@file.filename).reply()
+    respond_to do |format|
+      format.html {redirect_to :controller => "task_folder", :action=>"folder_view", :path=> @file.filename, :only_path=>true, :username =>@file.user.username }
+    end
+  end
+
   def publish
     get_header_data
     current_user.file(@file.filename).make_public()
@@ -97,6 +105,8 @@ class TaskFolderController < ApplicationController
       copy
     elsif params[:method] == "share"
       share
+    elsif params[:method] == "reply"
+      reply
     else
       create_or_update
     end
@@ -149,7 +159,6 @@ class TaskFolderController < ApplicationController
         unless user.nil?
           user.shared_files.create! :todo_file => @file
           user.alerts.create! :message => SharedNoteAlert.new
-          user.save
           #shared_file = @file.shared_with_users.create(:user => user)
           #shared_file.save
         end
@@ -389,7 +398,9 @@ class TaskFolderController < ApplicationController
     get_related_events
     get_related_tasks
     get_slideshow
-    get_notestream
+    get_replies
+    get_tagged
+    get_same_folder
 
     if @file.user.id == current_user.id
       @owned_by_user = true

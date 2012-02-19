@@ -1,4 +1,26 @@
+
+
 <div style="position: relative;">
+
+  <% unless @file.copied_from.nil?%>
+  <div id="reply-modal" class="modal hide fade">
+    <div class="modal-header">
+      <a href="#" class="close">&times;</a>
+      <h3>Reply to <%= @file.copied_from.user.username%>?</h3>
+    </div>
+    <div class="modal-body">
+        <div class="clearfix">
+          Click Reply to share your changes to <%=link_to @file.copied_from.shortName, file_local_path(@file.copied_from)%> back to <%=@file.copied_from.user.username%>.
+        </div>
+    </div>
+    <div class="modal-footer">
+      <%= form_tag url_for(:controller=>"task_folder", :action=>"update", :method=>:reply), :method=>:put do%>
+       <%= button_tag "Reply", :class => "btn btn-primary" %>
+       <a href="#" id="cancel-reply-file" class="btn secondary cancel">Cancel</a>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
 
     <div id="publish-modal" class="modal hide fade">
       <div class="modal-header">

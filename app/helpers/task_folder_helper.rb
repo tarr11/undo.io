@@ -305,34 +305,26 @@ module TaskFolderHelper
 
     end
 
-    def get_notestream
-
-      # copies that have been published
-      @note_activities = []
-      @file.published_copies
+    def get_replies
+      @replies = []
+      @file.replies
         .each{ |a|
 
           activity = FileActivity.new
-          activity.activity_type = :republished
+          activity.activity_type = :replies
           activity.file = a
           activity.summary= a.summary
           activity.published_at = a.published_at||=DateTime.now
-          @note_activities.push(activity)
+          @replies.push(activity)
       }
 
-      # files in the same folder
-      current_user.task_folder(@file.task_folder.path).todo_files.each do |file|
-          if file.filename != @file.filename
-            activity = FileActivity.new
-            activity.activity_type = :same_folder
-            activity.file = file
-            activity.summary= ""
-            activity.published_at = file.revision_at
-            @note_activities.push(activity)
-          end
-      end
-      #
-      # files with the same tags in any folder of mine
+    end
+
+
+    def get_tagged
+            # files with the same tags in any folder of mine
+      @tagged = []
+
       these_tags = []
       @file.get_tag_notes do |note|
         note.tags.each do |tag|
@@ -358,11 +350,27 @@ module TaskFolderHelper
         activity.summary= matching_tags
         activity.tags = matching_tags
         activity.published_at = note.file.revision_at
-        @note_activities.push(activity)
+        @tagged.push(activity)
       end
+    end
 
+    def get_same_folder
 
-      @note_activities = @note_activities.sort_by{|a| a.published_at}.reverse
+      # copies that have been published
+      @same_folder_notes = []
+      # files in the same folder
+      current_user.task_folder(@file.task_folder.path).todo_files.each do |file|
+          if file.filename != @file.filename
+            activity = FileActivity.new
+            activity.activity_type = :same_folder
+            activity.file = file
+            activity.summary= ""
+            activity.published_at = file.revision_at
+            @same_folder_notes.push(activity)
+          end
+      end
+      #
+      @same_folder_notes = @same_folder_notes.sort_by{|a| a.published_at}.reverse
       # files that link to this file directly (either publicly or privately)
 
 

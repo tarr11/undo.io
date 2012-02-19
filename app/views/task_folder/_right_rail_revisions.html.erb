@@ -1,6 +1,6 @@
 <ul class="history">
 
-  <% @note_activities.each_with_index do |activity, index|%>
+  <% notes.each_with_index do |activity, index|%>
 
    <% if index > 0 %>
           <li class="history-divider"></li>
@@ -26,11 +26,11 @@
                 <%=link_to  tag, :controller => "task_folder", :action => "folder_view", :path=>"/" , :q=>tag%>
                 <% end %>
                 <%=time_ago_in_words(activity.published_at)%> ago</div>
-        <% elsif activity.activity_type == :republished%>
+        <% elsif activity.activity_type == :replies%>
             <div style="margin-left:.5em;"> <%=activity.summary%></div>
             <i class="icon-retweet"></i> <%=link_to activity.file.user.username, user_path(activity.file.user)%>
-            <div style="margin-left:.5em;font-style: italic;color:gray;"> Republished <%=time_ago_in_words(activity.published_at)%> ago</div>
-            <div style="margin-left:.7em;">to <%=link_to file_local_path(activity.file),file_local_path(activity.file)%></div>
+            <div style="margin-left:.5em;font-style: italic;color:gray;"> Replied <%=time_ago_in_words(activity.published_at)%> ago</div>
+            <div style="margin-left:.7em;">at <%=link_to file_local_path(activity.file),file_local_path(activity.file)%></div>
             <div style="margin-left:.7em;"><i class="icon-resize-horizontal"></i> <%=link_to "compare" ,url_for(:controller=>"task_folder", :action => "folder_view", :path=>@file.filename, :compare=>file_local_path(activity.file))%></div>
         <% end %>
           </div>

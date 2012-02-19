@@ -206,6 +206,10 @@ module TaskFolderHelper
         @path = path
         unless @file.nil?
           @folder_path = @file.path
+          if @file.user_id != current_user.id
+            # check if there's a user copy
+            @user_copy = current_user.todo_files.find_by_copied_from_id(@file.id)
+          end
         else
           @folder_path = @taskfolder.path
         end

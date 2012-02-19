@@ -408,12 +408,12 @@ class TaskFolderController < ApplicationController
       compare_user = User.find_by_username(compare_user_name)
       logger.info compare_file_name
       @compare_file = compare_user.file(compare_file_name)
-      unless @compare_file .is_public
+      unless @compare_file.user_id == current_user.id || @compare_file.is_public  || @compare_file.shared_with_users.include?(current_user)
         raise ActionController::RoutingError.new('Not Found')
       end
       #
       arrayA = @file.contents.split("\n")
-      arrayB = @compare_file .contents.split("\n")
+      arrayB = @compare_file.contents.split("\n")
       @diff = TodoFile.getLcsDiff2(arrayA, arrayB)
 
     end

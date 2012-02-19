@@ -166,6 +166,10 @@ module Notes::TaskFolderHelper
           @header = @file.shortName
         end
 
+        unless params[:shared].nil?
+          @taskfolder.show_shared_only();
+        end
+
         if !params[:person].nil?
           @header += " (" + params[:person] + ")x"
         end

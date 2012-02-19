@@ -104,6 +104,7 @@ function convertToSlug(Text)
               <% else %>
                 <a href="#" id="publish-button" class="btn btn-success"><i class="icon-upload icon-white"></i> Publish</a>
               <% end %>
+              <a href="#" id="share-button" class="btn"><i class="icon-share"></i> Share</a>
             <a href="#" class="btn btn-primary hide" id="edit-button">Save</a>
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
             More
@@ -180,80 +181,6 @@ function convertToSlug(Text)
   </div>
 
 
-<!--    <div class="slide" id="slide1">
-      <div class="headline">
-      <h1>A header slide</h1>
-       <h2>There's only 2 or 3 lines on this slide</h2>
-       <h3>That's why it looks like a header!</h3>
-        <div class="slideshow-nav"><a href="#" class="slide-button" next-slide="slide2">Next</a></div>
-      </div>
-    </div>
-    <div class="slide" id="slide2">
-        <h1>Picture Slide</h1>
-        <div style="text-align: center"><img src="http://img.foodnetwork.com/FOOD/2007/12/21/eatingwell_recipe_2610_lead.jpg"></div>
-        <h3 style="text-align: center">There's a single picture, so we focus on that</h3>
-      <div class="slideshow-nav"><a href="#" class="slide-button" next-slide="slide3">Next</a></div>
-     </div>
-      <div class="slide" id="slide3">
-          <h1>A "Task"</h1>
-           <h2 style="text-align: center"><input type="checkbox">Here is a summary of the task</h2>
-         <div style="text-align: center"> <img src="  http://www.natureskills.com/wp-content/uploads/2009/07/iStock_000001800069Small-538x354.jpg"></div>
-        <h3 style="text-align: center">Some more details about how to do this thing</h3>
-        <div class="slideshow-nav"><a href="#" class="slide-button" next-slide="slide4">Next</a></div>
-      </div>
-        <div class="slide" id="slide4">
-          <h1>Multiple Tasks - Just words</h1>
-           <h2><input type="checkbox">First Task</h2>
-        <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</h4>
-        <h2><input type="checkbox">Second task</h2>
-     <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h4>
-        <h2><input type="checkbox">Third task</h2>
-     <h4>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</h4>
-        <div class="slideshow-nav"><a href="#" class="slide-button" next-slide="slide5">Next</a></div>
-      </div>
-      <div class="slide" id="slide5">
-          <h1>Random Notes with some tabbing</h1>
-           <h2>Category1</h2>
-           <h3>Lorem ipsum dolor sit amet</h3>
-           <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</h4>
-        <h2>Category2</h2>
-        <h3>Lorem ipsum dolor sit amet</h3>
-        <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</h4>
-        <h2>Category3</h2>
-        <h3>Lorem ipsum dolor sit amet</h3>
-        <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</h4>
-        <div class="slideshow-nav"><a href="#" class="slide-button" next-slide="slide6">Next</a></div>
-      </div>
-
-      <div class="slide" id="slide6">
-           <h1>Lots of Pictures Slide</h1>
-            <ul class="thumbnails">
-              <li class="span3">
-                <img src="http://i.imgur.com/c1UE7.jpg" class="thumbnail">
-              </li>
-              <li class="span3">
-                <img src="http://i.imgur.com/12H5f.jpg" class="thumbnail">
-              </li>
-              <li class="span3">
-                <img src="http://i.imgur.com/JZFnb.jpg" class="thumbnail">
-              </li>
-              <li class="span3">
-                <img src="http://i.imgur.com/WJQf6.jpg" class="thumbnail">
-              </li>
-            </ul>
-           <h3 style="text-align: center">There's a bunch of pictures, so we try to show them all</h3>
-         <div class="slideshow-nav"><a href="#" class="slide-button" next-slide="slide7">Next</a></div>
-        </div>
-      <div class="slide" id="slide7">
-        <div class="headline">
-        <h1>The End!</h1>
-          <div class="slideshow-nav"><a href="#" class="slide-button" next-slide="slide2">Next</a></div>
-        </div>
-      </div>
-
-      </div>
-  </div>-->
-
  <div class="span4" id="right-rail" style="background-color:#F2F4F8;">
    <div id="right-rail-created-by" style="padding:1em;">
      <%= render 'right_rail_created_by'%>
@@ -270,6 +197,37 @@ function convertToSlug(Text)
             </div>
            </div>
 
+         <div style="padding:1em;">
+          <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#replies"><i class="icon-indent-left"></i> Replies</a> (<%=@note_activities.length%>)</h3>
+            <div id="replies" class="collapse out">
+            <%= render 'right_rail_revisions'%>
+          </div>
+          </div>
+
+
+
+       <div style="padding:1em;">
+         <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#notestream"><i class="icon-folder-open"></i> In this folder</a> (<%=@note_activities.length%>)</h3>
+           <div id="notestream" class="collapse out">
+           <%= render 'right_rail_revisions'%>
+         </div>
+
+         </div>
+
+         <div style="padding:1em;">
+           <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#tagged"><i class="icon-tag"></i> Tagged</a> (<%=@note_activities.length%>)</h3>
+             <div id="tagged" class="collapse out">
+             <%= render 'right_rail_revisions'%>
+           </div>
+
+           </div>
+
+       <div style="padding:1em;">
+         <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#tasks"><i class="icon-check"></i> Tasks</a> (<%=@task_count%>)</h3>
+            <div style="margin-left:.5em; margin-bottom:1em;" id="tasks" class="collapse out">
+              <%= render 'task_group', :group=>@tasks_grouped, :level=>0%>
+        </div>
+       </div>
 
        <div style="padding:1em;">
           <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#related-events"><i class="icon-calendar"></i> Related Events</a> (<%=@events.length%>)</h3>
@@ -279,22 +237,7 @@ function convertToSlug(Text)
          <% end%>
           </div>
          </div>
-
-       <div style="padding:1em;">
-         <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#notestream"><i class="icon-list-alt"></i> Notestream</a> (<%=@note_activities.length%>)</h3>
-           <div id="notestream" class="collapse out">
-           <%= render 'right_rail_revisions'%>
-         </div>
-
-         </div>
-       <div style="padding:1em;">
-
-         <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#tasks"><i class="icon-check"></i> Tasks</a> (<%=@task_count%>)</h3>
-            <div style="margin-left:.5em; margin-bottom:1em;" id="tasks" class="collapse out">
-              <%= render 'task_group', :group=>@tasks_grouped, :level=>0%>
-        </div>
        </div>
-         </div>
 
  <% end %>
 

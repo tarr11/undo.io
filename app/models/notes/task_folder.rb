@@ -1,16 +1,24 @@
+require 'uri'
+
 class TaskFolder
 
   attr_accessor :user
   attr_accessor :path
+  attr_accessor :files
 
+  def initialize(user, path, *params)
 
-  def initialize(user, path)
     @user = user
     @path = path
     if !@path.ends_with?("/")
       @path = @path + "/"
     end
+    @files = params.pop
+    if @files.nil?
+      @files = todo_files_recursive
+    end
   end
+
 
   def todo_files_recursive
     temppath = @path
@@ -18,14 +26,18 @@ class TaskFolder
       temppath = "/" + @path
     end
 
-    user.todo_files.find(:all, :conditions => ["filename LIKE ?", "#{temppath}%"]).sort_by{|a| a.path}
+    return TodoFile.includes(:copied_to).find(:all, :conditions => ["user_id = ? AND filename LIKE ?", "#{user.id}", "#{temppath}%"]).sort_by{|a| a.path}
 
   end
 
+  def show_shared_only
+    @files = user.files_shared_with_user
+
+  end
 
   def get_event_notes
 
-    self.todo_files_recursive.each do |file|
+    @files.each do |file|
        file.get_event_notes do |line|
           yield line
       end
@@ -34,7 +46,7 @@ class TaskFolder
 
 
   def get_person_notes
-    self.todo_files_recursive.each do |file|
+    @files.each do |file|
        file.get_person_notes do |line|
           yield line
       end
@@ -43,7 +55,7 @@ class TaskFolder
   end
 
   def get_tag_notes
-    self.todo_files_recursive.each do |file|
+    @files.each do |file|
        file.get_tag_notes do |line|
           yield line
       end
@@ -63,7 +75,7 @@ class TaskFolder
     end
     depth = temppath.scan("/").length
 
-    user.todo_files.find(:all, :conditions => ["filename LIKE ?", "#{temppath}%"])
+    @files.select{|a| a.filename.start_with?(@path)}
     .select do |file|
       #true
       file.filename.scan("/").length == depth && !file.filename.ends_with?("/")
@@ -72,7 +84,7 @@ class TaskFolder
 
   def get_tasks
 
-    self.todo_files_recursive.each do |file|
+    @files.each do |file|
        file.get_tasks do |task|
           yield task
       end
@@ -82,7 +94,6 @@ class TaskFolder
   end
 
   def task_folders
-    require 'uri'
     depth = @path.scan("/").length + 1
 
     # find all the files with one more slash
@@ -92,17 +103,22 @@ class TaskFolder
       raise 'No user!'
     end
 
-    user.todo_files.find(:all, :conditions => ["filename LIKE ?", "#{path}%"])
+
+    task_paths = @files.select{|a| a.filename.start_with?(@path)}
       .select {|file| file.filename.scan("/").length >= depth}
       .map{ |file| File.dirname(file.filename)}
       .map{ |path| path.split("/").first(depth).join("/") + "/"}
       .uniq
-      .map {|path| TaskFolder.new @user, path}
+
+    return task_paths.map { |path|
+      TaskFolder.new(@user, path, @files.select{|file| file.filename.start_with?(path)
+      })}
+
   end
 
   def all
     folders = task_folders
-    files = todo_files
+    files = @files
     allstuff = Array.new
     allstuff.push folders
     allstuff.push files
@@ -114,23 +130,14 @@ class TaskFolder
     return todo_files.map{ |file|
       file.filename
     }
-
   end
 
   def self.model_name
      @_model_name ||= ActiveModel::Name.new(self)
    end
 
-  def latestNotes
-    if todo_files.first.nil?
-      []
-    else
-      todo_files.first.latestNotes
-    end
-  end
-
   def tasks
-    todo_files.map { |file|
+    @files.map { |file|
       file.tasks
     }.flatten
   end
@@ -200,11 +207,20 @@ class TaskFolder
 
   def get_file_changes(start_date, end_date)
 
+    return @files.map{|a|
+        {
+            :file => a,
+            :diff => [],
+            :revision_at => a.revision_at,
+            :changedLines => a.formatted_lines.first(3)
+         }
+    }
+
     allChanges = []
 
     revisions = self.user.task_file_revisions.map{|a| a}
 
-    todo_files_recursive.each do |file|
+    @files.each do |file|
       change = file.getChanges(start_date, end_date, revisions)
       if (!change.nil?)
         allChanges.push change
@@ -246,7 +262,7 @@ class TaskFolder
 
   def getChanges(startDate, endDate, allChanges = [])
 
-    todo_files.each do |file|
+    @files.each do |file|
       change = file.getChanges(startDate, endDate).first
       if (!change.nil?)
         allChanges.push change

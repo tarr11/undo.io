@@ -97,7 +97,11 @@ $ ->
   $('.prev-button').click (event) ->
     $('.slideshow').nextSlide('prev')
 
-  $('.slideshow').keydown (event) ->
+  $('BODY').keydown (event) ->
+    # hack to deal wit hshowing slide on load not retaining focus for .slideshow
+    if !$('.slideshow').is(':visible')
+      return
+
     if event.keyCode == 27
       $('.slideshow').hide()
       window.location.hash = ''
@@ -203,6 +207,7 @@ $ ->
   slide_selector = '.slide-link' + window.location.hash + "-link";
   if $(slide_selector).length > 0
     $(slide_selector).click()
+    window.focus()
 
     #$('.timebox').click (event) ->
     #window.location =  $(event.target).attr('href')

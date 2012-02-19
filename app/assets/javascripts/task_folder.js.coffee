@@ -85,7 +85,11 @@ $ ->
     $('.slideshow').show()
     $('.slideshow').focus()
     $('.slideshow-foreground').center()
-    $('#slide' + $(event.target).attr('slide-index')).show()
+    slide_to_show = '#slide' + $(event.target).attr('slide-index')
+    $(slide_to_show).show()
+    window.location.hash = slide_to_show
+    return false
+
 
   $('.next-button').click (event) ->
     $('.slideshow').nextSlide('next')
@@ -96,6 +100,7 @@ $ ->
   $('.slideshow').keydown (event) ->
     if event.keyCode == 27
       $('.slideshow').hide()
+      window.location.hash = ''
 
     if event.keyCode == 37
       $('.slideshow').nextSlide('prev')
@@ -195,6 +200,9 @@ $ ->
           )
       $('#update-form').submit()
 
+  slide_selector = '.slide-link' + window.location.hash + "-link";
+  if $(slide_selector).length > 0
+    $(slide_selector).click()
 
     #$('.timebox').click (event) ->
     #window.location =  $(event.target).attr('href')

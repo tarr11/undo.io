@@ -25,18 +25,23 @@ jQuery.fn.nextSlide = function (nextPrev) {
 
     if (results.length > 0)
     {
-        slideToShow = $('#slide' + (Number(results.first().attr('slide-id')) + slideAdd))
+        slide_id = 'slide' + (Number(results.first().attr('slide-id')) + slideAdd);
+        slideToShow = $('#' + slide_id)
     }
 
     $('.slide').hide();
     if (slideToShow.length > 0)
     {
+        window.location.hash = '#'  + slide_id
         slideToShow.show();
     }
     else
     {
         $('.slideshow').hide();
+        window.location.hash = ''
     }
 
 }
+
+
 

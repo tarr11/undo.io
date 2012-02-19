@@ -1,8 +1,6 @@
-module Notes::TaskFolderHelper
+module TaskFolderHelper
   require 'ostruct'
-
-
-    def render_line(line)
+  def render_line(line)
 
       div = '<div style="'
 
@@ -166,9 +164,14 @@ module Notes::TaskFolderHelper
           @header = @file.shortName
         end
 
+
         unless params[:shared].nil?
           @taskfolder.show_shared_only();
+          if current_user.alerts.length > 0
+            current_user.alerts.destroy_all
+          end
         end
+        check_for_shared_notes
 
         if !params[:person].nil?
           @header += " (" + params[:person] + ")x"
@@ -198,6 +201,7 @@ module Notes::TaskFolderHelper
           }
         }
 
+
         @people = people.uniq
         @path = path
         unless @file.nil?
@@ -207,6 +211,13 @@ module Notes::TaskFolderHelper
         end
     end
 
+
+    def check_for_shared_notes
+      if current_user.alerts.length > 0
+        @has_new_shared_notes = true
+      end
+
+    end
 
     def user_path user
       url_for :controller=>"task_folder", :action => "folder_view", :username=>user.username, :path => "/"
@@ -279,12 +290,12 @@ module Notes::TaskFolderHelper
 
     def get_slideshow
 
-      slideshow = Notes::Slideshow.new(@file)
+      slideshow = Slideshow.new(@file)
 
       @slides = slideshow.slides
       #@slides = @file.formatted_lines.select{|a| a.parent.nil? && !a.text.blank?}
       #.map {|a|
-      #    Notes::Slide.new(a)
+      #    Slide.new(a)
       #}
 
 
@@ -297,7 +308,7 @@ module Notes::TaskFolderHelper
       @file.published_copies
         .each{ |a|
 
-          activity = Notes::FileActivity.new
+          activity = FileActivity.new
           activity.activity_type = :republished
           activity.file = a
           activity.summary= a.summary
@@ -308,7 +319,7 @@ module Notes::TaskFolderHelper
       # files in the same folder
       current_user.task_folder(@file.task_folder.path).todo_files.each do |file|
           if file.filename != @file.filename
-            activity = Notes::FileActivity.new
+            activity = FileActivity.new
             activity.activity_type = :same_folder
             activity.file = file
             activity.summary= ""
@@ -337,7 +348,7 @@ module Notes::TaskFolderHelper
           next
         end
 
-        activity = Notes::FileActivity.new
+        activity = FileActivity.new
         activity.activity_type = :same_tag
         activity.file = note.file
         activity.summary= matching_tags

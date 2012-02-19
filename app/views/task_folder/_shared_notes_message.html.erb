@@ -1,0 +1,5 @@
+<% if @has_new_shared_notes %>
+  <div style="width:200px;text-align: center;" class="centered-slide alert alert-info">
+  You have <%= link_to "new shared notes", :controller=>"task_folder", :action=>"folder_view", :path=>"/", :shared=>"y", :username=>current_user.username %>
+  </div>
+<% end %>

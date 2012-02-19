@@ -1,7 +1,7 @@
 class TaskFolderController < ApplicationController
   before_filter :authenticate_user!
-  include Notes::TaskFolderHelper
-  include Notes
+  include TaskFolderHelper
+
   def mark_task_completed
     current_user.file(params[:file_name]).mark_task_status(params[:line_number].to_i, params[:is_completed] == "true")
     respond_to do |format|
@@ -148,6 +148,8 @@ class TaskFolderController < ApplicationController
         user = User.find_by_username(person)
         unless user.nil?
           user.shared_files.create! :todo_file => @file
+          user.alerts.create! :message => SharedNoteAlert.new
+          user.save
           #shared_file = @file.shared_with_users.create(:user => user)
           #shared_file.save
         end

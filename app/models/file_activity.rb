@@ -1,4 +1,4 @@
-class Notes::FileActivity
+class FileActivity
 
   attr_accessor :file
   attr_accessor :summary

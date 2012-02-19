@@ -1,4 +1,4 @@
-class Notes::Slide
+class Slide
   # To change this template use File | Settings | File Templates.
 
   attr_accessor :sections
@@ -46,13 +46,13 @@ class Notes::Slide
     line.get_cleaned_line().split(/\s/).each do |word|
       if word.strip.match(httpRegex)
         if current_text.length > 0
-          line_sections.push Notes::SlideContent.new(current_text.join(" "),:text)
+          line_sections.push SlideContent.new(current_text.join(" "),:text)
         end
           # TODO: use HTTP HEAD to really figure out what this thing is and then use content-type
         if word.end_with?("jpg","gif","png")
-          line_sections.push Notes::SlideContent.new(word, :image)
+          line_sections.push SlideContent.new(word, :image)
         else
-          line_sections.push Notes::SlideContent.new(word, :link)
+          line_sections.push SlideContent.new(word, :link)
         end
         current_text = []
       else
@@ -63,10 +63,10 @@ class Notes::Slide
     end
 
     if current_text.length > 0
-        line_sections.push Notes::SlideContent.new(current_text.join(" "), :text)
+        line_sections.push SlideContent.new(current_text.join(" "), :text)
     end
 
-    @sections.push Notes::SlideSection.new(line_sections, line.is_task, line.get_level, line.has_children?)
+    @sections.push SlideSection.new(line_sections, line.is_task, line.get_level, line.has_children?)
 
   end
 

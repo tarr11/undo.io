@@ -3,10 +3,7 @@
 <% end %>
 <% content_for :content do %>
 <%= render 'layouts/breadcrumb'%>
-  <div style="width:200px;text-align: center;" class="centered-slide alert alert-info">
-  You have <%= link_to "new shared notes", :controller=>"task_folder", :action=>"folder_view", :path=>"/", :shared=>"y" %>
-  </div>
-
+<%= render 'task_folder/shared_notes_message' %>
     <div class="content">
     <div class="row-fluid">
     <div class="span2">

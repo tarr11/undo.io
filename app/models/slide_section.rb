@@ -1,4 +1,4 @@
-class Notes::SlideSection
+class SlideSection
   # To change this template use File | Settings | File Templates.
 
   attr_accessor :slide_contents

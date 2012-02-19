@@ -1,7 +1,6 @@
 class HomeController < ApplicationController
    before_filter :authenticate_user!, :except => :index
-   include Notes::TaskFolderHelper
-   include Notes
+   include TaskFolderHelper
 
   def shared_view
     results = current_user.files_shared_with_user
@@ -36,6 +35,7 @@ class HomeController < ApplicationController
       .group_by {|note| get_sub_folder(note[:file].path,"/") }
     @header = "Public Notes"
     @wildcard_user_name = true
+    check_for_shared_notes
     respond_to do |format|
         format.html { render 'task_folder/boxed_view', :layout => 'task_folder'}
     end

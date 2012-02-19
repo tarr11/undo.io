@@ -1,4 +1,4 @@
-class Notes::SlideContent
+class SlideContent
   # To change this template use File | Settings | File Templates.
   attr_accessor :text
   attr_accessor :content_type

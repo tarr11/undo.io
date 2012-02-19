@@ -1,4 +1,4 @@
-class Notes::Slideshow
+class Slideshow
   # To change this template use File | Settings | File Templates.
 
   attr_accessor :slides
@@ -23,7 +23,7 @@ class Notes::Slideshow
       # first line is special, we initialize a new slide
       if index == 0
         last_line = line
-        current_slide = Notes::Slide.new
+        current_slide = Slide.new
         next
       end
 
@@ -39,7 +39,7 @@ class Notes::Slideshow
       if line.parent.nil?  || line.text.blank?
         current_slide.complete
         yield current_slide
-        current_slide = Notes::Slide.new
+        current_slide = Slide.new
         last_line = line
         next
       end
@@ -48,7 +48,7 @@ class Notes::Slideshow
       if line.is_task && line.children.length > 0 && !current_slide.has_tasks
         current_slide.complete
         yield current_slide
-        current_slide = Notes::Slide.new
+        current_slide = Slide.new
         last_line = line
         next
       end

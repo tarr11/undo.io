@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120219002706) do
+ActiveRecord::Schema.define(:version => 20120219181508) do
+
+  create_table "alerts", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "message"
+    t.boolean  "was_read"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "alerts", ["user_id"], :name => "index_alerts_on_user_id"
 
   create_table "applications", :force => true do |t|
     t.string   "name"
@@ -132,6 +142,7 @@ ActiveRecord::Schema.define(:version => 20120219002706) do
     t.string   "time_zone"
     t.string   "username"
     t.string   "thumbnail"
+    t.boolean  "show_shared_message"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

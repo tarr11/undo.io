@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
 
-  include ::Notes
   include ::Apps
 
   # Include default devise modules. Others available are:
@@ -28,6 +27,7 @@ class User < ActiveRecord::Base
   has_many :task_file_revisions
   has_many :files_shared_with_user, :through => :shared_files, :source => :todo_file
   has_many :shared_files
+  has_many :alerts
 
   def thumbnail
     if self.username == "tarr11"

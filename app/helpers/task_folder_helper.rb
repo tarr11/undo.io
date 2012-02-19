@@ -321,6 +321,9 @@ module TaskFolderHelper
     end
 
 
+   def get_shared_with
+     @shared_with = @file.shared_with_users
+   end
     def get_tagged
             # files with the same tags in any folder of mine
       @tagged = []

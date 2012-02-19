@@ -97,11 +97,11 @@ function convertToSlug(Text)
       <% end %>
       <% if @owned_by_user  %>
     <% if !@is_new_file%>
-
               <a href="#" class="btn btn-primary hide" id="edit-button">Save</a>
-          <% unless @file.copied_from.nil? %>
+          <% if @show_reply_button %>
               <a href="#" id="reply-button" class="btn"><i class="icon-repeat"></i> Reply</a>
-          <% else %>
+          <% end  %>
+          <% if @show_edit_buttons %>
                   <div class="btn-group">
                     <% unless @compare_file.nil? %>
                     <a href="#" id="unpublish-button" class="btn"><i class="icon-repeat"></i> Merge</a>
@@ -163,7 +163,7 @@ function convertToSlug(Text)
         <% end %>
         </article>
 <% end %>
-<%=render 'note_file_details'%>
+
 
     <%= form_tag(url_for(:controller=>"task_folder", :action=>"update"), :remote => true, :method=>:put,:format => :json, :id => "update-form") do  %>
     <%= hidden_field_tag 'savecontents'%>
@@ -203,6 +203,20 @@ function convertToSlug(Text)
               <% end%>
             </div>
            </div>
+
+         <% if @file_user == current_user %>
+         <div style="padding:1em;">
+            <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#shared_with"><i class="icon-picture"></i> Shared With (<%=@shared_with.length%>)</a> </h3>
+           <div style="margin-left:.5em;" id="shared_with" class="collapse out">
+             <% @shared_with.each_with_index do |user, index|%>
+                 <div style="float:left;padding-right: 5px;">
+                   <%=image_tag user.thumbnail%>
+                 </div>
+                 <div style="font-size:1.5em"><%= link_to user.username, user_path(user) %></div>
+              <% end%>
+            </div>
+           </div>
+          <% end %>
 
          <div style="padding:1em;">
           <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#replies"><i class="icon-indent-left"></i> Replies</a> (<%=@replies.length%>)</h3>

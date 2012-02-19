@@ -153,15 +153,13 @@ class TaskFolderController < ApplicationController
     # if this is a file. move it
     unless @file.nil?
 
-      people = @file.get_people
+      people = params[:shared_user_list].split(',')
       people.each do |person|
         user = User.find_by_username(person)
         unless user.nil?
           user.shared_files.create! :todo_file => @file
           user.alerts.create! :message => SharedNoteAlert.new
-          #shared_file = @file.shared_with_users.create(:user => user)
-          #shared_file.save
-        end
+      end
 
       end
       respond_to do |format|
@@ -401,11 +399,22 @@ class TaskFolderController < ApplicationController
     get_replies
     get_tagged
     get_same_folder
+    get_shared_with
 
     if @file.user.id == current_user.id
       @owned_by_user = true
     else
       @owned_by_user = false
+    end
+
+    @show_reply_button = false
+    @show_edit_buttons = false
+    if params[:compare].nil? && @file.is_copied?
+        @show_reply_button = @file.has_replied?
+    end
+
+    if params[:compare].nil?  && !@show_reply_button
+      @show_edit_buttons = true
     end
 
     unless params[:compare].nil?

@@ -136,6 +136,9 @@ $ ->
       show : true
     })
 
+  $('#share-modal').on 'shown', (event) ->
+      $('#shared_user_list').focus()
+
   $('.cancel').click (event) ->
     $('#move-modal').modal('hide')
 

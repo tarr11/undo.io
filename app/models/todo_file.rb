@@ -44,6 +44,19 @@ class TodoFile < ActiveRecord::Base
     other_people_copies.select{|a| a.is_public == true || a.shared_with_users.include?(self.user)}
   end
 
+  def is_copied?
+    return !copied_from.nil?
+  end
+
+  def has_replied?
+    unless copied_from.nil?
+      unless shared_with_users.select{|a| a.id == copied_from.user_id}
+        return true
+      end
+    end
+    return false
+  end
+
 
   def self.pushChangesFromText(user, filename, text, revisionDate, revisionCode)
     newFile = TodoFile.saveFile(user, filename, text,revisionDate, revisionCode)

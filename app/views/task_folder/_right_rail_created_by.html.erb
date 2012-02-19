@@ -10,8 +10,7 @@
 <% unless @is_new_file%>
   <% if @file.is_public %>
   <% unless @file.copied_from.nil? %>
-      <div style="margin-left:.5em; font-style: italic;color:gray;"> <i class="icon-retweet"></i> Republished <%=time_ago_in_words(@file.published_at ||= DateTime.now)%> ago</div>
-  <div style="margin-left:.5em;">from <%=link_to file_local_path(@file.copied_from), file_local_path(@file.copied_from)%></div>
+  <div style="margin-left:.5em;font-style:italic"><i class="icon-retweet"></i> in response to <%=link_to file_local_path(@file.copied_from), file_local_path(@file.copied_from)%></div>
   <% end %>
 
   <% if @file.copied_from.nil? %>

@@ -1,9 +1,17 @@
 <% slide.sections.each_with_index do |section, index| %>
-        <h<%= index+1 %>>
+        <% if index == 0%>
+        <h1>
+        <% else %>
+        <h2>
+        <% end %>
           <%= render 'task_checkbox', :section => section%>
           <% section.slide_contents.each do |content| %>
               <%= render 'slide_content', :content => content %>
           <% end %>
-        </h<%= index + 1 %>>
+    <% if index == 1%>
+    </h1>
+    <% else %>
+    </h2>
+    <% end %>
 <% end%>
 

@@ -36,7 +36,7 @@ class Slideshow
       current_slide.add_line(last_line)
 
       # a new line with no parent means we are done
-      if line.parent.nil?  || line.text.blank?
+      if line.text.blank?
         current_slide.complete
         yield current_slide
         current_slide = Slide.new

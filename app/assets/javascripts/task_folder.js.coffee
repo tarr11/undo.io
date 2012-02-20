@@ -82,12 +82,13 @@ $ ->
       $("#save-new-form").submit()
 
   $('.slide-link').click (event) ->
+    $('html, body').animate({ scrollTop: 0 }, 0);
     $('.slideshow').show()
-    $('.slideshow').focus()
     $('.slideshow-foreground').center()
+    $('.slideshow').focus()
     slide_to_show = '#slide' + $(event.target).attr('slide-index')
-    $(slide_to_show).show()
     window.location.hash = slide_to_show
+    $(slide_to_show).show()
     return false
 
 

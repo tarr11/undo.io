@@ -25,8 +25,8 @@ class TodoFile < ActiveRecord::Base
     integer :user_id
     boolean :is_public
   end
-  handle_asynchronously :solr_index
-  handle_asynchronously :remove_from_index
+  handle_asynchronously :solr_index, :queue => 'solr'
+  handle_asynchronously :remove_from_index, :queue => 'solr'
 
   validates_inclusion_of :is_public, :in => [true, false]
   validates_presence_of :revision_at, :filename, :contents, :user_id
@@ -70,7 +70,7 @@ class TodoFile < ActiveRecord::Base
 
   def self.deleteFromWeb(user, filename)
     TodoFile.deleteFile user, filename
-    DropboxNavigator.delay.DeleteFileInDropbox user, filename
+    DropboxNavigator.delay(:queue=>'dropbox').DeleteFileInDropbox user, filename
   end
 =begin
  =begin
@@ -176,7 +176,7 @@ end
   def saveFromWeb(todofileParams)
 
     if self.update_attributes!(todofileParams)
-      DropboxNavigator.delay.UpdateFileInDropbox(self)
+      DropboxNavigator.delay(:queue=>'dropbox').UpdateFileInDropbox(self)
       return true
     else
       return false

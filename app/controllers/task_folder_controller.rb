@@ -30,7 +30,7 @@ class TaskFolderController < ApplicationController
 
     respond_to do |format|
       if @todo_file.save
-        DropboxNavigator.delay.UpdateFileInDropbox(@todo_file)
+        DropboxNavigator.delay(:queue=>'dropbox').UpdateFileInDropbox(@todo_file)
         format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :username=>current_user.username, :path=> @todo_file.filename, notice: 'File was successfully created.' }
         format.json { render json: @todo_file, status: :created}
       else
@@ -80,7 +80,7 @@ class TaskFolderController < ApplicationController
       @todo_file.contents = params[:savecontents]
     end
     if @todo_file.save
-      DropboxNavigator.delay.UpdateFileInDropbox(@todo_file)
+      DropboxNavigator.delay(:queue=>'dropbox').UpdateFileInDropbox(@todo_file)
       respond_to do |format|
         format.json  { render json: {"location" => url_for(:controller => "task_folder", :action=>"folder_view", :path=> @todo_file.filename, :only_path=>true, :username =>@todo_file.user.username)}}
       end
@@ -134,7 +134,7 @@ class TaskFolderController < ApplicationController
       oldName = @file.filename
       @file.filename = params[:filename]
       if @file.save
-        DropboxNavigator.delay.move_file oldName, @file
+        DropboxNavigator.delay(:queue=>'dropbox').move_file oldName, @file
         respond_to do |format|
           format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @file.filename, :username=>@file.user.username, notice: 'File was moved.' }
         end
@@ -192,7 +192,7 @@ class TaskFolderController < ApplicationController
         @new_file.copied_from_id = @file.id
 
         if @new_file.save!
-          DropboxNavigator.delay.UpdateFileInDropbox(@new_file)
+          DropboxNavigator.delay(:queue=>'dropbox').UpdateFileInDropbox(@new_file)
           respond_to do |format|
             format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @new_file.filename, :username=>@new_file.user.username, notice: 'File was copied.' }
           end

@@ -53,7 +53,7 @@ class TodoFilesController < ApplicationController
 
     respond_to do |format|
       if @todo_file.save
-        DropboxNavigator.delay.UpdateFileInDropbox(@todo_file)
+        DropboxNavigator.delay(:queue=>'dropbox').UpdateFileInDropbox(@todo_file)
         format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :username=>current_user.username, :path=> @todo_file.filename, notice: 'File was successfully created.' }
         format.json { render json: @todo_file, status: :created, location: @todo_file }
       else

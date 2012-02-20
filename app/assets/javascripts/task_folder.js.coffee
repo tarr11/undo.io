@@ -66,7 +66,7 @@ $ ->
      if slug == ''
        slug = 'new-file'
 
-     $('#filename').val(path + "/" + slug + '.txt')
+     $('#filename').val(path + "/" + slug)
      $('#save-modal').modal('show')
      $('#filename').focus()
 

@@ -1,6 +1,9 @@
 <h2>Sign in</h2>
 
+
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html=>{:class=>"form-stacked", :novalidate=>true}) do |f| %>
+
+
   <div><%= f.label :login %>
   <%= f.email_field :login %></div>
 

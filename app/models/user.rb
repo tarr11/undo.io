@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
   include ::Apps
 
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  # :token_authenticatable, :encryptable, , :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,  :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
 
   # Setup accessible (or protected) attributes for your model
@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
   attr_accessor :login
 
   validates_uniqueness_of :username, :email
-  validates_presence_of :username, :password, :email
+  validates_presence_of :username, :email
+  validates_presence_of :password, :on => :create
 
   has_many :client_applications
   has_many :tokens, :class_name => "OauthToken", :order => "authorized_at desc", :include => [:client_application]

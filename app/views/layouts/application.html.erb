@@ -70,6 +70,15 @@
         </div>
     </div>
 
+    <% if flash[:notice] %>
+       <div class="alert alert-info"><%= flash[:notice] %></div>
+     <% end %>
+    <% if flash[:error]%>
+     <div class="alert alert-error"><%= flash[:error] %></div>
+    <% end %>
+    <% if flash[:alert]%>
+     <div class="alert alert-error"><%= flash[:alert] %></div>
+    <% end %>
     <div class="container-fluid">
         <%= content_for?(:content) ? yield(:content) : yield %>
       <footer>

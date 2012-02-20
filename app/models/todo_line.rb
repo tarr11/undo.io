@@ -127,13 +127,11 @@ class TodoLine
 
   def get_event
 
-    date_regex =
-
-    #match = text.match(/^(0?[1-9]|1[012])[- \/.](0?[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d/)
-    date = Chronic.parse(text, :now=>self.created_at)
-    unless date.nil?
+    match = text.match(/^(0?[1-9]|1[012])[- \/.](0?[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d/)
+    #date = Chronic.parse(text, :now=>self.created_at)
+    unless match.nil?
       event = Event.new
-      event.start_at = date
+      event.start_at = Chronic.parse(match[0],:now=>self.created_at)
       event.title = text
       return event
     end

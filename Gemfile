@@ -78,7 +78,7 @@ gem 'delayed_task'
 gem 'codemirror-rails'
 gem 'thin'
 gem "paperclip", "~> 2.0"
+gem 'aws-sdk'
 gem 'aws-s3'
-
 
 

@@ -32,6 +32,7 @@
     <orderEntry type="library" scope="PROVIDED" name="autotest-notification (v2.3.3, RVM: ruby-1.9.2-p290) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="autotest-rails-pure (v4.1.2, RVM: ruby-1.9.2-p290) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="autotest-standalone (v4.5.9, RVM: ruby-1.9.2-p290) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="aws-s3 (v0.6.2, RVM: ruby-1.9.2-p290) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bcrypt-ruby (v3.0.1, RVM: ruby-1.9.2-p290) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="builder (v3.0.0, RVM: ruby-1.9.2-p290) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v1.0.21, RVM: ruby-1.9.2-p290) [gem]" level="application" />
@@ -116,6 +117,7 @@
     <orderEntry type="library" scope="PROVIDED" name="uuidtools (v2.1.2, RVM: ruby-1.9.2-p290) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="warden (v1.1.0, RVM: ruby-1.9.2-p290) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="webrat (v0.7.1, RVM: ruby-1.9.2-p290) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="xml-simple (v1.1.1, RVM: ruby-1.9.2-p290) [gem]" level="application" />
   </component>
   <component name="RModuleSettingsStorage">
     <LOAD_PATH number="0" />

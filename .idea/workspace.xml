@@ -90,13 +90,12 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/solr/data/development/index/segments_k" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/controllers/app/dropbox_controller_spec.rb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/helpers/app/dropbox_helper_spec.rb" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/todo.iml" afterPath="$PROJECT_DIR$/.idea/todo.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/user.rb" afterPath="$PROJECT_DIR$/app/models/user.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/environments/development.rb" afterPath="$PROJECT_DIR$/config/environments/development.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/environments/production.rb" afterPath="$PROJECT_DIR$/config/environments/production.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/environments/test.rb" afterPath="$PROJECT_DIR$/config/environments/test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/s3.yml" afterPath="$PROJECT_DIR$/config/s3.yml" />
     </list>
     <ignored path="todo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -170,7 +169,7 @@
       <file leaf-file-name="Gemfile" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Gemfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="0" selection-start="1562" selection-end="1562" vertical-scroll-proportion="0.0">
+            <state line="81" column="0" selection-start="1563" selection-end="1563" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -179,7 +178,7 @@
       <file leaf-file-name="development.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/environments/development.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="0" selection-start="1137" selection-end="1169" vertical-scroll-proportion="0.0">
+            <state line="32" column="32" selection-start="1169" selection-end="1169" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -194,19 +193,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="production.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="production.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="2" selection-start="2551" selection-end="2551" vertical-scroll-proportion="0.8557692">
+            <state line="75" column="2" selection-start="2551" selection-end="2743" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="s3.yml" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="s3.yml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/s3.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="23" selection-start="133" selection-end="133" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -238,11 +237,11 @@
         <option value="$PROJECT_DIR$/app/views/task_folder/_right_rail_created_by.html.erb" />
         <option value="$PROJECT_DIR$/app/helpers/task_folder_helper.rb" />
         <option value="$PROJECT_DIR$/app/views/layouts/_folder_list.html.erb" />
-        <option value="$PROJECT_DIR$/Gemfile" />
-        <option value="$PROJECT_DIR$/config/environments/development.rb" />
         <option value="$PROJECT_DIR$/config/environments/production.rb" />
         <option value="$PROJECT_DIR$/config/environments/test.rb" />
         <option value="$PROJECT_DIR$/app/models/user.rb" />
+        <option value="$PROJECT_DIR$/Gemfile" />
+        <option value="$PROJECT_DIR$/config/environments/development.rb" />
         <option value="$PROJECT_DIR$/config/s3.yml" />
       </list>
     </option>
@@ -1075,23 +1074,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Gemfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="0" selection-start="1562" selection-end="1562" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/environments/test.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="41" column="32" selection-start="1778" selection-end="1778" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/environments/development.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="0" selection-start="1137" selection-end="1169" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1103,16 +1088,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/s3.yml">
+    <entry file="file://$PROJECT_DIR$/Gemfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="23" selection-start="133" selection-end="133" vertical-scroll-proportion="0.0">
+        <state line="81" column="0" selection-start="1563" selection-end="1563" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/environments/development.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="32" selection-start="1169" selection-end="1169" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="2" selection-start="2551" selection-end="2551" vertical-scroll-proportion="0.8557692">
+        <state line="75" column="2" selection-start="2551" selection-end="2743" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/s3.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>

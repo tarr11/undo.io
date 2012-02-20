@@ -410,7 +410,7 @@ class TaskFolderController < ApplicationController
     @show_reply_button = false
     @show_edit_buttons = false
     if params[:compare].nil? && @file.is_copied?
-        @show_reply_button = @file.has_replied?
+        @show_reply_button = !@file.has_replied?
     end
 
     if params[:compare].nil?  && !@show_reply_button

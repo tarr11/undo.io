@@ -59,7 +59,7 @@ border-image: initial;
          <%
             header_name = folder_item.first.nil? ? folder_item.second.first[:file].task_folder.shortName: folder_item.first
             if header_name.blank?
-                header_name = "Notes"
+                header_name = "/"
             end
 
             if @wildcard_user_name

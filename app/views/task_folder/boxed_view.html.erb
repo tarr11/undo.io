@@ -63,12 +63,12 @@ border-image: initial;
             end
 
             if @wildcard_user_name
-                user_name = "all"
+                user_name = "public"
             else
                 user_name = folder_item.second.first[:file].user.username
             end
          %>
-       <li class="undo-new-header"><%=link_to header_name, :controller => "task_folder", :action=>"folder_view", :username=>user_name , :path=>folder_item.second.first[:file].path, :view=>:board  %></li>
+       <li class="undo-new-header"><%=link_to header_name, :controller => "task_folder", :action=>"folder_view", :username=>user_name , :path=>folder_item.second.first[:file].path%></li>
          <% folder_item.second.sort_by{|a| a[:file].revision_at}.reverse.each do |file| %>
       <%=render 'task_folder/note_item', :file=>file[:file], :changed_lines => file[:changedLines] %>
          <% end %>

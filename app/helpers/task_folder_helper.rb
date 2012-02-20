@@ -47,6 +47,10 @@ module TaskFolderHelper
     end
 
     def get_path_parts(isFile, path)
+
+      if path.nil?
+        return []
+      end
       parts = path.split('/')
 
       if (parts.length == 0)

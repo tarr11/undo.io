@@ -1,15 +1,24 @@
   <ul class="breadcrumb">
   <li><%= link_to "Home", :controller => "home", :action=>"index"%></li>
-    <% unless params[:username].nil? %>
     <span class="divider">/</span>
-  <li><%= link_to @file_user.username, :controller => "task_folder", :action=>"folder_view", :path=>"/", :username=> @file_user.username%></li>
+    <% unless params[:username].nil? %>
+        <li><%= link_to @file_user.username, :controller => "task_folder", :action=>"folder_view", :path=>"/", :username=> @file_user.username%></li>
+    <% else %>
+        <li><%= link_to "public", :controller => "task_folder", :action=>"folder_view", :path=>"/", :username=> "public"%></li>
+    <%end%>
+
   <% unless @path_parts.nil?%>
     <% @path_parts.each_with_index do |part,index| %>
      <li>
        <% if index > 0 %>
      <span class="divider">/</span>
        <% end%>
-       <%= link_to part[:name], :controller => "task_folder", :action=>"folder_view", :path=>part[:path], :username=> @file_user.username %>
+       <% unless params[:username].nil? %>
+            <%= link_to part[:name], :controller => "task_folder", :action=>"folder_view", :path=>part[:path], :username=> @file_user.username %>
+       <% else %>
+           <%= link_to part[:name], :controller => "task_folder", :action=>"folder_view", :path=>part[:path], :username=>"public"%>
+       <% end %>
+
      </li>
   <% end %>
   <% end %>
@@ -19,6 +28,6 @@
       <%= link_to @file.shortName, :controller => "task_folder", :action=>"folder_view", :path=>@file.filename, :username=> @file_user.username%>
   </li>
 
-  <%end%>
+
    <% end %>
 </ul>

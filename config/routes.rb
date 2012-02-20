@@ -1,6 +1,9 @@
 Todo::Application.routes.draw do
 
   root :to => 'home#index'
+  match "public:path" => "home#index", :constraints => {:path=> /.*/}, :via => :get
+
+
   devise_for :users, :controllers =>{:sessions => "sessions"}
   match '/settings' => 'user#update', :via => [:put, :post]
   match '/settings' => 'user#show'

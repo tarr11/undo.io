@@ -1,0 +1,11 @@
+<ul class="breadcrumb">
+<li><%= link_to "Home", :controller => "home", :action=>"index"%></li>
+<% unless @path_parts.nil?%>
+  <% @path_parts.each_with_index do |part,index| %>
+   <li>
+   <span class="divider">/</span>
+     <%= link_to part[:name], :controller => "home", :action=>"index", :path=>part[:path]%>
+   </li>
+    <% end %>
+<% end %>
+</ul>

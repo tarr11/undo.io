@@ -28,13 +28,20 @@ class HomeController < ApplicationController
     results = TodoFile.search do
        keywords params[:q] ||= ""
        with(:is_public, true)
-     end
+    end
+
+    path = params[:path]
+
      changed_files = TaskFolder.process_search_results(results, "/")
-     changed_files = changed_files.select{|a| a[:file].is_public}
+     changed_files = changed_files.select{|a| a[:file].is_public && (path.nil? || a[:file].filename.start_with?(path))}
+
+
     @changed_files_by_folder = changed_files
       .group_by {|note| get_sub_folder(note[:file].path,"/") }
     @header = "Public Notes"
     @wildcard_user_name = true
+    @path_parts = get_path_parts(false, path)
+
     check_for_shared_notes
     respond_to do |format|
         format.html { render 'task_folder/boxed_view', :layout => 'task_folder'}

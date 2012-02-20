@@ -90,11 +90,8 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/solr/data/development/index/segments_k" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/controllers/app/dropbox_controller_spec.rb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/helpers/app/dropbox_helper_spec.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Procfile" afterPath="$PROJECT_DIR$/Procfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/todo_files_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/todo_files_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/todo_file.rb" afterPath="$PROJECT_DIR$/app/models/todo_file.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
     </list>
     <ignored path="todo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -159,7 +156,16 @@
       <file leaf-file-name="task_folder_helper.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/helpers/task_folder_helper.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="64" selection-start="896" selection-end="896" vertical-scroll-proportion="0.0">
+            <state line="151" column="33" selection-start="3357" selection-end="3357" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/routes.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="0" selection-start="221" selection-end="221" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -195,7 +201,7 @@
       <file leaf-file-name="Procfile" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Procfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="46" selection-start="58" selection-end="83" vertical-scroll-proportion="0.031512607">
+            <state line="1" column="46" selection-start="83" selection-end="83" vertical-scroll-proportion="0.031512607">
               <folding />
             </state>
           </provider>
@@ -217,7 +223,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/task_folder/_right_rail_revisions.html.erb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/_right_rail_created_by.html.erb" />
         <option value="$PROJECT_DIR$/app/views/layouts/_folder_list.html.erb" />
@@ -232,6 +237,7 @@
         <option value="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/todo_files_controller.rb" />
         <option value="$PROJECT_DIR$/app/models/todo_file.rb" />
+        <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/Procfile" />
       </list>
     </option>
@@ -342,7 +348,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
+              <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -357,10 +363,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -950,13 +952,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/s3.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="75" column="2" selection-start="2551" selection-end="2743" vertical-scroll-proportion="0.9098558">
@@ -1013,13 +1008,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/helpers/task_folder_helper.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="64" selection-start="896" selection-end="896" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/task_folder.js.coffee">
       <provider selected="true" editor-type-id="text-editor">
         <state line="68" column="41" selection-start="2109" selection-end="2109" vertical-scroll-proportion="0.0">
@@ -1055,9 +1043,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/helpers/task_folder_helper.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="151" column="33" selection-start="3357" selection-end="3357" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/routes.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="221" selection-end="221" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Procfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="46" selection-start="58" selection-end="83" vertical-scroll-proportion="0.031512607">
+        <state line="1" column="46" selection-start="83" selection-end="83" vertical-scroll-proportion="0.031512607">
           <folding />
         </state>
       </provider>

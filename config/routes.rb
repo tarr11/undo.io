@@ -1,15 +1,22 @@
 Todo::Application.routes.draw do
 
   root :to => 'home#index'
-  match "public:path" => "home#index", :constraints => {:path=> /.*/}, :via => :get
-
-
+  resources :oauth_consumers do
+    member do
+      get :callback
+      get :callback2
+      match 'client/*endpoint' => 'oauth_consumers#client'
+    end
+  end
   devise_for :users, :controllers =>{:sessions => "sessions"}
   match '/settings' => 'user#update', :via => [:put, :post]
   match '/settings' => 'user#show'
 
 
   resources :todo_files
+
+  match "public:path" => "home#index", :constraints => {:path=> /.*/}, :via => :get
+
 
   match 'file/complete_task' => 'task_folder#mark_task_completed', :via => [:put, :post]
 
@@ -24,13 +31,6 @@ Todo::Application.routes.draw do
 
   match ":username" => "task_folder#folder_view", :via => :get
 
-  resources :oauth_consumers do
-    member do
-      get :callback
-      get :callback2
-      match 'client/*endpoint' => 'oauth_consumers#client'
-    end
-  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

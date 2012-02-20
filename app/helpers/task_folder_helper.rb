@@ -144,20 +144,25 @@ module TaskFolderHelper
         end
 
         if @file.nil?
-          @taskfolder = @file_user.task_folder(path)
-          if @taskfolder.todo_files_recursive.length == 0
-              raise ActionController::RoutingError.new('Not Found')
-          end
 
-          if @file_user.id != current_user.id
-            raise ActionController::RoutingError.new('Not Found')
-          end
+            @taskfolder = @file_user.task_folder(path)
+            if @taskfolder.todo_files_recursive.length == 0
+                raise ActionController::RoutingError.new('Not Found')
+            end
 
+            if @file_user.id != current_user.id
+              @taskfolder.show_public_only()
+            end
 
-          @header = @taskfolder.shortName
-          if @taskfolder.shortName.blank?
-            @header = "My Notes"
-          end
+            @header = @taskfolder.shortName
+            if @taskfolder.shortName.blank?
+              if @file_user.id != current_user.id
+                @header = @file_user.username + "'s Public Notes"
+              else
+                @header = "My Notes"
+
+              end
+            end
 
         else
           @taskfolder = @file.task_folder

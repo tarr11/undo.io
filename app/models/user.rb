@@ -53,6 +53,8 @@ class User < ActiveRecord::Base
       end
   end
 
+
+
   def task_folder (path="/")
     TaskFolder.new(self, path)
   end

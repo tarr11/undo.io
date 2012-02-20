@@ -38,7 +38,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  before_create :whitelisted
+  before_create :whitelisted, :if => :is_production?
+
+  def is_production?
+    return Rails.env.production?
+  end
 
    def self.find_for_database_authentication(warden_conditions)
      conditions = warden_conditions.dup

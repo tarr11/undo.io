@@ -11,7 +11,7 @@ class DropboxNavigator
   end
 
   def self.DeleteFileInDropbox(user, filename)
-    user.dropbox.client.file_delete filename
+    user.dropbox.dropbox_client.file_delete filename
   end
 
   def self.move_file(oldPath, newFile)
@@ -19,7 +19,7 @@ class DropboxNavigator
     if newFile.user.dropbox.nil?
       return
     end
-    newFile.user.dropbox.client.file_move oldPath, newFile.filename
+    newFile.user.dropbox.dropbox_client.file_move oldPath, newFile.filename
   end
 
 
@@ -40,9 +40,9 @@ class DropboxNavigator
     end if
 
     if revision.empty?
-      myuser.dropbox.client.put_file todofile.filename, todofile.contents, true
+      myuser.dropbox.dropbox_client.put_file todofile.filename, todofile.contents, true
     else
-      myuser.dropbox.client.put_file todofile.filename, todofile.contents, true, revision
+      myuser.dropbox.dropbox_client.put_file todofile.filename, todofile.contents, true, revision
     end
 
   end
@@ -63,7 +63,7 @@ class DropboxNavigator
               next
             end
 
-            text = user.dropbox.client.get_file(fileinfo[:filename])
+            text = user.dropbox.dropbox_client.get_file(fileinfo[:filename])
             todo = TodoFile.pushChangesFromText user, fileinfo[:filename], text, fileinfo[:revisionDate], fileinfo[:revisionCode]
         end
 
@@ -82,7 +82,7 @@ class DropboxNavigator
 
     #storedHashes = {}#user.getDropBoxStoredHashes
 
-    getChangedFilesByPath user, user.dropbox.client.metadata("/"), {}
+    getChangedFilesByPath user, user.dropbox.dropbox_client.metadata("/"), {}
 
   end
 
@@ -93,7 +93,7 @@ class DropboxNavigator
      directory['contents'].each do |fileinfo|
 
       if (fileinfo["is_dir"])
-        subdir = user.dropbox.client.metadata(fileinfo["path"])
+        subdir = user.dropbox.dropbox_client.metadata(fileinfo["path"])
         getChangedFilesByPath(user, subdir, storedHashes, filenames)
       else
         hash = {

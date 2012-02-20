@@ -17,7 +17,7 @@ class DropboxToken < ConsumerToken
         @consumer ||= OAuth::Consumer.new(credentials[:key], credentials[:secret], DROPBOX_SETTINGS.merge(options))
   end
 
-  def client
+  def dropbox_client
     @client ||= begin 
 
       @session = DropboxSession.new(DropboxToken.consumer.key, DropboxToken.consumer.secret)

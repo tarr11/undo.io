@@ -7,7 +7,9 @@ namespace :todo do
   end
 
   task :testtodo=> :environment do
-    DropboxNavigator.Sync User.first
+    doug = User.find_by_username('dougt')
+    metadata = doug.dropbox.client.metadata("/")
+
   end
 
   task :dump => :environment do

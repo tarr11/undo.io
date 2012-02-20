@@ -30,10 +30,12 @@ class User < ActiveRecord::Base
   has_many :shared_files
   has_many :alerts
    attr_accessible :avatar
-    has_attached_file :avatar,
+    has_attached_file :avatar, {
                       :styles => { :medium => "300x300>",
                                    :thumb => "100x100>" },
                       :default_url => "missing.png"
+        }.merge(PAPERCLIP_STORAGE_OPTIONS)
+
   def thumbnail
   end
 

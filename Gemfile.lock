@@ -46,6 +46,10 @@ GEM
       autotest-standalone (~> 4.5)
     autotest-rails-pure (4.1.2)
     autotest-standalone (4.5.9)
+    aws-s3 (0.6.2)
+      builder
+      mime-types
+      xml-simple
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
     cocaine (0.2.1)
@@ -231,6 +235,7 @@ GEM
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
+    xml-simple (1.1.1)
 
 PLATFORMS
   ruby
@@ -241,6 +246,7 @@ DEPENDENCIES
   autotest
   autotest-notification
   autotest-rails-pure
+  aws-s3
   chronic!
   codemirror-rails
   coffee-rails (~> 3.1.1)

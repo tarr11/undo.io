@@ -1,0 +1,4 @@
+production:
+ access_key_id: AKIAJIIOFTJXEG2QSO2Q
+ secret_access_key: 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
+ bucket: undo-paperclip

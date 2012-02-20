@@ -70,5 +70,8 @@ Todo::Application.configure do
 
   config.action_mailer.default_url_options = { :host => 'www.undo.io' }
 
+  PAPERCLIP_STORAGE_OPTIONS = {:storage => :s3,
+                                 :s3_credentials => "#{Rails.root}/config/s3.yml",
+                                 :path => "/:style/:filename"}
 
 end

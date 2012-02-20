@@ -8,12 +8,12 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :time_zone, :username,:login
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :time_zone, :username,:login, :display_name
 
   attr_accessor :login
 
   validates_uniqueness_of :username, :email
-  validates_presence_of :username, :email
+  validates_presence_of :username, :email, :display_name
   validates_presence_of :password, :on => :create
 
   has_many :client_applications
@@ -29,13 +29,12 @@ class User < ActiveRecord::Base
   has_many :files_shared_with_user, :through => :shared_files, :source => :todo_file
   has_many :shared_files
   has_many :alerts
-
+   attr_accessible :avatar
+    has_attached_file :avatar,
+                      :styles => { :medium => "300x300>",
+                                   :thumb => "100x100>" },
+                      :default_url => "missing.png"
   def thumbnail
-    if self.username == "tarr11"
-      return "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/369783_599826078_209700476_q.jpg"
-    else
-      return "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/369935_717081119_1425821949_q.jpg"
-    end
   end
 
   before_create :whitelisted, :if => :is_production?

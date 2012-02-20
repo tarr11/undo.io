@@ -6,6 +6,12 @@
 <div class="left-nav nav-collapse">
 <div class="left-nav-section">
   <%=render 'layouts/collapse_button', :site_section => 'site'%>
+  <div>
+    <%= image_tag @file_user.avatar.url(:thumb), :style=>"vertical-align:middle;" %>
+    <span><%= link_to @file_user.display_name ||= @file_user.username, user_path(@file_user), :style=>"font-weight:bold;font-size:1.2em;"%></span>
+  </div>
+  <div style="clear:both"></div>
+
   <ul class="nav nav-list ">
    <li class="nav-header">Site</li>
     <li class="site-hide-small nav-collapse">

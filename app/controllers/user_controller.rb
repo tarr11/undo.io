@@ -1,12 +1,5 @@
 class UserController < ApplicationController
 
-  #respond_to_mobile_requests :skip_xhr_requests => false
-  #respond_to do |format|
-  #  if current_user.update_attributes(params[:user])
-  #    format.html
-  #    format.mobile
-  #  end
-  #end
 
   def show
     @user = current_user
@@ -24,7 +17,8 @@ class UserController < ApplicationController
         format.mobile
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
+        @user=current_user
+        format.html { render :action=>:show }
         format.mobile
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end

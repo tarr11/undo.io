@@ -1,6 +1,6 @@
 <h2>Sign up</h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name) , :html=>{:class=>"form-stacked", :novalidate => true}) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name) , :html=>{:class=>"form-stacked", :multipart => true, :novalidate => true}) do |f| %>
 
     <% unless resource.errors.empty? %>
     <div class="alert alert-error">
@@ -13,6 +13,13 @@
 
   <div><%= f.label :email %>
   <%= f.email_field :email %></div>
+
+      <div><%= f.label :display_name%>
+        <%= f.text_field :display_name%></div>
+
+      <div><%= f.label "Picture"%>
+            <%= f.file_field :avatar %> </div>
+
 
   <div><%= f.label :password %>
   <%= f.password_field :password %></div>

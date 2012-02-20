@@ -1,6 +1,6 @@
 <ul class="history">
 <li style="clear:both">
-<div style="float:left"><%=image_tag @file.user.thumbnail%></div>
+<div style="float:left"><%=image_tag @file.user.avatar.url(:thumb)%></div>
 <div style="float:left;padding-left:1em;">
   <h2><%=link_to @file_user.username, user_path(@file.user)%></h2>
 

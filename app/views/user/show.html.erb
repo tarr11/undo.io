@@ -2,9 +2,9 @@
   <li>Settings</li>
 </ul>
 <h1>Settings for <%=@user.username%></h1>
-<%=form_for @user, :url=> "/settings", :include_id=>false, :html => {:id=>"edit_user", :class=>"form-stacked"} do |f|%>
+<%=form_for @user, :url=> "/settings", :include_id=>false, :html => {:id=>"edit_user",:multipart => true, :class=>"form-stacked"} do |f|%>
   <% if @user.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-error">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this task from being saved:</h2>
 
       <ul>
@@ -15,10 +15,17 @@
     </div>
   <% end %>
     <fieldset>
+      <div><%= f.label "Your Name"%>
+       <%= f.text_field :display_name%></div>
       <div><%= f.label :email %>
        <%= f.email_field :email%></div>
       <%=f.label "Time Zone", :for=>"user_time_zone"%>
      <%=time_zone_select( "user", 'time_zone', ActiveSupport::TimeZone.us_zones, :default => "Pacific Time (US & Canada)")%>
+      <div>Your Picture</div>
+      <div><%= image_tag @user.avatar.url(:thumb) %></div>
+      <div><%= f.label "Change"%>
+
+      <%= f.file_field :avatar %> </div>
       </fieldset>
     <div> <%=f.submit "Save"%></div>
 <% end %>

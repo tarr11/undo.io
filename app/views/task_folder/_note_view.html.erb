@@ -210,7 +210,7 @@ function convertToSlug(Text)
            <div style="margin-left:.5em;" id="shared_with" class="collapse out">
              <% @shared_with.each_with_index do |user, index|%>
                  <div style="float:left;padding-right: 5px;">
-                   <%=image_tag user.thumbnail%>
+                   <%= image_tag user.avatar.url(:thumb) %>
                  </div>
                  <div style="font-size:1.5em"><%= link_to user.username, user_path(user) %></div>
               <% end%>

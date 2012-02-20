@@ -150,7 +150,7 @@ module TaskFolderHelper
         if @file.nil?
 
             @taskfolder = @file_user.task_folder(path)
-            if @taskfolder.todo_files_recursive.length == 0
+            if @taskfolder.todo_files_recursive.length == 0 && path != "/"
                 raise ActionController::RoutingError.new('Not Found')
             end
 

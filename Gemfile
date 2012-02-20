@@ -77,6 +77,6 @@ gem 'delayed_job_active_record'
 gem 'delayed_task'
 gem 'codemirror-rails'
 gem 'thin'
-
+gem "paperclip", "~> 2.0"
 
 

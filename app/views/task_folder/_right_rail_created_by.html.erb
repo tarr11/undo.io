@@ -22,7 +22,7 @@
   <% end %>
   <% unless @file.copied_from.nil? %>
     <div style="margin-left:.5em; font-style: italic;color:gray;"><i class="icon-download"></i> Copied from <%= link_to @file.copied_from.user.username, file_local_path(@file.copied_from) %> <%=time_ago_in_words(@file.created_at)%> ago</div>
-    <div style="margin-left:.5em; font-style: italic;color:gray;"><i class="icon-indent-left"></i> <%=link_to "Compare to original" ,url_for(:controller=>"task_folder", :action => "folder_view", :path=>@file.filename, :compare=>file_local_path(@file.copied_from))%></div>
+    <div style="margin-left:.5em; font-style: italic;color:gray;"><i class="icon-indent-left"></i> <%=link_to "Compare" ,url_for(:controller=>"task_folder", :action => "folder_view", :path=>@file.filename, :compare=>file_local_path(@file.copied_from))%></div>
   <% end %>
 <% end %>
     </div>

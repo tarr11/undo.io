@@ -49,8 +49,8 @@ class TodoFile < ActiveRecord::Base
   end
 
   def has_replied?
-    unless copied_from.nil?
-      unless shared_with_users.select{|a| a.id == copied_from.user_id}
+    unless self.copied_from.nil?
+      unless self.shared_with_users.select{|a| a.id == copied_from.user_id}.length == 0
         return true
       end
     end

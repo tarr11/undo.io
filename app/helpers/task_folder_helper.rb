@@ -161,7 +161,7 @@ module TaskFolderHelper
             @header = @taskfolder.shortName
             if @taskfolder.shortName.blank?
               if @file_user.id != current_user.id
-                @header = @file_user.display_name ||= @file_user.username + "'s Public Notes"
+                @header = (@file_user.display_name ||= @file_user.username) + "'s Public Notes"
               else
                 @header = "My Notes"
 

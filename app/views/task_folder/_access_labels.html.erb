@@ -1,7 +1,9 @@
 <% if @file.is_public %>
     <span class="label label-success">Published</span>
 <% else %>
-    <% if @file.shared_with_users.length > 0 %>
+    <% if @file.user_id == current_user.id && @file.has_replied?%>
+    <span class="label label-info">Replied</span>
+    <%elsif @file.user_id == current_user.id && @file.shared_with_users.length > 0 %>
     <span class="label label-info">Shared</span>
     <% else %>
     <span class="label">Private</span>

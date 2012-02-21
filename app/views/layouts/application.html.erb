@@ -43,14 +43,6 @@
                 <%=content_tag :li, :class => (params[:username] != current_user.username ? "active" : nil)  do%><a href="/">Public Notes</a><%end%>
                 <%=content_tag :li, :class => ((params[:username] == current_user.username && params[:shared] == nil) ? "active" : nil)  do%><%=link_to "My Notes", user_path(current_user)%><%end%>
                 <%=content_tag :li, :class => (params[:username] == current_user.username && params[:shared] == "y" ? "active" : nil)  do%><%=link_to "Shared Notes", url_for(:controller=>"task_folder", :action => "folder_view", :username=>current_user.username, :path => "/", :shared=>"y")%><%end%>
-                <li class="dropdown">
-                  <a href="#" data-toggle="dropdown" class="dropdown-toggle">Recent <b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li><a href>File1.txt</a></li>
-                    <li><a href>File2.txt</a></li>
-                    <li><a href>File3.txt</a></li>
-                    <li><a href>File4.txt</a></li>
-                  </ul>
               </ul>
               <ul class="nav pull-right">
                    <li class="dropdown">

@@ -56,19 +56,21 @@ border-image: initial;
     <%@changed_files_by_folder.each do |folder_item|%>
     <div class="note-box">
        <ul style="margin-left:0">
-         <%
-            header_name = folder_item.first.nil? ? folder_item.second.first[:file].task_folder.shortName: folder_item.first
-            if header_name.blank?
-                header_name = "/"
-            end
+            <%
+               header_name = folder_item.first.nil? ? folder_item.second.first[:file].task_folder.shortName: folder_item.first
+             if header_name.blank?
+                 header_name = "/"
+             end
 
-            if @wildcard_user_name
-                user_name = "public"
-            else
-                user_name = folder_item.second.first[:file].user.username
-            end
+             if @wildcard_user_name
+                 user_name = "public"
+             else
+                 user_name = folder_item.second.first[:file].user.username
+             end
+
+
          %>
-       <li class="undo-new-header"><%=link_to header_name, :controller => "task_folder", :action=>"folder_view", :username=>user_name , :path=>folder_item.second.first[:file].path%></li>
+         <li class="undo-new-header"><%=link_to header_name, :controller => "task_folder", :action=>"folder_view", :username=>user_name , :path=>folder_item.second.first[:file].path%></li>
          <% folder_item.second.sort_by{|a| a[:file].revision_at}.reverse.each do |file| %>
       <%=render 'task_folder/note_item', :file=>file[:file], :changed_lines => file[:changedLines] %>
          <% end %>

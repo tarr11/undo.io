@@ -1,10 +1,7 @@
-
 <li class="undo-ul-li-heading">
   <% if file.user.id != current_user.id %>
       <%= link_to  "@" + file.user.username, {:controller => "task_folder", :action=>"folder_view", :path=> "/", :only_path => @only_path, :username=>file.user.username}, :class=>"user-link"%>
   <% end %>
-
-
   <% if !file.copied_from.nil?  && file.user.id != current_user.id && file.copied_from.user_id == current_user.id %>
       <%= link_to  file.shortName + " (reply)", :controller => "task_folder", :action=>"folder_view", :path=> file.copied_from.filename, :compare=> file_local_path(file), :only_path => @only_path, :username=>current_user.username%></li>
   <% else %>
@@ -14,4 +11,5 @@
 <%file.to_enum(:get_lines).to_a.first(10).each do |line|%>
      <li class="undo-ul-li-desc" style="margin-left:1em;font-size: .8em"><%=line.text.html_safe%></li>
 <% end%>
-
+<li class="path italics"><%=time_ago_in_words(file.revision_at ||= DateTime.now)%> ago in <%= link_to (file.task_folder.shortName.blank? ? "/" : file.task_folder.shortName), task_folder_local_path(file.task_folder)%></li>
+<div style="clear:both"></div>

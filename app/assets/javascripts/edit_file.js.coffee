@@ -1,3 +1,8 @@
+window.convertToSlug = (text) ->
+  text.toLowerCase()
+  .replace(/[^\w ]+/g,'')
+  .replace(/[ ]+/g,'-')
+
 checkAutoSave = ->
   contents = window.myCodeMirror.getValue()
   if contents != window.lastContents
@@ -48,7 +53,6 @@ initCodeMirror = () ->
     #onHighlightComplete : (event) ->
      # $('.cm-undo-task').each (index) ->
         # just need to get the line from each item??
-
 
 
 

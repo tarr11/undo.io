@@ -6,17 +6,6 @@
 <% content_for :stylesheet_includes do %>
   <%= stylesheet_link_tag "task_folder"  %>
 <% end %>
-<script type="text/javascript ">
-function convertToSlug(Text)
-{
-    return Text
-        .toLowerCase()
-        .replace(/[^\w ]+/g,'')
-        .replace(/ +/g,'-')
-        ;
-}
-
-</script>
 <script>
    function toggleFullscreenEditing()
     {

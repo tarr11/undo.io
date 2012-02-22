@@ -80,5 +80,5 @@ gem 'thin'
 gem "paperclip", "~> 2.0"
 gem 'aws-sdk'
 gem 'aws-s3'
-
+gem 'newrelic_rpm'
 

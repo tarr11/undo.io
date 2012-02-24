@@ -29,7 +29,7 @@ describe TodoFile do
       before(:each) do
         @file.make_private()
       end
-      it 'should set is_public to true' do
+      it 'should set is_public to false' do
         @file.is_public.should be_false
       end
     end
@@ -63,6 +63,10 @@ describe TodoFile do
           @user2.todo_files.count.should eq(1)
         end
 
+        it 'user2 copy should point to the current revision' do
+          @new_file.copied_task_file_revision_id.should eq(@file.current_revision.id)
+        end
+
         it 'the copy should have the same contents' do
           @new_file.contents.should eq(@file.contents)
         end
@@ -80,6 +84,10 @@ describe TodoFile do
 
             it "user2 shouldn't see user1 changes" do
               @file_reloaded.contents.should_not eq(@file.contents)
+            end
+
+            it "user2 should be able to point to the revision they copied from" do
+              @file_reloaded.copied_revision.contents.should eq(@file_reloaded.contents)
             end
 
           end

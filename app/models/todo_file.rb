@@ -107,13 +107,20 @@ class TodoFile < ActiveRecord::Base
   end
 
   def copy(user, filename, revision_uuid)
+
+    raise "revision_uuid cannot be nill" if revision_uuid.nil?
+
     new_file= user.todo_files.new
     new_file.filename = filename
     new_file.contents = self.contents
     new_file.user = user
     new_file.is_public = false
     new_file.copied_from_id = self.id
-    new_file.copied_task_file_revision_id = self.task_file_revisions.find_by_revision_uuid(revision_uuid).id
+    revision = self.task_file_revisions.find_by_revision_uuid(revision_uuid)
+    if revision.nil?
+      raise "No Revision"
+    end
+    new_file.copied_task_file_revision_id = revision.id
     return new_file
 
   end

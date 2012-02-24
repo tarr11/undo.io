@@ -181,11 +181,12 @@ class TaskFolderController < ApplicationController
       # if this is a file. move it
       unless @file.nil?
 
-       @new_file = @file.copy(current_user,params[:copy_filename])
+       @new_file = @file.copy(current_user,params[:copy_filename], params[:revision_uuid])
         if @new_file.save!
 
           respond_to do |format|
-            format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @new_file.filename, :username=>@new_file.user.username, notice: 'File was copied.' }
+            flash[:notice] = "File was copied"
+            format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @new_file.filename, :username=>@new_file.user.username}
           end
         else
           @errors = new_file.errors

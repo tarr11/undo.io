@@ -27,3 +27,9 @@ Factory.define :file do |file|
   file.contents   "This is a file."
   file.is_public  false
 end
+
+Factory.define :public_file, :class=>TodoFile do |file|
+  file.filename   "/foo-public"
+  file.contents   "This is a public file."
+  file.is_public  true
+end

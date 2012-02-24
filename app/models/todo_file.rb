@@ -12,10 +12,13 @@ class TodoFile < ActiveRecord::Base
   has_many :copied_to, :class_name => "TodoFile", :foreign_key => "copied_from_id"
   has_many :shared_with_users, :through => :shared_files, :source=>:user
   has_many :shared_files
+  #belongs_to :copied_revision, :class_name=>"TaskFileRevision", :primary_key=>"copied_task_file_revision_id"
+  #has_one :current_revision, :class_name=>"TaskFileRevision"
+  before_save do
+    self.revision_at = Time.now.utc
+  end
 
-  after_save :save_revision
-#  attr_accessible :is_public, :contents
-
+  after_save :save_revision, :update_dropbox
   serialize :diff
 
   searchable do
@@ -29,9 +32,23 @@ class TodoFile < ActiveRecord::Base
   handle_asynchronously :remove_from_index, :queue => 'solr'
 
   validates_inclusion_of :is_public, :in => [true, false]
-  validates_presence_of :revision_at, :filename, :contents, :user_id
+  validates_presence_of :filename, :contents, :user_id
   validates_uniqueness_of :filename, :scope => :user_id
 
+  def current_revision
+      task_file_revisions.last
+  end
+
+  def share_with(user)
+    user.shared_files.create! :todo_file => self
+    user.alerts.create! :message => SharedNoteAlert.new
+  end
+
+  def copied_revision
+    unless copied_task_file_revision_id.nil?
+      copied_from.task_file_revisions.find_by_id(copied_task_file_revision_id)
+    end
+  end
   def all_copies
     return self.copied_to.map{|a| a}
   end
@@ -58,37 +75,28 @@ class TodoFile < ActiveRecord::Base
   end
 
 
-  def self.pushChangesFromText(user, filename, text, revisionDate, revisionCode)
-    newFile = TodoFile.saveFile(user, filename, text,revisionDate, revisionCode)
-    #TodoFile.pushChanges(user, newFile)
+  #def self.pushChangesFromText(user, filename, text, revisionDate, revisionCode)
+  #  newFile = TodoFile.saveFile(user, filename, text,revisionDate, revisionCode)
+  #  #TodoFile.pushChanges(user, newFile)
+  #end
+
+  #def self.deleteFile(user, filename)
+  #  file = user.todo_files.find_by_filename(filename)
+  #  file.destroy
+  #end
+
+  #def self.deleteFromWeb(user, filename)
+  #  TodoFile.deleteFile user, filename
+  #  DropboxNavigator.delay(:queue=>'dropbox').DeleteFileInDropbox user, filename
+  #end
+
+  def merge_changes(file_to_merge)
+      # merges changes into this file
+      # make a patch from the version that the change was made against
+
+
+      # apply the patch
   end
-
-  def self.deleteFile(user, filename)
-    file = user.todo_files.find_by_filename(filename)
-    file.destroy
-  end
-
-  def self.deleteFromWeb(user, filename)
-    TodoFile.deleteFile user, filename
-    DropboxNavigator.delay(:queue=>'dropbox').DeleteFileInDropbox user, filename
-  end
-=begin
- =begin
-
- def save
-
-
-    # also save revisions
-    revision = self.task_file_revisions.new
-    revision.filename = self.filename
-    revision.contents = self.contents
-    revision.user_id = self.user_id
-    revision.save
-
-  end
-
-end
-=end
 
   def reply()
     # shares this version back to the original owner
@@ -98,12 +106,24 @@ end
 
   end
 
+  def copy(user, filename, revision_uuid)
+    new_file= user.todo_files.new
+    new_file.filename = filename
+    new_file.contents = self.contents
+    new_file.user = user
+    new_file.is_public = false
+    new_file.copied_from_id = self.id
+    new_file.copied_task_file_revision_id = self.task_file_revisions.find_by_revision_uuid(revision_uuid).id
+    return new_file
+
+  end
+
   def make_public()
-      saveFromWeb(:is_public=>true, :published_at=> DateTime.now.utc)
+      update_attributes!(:is_public=>true, :published_at=> DateTime.now.utc)
   end
 
   def make_private()
-      saveFromWeb(:is_public=>false)
+      update_attributes!(:is_public=>false)
   end
 
   def mark_task_status(line_number, is_completed)
@@ -128,7 +148,7 @@ end
        i = i+1
      end
 
-    saveFromWeb(:contents=>new_file)
+      update_attributes!(:contents=>new_file)
   end
 
   def self.saveFile(user, filename, file, revisionDate, revisionCode)
@@ -162,6 +182,7 @@ end
     revision.user_id = self.user_id
     revision.revision_at = self.revision_at
     revision.dropbox_revision = self.dropbox_revision
+    revision.revision_uuid = UUIDTools::UUID.timestamp_create().to_s
 
     unless (previous.nil?)
       arrayA = previous.contents.split("\n")
@@ -171,18 +192,13 @@ end
     end
     revision.save
 
-  end
-
-  def saveFromWeb(todofileParams)
-
-    if self.update_attributes!(todofileParams)
-      DropboxNavigator.delay(:queue=>'dropbox').UpdateFileInDropbox(self)
-      return true
-    else
-      return false
-    end
 
   end
+
+  def update_dropbox
+    DropboxNavigator.delay(:queue=>'dropbox').UpdateFileInDropbox(self)
+  end
+
 
   def self.getLcsDiff(arrayA, arrayB)
 

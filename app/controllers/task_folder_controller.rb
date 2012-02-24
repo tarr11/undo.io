@@ -29,8 +29,8 @@ class TaskFolderController < ApplicationController
     end
 
     respond_to do |format|
-      if @todo_file.save
-        DropboxNavigator.delay(:queue=>'dropbox').UpdateFileInDropbox(@todo_file)
+      if @todo_file.save!
+
         format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :username=>current_user.username, :path=> @todo_file.filename, notice: 'File was successfully created.' }
         format.json { render json: @todo_file, status: :created}
       else
@@ -79,8 +79,7 @@ class TaskFolderController < ApplicationController
     else
       @todo_file.contents = params[:savecontents]
     end
-    if @todo_file.save
-      DropboxNavigator.delay(:queue=>'dropbox').UpdateFileInDropbox(@todo_file)
+    if @todo_file.save!
       respond_to do |format|
         format.json  { render json: {"location" => url_for(:controller => "task_folder", :action=>"folder_view", :path=> @todo_file.filename, :only_path=>true, :username =>@todo_file.user.username)}}
       end
@@ -133,7 +132,7 @@ class TaskFolderController < ApplicationController
     unless @file.nil?
       oldName = @file.filename
       @file.filename = params[:filename]
-      if @file.save
+      if @file.save!
         DropboxNavigator.delay(:queue=>'dropbox').move_file oldName, @file
         respond_to do |format|
           format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @file.filename, :username=>@file.user.username, notice: 'File was moved.' }
@@ -157,9 +156,8 @@ class TaskFolderController < ApplicationController
       people.each do |person|
         user = User.find_by_username(person)
         unless user.nil?
-          user.shared_files.create! :todo_file => @file
-          user.alerts.create! :message => SharedNoteAlert.new
-      end
+          @file.share_with(user)
+        end
 
       end
       respond_to do |format|
@@ -183,21 +181,14 @@ class TaskFolderController < ApplicationController
       # if this is a file. move it
       unless @file.nil?
 
-        @new_file= current_user.todo_files.new
-        @new_file.filename = params[:copy_filename]
-        @new_file.contents = @file.contents
-        @new_file.user = current_user
-        @new_file.revision_at = DateTime.now
-        @new_file.is_public = false
-        @new_file.copied_from_id = @file.id
-
+       @new_file = @file.copy(current_user,params[:copy_filename])
         if @new_file.save!
-          DropboxNavigator.delay(:queue=>'dropbox').UpdateFileInDropbox(@new_file)
+
           respond_to do |format|
             format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @new_file.filename, :username=>@new_file.user.username, notice: 'File was copied.' }
           end
         else
-          @errors = @new_file.errors
+          @errors = new_file.errors
           folder_view
         end
       end
@@ -432,8 +423,8 @@ class TaskFolderController < ApplicationController
         raise ActionController::RoutingError.new('Not Found')
       end
       #
-      arrayA = @file.contents.split("\n")
-      arrayB = @compare_file.contents.split("\n")
+      arrayA = @file.contents.split("\n").map{|a| a.strip}
+      arrayB = @compare_file.contents.split("\n").map{|a| a.strip}
       @diff = TodoFile.getLcsDiff2(arrayA, arrayB)
 
     end

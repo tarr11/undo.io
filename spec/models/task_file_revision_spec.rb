@@ -1,5 +1,8 @@
 require 'spec_helper'
 
 describe TaskFileRevision do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before(:each) do
+    @user = Factory.create(:user)
+  end
+
 end

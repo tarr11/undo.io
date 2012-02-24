@@ -53,7 +53,7 @@ class TodoFilesController < ApplicationController
 
     respond_to do |format|
       if @todo_file.save
-        DropboxNavigator.delay(:queue=>'dropbox').UpdateFileInDropbox(@todo_file)
+
         format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :username=>current_user.username, :path=> @todo_file.filename, notice: 'File was successfully created.' }
         format.json { render json: @todo_file, status: :created, location: @todo_file }
       else
@@ -70,7 +70,7 @@ class TodoFilesController < ApplicationController
     @todo_file.revision_at = DateTime.now.utc
 
     respond_to do |format|
-      if @todo_file.saveFromWeb(params[:todo_file])
+      if @todo_file.update_attributes(params[:todo_file])
         format.html { render action: "update", :layout => false}
         format.json { head :ok }
         format.js
@@ -84,13 +84,14 @@ class TodoFilesController < ApplicationController
 
   # DELETE /todo_files/1
   # DELETE /todo_files/1.json
-  def destroy
-    @todo_file = current_user.todo_files.find(params[:id])
-    TodoFile.deleteFromWeb current_user, @todo_file.filename
-
-    respond_to do |format|
-      format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :username=>current_user.username, :path=> @todo_file.path, notice: 'File was deleted.' }
-      format.json { head :ok }
-    end
-  end
+  #def destroy
+  #  @todo_file = current_user.todo_files.find(params[:id])
+  #  @todo_file.destroy
+  #  TodoFile.deleteFromWeb current_user, @todo_file.filename
+  #
+  #  respond_to do |format|
+  #    format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :username=>current_user.username, :path=> @todo_file.path, notice: 'File was deleted.' }
+  #    format.json { head :ok }
+  #  end
+  #end
 end

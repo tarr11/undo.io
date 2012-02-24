@@ -50,9 +50,7 @@ class DropboxNavigator
   def self.Sync(user)
 
     dropboxFiles = getChangedFiles(user)
-
     dbFiles = user.todo_files.all.map {|a| a}
-
 
     begin
         dropboxFiles.each do |fileinfo|

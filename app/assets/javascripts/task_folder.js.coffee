@@ -150,12 +150,15 @@ $ ->
       $('#shared_user_list').focus()
 
   $('.cancel').click (event) ->
-    $('#move-modal').modal('hide')
-
+    $('.modal').modal('hide')
 
   $('#cancel-delete-file').click (event) ->
     $('#delete-modal').modal('hide')
 
+  $('#accept-button').click (event) ->
+    $('#accept-modal').modal
+      keyboard: true,
+      show : true
 
   $('#move-button').click (event) ->
     $('#move-modal').modal

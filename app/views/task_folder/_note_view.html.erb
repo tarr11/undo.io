@@ -67,7 +67,8 @@
 <div class="row-fluid" style="margin-bottom:.2em;">
   <h1 style="display:inline; margin-right:.5em;"><%=@header%><%=render 'access_labels'%></h1>
    <% unless @compare_file.nil? %>
-   <div>Compared to <%=link_to file_local_path(@compare_file), file_local_path(@compare_file)%></div>
+      <div>My version:<%=link_to file_local_path(@file), file_local_path(@file)%></div>
+      <div>Compared to <%=link_to file_local_path(@compare_file), file_local_path(@compare_file)%></div>
    <% end %>
 
     <span id="loading" class="label" style="display:none">Saving...</span>
@@ -90,11 +91,12 @@
           <% if @show_reply_button %>
               <a href="#" id="reply-button" class="btn"><i class="icon-repeat"></i> Reply</a>
           <% end  %>
+              <% unless @compare_file.nil? %>
+              <a href="#" id="accept-button" class="btn btn-success"><i class="icon-indent-left icon-white"></i> Accept</a>
+              <a href="<%=file_local_path(@file)%>" id="ignore-button" class="btn"><i class="icon-indent-left"></i> Ignore</a>
+              <% end %>
           <% if @show_edit_buttons %>
                   <div class="btn-group">
-                    <% unless @compare_file.nil? %>
-                    <a href="#" id="unpublish-button" class="btn"><i class="icon-repeat"></i> Merge</a>
-                    <% end %>
                     <% if @file.is_public %>
                       <a href="#" id="unpublish-button" class="btn"><i class="icon-remove-circle"></i> Unpublish</a>
                     <% else %>

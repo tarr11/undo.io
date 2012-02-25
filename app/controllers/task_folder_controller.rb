@@ -424,6 +424,53 @@ class TaskFolderController < ApplicationController
 
   end
 
+  def get_diff_html(left_file_contents, right_file_contents, current_file_contents)
+#
+    # find the change
+    dmp = DiffMatchPatch.new
+    patches = dmp.patch_make(left_file_contents, right_file_contents)
+
+    # push the change into current version
+    updated_contents = dmp.patch_apply(patches, current_file_contents)
+
+    # now compare the current version to my version
+    diff = dmp.diff_main(current_file_contents, updated_contents.first).map { |a|
+      OpenStruct.new(
+          :action=>a.first,
+          :changes=>a.second
+      )
+    }
+
+    html = []
+    html.push "<div>"
+    diff_type = nil
+    tokenize_diff(diff) do |token|
+      if token[:token_type] == :action_start
+          html.push '<span class="' + token[:diff_type].to_s + '">'
+          diff_type = token[:diff_type]
+      elsif token[:token_type] == :action_end
+        html.push '</span>'
+        diff_type = nil
+      elsif token[:token_type] == :line_break
+        unless diff_type.nil?
+          html.push "</span>"
+        end
+        html.push '</div>'
+      elsif token[:token_type] == :new_line
+        html.push '<div style="margin-left:' + token[:tab_count].to_s + 'em;">'
+        unless diff_type.nil?
+          html.push '<span class="' + diff_type.to_s + '">'
+        end
+      elsif token[:token_type] == :text
+        html.push token[:text]
+      end
+
+    end
+
+    return html
+
+  end
+
   def note_view
 
     get_related_people
@@ -472,77 +519,9 @@ class TaskFolderController < ApplicationController
 
       # one of these is copied from the other
       if @compare_file.copied_from_id == @file.id
-        file_contents = @compare_file.copied_revision.contents
-
-        # see what changed
-        #arrayA = file_contents.split("\n").map{|a| a.strip}
-        #arrayB = compare_file_contents.split("\n").map{|a| a.strip}
-
-        # find the change
-        dmp = DiffMatchPatch.new
-        @patches = dmp.patch_make(file_contents, compare_file_contents)
-
-        # push the change into current version
-        @updated_contents = dmp.patch_apply(@patches, @file.contents)
-
-        # now compare the current version to my version
-        diff = dmp.diff_main(@file.contents, @updated_contents.first).map { |a|
-          OpenStruct.new(
-              :action=>a.first,
-              :changes=>a.second
-          )
-        }
-
-        @diff = diff
-        html = []
-        html.push "<div>"
-        diff_type = nil
-        tokenize_diff(diff) do |token|
-          if token[:token_type] == :action_start
-              html.push '<span class="' + token[:diff_type].to_s + '">'
-              diff_type = token[:diff_type]
-          elsif token[:token_type] == :action_end
-            html.push '</span>'
-            diff_type = nil
-          elsif token[:token_type] == :line_break
-            unless diff_type.nil?
-              html.push "</span>"
-            end
-            html.push '</div>'
-          elsif token[:token_type] == :new_line
-            html.push '<div style="margin-left:' + token[:tab_count].to_s + 'em;">'
-            unless diff_type.nil?
-              html.push '<span class="' + diff_type.to_s + '">'
-            end
-          elsif token[:token_type] == :text
-            html.push token[:text]
-          end
-
-        end
-        #unless diff_type.nil?
-        #   html.push "</span>"
-        #end
-        #html.push "</div>"
-
-        @diff_html = html
-
-        #@diff = Diff::LCS::sdiff(arrayA, arrayB)
-
-
-
-        ## apply that diff back
-        #Diff::LCS::diff(arrayA, diff_from_revision)
-        ## apply the diff to the current version
-        #current_array = @file.contents.split("\n").map{|a| a.strip}
-        #@diff = Diff::LCS::patch(current_array,diff_from_revision)
-        #
-        ## the diff we want is comparing the updated thing to what we have
-        ##@diff = Diff::LCS::diff(current_array,updated)
-
-
-
+        @diff_html= get_diff_html(@compare_file.copied_revision.contents, @compare_file.contents, @file.contents)
       elsif @file.copied_from_id == @compare_file.id
-        compare_file_contents = @file.copied_revision.contents
+        @diff_html= get_diff_html(@file.copied_revision.contents, @compare_file.contents,  @file.contents)
       else
         # nothing for now
       end

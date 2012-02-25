@@ -72,10 +72,14 @@ class TodoLine
         # stop when we hit a non-whitespace character
         if space_count > 0
           tab_count += (space_count / 1).to_i
+          space_count = 0
         end
         break
       end
     }
+
+    # in case there's no whitespace
+    tab_count += (space_count/1).to_i
 
     return tab_count
 

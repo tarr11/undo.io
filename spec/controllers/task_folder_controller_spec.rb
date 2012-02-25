@@ -33,6 +33,7 @@ describe TaskFolderController do
 
   end
 
+
   describe 'when viewing another users file' do
     before (:each) do
       @user2 = Factory.create(:user2)
@@ -58,11 +59,15 @@ describe TaskFolderController do
 
       describe 'when it gets copied' do
 
-        it 'should be successful' do
+        it 'should redirect to the new copy' do
           put :update, :path => @public_file.filename, :username=>@user2.username, :method=>"copy", :copy_filename=>@public_file.filename, :revision_uuid=>@public_file.current_revision.revision_uuid.to_s
           file = subject.current_user.file(@public_file.filename)
           is_good_redirect_url = response.location.end_with?(subject.current_user.username + @public_file.filename)
           is_good_redirect_url.should be_true
+        end
+
+        describe 'when the copy gets changed' do
+
         end
 
       end

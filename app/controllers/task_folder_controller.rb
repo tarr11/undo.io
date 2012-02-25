@@ -1,6 +1,7 @@
 class TaskFolderController < ApplicationController
   before_filter :authenticate_user!
   include TaskFolderHelper
+  require 'diff_match_patch'
 
   def mark_task_completed
     current_user.file(params[:file_name]).mark_task_status(params[:line_number].to_i, params[:is_completed] == "true")
@@ -381,6 +382,48 @@ class TaskFolderController < ApplicationController
   end
 
 
+  def tokenize_diff (diff)
+
+    # convert this diff into html
+    token = nil#{:token_type => :new_line, :tab_count => 0}
+    left_padding = ""
+    diff.each do |diff|
+
+      token = {:token_type => :action_start, :diff_type => diff.action}
+      yield token
+
+      diff.changes.split("\n").each_with_index do |line,index|
+        if index > 0 || (index == 0 && diff.changes.strip.blank?)
+          token = {:token_type => :line_break}
+          yield token
+          todo_line = TodoLine.new
+          todo_line.text = line
+          token = {:token_type => :new_line, :tab_count => todo_line.tab_count}
+          yield token
+          left_padding = ""
+        end
+
+        unless line.blank?
+          token = {:token_type => :text, :text => line }
+          yield token
+        else
+          if diff.action == :insert
+            left_padding += line
+          end
+        end
+
+      end
+
+      token = {:token_type => :action_end}
+      yield token
+
+    end
+    token = {:token_type => :line_break}
+    yield token
+
+
+  end
+
   def note_view
 
     get_related_people
@@ -423,10 +466,86 @@ class TaskFolderController < ApplicationController
       unless @compare_file.user_id == current_user.id || @compare_file.is_public  || @compare_file.shared_with_users.include?(current_user)
         raise ActionController::RoutingError.new('Not Found')
       end
-      #
-      arrayA = @file.contents.split("\n").map{|a| a.strip}
-      arrayB = @compare_file.contents.split("\n").map{|a| a.strip}
-      @diff = TodoFile.getLcsDiff2(arrayA, arrayB)
+
+      file_contents = @file.contents
+      compare_file_contents = @compare_file.contents
+
+      # one of these is copied from the other
+      if @compare_file.copied_from_id == @file.id
+        file_contents = @compare_file.copied_revision.contents
+
+        # see what changed
+        #arrayA = file_contents.split("\n").map{|a| a.strip}
+        #arrayB = compare_file_contents.split("\n").map{|a| a.strip}
+
+        # find the change
+        dmp = DiffMatchPatch.new
+        @patches = dmp.patch_make(file_contents, compare_file_contents)
+
+        # push the change into current version
+        @updated_contents = dmp.patch_apply(@patches, @file.contents)
+
+        # now compare the current version to my version
+        diff = dmp.diff_main(@file.contents, @updated_contents.first).map { |a|
+          OpenStruct.new(
+              :action=>a.first,
+              :changes=>a.second
+          )
+        }
+
+        @diff = diff
+        html = []
+        html.push "<div>"
+        diff_type = nil
+        tokenize_diff(diff) do |token|
+          if token[:token_type] == :action_start
+              html.push '<span class="' + token[:diff_type].to_s + '">'
+              diff_type = token[:diff_type]
+          elsif token[:token_type] == :action_end
+            html.push '</span>'
+            diff_type = nil
+          elsif token[:token_type] == :line_break
+            unless diff_type.nil?
+              html.push "</span>"
+            end
+            html.push '</div>'
+          elsif token[:token_type] == :new_line
+            html.push '<div style="margin-left:' + token[:tab_count].to_s + 'em;">'
+            unless diff_type.nil?
+              html.push '<span class="' + diff_type.to_s + '">'
+            end
+          elsif token[:token_type] == :text
+            html.push token[:text]
+          end
+
+        end
+        #unless diff_type.nil?
+        #   html.push "</span>"
+        #end
+        #html.push "</div>"
+
+        @diff_html = html
+
+        #@diff = Diff::LCS::sdiff(arrayA, arrayB)
+
+
+
+        ## apply that diff back
+        #Diff::LCS::diff(arrayA, diff_from_revision)
+        ## apply the diff to the current version
+        #current_array = @file.contents.split("\n").map{|a| a.strip}
+        #@diff = Diff::LCS::patch(current_array,diff_from_revision)
+        #
+        ## the diff we want is comparing the updated thing to what we have
+        ##@diff = Diff::LCS::diff(current_array,updated)
+
+
+
+      elsif @file.copied_from_id == @compare_file.id
+        compare_file_contents = @file.copied_revision.contents
+      else
+        # nothing for now
+      end
 
     end
 

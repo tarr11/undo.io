@@ -135,18 +135,9 @@
  <% else %>
       <article id="read-only-contents" style="width:95%;margin: .5em;">
         <% unless params[:compare].nil? %>
-            <% @diff.each do |diff|%>
-                <% if diff.action == "="%>
-                    <div><%=diff.new_element%></div>
-                <% elsif diff.action == "-"%>
-                    <div style="color:red"><%=diff.old_element%></div>
-                <% elsif diff.action == "+"%>
-                   <div style="color:green"><%=diff.new_element%></div>
-                <% elsif diff.action == "!" %>
-                    <div style="color:red"><%=diff.old_element%></div>
-                    <div style="color:green"><%=diff.new_element%></div>
-                <% end %>
-             <% end %>
+            <%@diff_html.each do |line|%>
+                <%=line.html_safe%>
+            <% end %>
         <% else %>
             <%@file.formatted_lines.each do |line|%>
                <%=render_line(line).html_safe%>

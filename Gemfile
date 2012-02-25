@@ -82,3 +82,4 @@ gem 'aws-sdk'
 gem 'aws-s3'
 gem 'newrelic_rpm'
 gem 'factory_girl_rails', "~> 1.2"
+gem 'diff_match_patch'

@@ -181,7 +181,7 @@ CodeMirror.defineMode("undo", function(config, parserConfig) {
   };
 });
 
-CodeMirror.defineMIME("text/x-undo", "undo");
+//CodeMirror.defineMIME("text/x-undo", "undo");
 
 CodeMirror.runMode = function(string, modespec, callback) {
   var mode = CodeMirror.getMode({indentUnit: 2}, modespec);

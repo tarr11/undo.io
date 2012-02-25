@@ -25,7 +25,7 @@ initCodeMirror = () ->
 
 
   window.myCodeMirror = CodeMirror.fromTextArea textArea,
-    mode: "application/xml",
+    mode: "undo",
     lineWrapping: true,
     gutter: true,
     extraKeys: {"Ctrl-Q": collapseSection, "Ctrl-M": window.collapseAll},

@@ -433,18 +433,22 @@ class TaskFolderController < ApplicationController
     # push the change into current version
     updated_contents = dmp.patch_apply(patches, current_file_contents)
 
+    diff = dmp.diff_main(current_file_contents, updated_contents.first)
+    dmp.diff_cleanupSemantic(diff)
+
     # now compare the current version to my version
-    diff = dmp.diff_main(current_file_contents, updated_contents.first).map { |a|
+    mapped_diff = diff.map { |a|
       OpenStruct.new(
           :action=>a.first,
           :changes=>a.second
       )
     }
 
+
     html = []
     html.push "<div>"
     diff_type = nil
-    tokenize_diff(diff) do |token|
+    tokenize_diff(mapped_diff) do |token|
       if token[:token_type] == :action_start
           html.push '<span class="' + token[:diff_type].to_s + '">'
           diff_type = token[:diff_type]

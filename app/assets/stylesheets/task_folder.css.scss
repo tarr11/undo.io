@@ -99,6 +99,13 @@
                height: auto; overflow: visible;
               min-height: 300px;
           }
+
+          .CodeMirror-wrap pre
+          {
+            word-break: break-word;
+            white-space: pre-wrap;
+          }
+
           span.cm-undo-date
           {
               padding-left:4px;

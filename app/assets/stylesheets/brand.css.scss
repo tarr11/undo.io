@@ -1,16 +1,25 @@
 .undo-un
 {
     color:gray;
+    font-weight: 500;
+    font-size:18pt;
 }
 
 .undo-do
 {
     color:green;
+    font-weight: 500;
+    padding-top:3px;
+    border-top: dashed 1px gray;
+    border-bottom: dashed 1px gray;
+    font-size:18pt;
 }
 
 .undo-io
 {
 
     color:gray;
+    font-weight: 100;
+
 }
 

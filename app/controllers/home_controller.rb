@@ -47,7 +47,7 @@ class HomeController < ApplicationController
 
     check_for_shared_notes
     respond_to do |format|
-        format.html { render 'task_folder/boxed_view', :layout => 'task_folder'}
+        format.html { render 'task_folder/boxed_view', :layout => 'layouts/public_folder'}
     end
 
   end

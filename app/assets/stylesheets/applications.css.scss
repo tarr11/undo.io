@@ -4,7 +4,18 @@
 
 BODY
 {
-padding-top: 60px;
+  padding-top: 60px;
+  background-color: #FEFFEF;
+}
+
+H1, H2
+{
+  font-weight: 400;
+}                  
+
+H3, H4, H5, H6
+{
+  font-weight: 300;
 }
 
 .left-nav-section

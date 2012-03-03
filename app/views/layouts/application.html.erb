@@ -7,13 +7,13 @@
 
 
   <%= stylesheet_link_tag    "application" %>
-  <%= stylesheet_link_tag    "bootstrap-responsive" %>
-  <%= javascript_include_tag "application" %>
+      <%= javascript_include_tag "application" %>
   <%= yield :javascript_includes %>
   <%= yield :stylesheet_includes %>
   <%= csrf_meta_tags %>
   <%= render "home/ga"%>
-</head>
+  <script type="text/javascript" src="http://use.typekit.com/ksj0mjz.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script></head>
 <body>
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner" style="padding: 5px;">
@@ -25,7 +25,7 @@
             <span class="icon-bar"></span>
           </a>
 
-          <a class="brand" href="/"><span class="undo-un">Reply</span><span class="undo-do">Inline</span><span class="undo-io">.com</span></a>
+          <a class="brand" href="/"><span class="undo-un">Reply</span><span class="undo-do">Inline</span></a>
 
 
           <div class="nav-collapse">

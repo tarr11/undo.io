@@ -4,40 +4,6 @@
 <% content_for :buttons do %>
     <%= button_to "New", {:controller => "task_folder", :action=>"new_file", :path=>(@path ||= '/'), :username=>current_user.username}, :class=>"btn primary"%>
 <% end %>
-<style>
-.note-box {
-  width: 300px;
-  margin: 10px 10px 10px 10px;
-  float: left;
-  border:  solid black 1px;
-  padding: 1em;
-}
-
-.note-container
-{
-    width:100%;
-}
-.undo-new-header
-{
-    list-style: none;
-background-color: #5E87B0;
-    text-shadow: 0 -1px 1px #254F7A;
-border: 1px solid #456F9A;
-padding: .5em .5em;
-font-size: 14px;
-font-weight: bold;
-color: white;
-margin-top: .2em;
-border-image: initial;
-}
-
-.undo-new-header A:visited, .undo-new-header A:link
-{
-    color:white;
-}
-
-
-</style>
 <script>
   $(function(){
   $('.note-container').masonry({

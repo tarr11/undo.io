@@ -2,6 +2,22 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.value-prop
+{
+  margin-left:auto;
+  margin-right:auto;
+  width:400px;
+  padding:15px;
+  font-size:18pt;
+  line-height: 24pt;
+  text-align: center;
+  background-color: #FFFFFE;
+  border:solid gray 1px;
+  -moz-box-shadow: 0 0 5px #888;
+  -webkit-box-shadow: 0 0 5px#888;
+  box-shadow: 0 0 5px #888;
+
+}
   li.undo-divider
   {
       list-style: none;
@@ -20,12 +36,15 @@
       color:white;
   }
 
+  H2.current-user-name
+  {
+    display:inline;
+  }
 
   li.undo-ul-li-heading
   {
       list-style: none;
         font-size: 1.2em;
-        font-weight: bold;
         display: block;
         margin-top: .6em;
         margin-left: .6em;
@@ -37,9 +56,12 @@
       border-top: solid #ccc 1px;
   }
 
+
   li.undo-ul-li-desc
   {
+    line-height: 18pt;
       color:#2F3E46;
+      font-weight: 300;
       list-style: none;
         font-size: 1em;
         display: block;
@@ -368,9 +390,41 @@
     }
 
 
+.note-container
+{
+    width:100%;
+}
+.undo-new-header
+{
+    list-style: none;
+padding: .5em .5em;
+font-size: 15px;
+font-weight: 500;
+color: white;
+margin-top: .2em;
+border-image: initial;
+}
+
+.undo-new-header A:visited, .undo-new-header A:link
+{
+    color:black;
+}
 
 
 
+    .note-box
+    {
+      width: 300px;
+        margin: 10px 10px 10px 10px;
+        float: left;
+        padding: 1em;
+
+      background-color: #FFFFFE;
+      -moz-box-shadow: 0 0 1px #888;
+        -webkit-box-shadow: 0 0 1px#888;
+        box-shadow: 0 0 1px #888;
+
+    }
 
    .note H1
     {

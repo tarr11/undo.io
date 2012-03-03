@@ -9,7 +9,7 @@
   <% end %>
   </li>
 <%file.to_enum(:get_lines).to_a.first(10).each do |line|%>
-     <li class="undo-ul-li-desc" style="margin-left:1em;font-size: .8em"><%=line.text.html_safe%></li>
+     <li class="undo-ul-li-desc"><%=line.text.html_safe%></li>
 <% end%>
 <li class="path italics"><%=time_ago_in_words(file.revision_at ||= DateTime.now)%> ago in <%= link_to (file.task_folder.shortName.blank? ? "/" : file.task_folder.shortName), task_folder_local_path(file.task_folder)%></li>
 <div style="clear:both"></div>

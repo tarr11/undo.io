@@ -8,7 +8,7 @@
   <%=render 'layouts/collapse_button', :site_section => 'site'%>
   <div>
     <%= image_tag @file_user.avatar.url(:thumb), :style=>"vertical-align:middle;" %>
-    <span><%= link_to @file_user.display_name ||= @file_user.username, user_path(@file_user), :style=>"font-weight:bold;font-size:1.2em;"%></span>
+    <h2 class="current-user-name"><%= link_to @file_user.display_name ||= @file_user.username, user_path(@file_user)%></h2>
   </div>
   <div style="clear:both"></div>
 

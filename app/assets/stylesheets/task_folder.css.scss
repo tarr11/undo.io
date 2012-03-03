@@ -96,8 +96,12 @@
          .CodeMirror-scroll
           {
 
-               height: auto; overflow: visible;
+              height: auto;
+              overflow-x:auto;
+              overflow-y:hidden;
               min-height: 300px;
+              width:100%;
+
           }
 
           .CodeMirror-wrap pre
@@ -202,12 +206,6 @@
         display:inline;
      }
 
-             .CodeMirror-scroll
-             {
-
-                  height: auto; overflow: visible;
-                 min-height: 300px;
-             }
              span.cm-undo-people
              {
                  color: #8b4513;

@@ -50,6 +50,17 @@ class TaskFolderController < ApplicationController
     end
   end
 
+  def accept
+    get_header_data
+    @file.accept get_file_from_path(params[:compare_file])
+    @file.save!
+    respond_to do |format|
+      format.html {redirect_to :controller => "task_folder", :action=>"folder_view", :path=> @file.filename, :only_path=>true, :username =>@file.user.username }
+    end
+
+  end
+
+
   def publish
     get_header_data
     current_user.file(@file.filename).make_public()
@@ -107,6 +118,8 @@ class TaskFolderController < ApplicationController
       share
     elsif params[:method] == "reply"
       reply
+    elsif params[:method] == "accept"
+      accept
     else
       create_or_update
     end
@@ -424,10 +437,23 @@ class TaskFolderController < ApplicationController
 
   end
 
+
+  def patch_up(file)
+    # patches each file sequentially
+
+    result = file.contents
+    file.new_replies.each do |patch_file|
+      result = merge(patch_file.copied_revision.contents, patch_file.contents, result)
+    end
+
+    return result
+  end
+
   def get_diff_html(left_file_contents, right_file_contents, current_file_contents)
 #
     # find the change
     dmp = DiffMatchPatch.new
+    dmp.patch_deleteThreshold=0.1
     patches = dmp.patch_make(left_file_contents, right_file_contents)
 
     # push the change into current version
@@ -503,17 +529,15 @@ class TaskFolderController < ApplicationController
       @show_edit_buttons = true
     end
 
+    unless params[:combined].nil?
+      @combined = true
+      new_file = patch_up(@file)
+      @compare_files = @file.new_replies
+      @diff_html =  get_diff_html(@file.contents, new_file, @file.contents)
+    end
+
     unless params[:compare].nil?
-      parts = params[:compare].split('/')
-      parts = parts.reverse
-      parts.pop
-      compare_user_name = parts.last
-      parts.pop
-      parts = parts.reverse
-      compare_file_name = "/" + parts.join("/")
-      compare_user = User.find_by_username(compare_user_name)
-      logger.info compare_file_name
-      @compare_file = compare_user.file(compare_file_name)
+      @compare_file = get_file_from_path(params[:compare])
       unless @compare_file.user_id == current_user.id || @compare_file.is_public  || @compare_file.shared_with_users.include?(current_user)
         raise ActionController::RoutingError.new('Not Found')
       end

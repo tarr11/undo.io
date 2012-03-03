@@ -128,13 +128,13 @@
   <div id="page-path" style="display:none"><%=url_for(:controller => "task_folder", :action=>"folder_view", :path=> @file.filename, :only_path => true, :username=>@file.user.username)%></div>
 
 
-  <% if @owned_by_user && params[:compare].nil?%>
+  <% if @owned_by_user && (@compare_file.nil? && !@combined)%>
     <div id="read-only-contents" style="font-family: courier new;width:100%;border: solid black 1px">
       <textarea id="editor"><%=@file.contents%></textarea>
       </div>
  <% else %>
       <article id="read-only-contents" style="width:95%;margin: .5em;">
-        <% unless params[:compare].nil? %>
+        <% unless @diff_html.nil? %>
             <%@diff_html.each do |line|%>
                 <%=line.html_safe%>
             <% end %>

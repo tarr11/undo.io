@@ -61,6 +61,12 @@ class TodoFile < ActiveRecord::Base
     other_people_copies.select{|a| a.is_public == true || a.shared_with_users.include?(self.user)}
   end
 
+  def new_replies
+    replies.each do |reply|
+      reply.shared_files.find_by_user_id(self.user_id)
+    end
+  end
+
   def is_copied?
     return !copied_from.nil?
   end
@@ -98,6 +104,26 @@ class TodoFile < ActiveRecord::Base
       # apply the patch
   end
 
+  def merge(base_file, new_file, current_file)
+
+      dmp = DiffMatchPatch.new
+      dmp.patch_deleteThreshold=0.1
+      patches = dmp.patch_make(base_file, new_file)
+      return dmp.patch_apply(patches, current_file).first
+
+  end
+
+  def accept(compare_file)
+
+    # merges the changes from compare_file into the current file, and marks the compare_filed share as viewed
+    self.contents = merge(compare_file.copied_revision.contents, compare_file.contents, self.contents)
+    self.save
+
+    compare_file.copied_task_file_revision_id = self.id
+    compare_file.save
+
+  end
+
   def reply()
     # shares this version back to the original owner
     original_user = copied_from.user
@@ -132,6 +158,7 @@ class TodoFile < ActiveRecord::Base
   def make_private()
       update_attributes!(:is_public=>false)
   end
+
 
   def mark_task_status(line_number, is_completed)
 

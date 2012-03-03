@@ -9,4 +9,7 @@
  *= require applications
  */
 
-
+BODY
+{
+    margin:auto;
+}

@@ -15,6 +15,7 @@
           <%= form_tag url_for(:controller=>"task_folder", :action=>"update", :method=>:accept), :method=>:put do%>
            <%= button_tag "Accept", :class => "btn btn-primary" %>
            <a href="#" id="cancel-accept-file" class="btn secondary cancel">Cancel</a>
+           <%= hidden_field_tag "compare_file", file_local_path(@compare_file) %>
           <% end %>
         </div>
       </div>

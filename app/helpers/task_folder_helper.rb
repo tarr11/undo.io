@@ -1,5 +1,17 @@
 module TaskFolderHelper
   require 'ostruct'
+
+  def get_file_from_path(path)
+    parts = path.split('/')
+    parts = parts.reverse
+    parts.pop
+    compare_user_name = parts.last
+    parts.pop
+    parts = parts.reverse
+    compare_file_name = "/" + parts.join("/")
+    compare_user = User.find_by_username(compare_user_name)
+    return compare_user.file(compare_file_name)
+  end
   def render_line(line)
 
       div = '<div style="'

@@ -20,8 +20,6 @@ Todo::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  #http://www.simonecarletti.com/blog/2012/02/heroku-and-rails-3-2-assetprecompile-error/
-  config.assets.initialize_on_precompile = false
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH

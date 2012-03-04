@@ -90,6 +90,7 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/solr/data/development/index/segments_k" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/controllers/app/dropbox_controller_spec.rb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/helpers/app/dropbox_helper_spec.rb" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/application.rb" afterPath="$PROJECT_DIR$/config/application.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/environments/production.rb" afterPath="$PROJECT_DIR$/config/environments/production.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/environments/staging.rb" afterPath="$PROJECT_DIR$/config/environments/staging.rb" />
     </list>
@@ -153,10 +154,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="staging.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="staging.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/environments/staging.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="2" selection-start="709" selection-end="709" vertical-scroll-proportion="0.6889353">
+            <state line="45" column="0" selection-start="1548" selection-end="1548" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -192,16 +193,16 @@
       <file leaf-file-name="production.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="0" selection-start="707" selection-end="846" vertical-scroll-proportion="-11.25">
+            <state line="22" column="0" selection-start="707" selection-end="707" vertical-scroll-proportion="-10.3125">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="application.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/application.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="63" selection-start="591" selection-end="591" vertical-scroll-proportion="0.0">
+            <state line="49" column="4" selection-start="2183" selection-end="2183" vertical-scroll-proportion="0.7807933">
               <folding />
             </state>
           </provider>
@@ -226,7 +227,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/_modals.html.erb" />
         <option value="$PROJECT_DIR$/app/views/task_folder/_note_view.html.erb" />
@@ -240,8 +240,9 @@
         <option value="$PROJECT_DIR$/app/models/todo_file.rb" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/bootstrap_and_overrides.css.less" />
         <option value="$PROJECT_DIR$/config/s3.yml" />
-        <option value="$PROJECT_DIR$/config/environments/production.rb" />
         <option value="$PROJECT_DIR$/config/environments/staging.rb" />
+        <option value="$PROJECT_DIR$/config/application.rb" />
+        <option value="$PROJECT_DIR$/config/environments/production.rb" />
       </list>
     </option>
   </component>
@@ -1129,13 +1130,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/application.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="63" selection-start="591" selection-end="591" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/environments/test.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -1166,14 +1160,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="0" selection-start="707" selection-end="846" vertical-scroll-proportion="-11.25">
+        <state line="22" column="0" selection-start="707" selection-end="707" vertical-scroll-proportion="-10.3125">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/environments/staging.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="2" selection-start="709" selection-end="709" vertical-scroll-proportion="0.6889353">
+        <state line="45" column="0" selection-start="1548" selection-end="1548" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/application.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="4" selection-start="2183" selection-end="2183" vertical-scroll-proportion="0.7807933">
           <folding />
         </state>
       </provider>

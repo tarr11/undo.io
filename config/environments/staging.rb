@@ -74,4 +74,5 @@ Todo::Application.configure do
                                  :s3_credentials => "#{Rails.root}/config/s3.yml",
                                  :path => "/:style/:filename"}
 
+
 end

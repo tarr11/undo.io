@@ -65,7 +65,7 @@
 
   <div class="span8" id="article-column">
 <div class="row-fluid" id="article-body">
-  <h1 style="display:inline; margin-right:.5em;"><%=@header%><%=render 'access_labels'%></h1>
+  <div class="editor-title"><h1 style="display:inline; margin-right:.5em;"><%=@header%></h1>
    <% unless @compare_file.nil? %>
       <div>My version:<%=link_to file_local_path(@file), file_local_path(@file)%></div>
       <div>Compared to <%=link_to file_local_path(@compare_file), file_local_path(@compare_file)%></div>
@@ -74,53 +74,9 @@
     <span id="loading" class="label" style="display:none">Saving...</span>
 
     <div class="pull-right" id="button-container">
-
-      <% if !@owned_by_user %>
-
-          <div class="btn-group">
-          <% unless @user_copy.nil? %>
-              <a href="<%=file_local_path(@user_copy)%>" class="btn" id="my-copy-button"><i class="icon-eye-open"></i> Your Version</a>
-          <% end%>
-              <a href="#" class="btn btn-success" id="copy-button"><i class="icon-download icon-white"></i> Copy</a>
-          </div>
-
-      <% end %>
-      <div class="btn-group">
-      <% if @owned_by_user  %>
-    <% if !@is_new_file%>
-              <a href="#" class="btn btn-primary hide" id="edit-button">Save</a>
-          <% if @show_reply_button %>
-              <a href="#" id="reply-button" class="btn"><i class="icon-repeat"></i> Reply</a>
-          <% end  %>
-              <% unless @compare_file.nil? %>
-              <a href="#" id="accept-button" class="btn btn-success"><i class="icon-indent-left icon-white"></i> Accept</a>
-              <a href="<%=file_local_path(@file)%>" id="ignore-button" class="btn"><i class="icon-indent-left"></i> Ignore</a>
-              <% end %>
-          <% if @show_edit_buttons %>
-                    <% if @file.is_public %>
-                      <a href="#" id="unpublish-button" class="btn"><i class="icon-remove-circle"></i> Unpublish</a>
-                    <% else %>
-                      <a href="#" id="publish-button" class="btn btn-success"><i class="icon-upload icon-white"></i> Publish</a>
-                    <% end %>
-                    <a href="#" id="share-button" class="btn"><i class="icon-share"></i> Share</a>
-                  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                  More
-                  <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu">
-                  <li style="text-align: right"><%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>@file.path, :username=>current_user.username}, :method=>:post%></li>
-                  <li style="text-align: right"><a href="#" id="move-button">Move</a></li>
-                  <li style="text-align: right"><a href="#"  id="copy-button" >Copy</a></li>
-                  <li style="text-align: right"><a href="#" id="delete-button">Delete</a></li>
-                  </ul>
-          <% end %>
-    <% else %>
-        <div class="new-mode-buttons">
-        <a href="#" id="save-new" class="btn btn-primary">Save</a>
-        </div>
-    <% end %>
-    <% end %>
-      </div>
+      <%=render 'access_labels'%>
+    <%= render 'editor_buttons' %>
+    </div>
 
   </div>
 </div>
@@ -130,6 +86,7 @@
 
   <% if @owned_by_user && (@compare_file.nil? && !@combined)%>
     <div id="read-only-contents">
+      <div class="editor-border"></div>
       <textarea id="editor"><%=@file.contents%></textarea>
       </div>
  <% else %>

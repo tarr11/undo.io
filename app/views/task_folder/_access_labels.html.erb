@@ -1,11 +1,20 @@
-<% if @file.is_public %>
-    <span class="label label-success">Published</span>
+<div class="access-labels">
+<% if @is_new_file %>
+  <span class="label label-warning">Not Saved</span>
 <% else %>
-    <% if @file.user_id == current_user.id && @file.has_replied?%>
-    <span class="label label-info">Replied</span>
-    <%elsif @file.user_id == current_user.id && @file.shared_with_users.length > 0 %>
-    <span class="label label-info">Shared</span>
-    <% else %>
-    <span class="label">Private</span>
-    <% end %>
-<% end %>
+  <span class="label label-success">Auto save</span>
+      <% if @file.is_public %>
+          <span class="label label-success">Published</span>
+      <% else %>
+          <% if @file.user_id == current_user.id && @file.has_replied?%>
+          <span class="label label-info">Replied</span>
+          <%elsif @file.user_id == current_user.id && @file.shared_with_users.length > 0 %>
+          <span class="label label-info">Shared</span>
+          <% else %>
+          <span class="label">Private</span>
+          <% end %>
+      <% end %>
+
+  <% end %>
+
+</div>

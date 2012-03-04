@@ -2,6 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.access-labels
+{
+  display: inline;
+  margin-right:40px;
+}
+
+#read-only-contents
+{
+
+}
+.btn-group.editor
+{
+  display: inline-block;
+  vertical-align: middle;
+}
 UL.folders LI > A
 {
   color:black;
@@ -150,10 +165,17 @@ UL.files LI > A
       font-weight: bold;
   }
 
+.editor-border
+{
+  border-top: #d3d3d3 solid 1px;
+  margin-left:10px;
+  margin-right:10px;
+}
         .CodeMirror
         {
           font-family:"facitweb",monospace;
           font-size:12pt;
+
         }
 
         .CodeMirror PRE
@@ -338,16 +360,6 @@ UL.files LI > A
         overflow-x:auto;
     }
 
-    .checkbox
-    {
-      width:1;
-      margin-right:5px;
-      line-height:1;
-      border: solid black 1px;
-      display:inline;
-
-
-    }
 
     .slide
     {

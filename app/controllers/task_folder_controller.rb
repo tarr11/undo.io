@@ -139,6 +139,7 @@ class TaskFolderController < ApplicationController
 
   def new_file
 
+    @header = "New Note"
     @file = TodoFile.new
     @file_user = current_user
     @file.user = current_user

@@ -1,4 +1,4 @@
 <%=@file.contents%>
--- 
-This message was sent on behalf of <%= @from_user.display_name %> via ReplyInline.com
-http://www.replyinline.com - focus, organize and share.
+
+--
+This message was sent on behalf of <%= @from_user.display_name ||= @from_user.email %> via replyinline.com

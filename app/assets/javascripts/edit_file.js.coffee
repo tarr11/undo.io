@@ -59,7 +59,10 @@ initCodeMirror = () ->
   window.lastContents = window.myCodeMirror.getValue()
   setInterval checkAutoSave, 1000
   window.myCodeMirror.focus()
-
+  $("a[rel=popover]")
+      .popover()
+      .click (e) ->
+        e.preventDefault()
 #  pos =
 #    line : 7
 #    ch : 1

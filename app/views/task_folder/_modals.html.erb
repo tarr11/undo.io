@@ -139,10 +139,12 @@
        <h3>Share <%=@file.shortName%>?</h3>
      </div>
      <div class="modal-body">
-         <div class="clearfix">
-         <div>Share To: <input tabindex="1" id="shared_user_list" name="shared_user_list"> </div>
-         <div style="font-style:italic">Enter user names (comma-delimited) </div>
-         </div>
+         <div class="clearfix"></div>
+         <label class="control-label"><a href="#" rel="popover" data-content="Share your note with the users you've specified. They'll receive an email from you with the note content, and they'll be able to view, copy, edit and reply to your note." data-original-title="About Sharing Notes">Share with</a></label>
+         <input tabindex="1" id="shared_user_list" placeholder="doug, user123" class="input-xlarge" name="shared_user_list">
+           <label class="checkbox">
+               <input type="checkbox"><a href="#" rel="popover" data-content="Publish this note for anyone to see." data-original-title="About Publishing Notes">Make public?</a>
+             </label>
      </div>
      <div class="modal-footer">
         <%= button_tag "Share", :class => "btn btn-primary" %>

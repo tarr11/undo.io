@@ -2,6 +2,45 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+UL.folders LI > A
+{
+  color:black;
+  font-size:15px;
+  line-height: 18pt;
+}                   
+
+UL.files LI > A
+{
+  font-size:1.2em;
+  line-height: 18pt;
+
+}
+
+.folder-list
+{
+  background-color:#FFFFFE;
+  -moz-box-shadow: 0 0 1px #888;
+    -webkit-box-shadow: 0 0 1px#888;
+    box-shadow: 0 0 1px #888;
+}
+
+.user-info
+{
+  padding:5px;
+
+}
+
+.note-thumbnail
+{
+  width:100px;
+  height:auto;
+  margin-top:3px;
+  float:right;
+  display: inline;
+  padding:2px;
+  border:solid 1px #d3d3d3;
+}
+
 .value-prop
 {
   margin-left:auto;
@@ -57,7 +96,7 @@
   }
 
 
-  li.undo-ul-li-desc
+  DIV.undo-ul-li-desc
   {
     line-height: 18pt;
       color:#2F3E46;
@@ -67,9 +106,8 @@
         display: block;
         margin-top: 0em;
         margin-left: .8em;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
+        word-wrap:  break-word;
+
   }
 
   li.italics
@@ -114,6 +152,14 @@
 
         .CodeMirror
         {
+          font-family:"facitweb",monospace;
+          font-size:12pt;
+        }
+
+        .CodeMirror PRE
+        {
+          line-height: 20pt;
+
         }
          .CodeMirror-scroll
           {
@@ -410,11 +456,40 @@ border-image: initial;
     color:black;
 }
 
+#article-column
+{
+  background-color: #FFFFFE;
+  -moz-box-shadow: 0 0 1px #888;
+    -webkit-box-shadow: 0 0 1px#888;
+    box-shadow: 0 0 1px #888;
+}
 
+#right-rail
+{
+  background-color: #FFFFFE;
+
+}
+#article-body
+{
+
+  margin-bottom:.2em;
+  padding:10px;
+}
+
+#button-container
+{
+  margin-right:20px;
+}
+ARTICLE
+{
+  padding:10px;
+  font-size:14pt;
+  line-height: 18pt;
+}
 
     .note-box
     {
-      width: 300px;
+      width: 325px;
         margin: 10px 10px 10px 10px;
         float: left;
         padding: 1em;
@@ -494,3 +569,4 @@ border-image: initial;
     {
       color:red;
     }
+

@@ -7,6 +7,17 @@ class Slideshow
     @slides = to_enum(:build_slides).to_a
   end
 
+  def first_image
+    @slides.each do |slide|
+      if slide.images.length > 0
+        return slide.images.first
+      end
+    end
+
+    return nil
+
+  end
+
   def build_slides
 
     # this thing iterates through all the lines and builds the slides
@@ -56,13 +67,17 @@ class Slideshow
       last_line = line
     end
 
-    unless last_line.text.blank?
-      current_slide.add_line(last_line)
+    unless last_line.nil?
+      unless last_line.text.blank?
+        current_slide.add_line(last_line)
+      end
     end
 
-    unless current_slide.sections.length == 0
-      current_slide.complete
-      yield current_slide
+    unless current_slide.nil?
+      unless current_slide.sections.length == 0
+        current_slide.complete
+        yield current_slide
+      end
     end
 
   end

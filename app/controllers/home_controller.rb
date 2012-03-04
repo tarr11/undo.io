@@ -11,7 +11,7 @@ class HomeController < ApplicationController
              :file => result,
              :diff => result.diff,
              :revision_at => result.revision_at,
-             :changedLines => result.formatted_lines.map{|a| a.text}.first(3)
+             :changedLines => result.formatted_lines.map{|a| a.text}
           }
       )
 

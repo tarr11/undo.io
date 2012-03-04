@@ -24,8 +24,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
+          
+          <%= render 'layouts/logo' %>
 
-          <a class="brand" href="/"><span class="undo-un">Reply</span><span class="undo-do">Inline</span></a>
 
 
           <div class="nav-collapse">
@@ -37,14 +38,15 @@
               <ul class="nav">
                 <%=content_tag :li, do%>
                   <%= link_to url_for(:controller => "task_folder", :action=>"new_file", :path=>(@folder_path ||= '/'), :username=>current_user.username) ,:method=>"post"  do%>
-                    <i class="icon-pencil icon-white"></i> New Note
+                    <i class="icon-pencil"></i> New Note
                     <% end %>
                 <%end%>
                 <%=content_tag :li, :class => (params[:username] != current_user.username ? "active" : nil)  do%><a href="/">Public Notes</a><%end%>
                 <%=content_tag :li, :class => ((params[:username] == current_user.username && params[:shared] == nil) ? "active" : nil)  do%><%=link_to "My Notes", user_path(current_user)%><%end%>
                 <%=content_tag :li, :class => (params[:username] == current_user.username && params[:shared] == "y" ? "active" : nil)  do%><%=link_to "Shared Notes", url_for(:controller=>"task_folder", :action => "folder_view", :username=>current_user.username, :path => "/", :shared=>"y")%><%end%>
               </ul>
-              <ul class="nav pull-right">
+              <div class="nav pull-right">
+              <ul class="nav">
                    <li class="dropdown">
                      <a href="#" data-toggle="dropdown" class="dropdown-toggle">Welcome <%=current_user.username%> <b class="caret"></b></a>
                      <ul class="dropdown-menu">
@@ -55,8 +57,13 @@
                      </ul>
                    </li>
                  </ul>
+              </div>
 
             <% end %>
+            <div class="navbar-search pull-left">
+            <%= render 'layouts/search_form' %>
+            </div>
+
         </div>
           </div>
         </div>

@@ -216,7 +216,7 @@ class TaskFolder
             :file => a,
             :diff => [],
             :revision_at => a.revision_at,
-            :changedLines => a.formatted_lines.first(3)
+            :changedLines => a.formatted_lines
          }
     }
 

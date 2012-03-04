@@ -4,7 +4,7 @@
 </div>
 
 <div class="left-nav nav-collapse">
-<div class="left-nav-section">
+<div class="left-nav-section user-info">
   <%=render 'layouts/collapse_button', :site_section => 'site'%>
   <div>
     <%= image_tag @file_user.avatar.url(:thumb), :style=>"vertical-align:middle;" %>
@@ -12,28 +12,6 @@
   </div>
   <div style="clear:both"></div>
 
-  <ul class="nav nav-list ">
-   <li class="nav-header">Site</li>
-    <li class="site-hide-small nav-collapse">
-    <ul class="nav section-contents" >
-        <li>
-          <a href="/"><i class="icon-home"></i>Public Notes</a>
-        </li>
-        <li>
-         <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>"/", :username=>@file_user.username %>">
-       <i class="icon-inbox"></i>My notes</a>
-       </li>
-      <li>
-       <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>"/", :username=>@file_user.username %>">
-     <i class="icon-envelope"></i>Shared Notes</a>
-     </li>
-      <li>
-       <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>"/", :username=>@file_user.username %>">
-     <i class="icon-eye-open"></i>Recently Viewed</a>
-     </li>
-    </ul>
-    </li>
-    </ul>
 </div>
 
 <% if @folders.length > 0 %>
@@ -46,10 +24,10 @@
 <ul class="nav nav-list">
   <li class="nav-header">Folders</li>
   <li class="folder-hide-small nav-collapse">
-    <ul class="nav section-contents">
+    <ul class="nav section-contents folders">
       <% @folders.sort_by{|a| a.shortName.downcase}.each do |folder|%>
            <li> <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>folder.path, :username=>@file_user.username %>">
-           <i class="icon-folder-open"></i><%=folder.shortName%>
+           <%=folder.shortName%>
          </a></li>
       <% end %>
      </ul>
@@ -66,11 +44,11 @@
     <ul class="nav nav-list">
       <li class="nav-header">Files</li>
       <li class="file-hide-small nav-collapse">
-      <ul class="nav section-contents">
+      <ul class="nav section-contents files">
            <% @files.sort_by{|a| a.shortName.downcase}.each do |file|%>
             <li>
             <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>file.filename, :username=>@file_user.username %>">
-                <i class="icon-file"></i><%=file.shortName%>
+                </i><%=file.shortName%>
             </a>
             </li>
         <% end %>
@@ -80,7 +58,7 @@
  </div>
 <% end %>
 
- <% if @people.length > 0 %>
+ <% if @people.length > 0 && false%>
     <div class="left-nav-section">
       <%=render 'layouts/collapse_button', :site_section => 'person'%>
      <ul class="nav nav-list">

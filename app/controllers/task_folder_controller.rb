@@ -104,6 +104,17 @@ class TaskFolderController < ApplicationController
 
   end
 
+  def delete
+    get_header_data
+    path = @file.path
+    if @file.user_id == current_user.id
+      @file.destroy()
+    end
+    respond_to do |format|
+      format.html {redirect_to :controller => "task_folder", :action=>"folder_view", :path=> path, :only_path=>true, :username =>current_user.username}
+    end
+
+  end
   def update
 
     if params[:method] == "publish"
@@ -522,10 +533,10 @@ class TaskFolderController < ApplicationController
     @show_reply_button = false
     @show_edit_buttons = false
     if params[:compare].nil? && @file.is_copied?
-        @show_reply_button = !@file.has_replied?
+        @show_reply_button = true
     end
 
-    if params[:compare].nil?  && !@show_reply_button
+    if params[:compare].nil?
       @show_edit_buttons = true
     end
 

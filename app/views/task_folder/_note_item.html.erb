@@ -1,3 +1,4 @@
+
 <li class="undo-ul-li-heading">
   <% if file.user.id != current_user.id %>
       <%= link_to  "@" + file.user.username, {:controller => "task_folder", :action=>"folder_view", :path=> "/", :only_path => @only_path, :username=>file.user.username}, :class=>"user-link"%>
@@ -7,9 +8,15 @@
   <% else %>
       <%= link_to  file.shortName, :controller => "task_folder", :action=>"folder_view", :path=> file.filename, :only_path => @only_path, :username=>file.user.username%>
   <% end %>
-  </li>
-<%file.to_enum(:get_lines).to_a.first(10).each do |line|%>
-     <li class="undo-ul-li-desc"><%=line.text.html_safe%></li>
+</li>
+  <%
+     slideshow = file.slideshow
+     img = slideshow.first_image
+      unless img.nil?%>
+          <%= image_tag img, :class=>"note-thumbnail" %>
+     <%   end%>
+<%file.to_enum(:get_lines).to_a.first(25).each do |line|%>
+     <div class="undo-ul-li-desc"><%=render_line(line).html_safe%></div>
 <% end%>
 <li class="path italics"><%=time_ago_in_words(file.revision_at ||= DateTime.now)%> ago in <%= link_to (file.task_folder.shortName.blank? ? "/" : file.task_folder.shortName), task_folder_local_path(file.task_folder)%></li>
 <div style="clear:both"></div>

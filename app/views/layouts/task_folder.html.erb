@@ -2,20 +2,17 @@
   <%= stylesheet_link_tag "task_folder"  %>
 <% end %>
 <% content_for :content do %>
-<%= render 'layouts/breadcrumb'%>
 <%= render 'task_folder/shared_notes_message' %>
     <div class="content">
     <div class="row-fluid">
-    <div class="span2">
+    <div class="span2 folder-list">
         <%= render 'layouts/folder_list'%>
       </div>
      <div id="main-body" class="span10">
        <div class="row-fluid" style="margin-bottom: .5em;">
-         <div class="pull-right">
-           <%= render 'layouts/search_form' %>
-         </div>
          <div style="margin: 0">
-           <h1><%=@header%></h1>
+           <%= render 'layouts/breadcrumb'%>
+
          </div>
        </div>
        <%= yield %>

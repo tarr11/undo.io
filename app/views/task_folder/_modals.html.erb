@@ -87,10 +87,13 @@
         </div>
     </div>
     <div class="modal-footer">
-      <%= link_to 'Delete', @file, method: :delete, :class => "btn danger"%>
-      <a href="#" id="cancel-delete-file" class="btn secondary cancel">Cancel</a>
+      <%= form_tag url_for(:controller=>"task_folder", :action=>"delete"), :method=>:delete do%>
+       <%= button_tag "Delete", :class => "btn btn-primary" %>
+       <a href="#" id="cancel-delete-file" class="btn secondary cancel">Cancel</a>
+      <% end %>
     </div>
   </div>
+
   <div id="move-modal" class="modal hide fade">
     <%=form_tag(url_for(:action=>"update", :path=>params[:path],:method=>"move"), :method=>:put, :id=>"move-form") do %>
     <div class="modal-header">

@@ -23,6 +23,7 @@ Todo::Application.routes.draw do
   match ":username:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}, :via => :get
   match ":username:path" => "task_folder#new_file", :constraints => {:path=> /.*/}, :via => [:post]
   match ":username:path" => "task_folder#update", :constraints => {:path=> /.*/}, :via => [:put]
+  match ":username:path" => "task_folder#delete", :constraints => {:path=> /.*/}, :via => [:delete]
   match ":username:path" => "task_folder#task_view", :constraints => {:path=> /.*/}
 
   match ":username/:path" => "task_folder#move", :constraints => {

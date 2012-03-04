@@ -15,9 +15,6 @@
 
 </script>
 <div class="content">
- <% unless @views.nil? %>
-  <%= render 'task_folder/pill_views', :selected_view => params[:view]%>
- <% end %>
   <div class="note-container">
     <%@changed_files_by_folder.each do |folder_item|%>
     <div class="note-box">

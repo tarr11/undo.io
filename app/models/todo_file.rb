@@ -40,7 +40,9 @@ class TodoFile < ActiveRecord::Base
   end
 
   def share_with(user)
-    user.shared_files.create! :todo_file => self
+    if user.shared_files.find_by_todo_file_id(self.id).nil?
+      user.shared_files.create! :todo_file => self
+    end
     user.alerts.create! :message => SharedNoteAlert.new
   end
 
@@ -119,7 +121,7 @@ class TodoFile < ActiveRecord::Base
     self.contents = merge(compare_file.copied_revision.contents, compare_file.contents, self.contents)
     self.save
 
-    compare_file.copied_task_file_revision_id = self.id
+    compare_file.copied_task_file_revision_id = self.current_revision.id
     compare_file.save
 
   end
@@ -127,7 +129,10 @@ class TodoFile < ActiveRecord::Base
   def reply()
     # shares this version back to the original owner
     original_user = copied_from.user
-    original_user.shared_files.create! :todo_file => self
+    shared_item = original_user.shared_files.find_by_todo_file_id(self.id)
+    if shared_item.nil?
+      original_user.shared_files.create! :todo_file => self
+    end
     original_user.alerts.create! :message => ReplyAlert.new
 
   end
@@ -159,6 +164,9 @@ class TodoFile < ActiveRecord::Base
       update_attributes!(:is_public=>false)
   end
 
+  def slideshow
+    return Slideshow.new(self)
+  end
 
   def mark_task_status(line_number, is_completed)
 
@@ -319,7 +327,7 @@ class TodoFile < ActiveRecord::Base
             :file => self,
             :diff => diff,
             :revision_at => revision_at,
-            :changedLines => addedLines.first(3)
+            :changedLines => addedLines
          }
       else
         return nil

@@ -27,7 +27,7 @@ initCodeMirror = () ->
   window.myCodeMirror = CodeMirror.fromTextArea textArea,
     mode: "undo",
     lineWrapping: true,
-    gutter: true,
+    gutter: false,
     extraKeys: {"Ctrl-Q": collapseSection, "Ctrl-M": window.collapseAll},
     onGutterClick: (cm, line, event) ->
       myCodeMirror.setCursor(line, 0)

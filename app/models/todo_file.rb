@@ -44,6 +44,8 @@ class TodoFile < ActiveRecord::Base
       user.shared_files.create! :todo_file => self
     end
     user.alerts.create! :message => SharedNoteAlert.new
+    msg = UserMailer.shared_note(self.user, user, self)
+    msg.deliver
   end
 
   def copied_revision
@@ -134,6 +136,8 @@ class TodoFile < ActiveRecord::Base
       original_user.shared_files.create! :todo_file => self
     end
     original_user.alerts.create! :message => ReplyAlert.new
+    msg = UserMailer.shared_note(self.user, original_user, self)
+    msg.deliver
 
   end
 

@@ -8,5 +8,11 @@ class UserMailer < ActionMailer::Base
       mail(:to => user.email, :subject => "Your daily notes")
     end
 
+    def shared_note(from_user, to_user, file)
+      @from_user =  from_user
+      @to_user = to_user
+      @file = file
+      mail(:from => from_user.email, :to => to_user.email, :subject => file.filename)
+    end
 
 end

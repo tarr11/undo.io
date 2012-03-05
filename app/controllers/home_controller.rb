@@ -28,6 +28,8 @@ class HomeController < ApplicationController
     results = TodoFile.search do
        keywords params[:q] ||= ""
        with(:is_public, true)
+       paginate :page => 1, :per_page => 100
+       order_by(:revision_at, :desc)
     end
 
     path = params[:path]
@@ -57,6 +59,7 @@ class HomeController < ApplicationController
        keywords ""
        with(:is_public, true)
        paginate :page => 1, :per_page => 100
+       order_by(:revision_at, :desc)
      end
      changed_files = TaskFolder.process_search_results(results, "/")
      changed_files = changed_files.select{|a| a[:file].is_public}

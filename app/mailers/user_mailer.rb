@@ -1,4 +1,5 @@
 class UserMailer < ActionMailer::Base
+   include TaskFolderHelper
 
 
     def daily_email(user, summary)

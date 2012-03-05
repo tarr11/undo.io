@@ -91,6 +91,7 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/controllers/app/dropbox_controller_spec.rb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/spec/helpers/app/dropbox_helper_spec.rb" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mailers/user_mailer.rb" afterPath="$PROJECT_DIR$/app/mailers/user_mailer.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/application.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
     </list>
     <ignored path="todo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -120,15 +121,6 @@
         <entry file="file://$PROJECT_DIR$/app/models/todo_file.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state line="432" column="6" selection-start="11166" selection-end="11166" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_breadcrumb.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/layouts/_breadcrumb.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="25" selection-start="51" selection-end="51" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -179,10 +171,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user_mailer.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="user_mailer.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/mailers/user_mailer.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="1" selection-start="39" selection-end="39" vertical-scroll-proportion="0.017921148">
+            <state line="2" column="0" selection-start="79" selection-end="79" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="application.html.erb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="35" selection-start="66" selection-end="66" vertical-scroll-proportion="0.075">
               <folding />
             </state>
           </provider>
@@ -232,7 +233,6 @@
         <option value="$PROJECT_DIR$/app/assets/stylesheets/applications.css.scss" />
         <option value="$PROJECT_DIR$/app/views/layouts/task_folder.html.erb" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/task_folder.css.scss" />
-        <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
         <option value="$PROJECT_DIR$/app/views/user/show.html.erb" />
         <option value="$PROJECT_DIR$/app/models/user.rb" />
         <option value="$PROJECT_DIR$/app/models/todo_file.rb" />
@@ -241,6 +241,7 @@
         <option value="$PROJECT_DIR$/config/environments/production.rb" />
         <option value="$PROJECT_DIR$/app/views/user_mailer/shared_note.text.erb" />
         <option value="$PROJECT_DIR$/app/mailers/user_mailer.rb" />
+        <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
       </list>
     </option>
   </component>
@@ -333,22 +334,8 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="todo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="replyinline" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="helpers" />
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -366,7 +353,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layouts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="todo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="replyinline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1064,11 +1069,6 @@
         <state line="50" column="12" selection-start="742" selection-end="742" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="18" selection-start="3255" selection-end="3255" vertical-scroll-proportion="-12.791667" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/user/show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="19" selection-start="792" selection-end="792" vertical-scroll-proportion="-9.25" />
@@ -1123,16 +1123,16 @@
         <state line="71" column="76" selection-start="2553" selection-end="2553" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/helpers/task_folder_helper.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/user_mailer/shared_note.text.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="279" column="23" selection-start="6870" selection-end="6885" vertical-scroll-proportion="0.0">
+        <state line="4" column="52" selection-start="77" selection-end="77" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/user_mailer/shared_note.text.erb">
+    <entry file="file://$PROJECT_DIR$/app/helpers/task_folder_helper.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="52" selection-start="77" selection-end="77" vertical-scroll-proportion="0.0">
+        <state line="279" column="23" selection-start="6870" selection-end="6885" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1146,7 +1146,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/mailers/user_mailer.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="1" selection-start="39" selection-end="39" vertical-scroll-proportion="0.017921148">
+        <state line="2" column="0" selection-start="79" selection-end="79" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="35" selection-start="66" selection-end="66" vertical-scroll-proportion="0.075">
           <folding />
         </state>
       </provider>

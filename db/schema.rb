@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120224051233) do
+ActiveRecord::Schema.define(:version => 20120305034544) do
 
   create_table "alerts", :force => true do |t|
     t.integer  "user_id"
@@ -34,6 +34,20 @@ ActiveRecord::Schema.define(:version => 20120224051233) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "consumer_tokens", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "type",           :limit => 30
+    t.string   "token",          :limit => 1024
+    t.string   "secret"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "authorized_at"
+    t.datetime "invalidated_at"
+    t.datetime "expires_at"
+  end
+
+  add_index "consumer_tokens", ["token"], :name => "index_consumer_tokens_on_token", :unique => true
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -140,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20120224051233) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.boolean  "allow_email"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

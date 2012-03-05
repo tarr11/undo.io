@@ -10,8 +10,5 @@
             <%= link_to view.name, {:controller => "task_folder", :action=>"folder_view", :path=>@path, :view=>view.querystring}%></li>
         <% end %>
       </ul>
-      <div style="float: right">
-        <%= content_for?(:buttons) ? yield(:buttons) : yield %>
-      </div>
 </div>
 

@@ -19,6 +19,8 @@
        <%= f.text_field :display_name%></div>
       <div><%= f.label :email %>
        <%= f.email_field :email%></div>
+      <div><%= f.label :allow_email %>
+       <%= f.check_box :allow_email%></div>
       <%=f.label "Time Zone", :for=>"user_time_zone"%>
      <%=time_zone_select( "user", 'time_zone', ActiveSupport::TimeZone.us_zones, :default => "Pacific Time (US & Canada)")%>
       <div>Your Picture</div>

@@ -591,9 +591,17 @@ class TaskFolderController < ApplicationController
 
       # one of these is copied from the other
       if @compare_file.copied_from_id == @file.id
-        @diff_html= get_diff_html(@compare_file.copied_revision.contents, @compare_file.contents, @file.contents)
+        if @compare_file.copied_revision.nil?
+          @merge_error = true
+        else
+          @diff_html= get_diff_html(@compare_file.copied_revision.contents, @compare_file.contents, @file.contents)
+        end
       elsif @file.copied_from_id == @compare_file.id
-        @diff_html= get_diff_html(@file.copied_revision.contents, @compare_file.contents,  @file.contents)
+        if @file.copied_revision.nil?
+          @merge_error = true
+        else
+          @diff_html= get_diff_html(@file.copied_revision.contents, @compare_file.contents,  @file.contents)
+        end
       else
         # nothing for now
       end

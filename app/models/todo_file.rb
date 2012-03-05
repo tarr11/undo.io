@@ -44,8 +44,10 @@ class TodoFile < ActiveRecord::Base
       user.shared_files.create! :todo_file => self
     end
     user.alerts.create! :message => SharedNoteAlert.new
-    msg = UserMailer.shared_note(self.user, user, self)
-    msg.deliver
+    if user.allow_email
+      msg = UserMailer.shared_note(self.user, user, self)
+      msg.deliver
+    end
   end
 
   def unshare_with(user)
@@ -146,9 +148,10 @@ class TodoFile < ActiveRecord::Base
       original_user.shared_files.create! :todo_file => self
     end
     original_user.alerts.create! :message => ReplyAlert.new
-    msg = UserMailer.shared_note(self.user, original_user, self)
-    msg.deliver
-
+    if original_user.allow_email
+      msg = UserMailer.shared_note(self.user, original_user, self)
+      msg.deliver
+    end
   end
 
   def copy(user, filename, revision_uuid)

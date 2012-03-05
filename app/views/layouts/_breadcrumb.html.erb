@@ -1,5 +1,5 @@
   <ul class="breadcrumb">
-  <li><%= link_to "Home", :controller => "home", :action=>"index"%></li>
+  <li><%= link_to "Home", "/"%></li>
     <span class="divider">/</span>
     <% unless params[:username].nil? %>
         <li><%= link_to @file_user.username, :controller => "task_folder", :action=>"folder_view", :path=>"/", :username=> @file_user.username%></li>

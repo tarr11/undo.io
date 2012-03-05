@@ -60,9 +60,11 @@
               </div>
 
             <% end %>
+            <% if user_signed_in? %>
             <div class="navbar-search pull-left">
             <%= render 'layouts/search_form' %>
             </div>
+            <% end %>
 
         </div>
           </div>

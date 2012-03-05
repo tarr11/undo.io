@@ -4,16 +4,19 @@
 <% content_for :content do %>
 <%= render 'task_folder/shared_notes_message' %>
     <div class="content">
+       <div class="breadcrumb-row">
+       <div class="pull-right">
+         <%= render 'task_folder/pill_views', :selected_view=>params[:view]%>
+        </div>
+       <%= render 'layouts/breadcrumb'%>
+       </div>
+     </div>
     <div class="row-fluid">
-    <div class="span2 folder-list">
+    <div class="folder-list span2">
         <%= render 'layouts/folder_list'%>
       </div>
      <div id="main-body" class="span10">
        <div class="row-fluid" style="margin-bottom: .5em;">
-         <div style="margin: 0">
-           <%= render 'layouts/breadcrumb'%>
-
-         </div>
        </div>
        <%= yield %>
      </div>

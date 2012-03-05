@@ -4,7 +4,9 @@
       <%= link_to  "@" + file.user.username, {:controller => "task_folder", :action=>"folder_view", :path=> "/", :only_path => @only_path, :username=>file.user.username}, :class=>"user-link"%>
   <% end %>
   <% if !file.copied_from.nil?  && file.user.id != current_user.id && file.copied_from.user_id == current_user.id %>
-      <%= link_to  file.shortName + " (reply)", :controller => "task_folder", :action=>"folder_view", :path=> file.copied_from.filename, :compare=> file_local_path(file), :only_path => @only_path, :username=>current_user.username%></li>
+      <%= link_to  file.shortName + " (reply)", :controller => "task_folder", :action=>"folder_view", :path=> file.copied_from.filename, :compare=> file_local_path(file), :only_path => @only_path, :username=>current_user.username%>
+ <% elsif  !file.copied_to.find_by_user_id(current_user.id).nil?%>
+      <%= link_to  file.shortName + " (reply)", :controller => "task_folder", :action=>"folder_view", :path=> file.copied_to.find_by_user_id(current_user.id).filename, :compare=> file_local_path(file), :only_path => @only_path, :username=>current_user.username%>
   <% else %>
       <%= link_to  file.shortName, :controller => "task_folder", :action=>"folder_view", :path=> file.filename, :only_path => @only_path, :username=>file.user.username%>
   <% end %>

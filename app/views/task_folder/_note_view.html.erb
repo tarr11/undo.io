@@ -6,26 +6,7 @@
 <% content_for :stylesheet_includes do %>
   <%= stylesheet_link_tag "task_folder"  %>
 <% end %>
-<script>
-   function toggleFullscreenEditing()
-    {
-        var editorDiv = $('#read-only-contents');
-        if (!editorDiv.hasClass('fullscreen')) {
-            toggleFullscreenEditing.beforeFullscreen = { height: editorDiv.height(), width: editorDiv.width() }
-            editorDiv.addClass('fullscreen');
-            editorDiv.height('100%');
-            editorDiv.width('100%');
-            editor.refresh();
-        }
-        else {
-            editorDiv.removeClass('fullscreen');
-            editorDiv.height(toggleFullscreenEditing.beforeFullscreen.height);
-            editorDiv.width(toggleFullscreenEditing.beforeFullscreen.width);
-            editor.refresh();
-        }
-    }
 
-</script>
 <%= render 'layouts/breadcrumb'%>
 
 <input style="display:none;position:absolute;" class="autocomplete" type="text" data-provide="typeahead" data-source='["doug","debbie","darryl","jamy"]' data-items="4">
@@ -45,7 +26,6 @@
                 <input id="filename" name="filename" class="xlarge">
           </div>
           </div>
-
       </div>
       <div class="modal-footer">
         <%=hidden_field_tag "savecontents"%>
@@ -56,62 +36,141 @@
     <% end %>
 
 <% end%>
-<style>
-
-</style>
 
 <div class="row-fluid">
-
-
-  <div class="span8" id="article-column">
-<div class="row-fluid" id="article-body">
-  <div class="editor-title"><h1 style="display:inline; margin-right:.5em;"><%=@header%></h1>
-   <% unless @compare_file.nil? %>
-      <div>My version:<%=link_to file_local_path(@file), file_local_path(@file)%></div>
-      <div>Compared to <%=link_to file_local_path(@compare_file), file_local_path(@compare_file)%></div>
-   <% end %>
-
-    <span id="loading" class="label" style="display:none">Saving...</span>
-
-    <div class="pull-right" id="button-container">
-      <%=render 'access_labels'%>
-    <%= render 'editor_buttons' %>
-    </div>
-
-  </div>
-</div>
-  <div id="status" style="display:none">&nbsp;</div>
-  <div id="page-path" style="display:none"><%=url_for(:controller => "task_folder", :action=>"folder_view", :path=> @file.filename, :only_path => true, :username=>@file.user.username)%></div>
-
-
-  <% if @owned_by_user && (@compare_file.nil? && !@combined)%>
-    <div id="read-only-contents">
-      <div class="editor-border"></div>
-      <textarea id="editor"><%=@file.contents%></textarea>
-      </div>
- <% else %>
-      <article id="read-only-contents" style="width:95%;margin: .5em;">
-        <% unless @diff_html.nil? %>
-            <%@diff_html.each do |line|%>
-                <%=line.html_safe%>
-            <% end %>
+    <div class="span8" id="article-column">
+      <div class="row-fluid" id="article-body">
+        <div id="status" style="display:none">&nbsp;</div>
+        <div id="page-path" style="display:none"><%=url_for(:controller => "task_folder", :action=>"folder_view", :path=> @file.filename, :only_path => true, :username=>@file.user.username)%></div>
+        <div class="editor-title">
+          <h1 style="display:inline; margin-right:.5em;"><%=@header%></h1>
+             <% unless @compare_file.nil? %>
+                <div>My version:<%=link_to file_local_path(@file), file_local_path(@file)%></div>
+                <div>Compared to <%=link_to file_local_path(@compare_file), file_local_path(@compare_file)%></div>
+                <% if @merge_error  %>
+                <div class="alert alert-error">
+                  <div style="font-weight: bold">Merge Conflict</div>
+                  <div>We could not automatically merge these changes</div>
+                  <ul>
+                  <li>Review <%=link_to @compare_file.user.username + "'s note", file_local_path(@compare_file)%>.</li>
+                  <li>Compare them to <%=link_to "your note", file_local_path(@file)%>.</li>
+                  <li>Paste any changes back in to your file.</li>
+                  </ul>
+                </div>
+                  <% end %>
+             <% end %>
+              <div class="pull-right" id="button-container">
+                  <%=render 'access_labels'%>
+                  <%= render 'editor_buttons' %>
+              </div>
+        </div>
+        <% if @owned_by_user && (@compare_file.nil? && !@combined)%>
+          <div id="read-only-contents">
+            <div class="editor-border"></div>
+            <textarea id="editor"><%=@file.contents%></textarea>
+          </div>
         <% else %>
-            <%@file.formatted_lines.each do |line|%>
-               <%=render_line(line).html_safe%>
-            <% end %>
+          <article id="read-only-contents" style="width:95%;margin: .5em;">
+           <% unless @merge_error  %>
+            <% unless @diff_html.nil? %>
+              <%@diff_html.each do |line|%>
+                  <%=line.html_safe%>
+                  <% end %>
+              <% else %>
+                  <%@file.formatted_lines.each do |line|%>
+                     <%=render_line(line).html_safe%>
+                  <% end %>
+              <% end %>
+          <% end %>
+         </article>
         <% end %>
-        </article>
-<% end %>
+          <%= form_tag(url_for(:controller=>"task_folder", :action=>"update"), :remote => true, :method=>:put,:format => :json, :id => "update-form") do  %>
+              <%= hidden_field_tag 'savecontents'%>
+              <%= hidden_field_tag 'filename'%>
+              <%= hidden_field_tag 'current-path', params[:path] %>
+          <% end %>
+      </div>
+
+    </div>
+    <div class="span4" id="right-rail">
+       <div id="right-rail-created-by" style="padding:1em;">
+         <%= render 'right_rail_created_by'%>
+       </div>
+      <% unless @is_new_file%>
+
+           <div id="accordion-group">
+             <div style="padding:1em;">
+              <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#replies"><i class="icon-indent-left"></i> Replies</a> (<%=@replies.length%>)</h3>
+                <div id="replies" class="collapse out">
+                <%= render 'right_rail_revisions', :notes=>@replies%>
+              </div>
+              </div>
 
 
-    <%= form_tag(url_for(:controller=>"task_folder", :action=>"update"), :remote => true, :method=>:put,:format => :json, :id => "update-form") do  %>
-    <%= hidden_field_tag 'savecontents'%>
-    <%= hidden_field_tag 'filename'%>
-    <%= hidden_field_tag 'current-path', params[:path] %>
-<% end %>
-  </div>
+             <div style="padding:1em;">
+                <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#slides"><i class="icon-picture"></i> Slides (<%=@slides.length%>)</a> </h3>
+               <div style="margin-left:.5em;" id="slides" class="collapse out">
+                 <% @slides.each_with_index do |slide, index|%>
+                     <div><a id="slide<%=index%>-link" class="slide-link" href="#" slide-index="<%=index%>"><%=slide.title%></a></div>
+                  <% end%>
+                </div>
+               </div>
 
-  <div class="slideshow" tabindex="10">
+             <% if @file_user == current_user %>
+             <div style="padding:1em;">
+                <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#shared_with"><i class="icon-picture"></i> Shared With (<%=@shared_with.length%>)</a> </h3>
+               <div style="margin-left:.5em;" id="shared_with" class="collapse out">
+                 <% @shared_with.each_with_index do |user, index|%>
+                     <div style="float:left;padding-right: 5px;">
+                       <%= image_tag user.avatar.url(:thumb) %>
+                     </div>
+                     <div style="font-size:1.5em"><%= link_to user.username, user_path(user) %></div>
+                  <% end%>
+                </div>
+               </div>
+              <% end %>
+
+
+           <div style="padding:1em;">
+             <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#notestream"><i class="icon-folder-open"></i> In this folder</a> (<%=@same_folder_notes.length%>)</h3>
+               <div id="notestream" class="collapse out">
+               <%= render 'right_rail_revisions', :notes=>@same_folder_notes%>
+             </div>
+
+             </div>
+
+             <div style="padding:1em;">
+               <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#tagged"><i class="icon-tag"></i> Tagged</a> (<%=@tagged.length%>)</h3>
+                 <div id="tagged" class="collapse out">
+                 <%= render 'right_rail_revisions', :notes=>@tagged%>
+               </div>
+
+               </div>
+
+           <div style="padding:1em;">
+             <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#tasks"><i class="icon-check"></i> Tasks</a> (<%=@task_count%>)</h3>
+                <div style="margin-left:.5em; margin-bottom:1em;" id="tasks" class="collapse out">
+                  <%= render 'task_group', :group=>@tasks_grouped, :level=>0%>
+            </div>
+           </div>
+
+           <div style="padding:1em;">
+              <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#related-events"><i class="icon-calendar"></i> Related Events</a> (<%=@events.length%>)</h3>
+             <div style="margin-left:.5em;" id="related-events" class="collapse out">
+             <%@events.each do |event|%>
+                   <div><%=event.title%></div>
+             <% end%>
+              </div>
+             </div>
+           </div>
+
+     <% end %>
+
+
+      </div>
+</div>
+
+<div class="slideshow" tabindex="10">
     <div class="slideshow-foreground">
     <% @slides.each_with_index do |slide, index|%>
 
@@ -125,83 +184,3 @@
        <% end%>
      </div>
   </div>
-
-
- <div class="span4" id="right-rail">
-   <div id="right-rail-created-by" style="padding:1em;">
-     <%= render 'right_rail_created_by'%>
-   </div>
-  <% unless @is_new_file%>
-
-       <div id="accordion-group">
-         <div style="padding:1em;">
-          <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#replies"><i class="icon-indent-left"></i> Replies</a> (<%=@replies.length%>)</h3>
-            <div id="replies" class="collapse out">
-            <%= render 'right_rail_revisions', :notes=>@replies%>
-          </div>
-          </div>
-
-
-         <div style="padding:1em;">
-            <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#slides"><i class="icon-picture"></i> Slides (<%=@slides.length%>)</a> </h3>
-           <div style="margin-left:.5em;" id="slides" class="collapse out">
-             <% @slides.each_with_index do |slide, index|%>
-                 <div><a id="slide<%=index%>-link" class="slide-link" href="#" slide-index="<%=index%>"><%=slide.title%></a></div>
-              <% end%>
-            </div>
-           </div>
-
-         <% if @file_user == current_user %>
-         <div style="padding:1em;">
-            <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#shared_with"><i class="icon-picture"></i> Shared With (<%=@shared_with.length%>)</a> </h3>
-           <div style="margin-left:.5em;" id="shared_with" class="collapse out">
-             <% @shared_with.each_with_index do |user, index|%>
-                 <div style="float:left;padding-right: 5px;">
-                   <%= image_tag user.avatar.url(:thumb) %>
-                 </div>
-                 <div style="font-size:1.5em"><%= link_to user.username, user_path(user) %></div>
-              <% end%>
-            </div>
-           </div>
-          <% end %>
-
-
-       <div style="padding:1em;">
-         <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#notestream"><i class="icon-folder-open"></i> In this folder</a> (<%=@same_folder_notes.length%>)</h3>
-           <div id="notestream" class="collapse out">
-           <%= render 'right_rail_revisions', :notes=>@same_folder_notes%>
-         </div>
-
-         </div>
-
-         <div style="padding:1em;">
-           <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#tagged"><i class="icon-tag"></i> Tagged</a> (<%=@tagged.length%>)</h3>
-             <div id="tagged" class="collapse out">
-             <%= render 'right_rail_revisions', :notes=>@tagged%>
-           </div>
-
-           </div>
-
-       <div style="padding:1em;">
-         <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#tasks"><i class="icon-check"></i> Tasks</a> (<%=@task_count%>)</h3>
-            <div style="margin-left:.5em; margin-bottom:1em;" id="tasks" class="collapse out">
-              <%= render 'task_group', :group=>@tasks_grouped, :level=>0%>
-        </div>
-       </div>
-
-       <div style="padding:1em;">
-          <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#related-events"><i class="icon-calendar"></i> Related Events</a> (<%=@events.length%>)</h3>
-         <div style="margin-left:.5em;" id="related-events" class="collapse out">
-         <%@events.each do |event|%>
-               <div><%=event.title%></div>
-         <% end%>
-          </div>
-         </div>
-       </div>
-
- <% end %>
-
-
-  </div>
-</div>
-

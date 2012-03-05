@@ -69,7 +69,7 @@ group :development do
   gem 'sunspot_solr'
 end
 gem 'progress_bar'
-gem 'delayed_job_active_record'
+gem 'delayed_job_active_record', "~> 0.3.2"
 gem 'delayed_task'
 gem 'codemirror-rails', "~> 2.22"
 gem 'thin'

@@ -12,6 +12,25 @@ module TaskFolderHelper
     compare_user = User.find_by_username(compare_user_name)
     return compare_user.file(compare_file_name)
   end
+
+  def get_public_checkbox_checked
+    if @file.is_public?
+      return "CHECKED"
+    end
+
+  end
+
+  def get_shared_user_list
+    users = @file.shared_with_users.map {|a| a.username}
+    unless @file.copied_from.nil?
+      username = @file.copied_from.user.username
+      unless users.include?(username)
+        users.push username
+      end
+    end
+    return users.join(",")
+  end
+
   def render_line(line)
 
       div = '<div style="'
@@ -230,6 +249,12 @@ module TaskFolderHelper
           if @file.user_id != current_user.id
             # check if there's a user copy
             @user_copy = current_user.todo_files.find_by_copied_from_id(@file.id)
+            if @user_copy.nil? && !@file.copied_from.nil?
+              if @file.copied_from.user_id == current_user.id
+                @user_copy = @file.copied_from
+              end
+
+            end
           end
         else
           @folder_path = @taskfolder.path

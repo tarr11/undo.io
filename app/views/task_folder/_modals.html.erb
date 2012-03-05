@@ -140,10 +140,10 @@
      </div>
      <div class="modal-body">
          <div class="clearfix"></div>
-         <label class="control-label"><a href="#" rel="popover" data-content="Share your note with the users you've specified. They'll receive an email from you with the note content, and they'll be able to view, copy, edit and reply to your note." data-original-title="About Sharing Notes">Share with</a></label>
-         <input tabindex="1" id="shared_user_list" placeholder="doug, user123" class="input-xlarge" name="shared_user_list">
+         <label class="control-label">Share with <a href="#" rel="popover" data-content="Share your note with specific people.<ul><li>They receive an email with the note.</li><li>They can view, edit, copy, and reply to your note.</li><li>You can accept or reject any changes they make.</li>" data-original-title="About Sharing Notes"><i class="icon-question-sign"></i></a></label>
+         <input tabindex="1" id="shared_user_list" placeholder="doug, user123" class="input-xlarge" name="shared_user_list" value="<%=get_shared_user_list%>">
            <label class="checkbox">
-               <input type="checkbox"><a href="#" rel="popover" data-content="Publish this note for anyone to see." data-original-title="About Publishing Notes">Make public?</a>
+               <input class="checkbox" name="make_public" value="y" type="checkbox" <%= get_public_checkbox_checked %>>Make public <a href="#" rel="popover" data-content="Publish this note for anyone to see." data-original-title="About Publishing Notes"><i class="icon-question-sign"></i></a>
              </label>
      </div>
      <div class="modal-footer">

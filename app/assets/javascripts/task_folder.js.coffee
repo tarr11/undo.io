@@ -20,7 +20,11 @@ getNewRightRail = ->
 
 
 $ ->
-#  window.setInterval getNewRightRail, 1000
+  $("a[rel=popover]")
+      .popover
+        html:true
+      .click (e) ->
+        e.preventDefault()
 
   $('#right-rail').delegate '.task-checkbox-in-file', 'click', (event) ->
     completedtaskRegex = /^([\s]*)x([\s]*!)/

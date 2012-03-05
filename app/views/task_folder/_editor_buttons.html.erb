@@ -1,27 +1,20 @@
 <div class="btn-group editor">
 <% if !@owned_by_user %>
-
     <% unless @user_copy.nil? %>
         <a href="<%=file_local_path(@user_copy)%>" class="btn" id="my-copy-button"><i class="icon-eye-open"></i> Your Version</a>
+    <% else %>
+          <a href="#" class="btn btn-success" id="copy-button"><i class="icon-download icon-white"></i> Copy</a>
     <% end%>
-        <a href="#" class="btn btn-success" id="copy-button"><i class="icon-download icon-white"></i> Copy</a>
-    </div>
 
 <% end %>
 <% if @owned_by_user  %>
 <% if !@is_new_file%>
         <a href="#" class="btn btn-primary hide" id="edit-button">Save</a>
-    <% if @show_reply_button %>
-        <a href="#" id="reply-button" class="btn"><i class="icon-repeat"></i> Reply</a>
-    <% end  %>
-        <% unless @compare_file.nil? %>
+        <% unless @compare_file.nil? || @merge_error%>
         <a href="#" id="accept-button" class="btn btn-success"><i class="icon-indent-left icon-white"></i> Accept</a>
         <a href="<%=file_local_path(@file)%>" id="ignore-button" class="btn"><i class="icon-indent-left"></i> Ignore</a>
         <% end %>
     <% if @show_edit_buttons %>
-              <% if @file.is_public %>
-                <a href="#" id="unpublish-button" class="btn"><i class="icon-remove-circle"></i> Unpublish</a>
-              <% end %>
               <a href="#" id="share-button" class="btn btn-success"><i class="icon-share icon-white"></i> Share</a>
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
             More

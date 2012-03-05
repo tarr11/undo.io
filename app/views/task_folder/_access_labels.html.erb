@@ -1,20 +1,23 @@
 <div class="access-labels">
 <% if @is_new_file %>
-  <span class="label label-warning">Not Saved</span>
-<% else %>
-  <span class="label label-success">Auto save</span>
+      <a href="#" rel="popover" data-content="This note is not saved.  Click Save to make sure you don't lose any data." data-original-title="Not Saved">  <span class="label label-warning">Not saved</span></a>
+<% elsif @compare_file.nil?%>
+      <% if @file.user_id == current_user.id%>
+          <a href="#" rel="popover" data-content="This note is automatically saved as you type." data-original-title="Auto Save">  <span class="label">Auto saved</span></a>
+      <% end %>
       <% if @file.is_public %>
-          <span class="label label-success">Published</span>
-      <% else %>
-          <% if @file.user_id == current_user.id && @file.has_replied?%>
-          <span class="label label-info">Replied</span>
-          <%elsif @file.user_id == current_user.id && @file.shared_with_users.length > 0 %>
-          <span class="label label-info">Shared</span>
-          <% else %>
-          <span class="label">Private</span>
-          <% end %>
+          <a href="#" rel="popover" data-content="This note is publicly viewable.  <BR>To change, click Share and uncheck Make Public" data-original-title="Published">  <span class="label">Published</span></a>
+      <% end%>
+      <%if @file.user_id == current_user.id && @file.shared_with_users.length > 0 %>
+          <a href="#" rel="popover" data-content="This note is shared with other users.  <BR>To change, click Share and change the list of shared users" data-original-title="Shared">  <span class="label">Shared</span></a>
+      <%elsif @file.user_id != current_user.id && @file.shared_with_users.include?(current_user)%>
+          <a href="#" rel="popover" data-content="This note is shared with you.  <BR>To edit or reply, click Copy." data-original-title="Shared with you">  <span class="label">Shared with you</span></a>
+      <% elsif !@file.is_public %>
+          <a href="#" rel="popover" data-content="This note is private.  <BR>Only you can view it" data-original-title="Private">  <span class="label">Private</span></a>
+      <% end %>
+      <% unless @file.copied_from.nil? %>
+    <a href="#" rel="popover" data-content="This note was created as a copy of another note." data-original-title="Copy">  <span class="label">Copy</span></a>
       <% end %>
 
   <% end %>
-
 </div>

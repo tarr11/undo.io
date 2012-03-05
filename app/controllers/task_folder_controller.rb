@@ -176,6 +176,7 @@ class TaskFolderController < ApplicationController
   def share
     get_header_data
     # if this is a file. move it
+    users_shared = []
     unless @file.nil?
 
       people = params[:shared_user_list].split(',')
@@ -183,11 +184,30 @@ class TaskFolderController < ApplicationController
         user = User.find_by_username(person)
         unless user.nil?
           @file.share_with(user)
+          users_shared.push user.username
         end
 
       end
+      make_public = (params[:make_public] == "y")
+      if make_public
+        unless @file.is_public?
+          @file.make_public()
+          make_public = true
+        end
+      else
+        if @file.is_public?
+          @file.make_private()
+          make_private = true
+        end
+      end
+      flash[:shared_note] = {
+          :make_public => make_public,
+          :make_private => make_private,
+          :users_shared => users_shared
+      }
+
       respond_to do |format|
-        format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @file.filename, :username=>@file.user.username, notice: 'File was shared.' }
+        format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @file.filename, :username=>@file.user.username}
       end
 
     end
@@ -468,10 +488,22 @@ class TaskFolderController < ApplicationController
     dmp.patch_deleteThreshold=0.1
     patches = dmp.patch_make(left_file_contents, right_file_contents)
 
-    # push the change into current version
-    updated_contents = dmp.patch_apply(patches, current_file_contents)
 
-    diff = dmp.diff_main(current_file_contents, updated_contents.first)
+    # push the change into current version
+    begin
+      merge_results = dmp.patch_apply(patches, current_file_contents)
+    rescue Exception
+      @merge_error = true
+      return nil
+    end
+
+    merged_contents = merge_results.shift
+    if merge_results.include?(false)
+      @merge_error = true
+      return nil
+    end
+
+    diff = dmp.diff_main(current_file_contents, merged_contents)
     dmp.diff_cleanupSemantic(diff)
 
     # now compare the current version to my version

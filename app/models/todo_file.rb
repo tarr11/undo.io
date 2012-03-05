@@ -48,6 +48,11 @@ class TodoFile < ActiveRecord::Base
     msg.deliver
   end
 
+  def unshare_with(user)
+    shared_file = user.shared_files.find_by_todo_file_id(self.id)
+    shared_file.destroy()
+  end
+
   def copied_revision
     unless copied_task_file_revision_id.nil?
       copied_from.task_file_revisions.find_by_id(copied_task_file_revision_id)
@@ -119,11 +124,16 @@ class TodoFile < ActiveRecord::Base
 
   def accept(compare_file)
 
+    if compare_file.copied_from_id == self.id
+      self.contents = merge(compare_file.copied_revision.contents, compare_file.contents, self.contents)
+      self.save
+      compare_file.copied_task_file_revision_id = self.current_revision.id
+    elsif self.copied_from_id == compare_file.id
+      self.contents = merge(self.copied_revision.contents, compare_file.contents,  self.contents)
+      self.save
+      compare_file.copied_task_file_revision_id = self.current_revision.id
+    end
     # merges the changes from compare_file into the current file, and marks the compare_filed share as viewed
-    self.contents = merge(compare_file.copied_revision.contents, compare_file.contents, self.contents)
-    self.save
-
-    compare_file.copied_task_file_revision_id = self.current_revision.id
     compare_file.save
 
   end

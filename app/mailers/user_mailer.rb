@@ -12,7 +12,7 @@ class UserMailer < ActionMailer::Base
       @from_user =  from_user
       @to_user = to_user
       @file = file
-      mail(:from => from_user.email, :to => to_user.email, :subject => file.filename)
+      mail(:from => from_user.email, :to => to_user.email, :subject => file.shortName)
     end
 
 end

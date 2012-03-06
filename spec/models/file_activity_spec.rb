@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Notes::SlideContent do
+describe FileActivity do
   pending "add some examples to (or delete) #{__FILE__}"
 end

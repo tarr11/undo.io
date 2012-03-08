@@ -47,12 +47,12 @@ gem "autotest-rails-pure"
 gem "autotest-notification"
 #gem "redgreen"
 group :development do
-    gem 'rspec-rails', '2.6.1'
+    gem 'rspec-rails', '2.8'
 end
 
 group :test do
-    gem 'rspec-rails', '2.6.1'
-    gem 'webrat', '0.7.1'
+    gem 'rspec-rails', '2.8'
+    gem 'webrat', '0.7.3'
 end
 
 gem 'uuidtools'

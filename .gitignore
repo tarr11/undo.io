@@ -19,3 +19,8 @@
 
 # Ignore solr
 /solr
+
+#.idea
+/.idea
+
+/.sass-cache

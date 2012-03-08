@@ -1,15 +1,36 @@
 require 'spec_helper'
 
-# Specs in this file have access to a helper object that includes
-# the TaskFolderHelper. For example:
-#
-# describe TaskFolderHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       helper.concat_strings("this","that").should == "this that"
-#     end
-#   end
-# end
 describe TaskFolderHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "When get_file_from_path is called" do
+    before (:each) do
+      @user = Factory.create(:user)
+      @file = @user.todo_files.create(Factory.attributes_for(:file))
+    end
+    it "returns a file" do
+      file = helper.get_file_from_path("/" + @user.username + "/foo")
+      file.should_not be_nil
+    end
+  end
+
+  describe "When a file is created with spaces in the name" do
+    before (:each) do
+      @user = Factory.create(:user)
+      @file = @user.todo_files.build(Factory.attributes_for(:file))
+      @file.filename = "/foo bar"
+      @file.save!
+    end
+
+    it "returns a file" do
+      file = helper.get_file_from_path("/doug/foo bar")
+      file.should_not be_nil
+    end
+
+    describe "and the filename is urlencoded" do
+      it "returns a file" do
+        file = helper.get_file_from_path("/doug/foo%20bar")
+        file.should_not be_nil
+      end
+    end
+
+  end
 end

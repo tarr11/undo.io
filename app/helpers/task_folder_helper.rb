@@ -2,6 +2,7 @@ module TaskFolderHelper
   require 'ostruct'
 
   def get_file_from_path(path)
+    path = CGI::unescape(path)
     parts = path.split('/')
     parts = parts.reverse
     parts.pop

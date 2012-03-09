@@ -44,7 +44,7 @@ class TaskFolder
   end
 
   def show_public_only
-    @files = @files.select{|a| a.is_public}
+    @files = files.select{|a| a.is_public}
   end
 
   def get_event_notes

@@ -5,42 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8525da9e-be8a-43fe-912c-9d41aba25e68" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/models/application_spec.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/fixtures/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/fixtures/todo_files.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/fixtures/todo_lines.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/fixtures/users.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/functional/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/functional/home_controller_test.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/functional/oauth_clients_controller_test.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/functional/todo_files_controller_test.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/integration/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/performance/browsing_test.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/test_helper.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/unit/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/unit/client_application_test.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/unit/helpers/home_helper_test.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/unit/helpers/todo_files_helper_test.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/unit/oauth_nonce_test.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/unit/oauth_token_test.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/unit/todo_file_test.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/unit/todo_line_test.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/unit/user_test.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/todo.iml" afterPath="$PROJECT_DIR$/.idea/todo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/home_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/home_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/task_folder_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/task_folder_helper.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/task_folder.rb" afterPath="$PROJECT_DIR$/app/models/task_folder.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/todo_file.rb" afterPath="$PROJECT_DIR$/app/models/todo_file.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/_note_item.html.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/_note_item.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/task_folder/boxed_view.html.erb" afterPath="$PROJECT_DIR$/app/views/task_folder/boxed_view.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/database.yml" afterPath="$PROJECT_DIR$/config/database.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/controllers/task_folder_controller_spec.rb" afterPath="$PROJECT_DIR$/spec/controllers/task_folder_controller_spec.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/helpers/task_folder_helper_spec.rb" afterPath="$PROJECT_DIR$/spec/helpers/task_folder_helper_spec.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/spec_helper.rb" afterPath="$PROJECT_DIR$/spec/spec_helper.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/models/task_folder_spec.rb" afterPath="$PROJECT_DIR$/spec/models/task_folder_spec.rb" />
     </list>
     <ignored path="todo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,7 +35,25 @@
       <file leaf-file-name="task_folder.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/task_folder.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="171" column="56" selection-start="3137" selection-end="3137" vertical-scroll-proportion="0.0">
+            <state line="41" column="13" selection-start="754" selection-end="754" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="task_folder_spec.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/spec/models/task_folder_spec.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="4" selection-start="510" selection-end="510" vertical-scroll-proportion="0.46082088">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="todo_file_spec.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/spec/models/todo_file_spec.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="1" selection-start="85" selection-end="218" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -78,16 +62,16 @@
       <file leaf-file-name="task_folder_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/task_folder_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="377" column="88" selection-start="9867" selection-end="9867" vertical-scroll-proportion="0.0">
+            <state line="355" column="43" selection-start="9444" selection-end="9444" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="task_folder_helper_spec.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="task_folder_helper_spec.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spec/helpers/task_folder_helper_spec.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="23" selection-start="682" selection-end="682" vertical-scroll-proportion="0.33208954">
+            <state line="22" column="23" selection-start="682" selection-end="682" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -114,7 +98,7 @@
       <file leaf-file-name="task_folder_helper.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/helpers/task_folder_helper.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="119" column="25" selection-start="2534" selection-end="2534" vertical-scroll-proportion="0.0">
+            <state line="46" column="24" selection-start="1135" selection-end="1135" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -123,7 +107,7 @@
       <file leaf-file-name="task_folder_controller_spec.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spec/controllers/task_folder_controller_spec.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="69" column="27" selection-start="1958" selection-end="1958" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -133,15 +117,6 @@
         <entry file="file://$PROJECT_DIR$/spec/spec_helper.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="devise.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/spec/support/devise.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="27" selection-start="0" selection-end="27" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -166,7 +141,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/spec/routing/application_routing_spec.rb" />
         <option value="$PROJECT_DIR$/spec/routing/home_routing_spec.rb" />
         <option value="$PROJECT_DIR$/config/locales/devise.en.yml" />
         <option value="$PROJECT_DIR$/spec/requests/task_folders_spec.rb" />
@@ -178,10 +152,11 @@
         <option value="$PROJECT_DIR$/app/controllers/home_controller.rb" />
         <option value="$PROJECT_DIR$/spec/support/sunspot.rb" />
         <option value="$PROJECT_DIR$/spec/controllers/task_folder_controller_spec.rb" />
-        <option value="$PROJECT_DIR$/app/models/task_folder.rb" />
         <option value="$PROJECT_DIR$/app/controllers/task_folder_controller.rb" />
         <option value="$PROJECT_DIR$/spec/helpers/task_folder_helper_spec.rb" />
         <option value="$PROJECT_DIR$/app/helpers/task_folder_helper.rb" />
+        <option value="$PROJECT_DIR$/app/models/task_folder.rb" />
+        <option value="$PROJECT_DIR$/spec/models/task_folder_spec.rb" />
       </list>
     </option>
   </component>
@@ -313,6 +288,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="spec" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="todo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="replyinline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -350,6 +343,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="helpers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="todo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="replyinline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -408,7 +419,7 @@
     </key>
   </component>
   <component name="RunManager" selected="RSpec.All specs in: spec">
-    <configuration default="false" name="task_folder_controller_spec" type="RSpecRunConfigurationType" factoryName="RSpec" temporary="true">
+    <configuration default="false" name="TaskFolder When a file is created should only show public files" type="RSpecRunConfigurationType" factoryName="RSpec" temporary="true">
       <predefined_log_file id="RUBY_RSPEC" enabled="true" />
       <module name="todo" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
@@ -427,7 +438,40 @@
         </COVERAGE_PATTERN>
       </EXTENSION>
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$PROJECT_DIR$/spec/controllers/task_folder_controller_spec.rb" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$PROJECT_DIR$/spec/models/task_folder_spec.rb" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_RUNNER_PATH" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="**/*_spec.rb" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_EXAMPLE_NAME" VALUE="TaskFolder When a file is created should only show public files" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_SCRIPT" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_ARGS" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_VERSION" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="USE_CUSTOM_SPEC_RUNNER" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="true" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="FULL_BACKTRACE" VALUE="false" />
+      <RunnerSettings RunnerId="RubyRunner" />
+      <ConfigurationWrapper RunnerId="RubyRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="task_folder_spec" type="RSpecRunConfigurationType" factoryName="RSpec" temporary="true">
+      <predefined_log_file id="RUBY_RSPEC" enabled="true" />
+      <module name="todo" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$PROJECT_DIR$" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
+      <envs>
+        <env name="RAILS_ENV" value="test" />
+        <env name="JRUBY_OPTS" value="-X+O" />
+      </envs>
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="true" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" track_test_folders="true" runner="rcov">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$PROJECT_DIR$/spec/models/task_folder_spec.rb" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_RUNNER_PATH" VALUE="" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="**/*_spec.rb" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_EXAMPLE_NAME" VALUE="" />
@@ -435,13 +479,13 @@
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_ARGS" VALUE="" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_VERSION" VALUE="" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="USE_CUSTOM_SPEC_RUNNER" VALUE="false" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="true" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="FULL_BACKTRACE" VALUE="false" />
       <RunnerSettings RunnerId="RubyRunner" />
       <ConfigurationWrapper RunnerId="RubyRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="TaskFolderController GET 'folder_view' /user should be successful" type="RSpecRunConfigurationType" factoryName="RSpec" temporary="true">
+    <configuration default="false" name="TaskFolder When a file is created when it is restricted to shared files" type="RSpecRunConfigurationType" factoryName="RSpec" temporary="true">
       <predefined_log_file id="RUBY_RSPEC" enabled="true" />
       <module name="todo" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
@@ -460,21 +504,21 @@
         </COVERAGE_PATTERN>
       </EXTENSION>
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$PROJECT_DIR$/spec/controllers/task_folder_controller_spec.rb" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$PROJECT_DIR$/spec/models/task_folder_spec.rb" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_RUNNER_PATH" VALUE="" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="**/*_spec.rb" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_EXAMPLE_NAME" VALUE="TaskFolderController GET 'folder_view' /user should be successful" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_EXAMPLE_NAME" VALUE="TaskFolder When a file is created when it is restricted to shared files" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_SCRIPT" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_ARGS" VALUE="" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_VERSION" VALUE="" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="USE_CUSTOM_SPEC_RUNNER" VALUE="false" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="true" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="FULL_BACKTRACE" VALUE="false" />
       <RunnerSettings RunnerId="RubyRunner" />
       <ConfigurationWrapper RunnerId="RubyRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="TaskFolderController GET 'folder_view' /user?q=foo should be successful" type="RSpecRunConfigurationType" factoryName="RSpec" temporary="true">
+    <configuration default="false" name="TaskFolder When a file is created when it is restricted to shared files should be successful" type="RSpecRunConfigurationType" factoryName="RSpec" temporary="true">
       <predefined_log_file id="RUBY_RSPEC" enabled="true" />
       <module name="todo" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
@@ -493,45 +537,10 @@
         </COVERAGE_PATTERN>
       </EXTENSION>
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$PROJECT_DIR$/spec/controllers/task_folder_controller_spec.rb" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$PROJECT_DIR$/spec/models/task_folder_spec.rb" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_RUNNER_PATH" VALUE="" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="**/*_spec.rb" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_EXAMPLE_NAME" VALUE="TaskFolderController GET 'folder_view' /user?q=foo should be successful" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_SCRIPT" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_ARGS" VALUE="" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_VERSION" VALUE="" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="USE_CUSTOM_SPEC_RUNNER" VALUE="false" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="FULL_BACKTRACE" VALUE="false" />
-      <RunnerSettings RunnerId="RubyDebugRunner" />
-      <RunnerSettings RunnerId="RubyRunner" />
-      <ConfigurationWrapper RunnerId="RubyDebugRunner" />
-      <ConfigurationWrapper RunnerId="RubyRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="TaskFolderHelper When get_changed_files_by_folder is called on one file returns one file, grouped by the folder" type="RSpecRunConfigurationType" factoryName="RSpec" temporary="true">
-      <predefined_log_file id="RUBY_RSPEC" enabled="true" />
-      <module name="todo" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$PROJECT_DIR$" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
-      <envs>
-        <env name="RAILS_ENV" value="test" />
-        <env name="JRUBY_OPTS" value="-X+O" />
-      </envs>
-      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="true" />
-      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" track_test_folders="true" runner="rcov">
-        <COVERAGE_PATTERN ENABLED="true">
-          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
-        </COVERAGE_PATTERN>
-      </EXTENSION>
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$PROJECT_DIR$/spec/helpers/task_folder_helper_spec.rb" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_RUNNER_PATH" VALUE="" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="**/*_spec.rb" />
-      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_EXAMPLE_NAME" VALUE="TaskFolderHelper When get_changed_files_by_folder is called on one file returns one file, grouped by the folder" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_EXAMPLE_NAME" VALUE="TaskFolder When a file is created when it is restricted to shared files should be successful" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_SCRIPT" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_ARGS" VALUE="" />
       <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_VERSION" VALUE="" />
@@ -933,10 +942,10 @@
       <item index="3" class="java.lang.String" itemvalue="Rake.spec" />
       <item index="4" class="java.lang.String" itemvalue="Rake.test" />
       <item index="5" class="java.lang.String" itemvalue="Rake.todo:testtodo" />
-      <item index="6" class="java.lang.String" itemvalue="RSpec.task_folder_controller_spec" />
-      <item index="7" class="java.lang.String" itemvalue="RSpec.TaskFolderController GET 'folder_view' /user should be successful" />
-      <item index="8" class="java.lang.String" itemvalue="RSpec.TaskFolderController GET 'folder_view' /user?q=foo should be successful" />
-      <item index="9" class="java.lang.String" itemvalue="RSpec.TaskFolderHelper When get_changed_files_by_folder is called on one file returns one file, grouped by the folder" />
+      <item index="6" class="java.lang.String" itemvalue="RSpec.TaskFolder When a file is created should only show public files" />
+      <item index="7" class="java.lang.String" itemvalue="RSpec.task_folder_spec" />
+      <item index="8" class="java.lang.String" itemvalue="RSpec.TaskFolder When a file is created when it is restricted to shared files" />
+      <item index="9" class="java.lang.String" itemvalue="RSpec.TaskFolder When a file is created when it is restricted to shared files should be successful" />
       <item index="10" class="java.lang.String" itemvalue="RSpec.All specs in: spec" />
     </list>
     <configuration default="true" type="TestUnitRunConfigurationType" factoryName="Test::Unit/Shoulda">
@@ -1017,14 +1026,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-1" width="1922" height="1022" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.10357715" sideWeight="0.60313904" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37556055" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32735425" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.396861" sideWeight="0.49786097" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1900694" sideWeight="0.25224215" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1900694" sideWeight="0.40246636" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1900694" sideWeight="0.40246636" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38116592" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42445275" sideWeight="0.37668163" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40135288" sideWeight="0.4983957" order="7" side_tool="true" content_ui="tabs" />
@@ -1105,13 +1114,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/models/todo_file.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="30" selection-start="794" selection-end="794" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/decorators/application_decorator.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="30" selection-start="399" selection-end="399" vertical-scroll-proportion="0.0">
@@ -1159,34 +1161,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spec/controllers/task_folder_controller_spec.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/task_folder.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="171" column="56" selection-start="3137" selection-end="3137" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/helpers/task_folder_helper.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="25" selection-start="2534" selection-end="2534" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/task_folder_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="377" column="88" selection-start="9867" selection-end="9867" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/spec/decorators/application_decorator_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="27" selection-start="60" selection-end="60" vertical-scroll-proportion="0.0">
@@ -1203,7 +1177,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/spec/helpers/task_folder_helper_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="23" selection-start="682" selection-end="682" vertical-scroll-proportion="0.33208954">
+        <state line="22" column="23" selection-start="682" selection-end="682" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spec/controllers/task_folder_controller_spec.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="27" selection-start="1958" selection-end="1958" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/helpers/task_folder_helper.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="24" selection-start="1135" selection-end="1135" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/task_folder_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="355" column="43" selection-start="9444" selection-end="9444" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spec/models/todo_file_spec.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="1" selection-start="85" selection-end="218" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/task_folder.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="13" selection-start="754" selection-end="754" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spec/models/task_folder_spec.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="4" selection-start="510" selection-end="510" vertical-scroll-proportion="0.46082088">
           <folding />
         </state>
       </provider>

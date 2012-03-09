@@ -11,17 +11,20 @@ end
 
 group :test do
   # Pretty printed test output
-  gem 'turn', '~> 0.8.3', :require => false
   gem 'spork-rails'
   gem 'rspec-rails', '2.8'
-  gem 'webrat', '0.7.3'
 end
 
 group :development do
+  gem 'turn', '~> 0.8.3', :require => false
+  gem 'webrat', '0.7.3'
   gem 'therubyracer'
   gem 'progress_bar'
   gem 'sunspot_solr'
+  gem 'minitest'
+  gem 'rspec-rails', '2.8'
 end
+
 
 gem 'rails', '3.2.1'
 gem 'jquery-rails'
@@ -67,3 +70,4 @@ gem 'newrelic_rpm'
 gem 'airbrake'
 gem 'factory_girl_rails', "~> 1.2"
 gem 'diff_match_patch'
+gem 'draper'

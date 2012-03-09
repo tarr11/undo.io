@@ -6,7 +6,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: todo_production
+  database: todo_development
   pool: 5
   username: postgres
   password: postgres

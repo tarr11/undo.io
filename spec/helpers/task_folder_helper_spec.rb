@@ -12,6 +12,21 @@ describe TaskFolderHelper do
     end
   end
 
+  describe "When get_changed_files_by_folder is called on one file" do
+    before (:each) do
+      @user = Factory.create(:user)
+      @file = @user.todo_files.create(Factory.attributes_for(:file))
+    end
+
+    it "returns one file, grouped by the folder" do
+      files = [@file]
+      group = helper.get_changed_files_by_folder(files, @file.path)
+      group.length.should == 1
+
+    end
+
+  end
+
   describe "When a file is created with spaces in the name" do
     before (:each) do
       @user = Factory.create(:user)

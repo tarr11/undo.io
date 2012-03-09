@@ -374,14 +374,11 @@ class TaskFolderController < ApplicationController
     start_date= Date.today - 100.years
     end_date = DateTime.now.utc
     if (params[:q].nil?)
-      changed_files = @taskfolder.get_file_changes(start_date, end_date)
+      files = @taskfolder.todo_files_recursive
     else
-      changed_files = @taskfolder.search_for_changes(params[:q])
+      files = @taskfolder.search_for_changes(params[:q])
     end
-    @changed_files_by_folder = changed_files
-      .group_by {|note| get_sub_folder(note[:file].path,@taskfolder.path)}
-      .sort_by {|folder_item| folder_item.second.map{|a| a[:file].revision_at}.max}
-      .reverse
+    @changed_files_by_folder  = get_changed_files_by_folder(files, @taskfolder.path)
     respond_to do |format|
         format.html { render 'task_folder/boxed_view', :layout => 'task_folder', :wildcard_user_name=>false}
     end
@@ -413,7 +410,7 @@ class TaskFolderController < ApplicationController
 
 
     @changed_files_by_date = changed_files
-      .group_by {|note| note[:file].revision_at.strftime "%A, %B %e, %Y" }
+      .group_by {|note| note.revision_at.strftime "%A, %B %e, %Y" }
       .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
       .reverse
 

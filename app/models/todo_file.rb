@@ -21,6 +21,8 @@ class TodoFile < ActiveRecord::Base
   after_save :save_revision, :update_dropbox
   serialize :diff
 
+  attr_accessor :changed_lines
+
   searchable do
     text :contents, :stored => true
     text :filename, :stored => true

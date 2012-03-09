@@ -33,16 +33,15 @@ class HomeController < ApplicationController
     end
 
     path = params[:path]
-
     changed_files = []
     unless results.nil?
      changed_files = TaskFolder.process_search_results(results, "/")
-     changed_files = changed_files.select{|a| a[:file].is_public && (path.nil? || a[:file].filename.start_with?(path))}
+     changed_files = changed_files.select{|a| a.is_public && (path.nil? || a.filename.start_with?(path))}
     end
 
 
     @changed_files_by_folder = changed_files
-      .group_by {|note| get_sub_folder(note[:file].path,"/") }
+      .group_by {|note| get_sub_folder(note.path,"/") }
     @header = "Public Notes"
     @wildcard_user_name = true
     @path_parts = get_path_parts(false, path)

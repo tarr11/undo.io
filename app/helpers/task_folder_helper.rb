@@ -108,11 +108,26 @@ module TaskFolderHelper
 
     end
 
-    def get_sub_folder(path, current_folder)
-      nextPath = path.gsub(/^#{current_folder}/,"")
-      parts = nextPath.split("/").reject{|c| c.empty?}
-      return parts.first
-    end
+  def get_sub_folder(path, current_folder)
+    nextPath = path.gsub(/^#{current_folder}/,"")
+    parts = nextPath.split("/").reject{|c| c.empty?}
+    return parts.first
+  end
+
+
+  def get_changed_files_by_folder files, path
+
+    grouped_files = files
+    .group_by {|note| get_sub_folder(note.path, path)}
+    .sort_by {|folder_item| folder_item.second.map{|a| a.revision_at}.max}
+    .reverse
+
+    return grouped_files
+
+  end
+
+
+
 
     def get_header_data
 

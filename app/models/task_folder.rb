@@ -1,10 +1,11 @@
 require 'uri'
 
 class TaskFolder
+  include TaskFolderHelper
 
   attr_accessor :user
   attr_accessor :path
-  attr_accessor :files
+
 
   def initialize(user, path, *params)
 
@@ -14,11 +15,18 @@ class TaskFolder
       @path = @path + "/"
     end
     @files = params.pop
-    if @files.nil?
-      @files = todo_files_recursive
-    end
   end
 
+  def files
+    ensure_files
+    return @files
+  end
+
+  def ensure_files
+    if @files.nil?
+      @files = self.todo_files_recursive
+    end
+  end
 
   def todo_files_recursive
     temppath = @path
@@ -26,7 +34,7 @@ class TaskFolder
       temppath = "/" + @path
     end
 
-    return TodoFile.includes(:copied_to).find(:all, :conditions => ["user_id = ? AND filename LIKE ?", "#{user.id}", "#{temppath}%"]).sort_by{|a| a.path}
+    return TodoFile.all(:include=>[:user,:copied_to, :copied_from], :conditions => ["user_id = ? AND filename LIKE ?", "#{user.id}", "#{temppath}%"]).sort_by{|a| a.path}
 
   end
 
@@ -41,7 +49,7 @@ class TaskFolder
 
   def get_event_notes
 
-    @files.each do |file|
+    self.files.each do |file|
        file.get_event_notes do |line|
           yield line
       end
@@ -50,7 +58,7 @@ class TaskFolder
 
 
   def get_person_notes
-    @files.each do |file|
+    self.files.each do |file|
        file.get_person_notes do |line|
           yield line
       end
@@ -59,7 +67,7 @@ class TaskFolder
   end
 
   def get_tag_notes
-    @files.each do |file|
+    self.files.each do |file|
        file.get_tag_notes do |line|
           yield line
       end
@@ -79,7 +87,7 @@ class TaskFolder
     end
     depth = temppath.scan("/").length
 
-    @files.select{|a| a.filename.start_with?(@path)}
+    self.files.select{|a| a.filename.start_with?(@path)}
     .select do |file|
       #true
       file.filename.scan("/").length == depth && !file.filename.ends_with?("/")
@@ -88,7 +96,7 @@ class TaskFolder
 
   def get_tasks
 
-    @files.each do |file|
+    self.files.each do |file|
        file.get_tasks do |task|
           yield task
       end
@@ -107,22 +115,21 @@ class TaskFolder
       raise 'No user!'
     end
 
-
-    task_paths = @files.select{|a| a.filename.start_with?(@path)}
+    task_paths = self.files.select{|a| a.filename.start_with?(@path)}
       .select {|file| file.filename.scan("/").length >= depth}
       .map{ |file| File.dirname(file.filename)}
       .map{ |path| path.split("/").first(depth).join("/") + "/"}
       .uniq
 
     return task_paths.map { |path|
-      TaskFolder.new(@user, path, @files.select{|file| file.filename.start_with?(path)
+      TaskFolder.new(@user, path, self.files.select{|file| file.filename.start_with?(path)
       })}
 
   end
 
   def all
     folders = task_folders
-    files = @files
+    files = self.files
     allstuff = Array.new
     allstuff.push folders
     allstuff.push files
@@ -141,7 +148,7 @@ class TaskFolder
    end
 
   def tasks
-    @files.map { |file|
+    self.files.map { |file|
       file.tasks
     }.flatten
   end
@@ -162,6 +169,10 @@ class TaskFolder
 
   def self.process_search_results(results, path)
     allChanges = []
+    # need this because helper method is busted in RSpec
+    if results.hits.length == 0
+      return allChanges
+    end
     results.each_hit_with_result do |hit, result|
 
       if result.filename.starts_with?(path)
@@ -180,14 +191,9 @@ class TaskFolder
           end
         end
 
-        allChanges.push (
-                {
-               :file => result,
-               :diff => result.diff,
-               :revision_at => result.revision_at,
-               :changedLines => addedLines
-            }
-        )
+
+        result.changed_lines = addedLines
+        allChanges.push result
 
       end
 
@@ -204,14 +210,18 @@ class TaskFolder
       with(:user_id, user.id)
     end
 
-    allChanges = TaskFolder.process_search_results results, self.path
+    changed_files = TaskFolder.process_search_results(results, self.path)
 
-    return allChanges
+    return changed_files
+#    allChanges = TaskFolder.process_search_results results, self.path
+
+ #   return allChanges
   end
+
 
   def get_file_changes(start_date, end_date)
 
-    return @files.map{|a|
+    return self.files.map{|a|
         {
             :file => a,
             :diff => [],
@@ -224,7 +234,7 @@ class TaskFolder
 
     revisions = self.user.task_file_revisions.map{|a| a}
 
-    @files.each do |file|
+    self.files.each do |file|
       change = file.getChanges(start_date, end_date, revisions)
       if (!change.nil?)
         allChanges.push change
@@ -266,7 +276,7 @@ class TaskFolder
 
   def getChanges(startDate, endDate, allChanges = [])
 
-    @files.each do |file|
+    self.files.each do |file|
       change = file.getChanges(startDate, endDate).first
       if (!change.nil?)
         allChanges.push change

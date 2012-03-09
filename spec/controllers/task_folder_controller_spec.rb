@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'sunspot/rails/spec_helper'
 
 describe TaskFolderController do
   login_user
@@ -10,6 +11,13 @@ describe TaskFolderController do
     end
   end
 
+  describe "GET 'folder_view' /user?q=foo" do
+    it "should be successful" do
+      get :folder_view, :path => "/", :username =>subject.current_user.username, :q=>"foo"
+      response.should be_success
+    end
+
+  end
   describe "GET 'folder_view' /user/file-that-doesnt-exist" do
 
     it "should not be found" do

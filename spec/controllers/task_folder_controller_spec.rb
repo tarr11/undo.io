@@ -38,6 +38,23 @@ describe TaskFolderController do
       response.should be_success
     end
 
+    describe "GET 'folder_view /user/file?view=feed" do
+      it 'should be successful' do
+        get :folder_view, :path => @file.filename, :username=>subject.current_user.username, :view=>'feed'
+      end
+    end
+
+    describe "GET 'folder_view /user/file?view=tasks" do
+      it 'should be successful' do
+        get :folder_view, :path => @file.filename, :username=>subject.current_user.username, :view=>'tasks'
+      end
+    end
+
+    describe "GET 'folder_view /user/file?view=events" do
+      it 'should be successful' do
+        get :folder_view, :path => @file.filename, :username=>subject.current_user.username, :view=>'events'
+      end
+    end
 
   end
 

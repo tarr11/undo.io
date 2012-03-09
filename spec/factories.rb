@@ -24,7 +24,7 @@ end
 
 Factory.define :file do |file|
   file.filename   "/foo"
-  file.contents   "This is a file."
+  file.contents   "This is a file.\n! This is a task\nx! This is a completed task.\n This is a date 3/15/2012"
   file.is_public  false
 end
 

@@ -58,6 +58,7 @@ GEM
       uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
+    cancan (1.6.7)
     cocaine (0.2.1)
     codemirror-rails (2.22)
       railties (~> 3.0)
@@ -266,6 +267,7 @@ DEPENDENCIES
   autotest-rails-pure
   aws-s3
   aws-sdk
+  cancan
   chronic!
   codemirror-rails (~> 2.22)
   coffee-rails (~> 3.2.1)

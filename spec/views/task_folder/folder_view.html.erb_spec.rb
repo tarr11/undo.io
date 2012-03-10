@@ -1,10 +1,12 @@
 require 'spec_helper'
 include TaskFolderHelper
-describe "task_folder/folder_view" do
+include Devise::TestHelpers
 
+describe "task_folder/folder_view" do
+  login_user
 
   before (:each) do
-    user = Factory.create(:user)
+    user = view.current_user
     file = user.todo_files.create(Factory.attributes_for(:file))
     @views = []
     @changed_files_by_date = get_changed_files_by_date([file])

@@ -76,4 +76,7 @@ RSpec.configure do |config|
 
   #https://github.com/plataformatec/devise/wiki/How-To:-Controllers-and-Views-tests-with-Rails-3-(and-rspec)
   config.extend ControllerMacros, :type => :controller
+  config.extend ControllerMacros, :type => :helper
+  config.extend ControllerMacros, :type => :view
+
 end

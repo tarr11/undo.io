@@ -2,7 +2,7 @@
     <% @changed_files_by_date.each do |date_item| %>
       <li class="undo-divider"><%=date_item.first%></li>
       <% date_item.second.sort_by{|a| a.revision_at}.reverse.each do |file| %>
-            <%=render 'note_item', :file=>file, :changed_lines=>file.changed_lines, :wildcard_user_name => @wildcardUserName%>
+            <%=render 'note_item', :file=>file, :changed_lines=>file.changed_lines, :wildcard_user_name => @wildcardUserName, :viewing_user => current_user%>
       <% end %>
     <% end %>
 </ul>

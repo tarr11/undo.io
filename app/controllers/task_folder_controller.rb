@@ -12,6 +12,7 @@ class TaskFolderController < ApplicationController
     end
   end
 
+
   def home_view
 
    @public_files = TodoFile.find_by_is_public(true, :order=>"REVISION_AT desc")

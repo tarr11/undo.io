@@ -114,9 +114,6 @@ module TaskFolderHelper
     return parts.first
   end
 
-  def user_owns_file (file)
-    file.user.id != current_user.id
-  end
 
   def get_changed_files_by_date files
     return files
@@ -124,6 +121,11 @@ module TaskFolderHelper
           .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
           .reverse
   end
+
+  def user_owns_file file, current_user
+    return file.user.id == current_user.id
+  end
+
   def get_changed_files_by_folder files, path
 
     grouped_files = files

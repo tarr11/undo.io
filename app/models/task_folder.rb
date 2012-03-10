@@ -24,19 +24,10 @@ class TaskFolder
 
   def ensure_files
     if @files.nil?
-      @files = self.todo_files_recursive
+      @files = todo_files_recursive
     end
   end
 
-  def todo_files_recursive
-    temppath = @path
-    if !@path.starts_with?("/")
-      temppath = "/" + @path
-    end
-
-    return TodoFile.all(:include=>[:user,:copied_to, :copied_from], :conditions => ["user_id = ? AND filename LIKE ?", "#{user.id}", "#{temppath}%"]).sort_by{|a| a.path}
-
-  end
 
   def show_shared_only
     @files = user.files_shared_with_user
@@ -286,5 +277,17 @@ class TaskFolder
     allChanges
 
   end
+
+  private
+    def todo_files_recursive
+      temppath = @path
+      if !@path.starts_with?("/")
+        temppath = "/" + @path
+      end
+
+      return TodoFile.all(:include=>[:user,:copied_to, :copied_from], :conditions => ["user_id = ? AND filename LIKE ?", "#{user.id}", "#{temppath}%"]).sort_by{|a| a.path}
+
+    end
+
 
 end

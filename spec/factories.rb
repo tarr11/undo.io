@@ -28,6 +28,12 @@ Factory.define :file do |file|
   file.is_public  false
 end
 
+Factory.define :file2, :class=>TodoFile do |file|
+  file.filename   "/foo2"
+  file.contents   "This is a different file.\n! This is a task\nx! This is a completed task.\n This is a date 3/15/2012"
+  file.is_public  false
+end
+
 Factory.define :public_file, :class=>TodoFile do |file|
   file.filename   "/foo-public"
   file.contents   "This is a public file."

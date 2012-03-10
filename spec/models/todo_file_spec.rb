@@ -53,6 +53,12 @@ describe TodoFile do
         @file.shared_with_users.count.should eq(1)
       end
 
+      it 'shared user should see it in their folder' do
+        task_folder = @user2.task_folder
+        task_folder.show_shared_only()
+        task_folder.todo_files.length.should == 1
+      end
+
       describe "and other user copies file" do
 
         before (:each) do

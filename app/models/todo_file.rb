@@ -6,21 +6,19 @@ require 'diff/lcs/array'
 class TodoFile < ActiveRecord::Base
 
   belongs_to :user
-#  has_many :todo_lines
-  has_many :task_file_revisions
   belongs_to :copied_from, :class_name => "TodoFile", :foreign_key => "copied_from_id"
+
+  has_many :task_file_revisions
   has_many :copied_to, :class_name => "TodoFile", :foreign_key => "copied_from_id"
   has_many :shared_with_users, :through => :shared_files, :source=>:user
   has_many :shared_files
-  #belongs_to :copied_revision, :class_name=>"TaskFileRevision", :primary_key=>"copied_task_file_revision_id"
-  #has_one :current_revision, :class_name=>"TaskFileRevision"
+
   before_save do
     self.revision_at = Time.now.utc
   end
 
   after_save :save_revision, :update_dropbox
   serialize :diff
-
   attr_accessor :changed_lines
 
   searchable do
@@ -36,6 +34,8 @@ class TodoFile < ActiveRecord::Base
   validates_inclusion_of :is_public, :in => [true, false]
   validates_presence_of :filename, :contents, :user_id
   validates_uniqueness_of :filename, :scope => :user_id
+
+
 
   def current_revision
       task_file_revisions.last
@@ -91,30 +91,6 @@ class TodoFile < ActiveRecord::Base
       end
     end
     return false
-  end
-
-
-  #def self.pushChangesFromText(user, filename, text, revisionDate, revisionCode)
-  #  newFile = TodoFile.saveFile(user, filename, text,revisionDate, revisionCode)
-  #  #TodoFile.pushChanges(user, newFile)
-  #end
-
-  #def self.deleteFile(user, filename)
-  #  file = user.todo_files.find_by_filename(filename)
-  #  file.destroy
-  #end
-
-  #def self.deleteFromWeb(user, filename)
-  #  TodoFile.deleteFile user, filename
-  #  DropboxNavigator.delay(:queue=>'dropbox').DeleteFileInDropbox user, filename
-  #end
-
-  def merge_changes(file_to_merge)
-      # merges changes into this file
-      # make a patch from the version that the change was made against
-
-
-      # apply the patch
   end
 
   def merge(base_file, new_file, current_file)

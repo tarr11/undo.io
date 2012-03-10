@@ -375,7 +375,7 @@ class TaskFolderController < ApplicationController
     start_date= Date.today - 100.years
     end_date = DateTime.now.utc
     if (params[:q].nil?)
-      files = @taskfolder.todo_files_recursive
+      files = @taskfolder.todo_files
     else
       files = @taskfolder.search_for_changes(params[:q])
     end
@@ -406,7 +406,7 @@ class TaskFolderController < ApplicationController
     unless (params[:q].nil?)
       changed_files = @taskfolder.search_for_changes(params[:q])
     else
-      changed_files = @taskfolder.todo_files_recursive
+      changed_files = @taskfolder.todo_files
     end
     @changed_files_by_date = get_changed_files_by_date(changed_files)
 
@@ -474,44 +474,19 @@ class TaskFolderController < ApplicationController
     return result
   end
 
-  def get_diff_html(left_file_contents, right_file_contents, current_file_contents)
+  def get_diff_html(left_file, right_file)
 #
-    # find the change
-    dmp = DiffMatchPatch.new
-    dmp.patch_deleteThreshold=0.1
-    patches = dmp.patch_make(left_file_contents, right_file_contents)
+    file_comparer = FileComparer.new(left_file, right_file)
 
-
-    # push the change into current version
-    begin
-      merge_results = dmp.patch_apply(patches, current_file_contents)
-    rescue Exception
+    if file_comparer.merge_error?
       @merge_error = true
       return nil
     end
-
-    merged_contents = merge_results.shift
-    if merge_results.include?(false)
-      @merge_error = true
-      return nil
-    end
-
-    diff = dmp.diff_main(current_file_contents, merged_contents)
-    dmp.diff_cleanupSemantic(diff)
-
-    # now compare the current version to my version
-    mapped_diff = diff.map { |a|
-      OpenStruct.new(
-          :action=>a.first,
-          :changes=>a.second
-      )
-    }
-
 
     html = []
     html.push "<div>"
     diff_type = nil
-    tokenize_diff(mapped_diff) do |token|
+    file_comparer.tokenize do |token|
       if token[:token_type] == :action_start
           html.push '<span class="' + token[:diff_type].to_s + '">'
           diff_type = token[:diff_type]
@@ -566,42 +541,14 @@ class TaskFolderController < ApplicationController
       @show_edit_buttons = true
     end
 
-    unless params[:combined].nil?
-      @combined = true
-      new_file = patch_up(@file)
-      @compare_files = @file.new_replies
-      @diff_html =  get_diff_html(@file.contents, new_file, @file.contents)
-    end
-
     unless params[:compare].nil?
       @compare_file = get_file_from_path(params[:compare])
       unless @compare_file.user_id == current_user.id || @compare_file.is_public  || @compare_file.shared_with_users.include?(current_user)
         raise ActionController::RoutingError.new('Not Found')
       end
-
-      file_contents = @file.contents
-      compare_file_contents = @compare_file.contents
-
-      # one of these is copied from the other
-      if @compare_file.copied_from_id == @file.id
-        if @compare_file.copied_revision.nil?
-          @merge_error = true
-        else
-          @diff_html= get_diff_html(@compare_file.copied_revision.contents, @compare_file.contents, @file.contents)
-        end
-      elsif @file.copied_from_id == @compare_file.id
-        if @file.copied_revision.nil?
-          @merge_error = true
-        else
-          @diff_html= get_diff_html(@file.copied_revision.contents, @compare_file.contents,  @file.contents)
-        end
-      else
-        # nothing for now
-      end
-
+      @diff_html = get_diff_html(@file, @compare_file)
     end
 
-    #@note_activities = []
 
     if params[:rail] == "true"
       respond_to do |format|

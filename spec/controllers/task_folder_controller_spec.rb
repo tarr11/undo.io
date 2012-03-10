@@ -11,6 +11,31 @@ describe TaskFolderController do
     end
   end
 
+  describe "GET 'folder_view' /user?shared=y" do
+    it "should be successful" do
+      get :folder_view, :path => "/", :username=>subject.current_user.username, :shared=>'y'
+      task_folder = assigns(:taskfolder)
+      task_folder.should_not be_nil
+      response.should be_success
+    end
+
+    describe "when there is a file shared" do
+      before (:each) do
+          @user2 = Factory.create(:user2)
+          @file = @user2.todo_files.create(Factory.attributes_for(:file))
+          @file.share_with(subject.current_user)
+      end
+
+      it 'should find the file' do
+        get :folder_view, :path => "/", :username=>subject.current_user.username, :shared=>'y'
+        task_folder = assigns(:taskfolder)
+        task_folder.todo_files.length.should == 1
+        response.should be_success
+
+      end
+    end
+  end
+
   describe "GET 'folder_view' /user?q=foo" do
     it "should be successful" do
       get :folder_view, :path => "/", :username =>subject.current_user.username, :q=>"foo"

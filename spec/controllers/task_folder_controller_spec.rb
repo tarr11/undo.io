@@ -9,6 +9,21 @@ describe TaskFolderController do
       get :folder_view, :path => "/", :username=>subject.current_user.username
       response.should be_success
     end
+
+    describe "when a file is in a subfolder'" do
+      before (:each) do
+          @file = subject.current_user.todo_files.build(Factory.attributes_for(:file))
+          @file.filename = "/path/to/file"
+          @file.save!
+      end
+      it "should be visible" do
+        get :folder_view, :path => "/", :username=>subject.current_user.username
+        task_folder = assigns(:taskfolder)
+        task_folder.files.length.should == 1
+        response.should be_success
+
+      end
+    end
   end
 
   describe "GET 'folder_view' /user?shared=y" do
@@ -35,6 +50,8 @@ describe TaskFolderController do
       end
     end
   end
+
+
 
   describe "GET 'folder_view' /user?q=foo" do
     it "should be successful" do

@@ -375,7 +375,7 @@ class TaskFolderController < ApplicationController
     start_date= Date.today - 100.years
     end_date = DateTime.now.utc
     if (params[:q].nil?)
-      files = @taskfolder.todo_files
+      files = @taskfolder.files
     else
       files = @taskfolder.search_for_changes(params[:q])
     end
@@ -406,7 +406,7 @@ class TaskFolderController < ApplicationController
     unless (params[:q].nil?)
       changed_files = @taskfolder.search_for_changes(params[:q])
     else
-      changed_files = @taskfolder.todo_files
+      changed_files = @taskfolder.files
     end
     @changed_files_by_date = get_changed_files_by_date(changed_files)
 

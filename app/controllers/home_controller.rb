@@ -90,8 +90,12 @@ class HomeController < ApplicationController
     if user_signed_in?
       redirect_to "/" + current_user.username
     else
-      public_view
+      respond_to do |format|
+        format.html
+      end
+
     end
+
 
 
   end

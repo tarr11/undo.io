@@ -5,10 +5,10 @@ describe HomeController do
     describe "when logged in" do
       login_user
 
-      it "should be successful" do
+      it "should redirect" do
         TodoFile.stub(:search) {nil}
         get :index
-        response.should be_success
+        response.should be_redirect
       end
 
     end

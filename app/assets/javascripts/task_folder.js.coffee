@@ -20,6 +20,9 @@ getNewRightRail = ->
 
 
 $ ->
+  $('.note-container').masonry
+    itemSelector : '.note-box'
+
   $("a[rel=popover]")
       .popover
         html:true

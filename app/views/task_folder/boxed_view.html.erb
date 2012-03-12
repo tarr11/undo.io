@@ -4,41 +4,11 @@
 <% content_for :buttons do %>
     <%= button_to "New", {:controller => "task_folder", :action=>"new_file", :path=>(@path ||= '/'), :username=>current_user.username}, :class=>"btn primary"%>
 <% end %>
-<script>
-  $(function(){
-  $('.note-container').masonry({
-    // options
-    itemSelector : '.note-box'
-
-  });
-});
-
-</script>
 <div class="content">
   <div class="note-container">
     <%@changed_files_by_folder.each do |folder_item|%>
     <div class="note-box">
-       <ul style="margin-left:0">
-            <%
-               header_name = folder_item.first.nil? ? folder_item.second.first.task_folder.shortName: folder_item.first
-             if header_name.blank?
-                 header_name = "/"
-             end
-
-             if @wildcard_user_name
-                 user_name = "public"
-             else
-                 user_name = folder_item.second.first.user.username
-             end
-
-
-         %>
-         <li class="undo-new-header"><%=link_to header_name, :controller => "task_folder", :action=>"folder_view", :username=>user_name , :path=>folder_item.second.first.path%></li>
-         <% folder_item.second.sort_by{|a| a.revision_at}.reverse.each do |file| %>
-      <%=render 'task_folder/note_item', :file=>file %>
-         <% end %>
-       </ul>
-
+      <%= render 'task_folder/note_box_folder', :folder_item =>folder_item %>
      </div>
      <% end %>
   </div>

@@ -108,6 +108,24 @@ module TaskFolderHelper
 
     end
 
+  def get_folder_name(folder_item)
+    header_name = folder_item.first.nil? ? folder_item.second.first.task_folder.shortName: folder_item.first
+    if header_name.blank?
+        header_name = "/"
+    end
+    return header_name
+
+  end
+
+  def get_folder_username (folder_item)
+    if @wildcard_user_name
+        user_name = "public"
+    else
+        user_name = folder_item.second.first.user.username
+    end
+    return user_name
+
+  end
   def get_sub_folder(path, current_folder)
     nextPath = path.gsub(/^#{current_folder}/,"")
     parts = nextPath.split("/").reject{|c| c.empty?}

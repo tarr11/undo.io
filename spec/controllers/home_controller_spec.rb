@@ -5,13 +5,21 @@ describe HomeController do
     describe "when logged in" do
       login_user
 
-      it "should redirect" do
+      it "should be successful" do
         TodoFile.stub(:search) {nil}
         get :index
-        response.should be_redirect
+        response.should be_success
       end
 
+      describe "GET /public" do
+          it "should be successful" do
+            get :public_view
+            response.should be_success
+          end
+        end
+
     end
+
 
     describe "when not logged in" do
       it "should be successful" do

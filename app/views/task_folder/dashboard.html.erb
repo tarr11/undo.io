@@ -1,12 +1,44 @@
-<div class="row">
-  <div class="span4">
-    <h2>Recent notes</h2>
+<% content_for :stylesheet_includes do %>
+  <%= stylesheet_link_tag "task_folder"  %>
+<% end %>
+<div class="row-fluid">
+  <div class="span3">
+    <div class="span4 note-box">
+    <h2><%= link_to("My Notes", {:controller=>"task_folder", :action=>"folder_view", :username=>current_user.username}) %></h2>
+    </div>
+    <%@changed_files_by_folder.each do |folder_item|%>
+    <div class="note-box">
+      <%= render 'task_folder/note_box_folder', :folder_item =>folder_item %>
+     </div>
+     <% end %>
+    <div class="note-box">
+    <%= link_to("View all my notes", {:controller=>"task_folder", :action=>"folder_view", :username=>current_user.username}) %>
+    </div>
   </div>
-  <div class="span4">
-    <h2>Tasks and Events</h2>
-  </div>
-  <div class="span4">
-    <h2>Inbox</h2>
-  </div>
+  <div class="span9">
+    <div class="span4 main-content-box">
+      <h2>Organize</h2>
+      <ul>
+        <li><%= link_to "Create a note", url_for(:controller => "task_folder", :action=>"new_file", :path=>(@folder_path ||= '/'), :username=>current_user.username) ,:method=>"post"%></li>
+        <li>Make Todo Lists </li>
+        <li>Use dates and events</li>
+        <li>Make a slideshow</li>
+        <li>Organize your notes in folders</li>
+        <li>Sync to Dropbox</li>
+      </ul>
+    </div>
 
-</div>
+    <div class="span4 main-content-box">
+      <h2>Share</h2>
+      <ul>
+        <li><%= link_to "Explore public notes", "/public"%></li>
+        <li>Compare notes</li>
+        <li>Copy someone else's note into your own folder</li>
+        <li>Share notes with others</li>
+        <li>Publish your own notes to everyone</li>
+      </ul>
+     </div>
+
+  </div>
+ </div>
+

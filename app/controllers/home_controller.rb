@@ -75,6 +75,12 @@ class HomeController < ApplicationController
   end
 
   def dashboard_view
+
+    changed_files = current_user.todo_files.all(:order=> 'revision_at desc').first(3)
+
+    @changed_files_by_folder = changed_files
+          .group_by {|note| get_sub_folder(note.path,"/") }
+
     respond_to do |format|
       format.html {render 'task_folder/dashboard', :layout => 'application'}
     end
@@ -88,15 +94,13 @@ class HomeController < ApplicationController
   def index
 
     if user_signed_in?
-      redirect_to "/" + current_user.username
+      dashboard_view
     else
       respond_to do |format|
         format.html
       end
 
     end
-
-
 
   end
 

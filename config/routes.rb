@@ -14,9 +14,7 @@ Todo::Application.routes.draw do
 
 
   resources :todo_files
-
   match "public:path" => "home#public_view", :constraints => {:path=> /.*/}, :via => :get
-
   match 'file/complete_task' => 'task_folder#mark_task_completed', :via => [:put, :post]
 
   match ":username:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}, :via => :get

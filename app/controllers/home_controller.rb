@@ -45,6 +45,7 @@ class HomeController < ApplicationController
     @header = "Public Notes"
     @wildcard_user_name = true
     @path_parts = get_path_parts(false, path)
+    @is_public = true
 
     check_for_shared_notes
     respond_to do |format|

@@ -4,10 +4,8 @@
 
   <title><%=@header%> - ReplyInline</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
   <%= stylesheet_link_tag    "application" %>
-      <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "application" %>
   <%= yield :javascript_includes %>
   <%= yield :stylesheet_includes %>
   <%= csrf_meta_tags %>
@@ -39,9 +37,9 @@
                     <i class="icon-pencil"></i> New Note
                     <% end %>
                 <%end%>
-                <%=content_tag :li, :class => ((params[:username] == current_user.username && params[:shared] == nil) ? "active" : nil)  do%><%=link_to "My Notes", user_path(current_user)%><%end%>
+                <%=content_tag :li, :class => ((!@is_public && params[:username].nil?  || (params[:username] == current_user.username && params[:shared] == nil)) ? "active" : nil)  do%><%=link_to "My Notes", user_path(current_user)%><%end%>
                 <%=content_tag :li, :class => (params[:username] == current_user.username && params[:shared] == "y" ? "active" : nil)  do%><%=link_to "Inbox", url_for(:controller=>"task_folder", :action => "folder_view", :username=>current_user.username, :path => "/", :shared=>"y")%><%end%>
-                <%=content_tag :li, :class => (params[:username] != current_user.username ? "active" : nil)  do%><a href="/public">Public Notes</a><%end%>
+                <%=content_tag :li, :class => (@is_public ? "active" : nil)  do%><a href="/public">Public Notes</a><%end%>
               </ul>
               <div class="nav pull-right">
               <ul class="nav">

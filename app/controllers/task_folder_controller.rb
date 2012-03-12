@@ -1,7 +1,6 @@
 class TaskFolderController < ApplicationController
   before_filter :authenticate_user!
   include TaskFolderHelper
-  require 'diff_match_patch'
 
   def mark_task_completed
     current_user.file(params[:file_name]).mark_task_status(params[:line_number].to_i, params[:is_completed] == "true")

@@ -23,7 +23,7 @@ class HomeController < ApplicationController
 
   end
 
-  def boxed_view
+  def board_view
 
     results = TodoFile.search do
        keywords params[:q] ||= ""
@@ -74,22 +74,23 @@ class HomeController < ApplicationController
 
   end
 
+  def dashboard_view
+    respond_to do |format|
+      format.html {render 'task_folder/dashboard', :layout => 'application'}
+    end
+  end
+
+  def public_view
+    board_view
+  end
+
+
   def index
 
     if user_signed_in?
-
-      get_header_data
-
-      if params[:view] == "shared"
-        shared_view
-      else
-        boxed_view
-      end
+      redirect_to "/" + current_user.username
     else
-      respond_to do |format|
-        format.html # index.html.erb
-      end
-
+      public_view
     end
 
 

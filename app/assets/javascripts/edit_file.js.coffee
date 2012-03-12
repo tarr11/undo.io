@@ -25,12 +25,19 @@ initCodeMirror = () ->
       if lineHandle.indentation() == 0
         window.foldFunc cm, lineNum
 
+  window.saveDocument = (cm) ->
+    window.saveNew()
 
   window.myCodeMirror = CodeMirror.fromTextArea textArea,
     mode: "undo",
     lineWrapping: true,
     gutter: false,
-    extraKeys: {"Ctrl-Q": collapseSection, "Ctrl-M": window.collapseAll},
+    extraKeys: {
+        "Ctrl-Q": collapseSection,
+        "Ctrl-M": window.collapseAll,
+        "Alt-S": window.saveDocument,
+        "Alt-H": window.navigateHome
+        },
     onGutterClick: (cm, line, event) ->
       myCodeMirror.setCursor(line, 0)
       window.foldFunc(cm, line, event)
@@ -61,10 +68,6 @@ initCodeMirror = () ->
   window.lastContents = window.myCodeMirror.getValue()
   setInterval checkAutoSave, 1000
   window.myCodeMirror.focus()
-#  pos =
-#    line : 7
-#    ch : 1
-#  window.myCodeMirror.addWidget pos, document.getElementById('widget'), true
 
 
 $ ->

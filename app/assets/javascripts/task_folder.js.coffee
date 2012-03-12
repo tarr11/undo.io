@@ -3,6 +3,20 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 window.checkNewRightRail = false
+window.saveNew = ->
+  contents = window.myCodeMirror.getValue()
+  $('#savecontents').val(contents)
+  path = $('#current-path').val()
+  title = contents.split('\n')[0]
+  slug = convertToSlug(title)
+  if slug == ''
+    slug = 'new-file'
+
+  $('#filename').val(path + "/" + slug)
+  $('#save-modal').modal('show')
+
+window.navigateHome = ->
+  window.location.href = "/"
 
 getNewRightRail = ->
   if window.checkNewRightRail
@@ -64,18 +78,11 @@ $ ->
         window.open url, '_blank'
 
   $('#save-new').click (event) ->
-     event.preventDefault()
-     contents = window.myCodeMirror.getValue()
-     $('#savecontents').val(contents)
-     path = $('#current-path').val()
-     title = contents.split('\n')[0]
-     slug = convertToSlug(title)
-     if slug == ''
-       slug = 'new-file'
+    window.saveNew()
+    event.preventDefault()
 
-     $('#filename').val(path + "/" + slug)
-     $('#save-modal').modal('show')
-     $('#filename').focus()
+  $('#save-modal').on 'shown', (event) ->
+    $('#filename').focus()
 
   $('#confirm-save-file').click (event) ->
       $("#save-new-form")
@@ -86,7 +93,7 @@ $ ->
                window.location.href = data.location)
            .bind('ajax:error', (xhr, status, error) ->
              alert error)
-      $("#save-new-form").submit()
+      #$("#save-new-form").submit()
 
   $('.slide-link').click (event) ->
     $('html, body').animate({ scrollTop: 0 }, 0);

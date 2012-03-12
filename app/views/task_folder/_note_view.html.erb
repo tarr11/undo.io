@@ -1,6 +1,7 @@
 <% content_for :javascript_includes do %>
-    <%= javascript_include_tag "undo_mode" %>
+  <%= javascript_include_tag "undo_mode" %>
   <%= javascript_include_tag "edit_file"  %>
+  <%= javascript_include_tag "shortcuts/file"  %>
 
 <% end %>
 <% content_for :stylesheet_includes do %>
@@ -23,13 +24,13 @@
           <div class="clearfix">
           <div>Filename</div>
           <div class="input">
-                <input id="filename" name="filename" class="xlarge">
+                <input tabindex=1 id="filename" name="filename" class="xlarge">
           </div>
           </div>
       </div>
       <div class="modal-footer">
         <%=hidden_field_tag "savecontents"%>
-        <a href="#"  id="confirm-save-file" class="btn btn-primary">Save</a>
+        <input type="submit" id="confirm-save-file" class="btn btn-primary">
         <a href="#" id="cancel-save-file" class="btn secondary">Cancel</a>
       </div>
     </div>

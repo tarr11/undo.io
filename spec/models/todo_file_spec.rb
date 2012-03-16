@@ -33,7 +33,72 @@ describe TodoFile do
         @file.is_public.should be_false
       end
     end
+	
+	describe "and shared with another user" do
+		before (:each) do
+			@user2 = Factory.create(:user2)
+			@new_file = @file.get_copy_of_file(@user2)
+      @new_file.save!
+		end
 
+		it 'should be be in the inbox' do
+			@new_file.user_id.should == @user2.id
+			@new_file.filename.should == '/inbox/' + @user.username + @file.filename
+    end
+
+    it 'should have the original file as the thread source' do
+      @new_file.thread_source.should == @file
+      @new_file.thread_source_id.should == @file.id
+      @new_file.thread_source_id.should > 0
+    end
+
+    describe "and replied back to the first user" do
+      before (:each) do
+    			@reply = @new_file.get_copy_of_file(@user)
+          @reply.save!
+      end
+
+      it 'should be in replies' do
+        @reply.filename.should == @file.filename + "/replies/" + @user2.username
+        Rails.logger.debug "FILENAME:" + @reply.filename
+      end
+
+      it 'user should see reply in replies collection' do
+        @file.replies.length.should == 1
+      end
+
+      it 'should be owned by the recipient' do
+        @reply.user_id.should == @user.id
+      end
+
+      describe "and replied again back to the first user" do
+        before (:each) do
+            @reply2 = @new_file.get_copy_of_file(@user)
+            @reply2.save!
+        end
+        it 'should be in /replies folder' do
+          @reply2.filename.should == @file.filename + "/replies/" + @user2.username + "/2"
+          Rails.logger.debug "FILENAME:" + @reply2.filename
+        end
+
+        it 'user should see reply in replies collection' do
+          @file.replies.length.should == 2
+        end
+
+        it 'should be owned by the recipient' do
+          @reply2.user_id.should == @user.id
+        end
+
+      end
+
+    end
+		
+	end
+
+  end
+
+end
+=begin
     describe "and shared with another user" do
       before (:each) do
         @user2 = Factory.create(:user2)
@@ -104,10 +169,6 @@ describe TodoFile do
 
 
     end
+=end
 
 
-  end
-
-
-
-end

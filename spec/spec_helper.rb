@@ -12,7 +12,10 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
-
+  #https://github.com/sporkrb/spork/issues/37
+#   silence_warnings do
+#      Dir["#{Rails.root}/app/models/**/*.rb"].each {|f| load f}
+#  end
 end
 
 # --- Instructions ---
@@ -73,6 +76,7 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  config.include Devise::TestHelpers, :type => :view
 
   #https://github.com/plataformatec/devise/wiki/How-To:-Controllers-and-Views-tests-with-Rails-3-(and-rspec)
   config.extend ControllerMacros, :type => :controller

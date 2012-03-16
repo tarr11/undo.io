@@ -144,6 +144,15 @@ module TaskFolderHelper
     return file.user.id == current_user.id
   end
 
+  def is_copied_to_reply(file)
+    return false if current_user.nil?
+    file.copied_to.any?{|a| a.user_id == current_user.id}
+  end
+
+  def is_copied_from_reply(file)
+    return false if current_user.nil?
+    return !file.copied_from.nil?  && file.user.id != current_user.id && file.copied_from.user_id == current_user.id
+  end
   def get_changed_files_by_folder files, path
 
     grouped_files = files
@@ -226,17 +235,18 @@ module TaskFolderHelper
         if @file.nil?
 
             @taskfolder = @file_user.task_folder(path)
+	
             if @taskfolder.todo_files.length == 0 && path != "/"
                 raise ActionController::RoutingError.new('Not Found')
             end
 
-            if @file_user.id != current_user.id
+            if !owned_by_user?(@taskfolder)
               @taskfolder.show_public_only()
             end
 
             @header = @taskfolder.shortName
             if @taskfolder.shortName.blank?
-              if @file_user.id != current_user.id
+              if !owned_by_user?(@taskfolder)
                 @header = (@file_user.display_name ||= @file_user.username) + "'s Public Notes"
               else
                 @header = "My Notes"
@@ -290,7 +300,7 @@ module TaskFolderHelper
         @path = path
         unless @file.nil?
           @folder_path = @file.path
-          if @file.user_id != current_user.id
+          if !current_user.nil?  && @file.user_id != current_user.id
             # check if there's a user copy
             @user_copy = current_user.todo_files.find_by_copied_from_id(@file.id)
             if @user_copy.nil? && !@file.copied_from.nil?
@@ -307,14 +317,31 @@ module TaskFolderHelper
 
 
     def check_for_shared_notes
-      if current_user.alerts.length > 0
-        @has_new_shared_notes = true
+      if user_signed_in?
+        if current_user.alerts.length > 0
+          @has_new_shared_notes = true
+        end
       end
 
     end
 
+    def inbox_active_class
+      return "" if current_user.nil?
+      return (params[:username] == current_user.username && params[:shared] == "y" ? "active" : nil)
+    end
+    def my_notes_active_class
+      return "" if current_user.nil?
+      return ((!@is_public && params[:username].nil?  || (params[:username] == current_user.username && params[:shared] == nil)) ? "active" : nil)
+    end
+
     def user_path user
+      return "" if current_user.nil?
       url_for :controller=>"task_folder", :action => "folder_view", :username=>user.username, :path => "/"
+    end
+
+    def inbox_path
+      return "" if current_user.nil?
+      return url_for(:controller=>"task_folder", :action => "folder_view", :username=>current_user.username, :path => "/", :shared=>"y")
     end
 
     def task_folder_local_path folder
@@ -363,6 +390,9 @@ module TaskFolderHelper
 
 
     def get_related_tasks
+      @tasks_grouped = []
+
+      return [] if current_user.nil?
 
       task_list = @file.to_enum(:get_tasks).to_a
 
@@ -371,7 +401,6 @@ module TaskFolderHelper
 
       # roll up everything is nil
       temp_groups = @tasks
-      @tasks_grouped = []
       while(true)
         temp_groups.select{|a| a.nil?}.each{|a| @tasks_grouped.push(a)}
         temp_groups = temp_groups.select{|a| !a.nil?}.group_by{|a| (a.first.parent)}
@@ -415,12 +444,17 @@ module TaskFolderHelper
     end
 
 
+  def owned_by_user?(file_or_folder)
+    return false if current_user.nil?
+    return file_or_folder.user_id == current_user.id
+  end
    def get_shared_with
      @shared_with = @file.shared_with_users
    end
     def get_tagged
             # files with the same tags in any folder of mine
       @tagged = []
+      return [] if current_user.nil?
 
       these_tags = []
       @file.get_tag_notes do |note|
@@ -452,9 +486,10 @@ module TaskFolderHelper
     end
 
     def get_same_folder
+      @same_folder_notes = []
+      return [] if current_user.nil?
 
       # copies that have been published
-      @same_folder_notes = []
       # files in the same folder
       current_user.task_folder(@file.task_folder.path).todo_files.each do |file|
           if file.filename != @file.filename
@@ -480,6 +515,7 @@ module TaskFolderHelper
     end
 
     def get_related_tags
+      return [] if current_user.nil?
       tags = []
       # get a list of people, and all the notes that they are in
 
@@ -529,6 +565,7 @@ module TaskFolderHelper
       people = []
       # get a list of people, and all the notes that they are in
 
+      return [] if current_user.nil?
       these_peeps = []
       @file.get_person_notes do |note|
         note.people.each do |person|

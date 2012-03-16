@@ -1,6 +1,5 @@
 require 'spec_helper'
 include TaskFolderHelper
-include Devise::TestHelpers
 
 describe "task_folder/folder_view" do
   login_user

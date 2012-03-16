@@ -2,15 +2,15 @@
 <% if @is_new_file %>
       <a href="#" rel="popover" data-content="This note is not saved.  Click Save to make sure you don't lose any data." data-original-title="Not Saved">  <span class="label label-warning">Not saved</span></a>
 <% elsif @compare_file.nil?%>
-      <% if @file.user_id == current_user.id%>
+      <% if owned_by_user?(@file)%>
           <a href="#" rel="popover" data-content="This note is automatically saved as you type." data-original-title="Auto Save">  <span class="label">Auto saved</span></a>
       <% end %>
       <% if @file.is_public %>
           <a href="#" rel="popover" data-content="This note is publicly viewable.  <BR>To change, click Share and uncheck Make Public" data-original-title="Published">  <span class="label">Published</span></a>
       <% end%>
-      <%if @file.user_id == current_user.id && @file.shared_with_users.length > 0 %>
+      <%if owned_by_user?(@file) && @file.shared_with_users.length > 0 %>
           <a href="#" rel="popover" data-content="This note is shared with other users.  <BR>To change, click Share and change the list of shared users" data-original-title="Shared">  <span class="label">Shared</span></a>
-      <%elsif @file.user_id != current_user.id && @file.shared_with_users.include?(current_user)%>
+      <%elsif !owned_by_user?(@file) && @file.shared_with_users.include?(current_user)%>
           <a href="#" rel="popover" data-content="This note is shared with you.  <BR>To edit or reply, click Copy." data-original-title="Shared with you">  <span class="label">Shared with you</span></a>
       <% elsif !@file.is_public %>
           <a href="#" rel="popover" data-content="This note is private.  <BR>Only you can view it" data-original-title="Private">  <span class="label">Private</span></a>

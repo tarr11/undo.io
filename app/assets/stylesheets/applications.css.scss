@@ -98,3 +98,67 @@ UL.section-contents
       margin-bottom:1em;
   }
 
+
+.leader > H1
+{
+  font-size:40pt;
+}
+
+.highlight-box
+{
+  padding-top:20px;
+  padding-bottom:20px;
+  background-color: #FFFFFE;
+  -moz-box-shadow: 0 0 1px #888;
+  -webkit-box-shadow: 0 0 1px#888;
+    box-shadow: 0 0 1px #888;
+}
+
+.feature-list
+{
+  margin:auto;
+}
+
+.feature-box
+{
+  height:200px;
+  text-align: center;
+}
+
+.feature-box > h2
+{
+  font-size:24pt;
+}
+
+.leader
+{
+  margin-left:auto;
+  margin-right:auto;
+  text-align: center;
+  margin-top:30px;
+  margin-bottom:30px;
+
+
+}
+
+.feature-description
+{
+  margin-top:20px;
+  font-size:12pt;
+
+}
+
+.feature-list LI
+{
+  list-style: none;
+  text-align: left;
+  margin-left:20px;
+  line-height:20pt;
+}
+
+.explore-row
+{
+  margin-top:20px;
+  text-align: center;
+
+}

@@ -1,5 +1,4 @@
 class TaskFolderController < ApplicationController
-  before_filter :authenticate_user!
   include TaskFolderHelper
 
   def mark_task_completed
@@ -524,7 +523,8 @@ class TaskFolderController < ApplicationController
     get_same_folder
     get_shared_with
 
-    if @file.user.id == current_user.id
+
+    if !current_user.nil? && @file.user.id == current_user.id
       @owned_by_user = true
     else
       @owned_by_user = false
@@ -542,7 +542,7 @@ class TaskFolderController < ApplicationController
 
     unless params[:compare].nil?
       @compare_file = get_file_from_path(params[:compare])
-      unless @compare_file.user_id == current_user.id || @compare_file.is_public  || @compare_file.shared_with_users.include?(current_user)
+      unless (!current_user.nil? && @compare_file.user_id == current_user.id) || @compare_file.is_public  || @compare_file.shared_with_users.include?(current_user)
         raise ActionController::RoutingError.new('Not Found')
       end
       @diff_html = get_diff_html(@file,@compare_file)

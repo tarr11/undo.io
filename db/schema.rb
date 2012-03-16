@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120305034544) do
+ActiveRecord::Schema.define(:version => 20120316170804) do
 
   create_table "alerts", :force => true do |t|
     t.integer  "user_id"
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(:version => 20120305034544) do
     t.text     "diff"
     t.datetime "summary"
     t.datetime "published_at"
-    t.string   "revision_uuid",    :limit => nil
+    t.string   "revision_uuid"
   end
 
   create_table "tasks", :force => true do |t|
@@ -118,6 +118,8 @@ ActiveRecord::Schema.define(:version => 20120305034544) do
     t.datetime "published_at"
     t.integer  "copied_task_file_revision_id"
     t.integer  "current_task_file_revision_id"
+    t.integer  "thread_source_id"
+    t.integer  "reply_number"
   end
 
   create_table "todo_lines", :force => true do |t|

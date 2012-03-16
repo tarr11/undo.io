@@ -2,7 +2,9 @@
   <%= stylesheet_link_tag "task_folder"  %>
 <% end %>
 <% content_for :buttons do %>
+    <% if user_signed_in? %>
     <%= button_to "New", {:controller => "task_folder", :action=>"new_file", :path=>(@path ||= '/'), :username=>current_user.username}, :class=>"btn primary"%>
+    <% end %>
 <% end %>
 <div class="content">
   <div class="note-container">

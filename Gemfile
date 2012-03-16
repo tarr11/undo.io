@@ -6,13 +6,16 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
+#  gem "less-rails", "~> 2.1.4"
   gem 'twitter-bootstrap-rails',"~> 2.0.3"
+
 end
 
 group :test do
   # Pretty printed test output
   gem 'spork-rails'
   gem 'rspec-rails', '2.8'
+  gem 'guard-spork'
 end
 
 group :development do
@@ -26,7 +29,7 @@ group :development do
 end
 
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.2'
 gem 'jquery-rails'
 gem 'pg'
 

@@ -4,7 +4,6 @@ require 'sunspot/rails/spec_helper'
 describe TaskFolderController do
   login_user
 
-
   describe "GET 'folder_view' /user" do
     it "should be successful" do
       get :folder_view, :path => "/", :username=>subject.current_user.username
@@ -27,6 +26,7 @@ describe TaskFolderController do
     end
   end
 
+=begin
   describe "GET 'folder_view' /user?shared=y" do
     it "should be successful" do
       get :folder_view, :path => "/", :username=>subject.current_user.username, :shared=>'y'
@@ -51,6 +51,7 @@ describe TaskFolderController do
       end
     end
   end
+=end
 
 
 

@@ -7,6 +7,7 @@ class TodoFile < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :copied_from, :class_name => "TodoFile", :foreign_key => "copied_from_id"
+  belongs_to :thread_source, :class_name => "TodoFile", :foreign_key => "thread_source_id"
 
   has_many :task_file_revisions
   has_many :copied_to, :class_name => "TodoFile", :foreign_key => "copied_from_id"
@@ -17,9 +18,11 @@ class TodoFile < ActiveRecord::Base
     self.revision_at = Time.now.utc
   end
 
+  attr_accessible :filename, :contents, :is_public
+  attr_accessor :changed_lines
+
   after_save :save_revision, :update_dropbox
   serialize :diff
-  attr_accessor :changed_lines
 
   searchable do
     text :contents, :stored => true
@@ -38,16 +41,120 @@ class TodoFile < ActiveRecord::Base
 
 
   def current_revision
-      task_file_revisions.last
+	task_file_revisions.last
+  end
+
+  def get_copy_of_file(user)
+		
+
+	# copy from_user.file1 to to_user.file2
+		
+ 	# REPLY: If file1 is a copy of something to_user wrote, put the reply under /to_user/file1.copied_from.filename/replies
+		# filename does not include reply
+		# like username, there's a special column for the replies
+		# /[username]/path...path/[replies]
+		# todo_file = [user_id, path, reply_from_user_id, reply_number]
+		# file.copied_to(user).filename/replies/from_user/[n]
+			# ie., /doug/path/to/file/replies/jamy
+			# link that file to this one
+			# if this file exists, there may be multiple replies, we use the same logic as above to name it
+				# /doug/path/to/file/replies/jamy/2
+		# if this is a reply, to a reply, etc, it could be replying in the inbox etc
+			# /jamy/inbox/doug/path/to/file/replies/doug
+		# or it could be somewhere else if the linked file was moved
+			# /jamy/my/path/to/file/replies/doug
+
+	# FORWARDED: if file1 is a copy of file of by someone else, look to see if to_user already has that file 
+		# treat this as a reply to that note (append as a reply)
+			# Step1: doug creates file
+				# /doug/path/to/file
+			# Step2: doug sends to jamy, julie
+				# /jamy/inbox/doug/path/to/file
+				# /julie/inbox/doug/path/to/file
+			# Step3: julie forwards to elijah
+				# /elijah/inbox/doug/path/to/file/replies/julie
+			# Step4: jamy moves file
+				# /jamy/new/path/here
+			# Step5: elijah replies to julie, adds in jamy and doug
+				# /julie/doug/path/to/file/replies/elijah
+				# /jamy/new/path/here/replies/elijah
+				# /doug/path/to/file/replies/elijah
+			# Step6: doug replies to eli, julie, jamy
+				# /elijah/inbox/doug/path/to/file/replies/doug
+				# /julie/inbox/doug/path/to/file/replies/doug
+				# /jamy/new/path/here/replies/doug
+			# Step7: doug replies again to eli, julie, jamy
+				# /elijah/inbox/doug/path/to/file/replies/doug/2
+				# /julie/inbox/doug/path/to/file/replies/doug/2
+				# /jamy/new/path/here/replies/doug/2
+						
+		# file1.copied_from.find_copied_to_by_user_id(user2.user_id)
+		# /julie/inbox/doug/path/to/file/replies/jamy
+
+	# SEND: If file1 is not a copy of file2, we put this file in /user/inbox/from_user/filename by default
+		# ie., /jamy/inbox/doug/path/to/file
+
+	# we do not overwrite files, we create another
+		# /jamy/inbox/doug/path/to/file/2
+		# /jamy/inbox/doug/path/to/file/3
+		# this new file is linked back to the original file
+
+
+	# there are two links backwards
+	# one is the direct copied_from link, where this file was copied directly from
+	# this is used for seeing changes
+	# the other is the original source.  This determines where the note is placed (the "thread")
+	# this is just a cached file, and can be recalculated by walking the tree back to the source
+	# if that file exists, we append a number to it, until we can find one that doesn't exist
+  new_file = user.todo_files.new
+	new_file.copied_from = self
+  new_file.contents = self.contents
+  new_file.is_public = false
+
+	unless self.thread_source.nil?
+		# see if this user already has a file from this thread
+    original_source = user.todo_files.find_by_id(self.thread_source.id)
+    # from the original source
+    unless original_source.nil?
+      user_thread_source = original_source
+    else
+      user_thread_source = user.todo_files.find_by_thread_source_id_and_reply_number(self.thread_source_id,0)
+    end
+	end
+
+	if user_thread_source.nil?
+		new_file.filename = "/inbox/" + self.user.username + self.filename
+		new_file.thread_source = self
+		new_file.reply_number = 0
+  else
+ 		replies = user_thread_source.replies
+		if replies.length > 0
+     # Rails.logger.debug "Replies:" + replies.first
+			# There is probably a race condition RIGHT HERE (reply_number is a bad idea)
+			# I chose to ignore that fact while developing this code, as it is not that big of a deal right now 
+			reply_number = replies.sort_by{|a| a.reply_number}.reverse.first.reply_number + 1
+			new_file.filename = user_thread_source.filename + "/replies/" + self.user.username + "/" + reply_number.to_s
+		else
+			reply_number = 1
+			new_file.filename = user_thread_source.filename + "/replies/" + self.user.username
+		end
+		new_file.reply_number = reply_number
+    new_file.thread_source = self.thread_source
+	end
+
+	return new_file
+
+			
   end
 
   def share_with(user)
-    if user.shared_files.find_by_todo_file_id(self.id).nil?
-      user.shared_files.create! :todo_file => self
-    end
-    user.alerts.create! :message => SharedNoteAlert.new
+   
+	# create a new copy each time
+	  new_file = get_copy_of_file(user)
+    new_file.save!
+    user.alerts.create! :message => SharedNoteAlert.new 
     if user.allow_email
-      msg = UserMailer.shared_note(self.user, user, self)
+      msg = UserMailer.shared_note(self.user, user, new_file)
       msg.deliver
     end
   end
@@ -71,7 +178,11 @@ class TodoFile < ActiveRecord::Base
   end
 
   def replies
-    other_people_copies.select{|a| a.is_public == true || a.shared_with_users.include?(self.user)}
+    unless thread_source.nil?
+      self.user.todo_files.where(:thread_source_id=>self.thread_source_id)
+    else
+      self.user.todo_files.where(:thread_source_id=>self.id)
+    end
   end
 
   def new_replies

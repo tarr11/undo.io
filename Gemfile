@@ -16,9 +16,16 @@ group :test do
   gem 'spork-rails'
   gem 'rspec-rails', '2.8'
   gem 'guard-spork'
+  gem 'rspec'
+  gem 'growl'
+  gem 'rb-fsevent'
+  gem 'guard-spork'
+
 end
 
 group :development do
+  gem 'guard'
+  gem 'guard-rspec'
   gem 'turn', '~> 0.8.3', :require => false
   gem 'webrat', '0.7.3'
   gem 'therubyracer'

@@ -1,0 +1,36 @@
+How do we construct paths?
+i want it to work on both filesystems, and URLs
+this is the best one for now:
+/path/to/file
+/path/to/file_replies/
+/path/to/file_replies/jamy/1
+
+
+/path/to/file
+/path/to/file/replies
+if a file exists, we show it
+you can force directory view with /path/to/file?view=directory
+if not, we show a directory
+i don't like this
+
+/path/to/file2
+/path/to/file2_replies/
+/path/to/_file2/replies (that's ugly)
+
+
+
+
+OR:
+/path/to/file
+/path/to/file?replies=jamy
+
+OR:
+path/to/file
+path/to/file/replies
+if there is a replies directory, 
+
+
+OR:
+everything is a directory, with 1 file in it (weird)
+/path/to/file -> /path/to/file/index
+/path/to/file/replies/jamy/1 -> 

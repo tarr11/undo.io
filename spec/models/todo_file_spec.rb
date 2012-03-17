@@ -16,6 +16,37 @@ describe TodoFile do
       @file.current_revision.revision_uuid.should_not be_nil
     end
 
+    it "shouldn't be shared" do
+      @file.was_sent_to_other_user?.should be_false
+    end
+
+    describe "and is moved" do
+      before (:each) do
+        @file.move '/somewhere/else'
+      end
+
+      it 'should be in the new place' do
+        @file.filename.should == '/somewhere/else'
+      end
+      describe "and another file is created" do
+        before (:each) do
+          @file2 = @user.todo_files.create(Factory.attributes_for(:file2))
+          @file.move @file2.filename
+        end
+        
+        it 'should be successful' do
+          @file.should_not be_nil
+        end
+
+        it 'should be somewhere else' do
+          @file.filename.should_not == @file2.filename
+          @file.filename.should == '/foo2_1'
+        end
+      end
+
+       
+    end
+
     describe "and is_public is called" do
       before(:each) do
         @file.make_public()
@@ -33,24 +64,28 @@ describe TodoFile do
         @file.is_public.should be_false
       end
     end
-	
-	describe "and shared with another user" do
-		before (:each) do
-			@user2 = Factory.create(:user2)
-			@new_file = @file.get_copy_of_file(@user2)
-      @new_file.save!
-		end
+  	
+    describe "and shared with another user" do
+      before (:each) do
+        @user2 = Factory.create(:user2)
+        @new_file = @file.get_copy_of_file(@user2)
+        @new_file.save!
+      end
 
-		it 'should be be in the inbox' do
-			@new_file.user_id.should == @user2.id
-			@new_file.filename.should == '/inbox/' + @user.username + @file.filename
-    end
+      it 'should be be in the inbox' do
+        @new_file.user_id.should == @user2.id
+        @new_file.filename.should == '/inbox/' + @user.username + @file.filename
+                end
 
-    it 'should have the original file as the thread source' do
-      @new_file.thread_source.should == @file
-      @new_file.thread_source_id.should == @file.id
-      @new_file.thread_source_id.should > 0
-    end
+      it 'should have the original file as the thread source' do
+        @new_file.thread_source.should == @file
+        @new_file.thread_source_id.should == @file.id
+        @new_file.thread_source_id.should > 0
+      end
+
+      it 'should be shared' do
+        @file.was_sent_to_other_user?.should be_true
+      end
 
     describe "and replied back to the first user" do
       before (:each) do
@@ -59,7 +94,7 @@ describe TodoFile do
       end
 
       it 'should be in replies' do
-        @reply.filename.should == @file.filename + "/replies/" + @user2.username
+        @reply.filename.should == @file.filename + "/replies/" + @user2.username + "/reply-1"
         Rails.logger.debug "FILENAME:" + @reply.filename
       end
 
@@ -77,7 +112,7 @@ describe TodoFile do
             @reply2.save!
         end
         it 'should be in /replies folder' do
-          @reply2.filename.should == @file.filename + "/replies/" + @user2.username + "/2"
+          @reply2.filename.should == @file.filename + "/replies/" + @user2.username + "/reply-2"
           Rails.logger.debug "FILENAME:" + @reply2.filename
         end
 

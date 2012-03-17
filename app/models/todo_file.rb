@@ -38,14 +38,34 @@ class TodoFile < ActiveRecord::Base
   validates_presence_of :filename, :contents, :user_id
   validates_uniqueness_of :filename, :scope => :user_id
 
+  def get_new_filename(new_filename)
+    # suggests a new file name to avoid collisions
+    files = self.user.todo_files.where("filename like ?", new_filename).to_a
+    if files.length == 0
+      return new_filename
+    end
+    start_with = 1
+    while (true)
+      replacement_filename = new_filename + "_" + start_with.to_s
+     unless files.include?(replacement_filename) 
+       return replacement_filename
+     end
+     start_with += 1
+    end
+  end
+  def move(new_filename)
 
+      oldName = self.filename
+      self.filename = get_new_filename(new_filename)
+      return self.save!
+
+  end
 
   def current_revision
 	task_file_revisions.last
   end
 
   def get_copy_of_file(user)
-		
 
 	# copy from_user.file1 to to_user.file2
 		
@@ -107,12 +127,12 @@ class TodoFile < ActiveRecord::Base
 	# this is just a cached file, and can be recalculated by walking the tree back to the source
 	# if that file exists, we append a number to it, until we can find one that doesn't exist
   new_file = user.todo_files.new
-	new_file.copied_from = self
+  new_file.copied_from = self
   new_file.contents = self.contents
   new_file.is_public = false
 
-	unless self.thread_source.nil?
-		# see if this user already has a file from this thread
+  unless self.thread_source.nil?
+    # see if this user already has a file from this thread
     original_source = user.todo_files.find_by_id(self.thread_source.id)
     # from the original source
     unless original_source.nil?
@@ -120,37 +140,49 @@ class TodoFile < ActiveRecord::Base
     else
       user_thread_source = user.todo_files.find_by_thread_source_id_and_reply_number(self.thread_source_id,0)
     end
-	end
+  end
 
-	if user_thread_source.nil?
-		new_file.filename = "/inbox/" + self.user.username + self.filename
-		new_file.thread_source = self
-		new_file.reply_number = 0
-  else
- 		replies = user_thread_source.replies
-		if replies.length > 0
-     # Rails.logger.debug "Replies:" + replies.first
-			# There is probably a race condition RIGHT HERE (reply_number is a bad idea)
-			# I chose to ignore that fact while developing this code, as it is not that big of a deal right now 
-			reply_number = replies.sort_by{|a| a.reply_number}.reverse.first.reply_number + 1
-			new_file.filename = user_thread_source.filename + "/replies/" + self.user.username + "/" + reply_number.to_s
-		else
-			reply_number = 1
-			new_file.filename = user_thread_source.filename + "/replies/" + self.user.username
-		end
-		new_file.reply_number = reply_number
-    new_file.thread_source = self.thread_source
-	end
+    if user_thread_source.nil?
+      new_file.filename = "/inbox/" + self.user.username + self.filename
+      new_file.thread_source = self
+      new_file.reply_number = 0
+    else
+      replies = user_thread_source.replies
+      # Rails.logger.debug "Replies:" + replies.first
+      # There is probably a race condition RIGHT HERE (reply_number is a bad idea)
+      # I chose to ignore that fact while developing this code, as it is not that big of a deal right now 
+      if replies.length > 0
+        reply_number = replies.sort_by{|a| a.reply_number}.reverse.first.reply_number + 1
+      else
+        reply_number = 1
+      end 
+      new_file.filename = user_thread_source.filename + "/replies/" + self.user.username + "/reply-" + reply_number.to_s
+      new_file.reply_number = reply_number
+      new_file.thread_source = self.thread_source
+    end
 
-	return new_file
+    return new_file
 
 			
   end
 
+  def sent_to
+    sent_copies.map{|a| a.user}.uniq
+  end
+
+  def sent_copies    
+    TodoFile.where(:copied_from_id => self.id).select{|a| a.user_id != self.user_id}
+  end
+  
+  def was_sent_to_other_user?
+
+    return sent_copies.length > 0
+
+  end
   def share_with(user)
    
 	# create a new copy each time
-	  new_file = get_copy_of_file(user)
+    new_file = get_copy_of_file(user)
     new_file.save!
     user.alerts.create! :message => SharedNoteAlert.new 
     if user.allow_email
@@ -195,6 +227,9 @@ class TodoFile < ActiveRecord::Base
     return !copied_from.nil?
   end
 
+  def was_sent?
+    
+  end
   def has_replied?
     unless self.copied_from.nil?
       unless self.shared_with_users.select{|a| a.id == copied_from.user_id}.length == 0
@@ -300,7 +335,7 @@ class TodoFile < ActiveRecord::Base
   end
 
   def self.saveFile(user, filename, file, revisionDate, revisionCode)
-
+    # TODO: refactor this
     utfEncodedFile = encodeUtf8(file)
     # save the curent file
     todofile = user.todo_files.find_or_initialize_by_filename(filename)
@@ -506,14 +541,6 @@ class TodoFile < ActiveRecord::Base
       yield task
     end
   end
-
-  #def summary
-  #  if (self.notes.nil?)
-  #    return [""]
-  #  end
-  #  reader = StringIO.new(self.contents)
-  #  return [reader.gets]
-  #end
 
   def name
     self.filename

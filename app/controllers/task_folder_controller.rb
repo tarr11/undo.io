@@ -155,21 +155,21 @@ class TaskFolderController < ApplicationController
     get_header_data
     # if this is a file. move it
     unless @file.nil?
-      oldName = @file.filename
-      @file.filename = params[:filename]
-      if @file.save!
-        DropboxNavigator.delay(:queue=>'dropbox').move_file oldName, @file
-        respond_to do |format|
-          format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @file.filename, :username=>@file.user.username, notice: 'File was moved.' }
+      if @file.move(params[:filename]) 
+        if @file.save!
+          DropboxNavigator.delay(:queue=>'dropbox').move_file oldName, @file
+          respond_to do |format|
+            format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @file.filename, :username=>@file.user.username, notice: 'File was moved.' }
+          end
         end
       end
-    end
 
-    unless @taskfolder.nil?
-      oldName = @taskfolder.path
-      # find all files in this path, and change their names
-      # TODO: deal with overwriting
+      unless @taskfolder.nil?
+        oldName = @taskfolder.path
+        # find all files in this path, and change their names
+        # TODO: deal with overwriting
       end
+    end
   end
 
   def share

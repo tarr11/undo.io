@@ -449,7 +449,7 @@ module TaskFolderHelper
     return file_or_folder.user_id == current_user.id
   end
    def get_shared_with
-     @shared_with = @file.shared_with_users
+     @shared_with = @file.sent_to
    end
     def get_tagged
             # files with the same tags in any folder of mine

@@ -8,7 +8,7 @@
       <% if @file.is_public %>
           <a href="#" rel="popover" data-content="This note is publicly viewable.  <BR>To change, click Share and uncheck Make Public" data-original-title="Published">  <span class="label">Published</span></a>
       <% end%>
-      <%if owned_by_user?(@file) && @file.shared_with_users.length > 0 %>
+      <%if owned_by_user?(@file) && @file.was_sent_to_other_user?%>
           <a href="#" rel="popover" data-content="This note is shared with other users.  <BR>To change, click Share and change the list of shared users" data-original-title="Shared">  <span class="label">Shared</span></a>
       <%elsif !owned_by_user?(@file) && @file.shared_with_users.include?(current_user)%>
           <a href="#" rel="popover" data-content="This note is shared with you.  <BR>To edit or reply, click Copy." data-original-title="Shared with you">  <span class="label">Shared with you</span></a>

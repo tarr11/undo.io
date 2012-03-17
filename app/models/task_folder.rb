@@ -22,6 +22,15 @@ class TaskFolder
     return @files
   end
 
+  def move(new_location)
+    # moves folder and all sub-folders and files to a new location
+    files = todo_files_recursive
+    files.each do |file|
+      new_filename = file.filename.gsub(self.path, new_location)
+      file.move (new_filename)
+    end
+  end
+
   def user_id 
     @user.id
   end

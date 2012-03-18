@@ -22,13 +22,12 @@ module TaskFolderHelper
   end
 
   def get_shared_user_list
-    users = @file.shared_with_users.map {|a| a.username}
-    unless @file.copied_from.nil?
-      username = @file.copied_from.user.username
-      unless users.include?(username)
-        users.push username
-      end
+
+    if @file.reply_to.nil?
+      return ""
     end
+    users = []
+    users.push @file.reply_to.user.username
     return users.join(",")
   end
 

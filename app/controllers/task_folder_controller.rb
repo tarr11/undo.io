@@ -43,9 +43,10 @@ class TaskFolderController < ApplicationController
 
   def reply
     get_header_data
-    current_user.file(@file.filename).reply()
+    reply = @file.get_copy_of_file(current_user)
+    reply.save!
     respond_to do |format|
-      format.html {redirect_to :controller => "task_folder", :action=>"folder_view", :path=> @file.filename, :only_path=>true, :username =>@file.user.username }
+      format.html {redirect_to :controller => "task_folder", :action=>"folder_view", :path=> reply.filename, :only_path=>true, :username =>reply.user.username }
     end
   end
 
@@ -536,10 +537,15 @@ class TaskFolderController < ApplicationController
         @show_reply_button = true
     end
 
-    if params[:compare].nil?
+    if @file.is_read_only?
+      @show_copy_button = true
+    end
+ 
+    if !@show_copy_button && params[:compare].nil?
       @show_edit_buttons = true
     end
 
+   
     unless params[:compare].nil?
       @compare_file = get_file_from_path(params[:compare])
       unless (!current_user.nil? && @compare_file.user_id == current_user.id) || @compare_file.is_public  || @compare_file.shared_with_users.include?(current_user)

@@ -8,6 +8,7 @@ class TodoFile < ActiveRecord::Base
   belongs_to :user
   belongs_to :copied_from, :class_name => "TodoFile", :foreign_key => "copied_from_id"
   belongs_to :thread_source, :class_name => "TodoFile", :foreign_key => "thread_source_id"
+  belongs_to :reply_to, :class_name => "TodoFile", :foreign_key => "reply_to_id"
 
   has_many :task_file_revisions
   has_many :copied_to, :class_name => "TodoFile", :foreign_key => "copied_from_id"
@@ -131,6 +132,14 @@ class TodoFile < ActiveRecord::Base
   new_file.contents = self.contents
   new_file.is_public = false
 
+  if user != self.user
+    new_file.is_read_only = true
+    new_file.reply_to = self
+  else
+    # if you are copying your own file, you don't want to reply to yourself, you want to reply to whomever sent it
+    new_file.reply_to = self.reply_to
+  end
+  
   unless self.thread_source.nil?
     # see if this user already has a file from this thread
     original_source = user.todo_files.find_by_id(self.thread_source.id)
@@ -142,24 +151,23 @@ class TodoFile < ActiveRecord::Base
     end
   end
 
-    if user_thread_source.nil?
-      new_file.filename = "/inbox/" + self.user.username + self.filename
-      new_file.thread_source = self
-      new_file.reply_number = 0
+  if user_thread_source.nil?
+    new_file.filename = "/inbox/" + self.user.username + self.filename
+    new_file.thread_source = self
+    new_file.reply_number = 0
+  else
+    replies = user_thread_source.replies
+    # There is probably a race condition RIGHT HERE (reply_number is a bad idea)
+    # I chose to ignore that fact while developing this code, as it is not that big of a deal right now 
+    if replies.length > 0
+      reply_number = replies.sort_by{|a| a.reply_number}.reverse.first.reply_number + 1
     else
-      replies = user_thread_source.replies
-      # Rails.logger.debug "Replies:" + replies.first
-      # There is probably a race condition RIGHT HERE (reply_number is a bad idea)
-      # I chose to ignore that fact while developing this code, as it is not that big of a deal right now 
-      if replies.length > 0
-        reply_number = replies.sort_by{|a| a.reply_number}.reverse.first.reply_number + 1
-      else
-        reply_number = 1
-      end 
-      new_file.filename = user_thread_source.filename + "/replies/" + self.user.username + "/reply-" + reply_number.to_s
-      new_file.reply_number = reply_number
-      new_file.thread_source = self.thread_source
-    end
+      reply_number = 1
+    end 
+    new_file.filename = user_thread_source.filename + "/replies/" + self.user.username + "/reply-" + reply_number.to_s
+    new_file.reply_number = reply_number
+    new_file.thread_source = self.thread_source
+  end
 
     return new_file
 
@@ -264,7 +272,7 @@ class TodoFile < ActiveRecord::Base
 
   end
 
-  def reply()
+  def send_reply()
     # shares this version back to the original owner
     original_user = copied_from.user
     shared_item = original_user.shared_files.find_by_todo_file_id(self.id)

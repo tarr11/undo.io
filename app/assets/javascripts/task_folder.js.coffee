@@ -142,11 +142,7 @@ $ ->
     })
 
   $('#reply-button').click (event) ->
-    $('#reply-modal').modal({
-      keyboard: true,
-      show : true
-    })
-
+    $('#reply-form').submit()
 
   $('#unpublish-button').click (event) ->
     $('#unpublish-modal').modal({

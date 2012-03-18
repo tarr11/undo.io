@@ -2,7 +2,7 @@
 <% if @is_new_file %>
       <a href="#" rel="popover" data-content="This note is not saved.  Click Save to make sure you don't lose any data." data-original-title="Not Saved">  <span class="label label-warning">Not saved</span></a>
 <% elsif @compare_file.nil?%>
-      <% if owned_by_user?(@file)%>
+      <% if owned_by_user?(@file) && !@file.is_read_only%>
           <a href="#" rel="popover" data-content="This note is automatically saved as you type." data-original-title="Auto Save">  <span class="label">Auto saved</span></a>
       <% end %>
       <% if @file.is_public %>
@@ -15,7 +15,10 @@
       <% elsif !@file.is_public %>
           <a href="#" rel="popover" data-content="This note is private.  <BR>Only you can view it" data-original-title="Private">  <span class="label">Private</span></a>
       <% end %>
-      <% unless @file.copied_from.nil? %>
+       <% if @file.is_read_only %>
+          <a href="#" rel="popover" data-content="This note is read only.  <BR>Click copy to create a copy to edit." data-original-title="Read Only">  <span class="label">Read Only</span></a>
+      <% end %>
+     <% unless @file.copied_from.nil? %>
     <a href="#" rel="popover" data-content="This note was created as a copy of another note." data-original-title="Copy">  <span class="label">Copy</span></a>
       <% end %>
 

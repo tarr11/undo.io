@@ -75,7 +75,11 @@ describe TodoFile do
       it 'should be be in the inbox' do
         @new_file.user_id.should == @user2.id
         @new_file.filename.should == '/inbox/' + @user.username + @file.filename
-                end
+      end
+
+      it 'should be read-only' do 
+        @new_file.is_read_only.should be_true
+      end
 
       it 'should have the original file as the thread source' do
         @new_file.thread_source.should == @file
@@ -86,13 +90,33 @@ describe TodoFile do
       it 'should be shared' do
         @file.was_sent_to_other_user?.should be_true
       end
-
-    describe "and replied back to the first user" do
-      before (:each) do
-    			@reply = @new_file.get_copy_of_file(@user)
+      
+      it 'should have reply_to set back to the original file' do 
+        @new_file.reply_to.should_not be_nil
+        @new_file.reply_to.should == @file
+      end
+      
+      describe "and user creates a copy to reply back" do
+        before (:each) do
+          @reply = @new_file.get_copy_of_file(@user2)
           @reply.save!
+        end
+
+        it 'should have reply set back to the original file' do 
+          @reply.reply_to.should == @file
+        end
+
+        it 'should not be read only' do
+          @reply.is_read_only.should_not be_true
+        end
+
       end
 
+    end
+
+  end
+end
+=begin
       it 'should be in replies' do
         @reply.filename.should == @file.filename + "/replies/" + @user2.username + "/reply-1"
         Rails.logger.debug "FILENAME:" + @reply.filename
@@ -105,7 +129,8 @@ describe TodoFile do
       it 'should be owned by the recipient' do
         @reply.user_id.should == @user.id
       end
-
+=end
+=begin
       describe "and replied again back to the first user" do
         before (:each) do
             @reply2 = @new_file.get_copy_of_file(@user)
@@ -125,14 +150,7 @@ describe TodoFile do
         end
 
       end
-
-    end
-		
-	end
-
-  end
-
-end
+=end
 =begin
     describe "and shared with another user" do
       before (:each) do

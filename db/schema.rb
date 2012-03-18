@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316170804) do
+ActiveRecord::Schema.define(:version => 20120318191942) do
 
   create_table "alerts", :force => true do |t|
     t.integer  "user_id"
@@ -120,6 +120,8 @@ ActiveRecord::Schema.define(:version => 20120316170804) do
     t.integer  "current_task_file_revision_id"
     t.integer  "thread_source_id"
     t.integer  "reply_number"
+    t.boolean  "is_read_only"
+    t.integer  "reply_to_id"
   end
 
   create_table "todo_lines", :force => true do |t|

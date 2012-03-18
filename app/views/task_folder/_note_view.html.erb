@@ -65,7 +65,7 @@
                   <%= render 'editor_buttons' %>
               </div>
         </div>
-        <% if @owned_by_user && (@compare_file.nil? && !@combined)%>
+        <% if @owned_by_user && (@compare_file.nil? && !@combined) && !@file.is_read_only%>
           <div id="read-only-contents">
             <div class="editor-border"></div>
             <textarea id="editor"><%=@file.contents%></textarea>

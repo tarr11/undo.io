@@ -20,9 +20,9 @@
   <% if @owned_by_user && @file.copied_from.nil?%>
   <div style="margin-left:.5em; font-style: italic;color:gray;"> <i class="icon-pencil"></i> Created <%=time_ago_in_words(@file.created_at)%> ago</div>
   <% end %>
-  <% unless @file.copied_from.nil? %>
-    <div style="margin-left:.5em; font-style: italic;color:gray;"><i class="icon-download"></i> Copied from <%= link_to @file.copied_from.user.username, file_local_path(@file.copied_from) %> <%=time_ago_in_words(@file.created_at)%> ago</div>
-    <div style="margin-left:.5em; font-style: italic;color:gray;"><i class="icon-indent-left"></i> <%=link_to "Compare" ,url_for(:controller=>"task_folder", :action => "folder_view", :path=>@file.filename, :compare=>file_local_path(@file.copied_from))%></div>
+  <% unless @file.in_reply_to.nil? %>
+    <div style="margin-left:.5em; font-style: italic;color:gray;"><i class="icon-download"></i>In reply to <%= link_to file_local_path(@file.in_reply_to), file_local_path(@file.in_reply_to) %> <%=time_ago_in_words(@file.created_at)%> ago</div>
+    <div style="margin-left:.5em; font-style: italic;color:gray;"><i class="icon-indent-left"></i> <%=link_to "Compare" ,url_for(:controller=>"task_folder", :action => "folder_view", :path=>@file.filename, :compare=>file_local_path(@file.in_reply_to))%></div>
   <% end %>
 <% end %>
     </div>

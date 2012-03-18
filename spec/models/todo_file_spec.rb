@@ -68,7 +68,7 @@ describe TodoFile do
     describe "and shared with another user" do
       before (:each) do
         @user2 = Factory.create(:user2)
-        @new_file = @file.get_copy_of_file(@user2)
+        @new_file = @file.share_with(@user2)
         @new_file.save!
       end
 
@@ -110,6 +110,20 @@ describe TodoFile do
           @reply.is_read_only.should_not be_true
         end
 
+     
+        describe "and user shares it back to original user" do
+          before (:each) do
+            
+            @reply_back = @reply.share_with(@user)
+          end
+          it 'should be successful' do
+            @reply_back.should_not be_nil
+          end
+
+          it 'in_reply_to should point back to the original' do
+            @reply_back.in_reply_to.should == @file
+          end 
+        end
       end
 
     end

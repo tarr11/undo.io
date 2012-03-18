@@ -39,6 +39,17 @@ class TodoFile < ActiveRecord::Base
   validates_presence_of :filename, :contents, :user_id
   validates_uniqueness_of :filename, :scope => :user_id
 
+  def in_reply_to
+    # our note, that this note is in reply to
+    # user1.note -> user2.read_only_copy -> user2.writable_copy -> user1.reply
+    # this should find user1.note from user1.reply
+    if self.reply_to.nil?
+      return nil
+    end
+
+    return self.reply_to.reply_to
+  end
+
   def get_new_filename(new_filename)
     # suggests a new file name to avoid collisions
     files = self.user.todo_files.where("filename like ?", new_filename).to_a
@@ -197,6 +208,7 @@ class TodoFile < ActiveRecord::Base
       msg = UserMailer.shared_note(self.user, user, new_file)
       msg.deliver
     end
+    return new_file
   end
 
   def unshare_with(user)

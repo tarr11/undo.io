@@ -42,7 +42,8 @@ class TaskFolder
 
 
   def show_shared_only
-    @files = user.files_shared_with_user
+    # TODO: Figure out active record scopesj
+    @files = user.todo_files.includes(:copied_from).where(:is_read_only=>true).select{|a| !a.copied_from.nil? && a.copied_from.user_id != self.user_id}
 
   end
 

@@ -71,6 +71,7 @@
             <textarea id="editor"><%=@file.contents%></textarea>
           </div>
         <% else %>
+          <div class="editor-border"></div>
           <article id="read-only-contents" style="width:95%;margin: .5em;">
            <% unless @merge_error  %>
             <% unless @diff_html.nil? %>

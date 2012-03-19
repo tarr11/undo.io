@@ -37,10 +37,10 @@ describe TaskFolder do
       before(:each) do
         @folder.show_shared_only
       end
-      it 'should be successful' do
-
+      it 'should be empty' do
+        @folder.files.length.should == 0
       end
     end
-    end
+  end
 
 end

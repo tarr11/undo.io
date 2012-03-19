@@ -259,10 +259,8 @@ module TaskFolderHelper
         else
           @taskfolder = @file.task_folder
           @header = @file.shortName
-          @user_who_wrote_this = @file_user
-          if @file.is_read_only? && !@file.copied_from.nil?
-            @user_who_wrote_this = @file.copied_from.user
-          end
+          @user_who_wrote_this = @file.user_who_wrote_this
+
         end
 
 
@@ -449,10 +447,12 @@ module TaskFolderHelper
           activity = FileActivity.new
           activity.activity_type = :replies
           activity.file = a
+          activity.user = a.user_who_wrote_this
           activity.summary= a.summary
-          activity.published_at = a.published_at||=DateTime.now
+          activity.published_at = a.revision_at||=DateTime.now
           @replies.push(activity)
       }
+      @replies = @replies.sort_by{|a| a.published_at}.reverse
 
     end
 

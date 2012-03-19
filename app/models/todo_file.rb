@@ -213,6 +213,15 @@ class TodoFile < ActiveRecord::Base
     return new_file
   end
 
+  def user_who_wrote_this
+
+    if self.is_read_only? && !self.copied_from.nil?
+      return self.copied_from.user
+    end
+
+    return self.user
+
+  end
   def unshare_with(user)
     shared_file = user.shared_files.find_by_todo_file_id(self.id)
     shared_file.destroy()

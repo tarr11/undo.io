@@ -2,6 +2,29 @@ require 'spec_helper'
 
 describe TodoFile do
 
+  describe "When a file is created with / as the filename" do
+    before (:each) do
+      @user = Factory.create(:user)
+      @file = @user.todo_files.build(Factory.attributes_for(:file))
+      @file.filename = '/'
+    end
+    it 'should not succeed' do
+      lambda{@file.save!}.should raise_error
+    end
+  end
+  describe "When a file is created that is in multiple subdirectories" do
+    before (:each) do
+      @user = Factory.create(:user)
+      @file = @user.todo_files.build(Factory.attributes_for(:file))
+      @file.filename = '/foo/sub/sub2/path'
+      @file.save!
+    end
+    it 'should be found' do
+      task_folder = @user.task_folder('/foo/sub')
+      task_folder.files.length.should == 1
+    end
+  end
+
   describe "When a file is created" do
     before(:each) do
       @user = Factory.create(:user)

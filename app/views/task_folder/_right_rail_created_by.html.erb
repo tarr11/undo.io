@@ -2,7 +2,7 @@
 <li style="clear:both">
 <div style="float:left"><%=image_tag @file.user.avatar.url(:thumb)%></div>
 <div style="float:left;padding-left:1em;">
-  <h2><%=link_to @file_user.username, user_path(@file.user)%></h2>
+  <h2><%=link_to @user_who_wrote_this.username, user_path(@user_who_wrote_this)%></h2>
 
 <% if @is_new_file %>
       <div style="margin-left:.5em; font-style: italic;color:gray;"> <i class="icon-pencil"></i> New File</div>

@@ -79,8 +79,10 @@ class TaskFolder
   end
 
 
-  def todo_files
+  def todo_files_immediate
 
+    # this is just the files in the subdirectory
+    # this is a terrible name, FIX IT
     # select all files that don't have a slash after the path
     # for now, we put a trailing slash to symbolize a directory ....
 

@@ -15,15 +15,20 @@ class TodoFile < ActiveRecord::Base
   has_many :shared_with_users, :through => :shared_files, :source=>:user
   has_many :shared_files
 
+  validates_inclusion_of :is_public, :in => [true, false]
+  validates_presence_of :filename, :contents, :user_id
+  validates_uniqueness_of :filename, :scope => :user_id
+  # filename can't be "/"
+  validates :filename, :exclusion => { :in =>["/"], 
+    :message => "Filename %{value} is reserved." }
+  attr_accessible :filename, :contents, :is_public
+  attr_accessor :changed_lines
+  after_save :save_revision, :update_dropbox
+  serialize :diff
+
   before_save do
     self.revision_at = Time.now.utc
   end
-
-  attr_accessible :filename, :contents, :is_public
-  attr_accessor :changed_lines
-
-  after_save :save_revision, :update_dropbox
-  serialize :diff
 
   searchable do
     text :contents, :stored => true
@@ -35,9 +40,6 @@ class TodoFile < ActiveRecord::Base
   handle_asynchronously :solr_index, :queue => 'solr'
   handle_asynchronously :remove_from_index, :queue => 'solr'
 
-  validates_inclusion_of :is_public, :in => [true, false]
-  validates_presence_of :filename, :contents, :user_id
-  validates_uniqueness_of :filename, :scope => :user_id
 
   def in_reply_to
     # our note, that this note is in reply to

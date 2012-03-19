@@ -144,6 +144,7 @@ class TaskFolderController < ApplicationController
     @file_user = current_user
     @file.user = current_user
     @is_new_file = true
+    @user_who_wrote_this = current_user 
     @owned_by_user  = true
     @slides= []
     respond_to do |format|

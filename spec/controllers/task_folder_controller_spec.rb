@@ -26,6 +26,22 @@ describe TaskFolderController do
     end
   end
 
+  describe "GET 'folder_view' /file/new" do
+    before (:each) do
+      get :new_file, :username=>subject.current_user.username
+    end
+
+    it 'should be successful' do
+      response.should be_success
+    end 
+    it 'should have a user_who_created_this' do
+      user = assigns(:user_who_wrote_this) 
+      user.should_not be_nil
+    end
+
+
+  end
+
 =begin
   describe "GET 'folder_view' /user?shared=y" do
     it "should be successful" do
@@ -70,6 +86,19 @@ describe TaskFolderController do
         end.to raise_error(ActionController::RoutingError)
     end
 
+  end
+
+  describe "GET 'folder_view' /user/sub/file" do
+    before (:each) do
+      @file = subject.current_user.todo_files.build(Factory.attributes_for(:file))
+      @file.filename = '/user/sub/sub2/file'
+      @file.save!
+    end
+
+    it "should find the subfolder" do
+      get :folder_view, :path=>'/user/sub/', :username=>subject.current_user.username
+      response.should be_success 
+    end
   end
 
   describe "GET 'folder_view' /user/file" do

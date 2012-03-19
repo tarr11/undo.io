@@ -45,7 +45,7 @@
       <li class="nav-header">Files</li>
       <li class="file-hide-small nav-collapse">
       <ul class="nav section-contents files">
-           <% @files.sort_by{|a| a.shortName.downcase}.each do |file|%>
+           <% @files_alpha_sorted.each do |file|%>
             <li>
             <a href="<%= url_for :controller => "task_folder", :action=>"folder_view", :path=>file.filename, :username=>@file_user.username %>">
                 </i><%=file.shortName%>

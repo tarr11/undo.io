@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 describe TaskFolder do
+
+
+  describe "When there are no files" do
+    before(:each) do
+      @user = Factory.create(:user)
+    end
+    it 'should have a files collection that is not nill' do
+       @user.task_folder.should_not be_nil
+        @user.task_folder.files.should_not be_nil
+        @user.task_folder.files.length.should == 0
+    end
+  end
   describe "When a file is created" do
     before(:each) do
           @user = Factory.create(:user)

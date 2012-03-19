@@ -164,31 +164,8 @@ module TaskFolderHelper
   end
 
 
-
-
-    def get_header_data
-
-
-        @is_home_page = false
-        if params[:username].nil?
-          username = current_user.username
-          #home page
-          @is_home_page = true
-
-        else
-          username = params[:username]
-        end
-
-        @file_user = User.find_by_username(username)
-
-        if @is_home_page
-          @folders = []
-          @files = []
-          @people = []
-          return
-        end
-
-        @views = [
+    def get_views
+      @views = [
 
           OpenStruct.new(
               :id => nil,
@@ -212,7 +189,32 @@ module TaskFolderHelper
           )
         ]
 
+    end
+
+    def get_header_data
+
+
+        @is_home_page = false
+        if params[:username].nil?
+          username = current_user.username
+          #home page
+          @is_home_page = true
+
+        else
+          username = params[:username]
+        end
+
+        @file_user = User.find_by_username(username)
+
+        if @is_home_page
+          @folders = []
+          @files = []
+          @people = []
+          return
+        end
+
         path = "/"
+        get_views
         if (!params[:path].nil? && !params[:path].empty?)
              path = params[:path]
         end
@@ -235,7 +237,8 @@ module TaskFolderHelper
 
             @taskfolder = @file_user.task_folder(path)
 	
-            if @taskfolder.todo_files.length == 0 && path != "/"
+            if @taskfolder.files.length == 0 && path != "/"
+                logger.info 'debug:no files for '  + path
                 raise ActionController::RoutingError.new('Not Found')
             end
 
@@ -256,6 +259,10 @@ module TaskFolderHelper
         else
           @taskfolder = @file.task_folder
           @header = @file.shortName
+          @user_who_wrote_this = @file_user
+          if @file.is_read_only? && !@file.copied_from.nil?
+            @user_who_wrote_this = @file.copied_from.user
+          end
         end
 
 
@@ -278,7 +285,14 @@ module TaskFolderHelper
         @path_parts = get_path_parts(!@file.nil?, path)
         @only_path = true
         @folders = @taskfolder.task_folders
-        @files = @taskfolder.todo_files
+        @files = @taskfolder.files
+        logger.debug "DEBUG" + @taskfolder.files.length.to_s
+        @files.each do |a|
+          if a.shortName.nil?
+            logger.info "DEBUG filename:" + a.filename
+          end
+        end
+        @files_alpha_sorted = @files.sort_by{|a| a.shortName.downcase}.to_a
         @dataUrlBase = url_for(:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :trailing_slash => true, :only_path =>true, :username=>username)
         @hashPageId = path.sub("/","_")
 
@@ -490,7 +504,7 @@ module TaskFolderHelper
 
       # copies that have been published
       # files in the same folder
-      current_user.task_folder(@file.task_folder.path).todo_files.each do |file|
+      current_user.task_folder(@file.task_folder.path).todo_files_immediate.each do |file|
           if file.filename != @file.filename
             activity = FileActivity.new
             activity.activity_type = :same_folder

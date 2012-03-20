@@ -144,7 +144,7 @@ describe TodoFile do
           end
 
           it 'in_reply_to should point back to the original' do
-            @reply_back.in_reply_to.should == @file
+            @reply_back.in_reply_to.should == @file 
           end 
         end
       end

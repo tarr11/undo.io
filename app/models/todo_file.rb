@@ -45,13 +45,44 @@ class TodoFile < ActiveRecord::Base
     # our note, that this note is in reply to
     # user1.note -> user2.read_only_copy -> user2.writable_copy -> user1.reply
     # this should find user1.note from user1.reply
+
+    # there are 3 cases
+    # 1 - this was not copied from anything, return nil
     if self.reply_to.nil?
       return nil
     end
+    # 2 - copied from another of our files, return that
+    if !self.copied_from.nil? && self.copied_from.user_id == self.user_id
+      return self.copied_from
+    end
+    # 3 - copied from someone else's file.  the idea here is that
+    # we *may* have a copy of whatever they were replying to here
+    # so we try and find it in our files
+    # that we own, we can show that
+    if !self.copied_from.nil? && self.copied_from.user_id != self.user_id
+      reply = self.copied_from.reply_to
+      # this is not a reply to anything
+      if reply.nil?
+        return nil
+      end 
+      
+      # direct reply
+      if reply.user_id == self.user_id
+        return reply
+      end
+      # maybe something we were copied on
+      our_copy = self.user.todo_files.find_by_reply_to_id(reply.id)
+      unless our_copy.nil?
+        return our_copy
+      end
+      
+    end
 
-    return self.reply_to.reply_to
+    return nil
+
   end
 
+  
   def get_new_filename(new_filename)
     # suggests a new file name to avoid collisions
     files = self.user.todo_files.where("filename like ?", new_filename).to_a

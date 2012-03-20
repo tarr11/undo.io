@@ -9,15 +9,15 @@
 <% end %>
 <% unless @is_new_file%>
   <% if @file.is_public %>
-  <% unless @file.copied_from.nil? %>
-  <div style="margin-left:.5em;font-style:italic"><i class="icon-retweet"></i> in response to <%=link_to file_local_path(@file.copied_from), file_local_path(@file.copied_from)%></div>
-  <% end %>
+    <% unless @file.copied_from.nil? %>
+      <div style="margin-left:.5em;font-style:italic"><i class="icon-retweet"></i> in response to <%=link_to file_local_path(@file.copied_from), file_local_path(@file.copied_from)%></div>
+    <% end %>
 
-  <% if @file.copied_from.nil? %>
+    <% if @file.copied_from.nil? %>
       <div style="margin-left:.5em; font-style: italic;color:gray;"> <i class="icon-upload"></i> Published <%=time_ago_in_words(@file.published_at ||= DateTime.now)%> ago</div>
+    <% end %>
   <% end %>
-  <% end %>
-  <% if @owned_by_user && @file.copied_from.nil?%>
+  <% if @owned_by_user && @file.in_reply_to.nil?%>
   <div style="margin-left:.5em; font-style: italic;color:gray;"> <i class="icon-pencil"></i> Created <%=time_ago_in_words(@file.created_at)%> ago</div>
   <% end %>
   <% unless @file.in_reply_to.nil? %>

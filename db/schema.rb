@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120318191942) do
+ActiveRecord::Schema.define(:version => 20120322201859) do
 
   create_table "alerts", :force => true do |t|
     t.integer  "user_id"
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(:version => 20120318191942) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.boolean  "allow_email"
+    t.boolean  "is_registered"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

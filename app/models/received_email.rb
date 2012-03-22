@@ -44,8 +44,7 @@ class ReceivedEmail
     # if this email doesn't exist, we create a new user with this email
     # they will have an "unvalidated" flag of some kind
     if @from_user.nil?
-      return
-      @from_user = User.create_anonymous(self.from_email)
+      @from_user = User.create_anonymous_user(self.from_email)
     end
    
     # look for a thread-id somewhere (maybe in the headers or the footer)
@@ -71,7 +70,4 @@ class ReceivedEmail
     Rails.logger.debug "DEBUG:NIL:" + self.from_user_copy.nil?.to_s
   end
 
-  def create_anonymous_user(email)
-    return nil
-  end
 end

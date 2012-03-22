@@ -11,10 +11,23 @@ class User < ActiveRecord::Base
 
   attr_accessor :login
 
-  validates_uniqueness_of :username, :email
-  validates_presence_of :username, :email, :display_name
-  validates_presence_of :password, :on => :create
+  with_options :if => :is_registered_user? do |user|
+    user.validates_uniqueness_of :username, :email
+    user.validates_presence_of :username, :email, :display_name
+    user.validates_presence_of :password, :on => :create
+  end
 
+  # user who hasn't registrered, and came in via email
+  with_options :if => :is_not_registered_user? do |user|
+    user.validates_presence_of :email 
+    user.validates_uniqueness_of :email
+  end
+
+  before_validation(:on => :create) do
+    unless self.username.nil?
+      self.is_registered = true
+    end
+  end
   has_many :client_applications
   has_many :tokens, :class_name => "OauthToken", :order => "authorized_at desc", :include => [:client_application]
   has_many :todo_files
@@ -40,8 +53,24 @@ class User < ActiveRecord::Base
 
   before_create :whitelisted, :if => :is_production?
 
+  def active_for_authentication?
+    super && is_registered_user? 
+  end
+  
+  def inactive_message
+    is_registered_user? ? super : :special_condition_is_not_valid
+  end
+  
   def is_production?
     return Rails.env.production?
+  end
+
+  def is_registered_user?
+    return self.is_registered
+  end
+
+  def is_not_registered_user?
+    return !self.is_registered
   end
 
    def self.find_for_database_authentication(warden_conditions)
@@ -82,6 +111,23 @@ class User < ActiveRecord::Base
     note.is_public = false
     return note
 
+  end
+  def user_folder_name
+    if is_registered?
+      return self.username
+    else
+      return self.email
+    end
+  end
+  def self.create_anonymous_user(email)
+      user = User.new 
+      user.email = email
+      # should probably find a non-hacky way to do this
+      # if is_registered=false, they can't login, so it doesn't matter what this pwd is
+      user.password = "123456"
+      user.is_registered = false 
+      user.save!
+      return user 
   end
 
   def task_folder (path="/")

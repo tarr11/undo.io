@@ -300,7 +300,7 @@ class TaskFolder
         temppath = "/" + @path
       end
 
-      return TodoFile.all(:include=>[:user,:copied_to, :copied_from], :conditions => ["user_id = ? AND filename LIKE ?", "#{user.id}", "#{temppath}%"]).sort_by{|a| a.path}
+      return TodoFile.all(:include=>[:user,:copied_to, :copied_from], :conditions => ["todo_files.user_id = ? AND todo_files.filename LIKE ?", "#{user.id}", "#{temppath}%"]).sort_by{|a| a.path}
 
     end
 

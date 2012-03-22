@@ -19,7 +19,13 @@ class EmailController < ApplicationController
        filename = stream.original_filename
        data = stream.read()
      end
-     @received_email = ReceivedEmail.new(sender, recipient, subject, body_plain, body_stripped) 
+     @received_email = ReceivedEmail.new.tap do |a|
+       a.from = sender
+       a.to = recipient
+       a.subject = subject
+       a.body_stripped = body_stripped
+       a.body_plain = body_plain
+     end  
      @received_email.process
      render :text => "OK"
 

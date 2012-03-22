@@ -59,6 +59,29 @@ class User < ActiveRecord::Base
   end
 
 
+  def suggest_filename(filename)
+    # suggests a new file name to avoid collisions
+    files = self.todo_files.where("filename like ?", filename).to_a
+    if files.length == 0
+      return filename
+    end
+    start_with = 1
+    while (true)
+      replacement_filename = filename + "_" + start_with.to_s
+     unless files.include?(replacement_filename) 
+       return replacement_filename
+     end
+     start_with += 1
+    end
+  end
+
+  def build_note(subject, body)
+    note = self.todo_files.new
+    note.filename = suggest_filename("/" + subject)
+    note.contents = body
+    return note
+
+  end
 
   def task_folder (path="/")
     TaskFolder.new(self, path)

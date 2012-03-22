@@ -1,24 +1,24 @@
 require 'active_model'
-
+require 'active_support'
 class ReceivedEmail
   include ActiveModel::Validations
-  attr_accessor :from, :to, :body_plain, :body_stripped, :subject
+  attr_accessor :from, :to, :body_plain, :body_stripped, :subject, :from_user, :to_user, :from_user_copy, :to_user_copy
   validates_presence_of  :from, :to, :body_plain, :body_stripped, :subject
 
-  def initialize(from, to, subject, body_plain, body_stripped)  
-    self.from = from
-    self.to = to
-    self.body_plain = body_plain
-    self.body_stripped = body_stripped
-    self.subject = subject
-  end  
 
-  def from_email
-    self.from.scan(/<.*>/).first
+  def self.extract_email(email_string)
+
+    match = email_string.match(/<(?<email>.*)>/)
+    unless match.nil?
+      return match["email"]
+    end
   end
 
+  def from_email
+    ReceivedEmail.extract_email(@from)
+  end
   def to_email
-    self.to.scan(/<.*>/).first
+    ReceivedEmail.extract_email(@to)
   end
 
   def reply_to_id
@@ -33,18 +33,19 @@ class ReceivedEmail
 
     # find the user with this email
 
-    from_user = User.find_by_email(self.from_email)
-    to_user = User.find_by_email(self.to_email)
+    Rails.logger.debug "DEBUG-EMAIL:" + self.to_email
+    @from_user = User.find_by_email(self.from_email)
+    @to_user = User.find_by_email(self.to_email)
     
     # send to someone who doesn't exist
-    if to_user.nil?
+    if @to_user.nil?
       return
     end
     # if this email doesn't exist, we create a new user with this email
     # they will have an "unvalidated" flag of some kind
-    if from_user.nil?
+    if @from_user.nil?
       return
-      from_user = User.create_anonymous(self.from_email)
+      @from_user = User.create_anonymous(self.from_email)
     end
    
     # look for a thread-id somewhere (maybe in the headers or the footer)
@@ -55,22 +56,18 @@ class ReceivedEmail
       reply_to = TodoFiles.find_by_id(self.reply_to_id)
       unless reply_to.nil?
         # create a copy that the from user sent
-        from_user_copy = reply_to.get_copy_of_file(from_user)        
-        from_user_copy.contents = self.body_plain
-        from_user_copy.save!
+        @from_user_copy = reply_to.get_copy_of_file(@from_user)        
+        @from_user_copy.contents = self.body_plain
         # now share that with the new user
-        to_user_copy = from_user_copy.share_with(to_user)
+        @to_user_copy = from_user_copy.share_with(@to_user)
       end
     end
 
     # we couldn't find that one
-    if from_user_copy.nil?
-      from_user_copy = from_user.create_note(subject, body_plain)
-      to_user_copy = from_user_copy.share_with(to_user)
+    if @from_user_copy.nil?
+      @from_user_copy = @from_user.build_note(subject, body_plain)
+      @to_user_copy = @from_user_copy.share_with(@to_user)
     end
-     
-    # recipient gets notified 
-    to_user_copy.notify
 
   end
 

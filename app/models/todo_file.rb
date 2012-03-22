@@ -83,25 +83,10 @@ class TodoFile < ActiveRecord::Base
   end
 
   
-  def get_new_filename(new_filename)
-    # suggests a new file name to avoid collisions
-    files = self.user.todo_files.where("filename like ?", new_filename).to_a
-    if files.length == 0
-      return new_filename
-    end
-    start_with = 1
-    while (true)
-      replacement_filename = new_filename + "_" + start_with.to_s
-     unless files.include?(replacement_filename) 
-       return replacement_filename
-     end
-     start_with += 1
-    end
-  end
   def move(new_filename)
 
       oldName = self.filename
-      self.filename = get_new_filename(new_filename)
+      self.filename = self.user.suggest_filename(new_filename)
       return self.save!
 
   end

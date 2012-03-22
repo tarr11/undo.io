@@ -181,7 +181,7 @@ class TodoFile < ActiveRecord::Base
   end
 
   if user_thread_source.nil?
-    new_file.filename = "/inbox/" + self.user.username + self.filename
+    new_file.filename = user.suggest_filename("/inbox/" + self.user.username + self.filename)
     new_file.thread_source = self
     new_file.reply_number = 0
   else
@@ -193,7 +193,7 @@ class TodoFile < ActiveRecord::Base
     else
       reply_number = 1
     end 
-    new_file.filename = user_thread_source.filename + "/replies/" + self.user.username + "/reply-" + reply_number.to_s
+    new_file.filename = user.suggest_filename(user_thread_source.filename + "/replies/" + self.user.username + "/reply-" + reply_number.to_s)
     new_file.reply_number = reply_number
     new_file.thread_source = self.thread_source
   end

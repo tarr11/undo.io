@@ -12,7 +12,7 @@ Todo::Application.routes.draw do
   match '/settings' => 'user#update', :via => [:put, :post]
   match '/settings' => 'user#show'
 
-
+  match '/email' => 'email#post', :via => :post
   resources :todo_files
   match "public:path" => "home#public_view", :constraints => {:path=> /.*/}, :via => :get
   match 'file/complete_task' => 'task_folder#mark_task_completed', :via => [:put, :post]

@@ -68,7 +68,7 @@ class ReceivedEmail
       @from_user_copy = @from_user.build_note(subject, body_plain)
       @to_user_copy = @from_user_copy.share_with(@to_user)
     end
-
+    Rails.logger.debug "DEBUG:NIL:" + self.from_user_copy.nil?.to_s
   end
 
   def create_anonymous_user(email)

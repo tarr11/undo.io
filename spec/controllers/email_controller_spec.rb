@@ -3,7 +3,9 @@ require 'spec_helper'
 describe EmailController do
   describe "POST 'post'" do
     before (:each) do
-      post :post, :from=>"Douglas Tarr <doug@example.com>", :recipient => "J'Amy Tarr <jamytarr@gmail.com>", :subject => "Test", "stripped-text"=>"this is a test","body-plain"=>"this is a test" 
+      @from_user = Factory.create(:user)
+      @to_user = Factory.create(:user2)
+      post :post, :from=>"Douglas Tarr <doug@example.com>", :recipient => "J'Amy Tarr <jamy@example.com>", :subject => "Test", "stripped-text"=>"this is a test","body-plain"=>"this is a test" 
     end
 
     it 'should be successful' do

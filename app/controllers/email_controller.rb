@@ -27,6 +27,8 @@ class EmailController < ApplicationController
        a.body_plain = body_plain
      end  
      @received_email.process
+     @received_email.from_user_copy.save!
+     @received_email.to_user_copy.save!
      render :text => "OK"
 
    end

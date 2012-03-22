@@ -79,6 +79,7 @@ class User < ActiveRecord::Base
     note = self.todo_files.new
     note.filename = suggest_filename("/" + subject)
     note.contents = body
+    note.is_public = false
     return note
 
   end

@@ -21,7 +21,7 @@ describe User do
   describe ' When an anonymous user is created' do
     before (:each) do 
       @user = User.new
-      @user.email = "foo@bar.com"
+      @user.unverified_email = "foo@bar.com"
       @user.password = '123456'
       @user.save!
     end

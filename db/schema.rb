@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120322201859) do
+ActiveRecord::Schema.define(:version => 20120322221605) do
 
   create_table "alerts", :force => true do |t|
     t.integer  "user_id"
@@ -160,6 +160,7 @@ ActiveRecord::Schema.define(:version => 20120322201859) do
     t.datetime "avatar_updated_at"
     t.boolean  "allow_email"
     t.boolean  "is_registered"
+    t.string   "unverified_email"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

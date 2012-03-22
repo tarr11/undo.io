@@ -44,7 +44,12 @@ class ReceivedEmail
     # if this email doesn't exist, we create a new user with this email
     # they will have an "unvalidated" flag of some kind
     if @from_user.nil?
-      @from_user = User.create_anonymous_user(self.from_email)
+      # check if they are unverified
+      @from_user = User.find_by_unverified_email(self.from_email)
+      if @from_user.nil?
+        @from_user = User.create_anonymous_user(self.from_email)
+      end
+      # unverified users can only send to people that have sent to them, no unsolicited inbound requests
     end
    
     # look for a thread-id somewhere (maybe in the headers or the footer)

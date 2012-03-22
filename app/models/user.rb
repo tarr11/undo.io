@@ -1,26 +1,26 @@
 class User < ActiveRecord::Base
 
+ devise :registerable,:confirmable,:database_authenticatable,
+            :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
+
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, , :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,  :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
-
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :time_zone, :username,:login, :display_name, :allow_email
 
   attr_accessor :login
 
   with_options :if => :is_registered_user? do |user|
-    user.validates_uniqueness_of :username, :email
+      user.validates_uniqueness_of :username, :email
     user.validates_presence_of :username, :email, :display_name
     user.validates_presence_of :password, :on => :create
   end
 
-  # user who hasn't registrered, and came in via email
+  # user who hasn't registered, and came in via email
   with_options :if => :is_not_registered_user? do |user|
-    user.validates_presence_of :email 
-    user.validates_uniqueness_of :email
+    user.validates_presence_of :unverified_email 
+    user.validates_uniqueness_of :unverified_email
   end
 
   before_validation(:on => :create) do
@@ -57,6 +57,10 @@ class User < ActiveRecord::Base
     super && is_registered_user? 
   end
   
+  def email_required?
+    return is_registered
+  end 
+
   def inactive_message
     is_registered_user? ? super : :special_condition_is_not_valid
   end
@@ -116,12 +120,12 @@ class User < ActiveRecord::Base
     if is_registered?
       return self.username
     else
-      return self.email
+      return self.unverified_email
     end
   end
   def self.create_anonymous_user(email)
       user = User.new 
-      user.email = email
+      user.unverified_email = email
       # should probably find a non-hacky way to do this
       # if is_registered=false, they can't login, so it doesn't matter what this pwd is
       user.password = "123456"

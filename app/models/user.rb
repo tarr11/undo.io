@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   def thumbnail
   end
 
-  before_create :whitelisted, :if => :is_production?
+  before_create :whitelisted, :if => :check_whitelist?
 
   def active_for_authentication?
     super && is_registered_user? 
@@ -64,9 +64,18 @@ class User < ActiveRecord::Base
   def inactive_message
     is_registered_user? ? super : :special_condition_is_not_valid
   end
-  
+ 
+  def check_whitelist?
+
+     if is_not_registered_user?
+       return false
+     end
+      if Rails.env.production?
+        return true 
+      end
+      return false
+  end 
   def is_production?
-    return Rails.env.production?
   end
 
   def is_registered_user?

@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :encryptable, , :lockable, :timeoutable and :omniauthable
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :time_zone, :username,:login, :display_name, :allow_email
+    devise :registerable,:database_authenticatable,:confirmable,
+            :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
+
 
   attr_accessor :login
 
@@ -12,9 +15,6 @@ class User < ActiveRecord::Base
     user.validates_uniqueness_of :username, :email
     user.validates_presence_of :username, :email, :display_name
     user.validates_presence_of :password, :on => :create
-    devise :registerable,:database_authenticatable,:confirmable,
-            :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
-
    
   end
 
@@ -146,6 +146,7 @@ class User < ActiveRecord::Base
       # if is_registered=false, they can't login, so it doesn't matter what this pwd is
       user.password = "123456"
       user.is_registered = false 
+      user.skip_confirmation!
       user.save!
       return user 
   end

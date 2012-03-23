@@ -238,7 +238,6 @@ module TaskFolderHelper
             @taskfolder = @file_user.task_folder(path)
 	
             if @taskfolder.files.length == 0 && path != "/"
-                logger.info 'debug:no files for '  + path
                 raise ActionController::RoutingError.new('Not Found')
             end
 
@@ -284,7 +283,6 @@ module TaskFolderHelper
         @only_path = true
         @folders = @taskfolder.task_folders
         @files = @taskfolder.files
-        logger.debug "DEBUG" + @taskfolder.files.length.to_s
         @files.each do |a|
           if a.shortName.nil?
             logger.info "DEBUG filename:" + a.filename

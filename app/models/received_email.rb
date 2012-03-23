@@ -1,5 +1,7 @@
 require 'active_model'
 require 'active_support'
+require 'email_veracity'
+
 class ReceivedEmail
   include ActiveModel::Validations
   attr_accessor :from, :to, :body_plain, :body_stripped, :subject, :from_user, :to_user, :from_user_copy, :to_user_copy
@@ -17,8 +19,10 @@ class ReceivedEmail
   def from_email
     ReceivedEmail.extract_email(@from)
   end
-  def to_email
-    ReceivedEmail.extract_email(@to)
+
+  def to_username
+    email = ReceivedEmail.extract_email(@to)
+    email.split('@')[0]
   end
 
   def reply_to_id
@@ -32,10 +36,8 @@ class ReceivedEmail
   def process
 
     # find the user with this email
-
-    Rails.logger.debug "DEBUG-EMAIL:" + self.to_email
     @from_user = User.find_by_email(self.from_email)
-    @to_user = User.find_by_email(self.to_email)
+    @to_user = User.find_by_username(self.to_username)
     
     # send to someone who doesn't exist
     if @to_user.nil?
@@ -72,7 +74,6 @@ class ReceivedEmail
       @from_user_copy = @from_user.build_note(subject, body_plain)
       @to_user_copy = @from_user_copy.share_with(@to_user)
     end
-    Rails.logger.debug "DEBUG:NIL:" + self.from_user_copy.nil?.to_s
   end
 
 end

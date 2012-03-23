@@ -39,7 +39,6 @@ describe TaskFolderController do
       user.should_not be_nil
     end
 
-
   end
 
 =begin
@@ -129,6 +128,14 @@ describe TaskFolderController do
       end
     end
 
+    describe "PUT 'update' /user/file :method=>'share'" do
+      before (:each) do
+        put :update, :path => @file.filename, :username => subject.current_user.username, :method => :share, :shared_user_list => "nonregistereduser@example.com"
+      end
+      it 'should be successful' do
+        response.should be_redirect
+      end
+    end
   end
 
 

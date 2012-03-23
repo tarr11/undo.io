@@ -9,6 +9,7 @@ Spork.prefork do
   # need to restart spork for it take effect.
 # This file is copied to spec/ when you run 'rails generate rspec:install'
   ENV["RAILS_ENV"] ||= 'test'
+
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
 
@@ -45,6 +46,10 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
+ # For Devise
+  require "rails/application"
+  Spork.trap_method(Rails::Application, :reload_routes!)
+  Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
   #https://github.com/sporkrb/spork/issues/37
 #   silence_warnings do
 #      Dir["#{Rails.root}/app/models/**/*.rb"].each {|f| load f}

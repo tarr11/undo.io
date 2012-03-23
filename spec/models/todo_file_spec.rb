@@ -87,7 +87,19 @@ describe TodoFile do
         @file.is_public.should be_false
       end
     end
-  	
+  
+    describe 'and shared with a non-user via email' do
+      before (:each) do
+        @new_file = @file.share_with_person('nonuser@example.com')
+        @new_file.save!
+      end
+      it 'should not be nil' do
+        @new_file.should_not be_nil
+      end
+      it 'should create a new non-registered user' do
+        @new_file.user.is_registered?.should be_false
+      end
+    end    
     describe "and shared with another user" do
       before (:each) do
         @user2 = Factory.create(:user2)

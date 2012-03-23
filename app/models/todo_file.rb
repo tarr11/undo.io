@@ -212,10 +212,45 @@ class TodoFile < ActiveRecord::Base
   end
   
   def was_sent_to_other_user?
-
     return sent_copies.length > 0
+  end
+
+  def self.is_email?(address)
+
+    return address.include?('@')
 
   end
+
+  def self.get_user_by_username_or_email(person)
+    
+    if TodoFile.is_email?(person)
+      user = User.find_by_email(person)
+      unless user.nil?
+        return user
+      end      
+      user = User.find_by_unverified_email(person)
+      return user
+    end 
+    user = User.find_by_username(person)
+    return user
+
+  end
+
+  def share_with_person(person)
+    user = TodoFile.get_user_by_username_or_email(person)
+    if user.nil?
+      if TodoFile.is_email?(person)
+        user = User.create_anonymous_user(person)
+        Rails.logger.debug "DEBUG:Anonymous-share" + person
+      end
+    end
+    unless user.nil?
+      return share_with(user)
+    end
+    Rails.logger.debug "DEBUG: fail:" + person
+    return nil
+  end
+
   def share_with(user)
    
 	# create a new copy each time

@@ -175,17 +175,19 @@ class TaskFolderController < ApplicationController
   end
 
   def share
+
+    Rails.logger.debug "DEBUG-SHARE"
     get_header_data
     # if this is a file. move it
     users_shared = []
     unless @file.nil?
-
       people = params[:shared_user_list].split(',')
       people.each do |person|
-        user = User.find_by_username(person)
-        unless user.nil?
-          @file.share_with(user)
-          users_shared.push user.username
+        unless person.nil?
+          file = @file.share_with_person(person)
+          unless file.nil?
+            users_shared.push file.user.user_folder_name
+          end
         end
 
       end

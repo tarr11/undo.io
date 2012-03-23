@@ -77,6 +77,12 @@ class User < ActiveRecord::Base
     return !self.is_registered
   end
 
+  def email_or_unverified_email
+    if is_not_registered_user?
+      return self.unverified_email
+    end
+    return self.email
+  end
    def self.find_for_database_authentication(warden_conditions)
      conditions = warden_conditions.dup
      login = conditions.delete(:login)

@@ -12,7 +12,7 @@ describe ReceivedEmail do
     it 'should be valid' do
       @received_email.valid?.should be_true
       @received_email.from_email.should == "doug@example.com"
-      @received_email.to_email.should == "jamy@example.com"
+      @received_email.to_username.should == "jamy"
     end
     describe 'and process is called' do
       before (:each) do

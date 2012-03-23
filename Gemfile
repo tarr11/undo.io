@@ -19,8 +19,7 @@ group :test do
   gem 'rspec'
   gem 'growl'
   gem 'rb-fsevent'
-  gem 'guard-spork'
-
+  gem 'factory_girl_rails', "~> 1.2"
 end
 
 group :development do
@@ -35,7 +34,9 @@ group :development do
   gem 'rspec-rails', '2.8'
 end
 
-
+group :production do
+  gem 'newrelic_rpm'
+end
 gem 'rails', '3.2.2'
 gem 'jquery-rails'
 gem 'pg'
@@ -58,13 +59,9 @@ gem "cancan"
 gem "oauth"
 gem "oauth2"
 gem "oauth-plugin", ">= 0.4.0.rc2"
-gem "autotest"
-gem "autotest-rails-pure"
-gem "autotest-notification"
 gem 'uuidtools'
 gem 'json'
 gem 'twitter'
-gem 'ZenTest', '4.6.0'
 gem 'mobylette'
 gem 'diff-lcs'
 gem 'twitter-text'
@@ -77,8 +74,7 @@ gem 'thin'
 gem "paperclip", "~> 2.0"
 gem 'aws-sdk'
 gem 'aws-s3'
-gem 'newrelic_rpm'
-gem 'airbrake'
-gem 'factory_girl_rails', "~> 1.2"
 gem 'diff_match_patch'
 gem 'draper'
+gem "email_veracity", "~> 0.6.0"
+gem 'airbrake'

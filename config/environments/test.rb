@@ -40,4 +40,5 @@ Todo::Application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost' }
 
   PAPERCLIP_STORAGE_OPTIONS = {}
+  EMAIL_REPLY_TO_DOMAIN = "app3119673.mailgun.org"
 end

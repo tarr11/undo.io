@@ -5,7 +5,7 @@ class UserMailer < ActionMailer::Base
       @from_user =  from_user
       @to_user = to_user
       @file = file
-      mail(:from => from_user.email, :to => to_user.email_or_unverified_email, :subject => file.shortName)
+      mail(:from => from_user.email,:reply_to=>from_user.username + "@" + EMAIL_REPLY_TO_DOMAIN , :to => to_user.email_or_unverified_email, :subject => file.shortName)
     end
 
 end

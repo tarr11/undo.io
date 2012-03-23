@@ -75,4 +75,6 @@ Todo::Application.configure do
                                  :s3_credentials => "#{Rails.root}/config/s3.yml",
                                  :path => "/:style/:filename"}
 
+   
+  EMAIL_REPLY_TO_DOMAIN = "app3119673.mailgun.org"
 end

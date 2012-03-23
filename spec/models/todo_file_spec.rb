@@ -99,6 +99,16 @@ describe TodoFile do
       it 'should create a new non-registered user' do
         @new_file.user.is_registered?.should be_false
       end
+      describe 'and shared with another non-user via email' do
+        
+        before (:each) do
+          @new_file_2 = @file.share_with_person('nonuser2@example.com')
+          @new_file_2.save!
+        end
+        it 'should not be nil' do
+          @new_file_2.should_not be_nil
+        end
+      end
     end    
     describe "and shared with another user" do
       before (:each) do

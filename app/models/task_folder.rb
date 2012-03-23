@@ -22,7 +22,7 @@ class TaskFolder
     return @files
   end
 
-  def self.get_folder_from_path(path)
+  def self.get_file_from_path(path)
     path = CGI::unescape(path)
     parts = path.split('/')
     parts = parts.reverse

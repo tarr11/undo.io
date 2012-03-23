@@ -14,6 +14,8 @@ class ReceivedEmail
     unless match.nil?
       return match["email"]
     end
+    # just a bare email
+    return email_string
   end
 
   def from_email

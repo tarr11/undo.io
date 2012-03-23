@@ -2,7 +2,21 @@ require 'spec_helper'
 
 describe ReceivedEmail do
 
+  describe "when an email is created with <>" do
+    it 'should be valid' do
+      email = ReceivedEmail.extract_email("Douglas tarr <douglas.tarr@gmail.com>")
+      email.should == "douglas.tarr@gmail.com"
+    end
+  end
+
+  describe "when an email is created just plain" do
+    it 'should be valid' do
+      email = ReceivedEmail.extract_email("douglas.tarr@gmail.com")
+      email.should == "douglas.tarr@gmail.com"
+    end
+  end
   
+
   describe "When a ReceivedEmail is created" do
     before (:each) do
       @from_user = Factory.create(:user)

@@ -1,8 +1,5 @@
 class User < ActiveRecord::Base
 
- devise :registerable,:confirmable,:database_authenticatable,
-            :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
-
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, , :lockable, :timeoutable and :omniauthable
@@ -12,9 +9,13 @@ class User < ActiveRecord::Base
   attr_accessor :login
 
   with_options :if => :is_registered_user? do |user|
-      user.validates_uniqueness_of :username, :email
+    user.validates_uniqueness_of :username, :email
     user.validates_presence_of :username, :email, :display_name
     user.validates_presence_of :password, :on => :create
+    devise :registerable,:database_authenticatable,:confirmable,
+            :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
+
+   
   end
 
   # user who hasn't registered, and came in via email

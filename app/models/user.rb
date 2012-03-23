@@ -147,6 +147,7 @@ class User < ActiveRecord::Base
       user.password = "123456"
       user.is_registered = false 
       user.skip_confirmation!
+      user.allow_email = true
       user.save!
       return user 
   end

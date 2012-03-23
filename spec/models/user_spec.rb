@@ -25,5 +25,8 @@ describe User do
     it 'should not be registered' do
       @user.is_registered.should be_false
     end
+    it 'should allow email' do
+      @user.allow_email.should be_true
+    end
   end
 end

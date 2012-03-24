@@ -40,7 +40,7 @@ class ReceivedEmail
     # strip email header
     lines = []
     @body_plain.split("\n").each do |line|
-      lines.push line.gsub(/>+/,"")
+      lines.push line.gsub(/^>+/,"")
     end
    # find the footer, and chop that off.  it is the first line from the bottom starting with "--"
 
@@ -90,6 +90,7 @@ class ReceivedEmail
         # create a copy that the from user sent
         @from_user_copy = reply_to.get_copy_of_file(@from_user)        
         @from_user_copy.contents = email_content         
+        @from_user_copy.save!
         # now share that with the new user
         @to_user_copy = from_user_copy.share_with(@to_user)
       end

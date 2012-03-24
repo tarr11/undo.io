@@ -8,11 +8,26 @@ Spork.prefork do
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
 # This file is copied to spec/ when you run 'rails generate rspec:install'
+#  module Kernel
+#    def require_with_trace(*args)
+#      start = Time.now.to_f
+#      @indent ||= 0
+##      @indent += 2
+#      require_without_trace(*args)
+#      @indent -= 2
+#      Kernel::puts "#{' '*@indent}#{((Time.now.to_f - start)*1000).to_i} #{args[0]}"
+#    end
+#    alias_method_chain :require, :trace
+#  end
   ENV["RAILS_ENV"] ||= 'test'
 
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
-
+  require 'rspec/mocks'
+  require 'rspec/expectations'
+  require 'rspec/matchers'
+  require 'rspec/rails/example'
+#
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}

@@ -50,5 +50,15 @@ module Todo
     #http://www.simonecarletti.com/blog/2012/02/heroku-and-rails-3-2-assetprecompile-error/
     config.assets.initialize_on_precompile = false
 
+    # Dropbox
+    ACCESS_TYPE = :app_folder
+
+    DROPBOX_SETTINGS= {
+      :site => "https://www.dropbox.com",
+      :request_token_path => "/1/oauth/request_token",
+      :access_token_path  => "/1/oauth/access_token",
+      :authorize_path     => "/1/oauth/authorize"
+    }
+
   end
 end

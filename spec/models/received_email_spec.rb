@@ -63,6 +63,11 @@ describe ReceivedEmail do
         @received_email.to_user_copy.should_not be_nil
         @received_email.to_user_copy.filename.should == '/inbox/doug/Test Subject'
       end
+      it 'should not have a footer anymore' do
+        contents = @received_email.to_user_copy.contents
+        Rails.logger.debug "DEBUG-stripped-footer:" + contents 
+        contents.include?("--").should be_false
+      end
     end
 
     describe 'with a non-registered user' do

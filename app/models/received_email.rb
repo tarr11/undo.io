@@ -35,6 +35,28 @@ class ReceivedEmail
     return nil
   end
 
+
+  def strip_email_garbage
+    # strip email header
+    lines = []
+    @body_plain.split("\n").each do |line|
+      lines.push line.gsub(/>+/,"")
+    end
+   # find the footer, and chop that off.  it is the first line from the bottom starting with "--"
+
+   footer_index = lines.length - 1
+    lines.reverse.each_with_index do |line, index|
+      if line.starts_with?("--")
+        max_index = lines.length - 1
+        footer_index = max_index - index - 1
+        break
+      end
+    end
+
+    stripped_content =  lines[0..footer_index].join("\n")  
+    return stripped_content
+  end
+
   def process
 
     # find the user with this email
@@ -55,7 +77,8 @@ class ReceivedEmail
       end
       # unverified users can only send to people that have sent to them, no unsolicited inbound requests
     end
-   
+  
+    email_content = strip_email_garbage
     # look for a thread-id somewhere (maybe in the headers or the footer)
     # if none, then create a new file
     # if exists, create as a reply
@@ -66,7 +89,7 @@ class ReceivedEmail
       unless reply_to.nil?
         # create a copy that the from user sent
         @from_user_copy = reply_to.get_copy_of_file(@from_user)        
-        @from_user_copy.contents = self.body_plain
+        @from_user_copy.contents = email_content         
         # now share that with the new user
         @to_user_copy = from_user_copy.share_with(@to_user)
       end
@@ -74,7 +97,7 @@ class ReceivedEmail
 
     # we couldn't find that one
     if @from_user_copy.nil?
-      @from_user_copy = @from_user.build_note(subject, body_plain)
+      @from_user_copy = @from_user.build_note(subject, email_content)
       @to_user_copy = @from_user_copy.share_with(@to_user)
     end
   end

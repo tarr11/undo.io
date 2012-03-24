@@ -336,7 +336,7 @@ module TaskFolderHelper
 
     def user_path user
       return "" if current_user.nil?
-      url_for :controller=>"task_folder", :action => "folder_view", :username=>user.username, :path => "/"
+      url_for :controller=>"task_folder", :action => "folder_view", :username=>user.user_folder_name, :path => "/"
     end
 
     def inbox_path
@@ -345,11 +345,11 @@ module TaskFolderHelper
     end
 
     def task_folder_local_path folder
-      url_for :controller=>"task_folder", :action => "folder_view", :username=>folder.user.username, :path => folder.path
+      url_for :controller=>"task_folder", :action => "folder_view", :username=>folder.user.user_folder_name, :path => folder.path
     end
 
     def file_local_path file
-      url_for :controller=>"task_folder", :action => "folder_view", :username=>file.user.username, :path => file.filename
+      url_for :controller=>"task_folder", :action => "folder_view", :username=>file.user.user_folder_name, :path => file.filename
     end
 
     def sample_tasks

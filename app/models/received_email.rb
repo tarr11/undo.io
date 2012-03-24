@@ -40,7 +40,7 @@ class ReceivedEmail
     # strip email header
     lines = []
     @body_plain.split("\n").each do |line|
-      lines.push line.gsub(/^>+/,"")
+      lines.push line.gsub(/^>+/,"").lstrip
     end
    # find the footer, and chop that off.  it is the first line from the bottom starting with "--"
 

@@ -4,7 +4,7 @@ require 'email_veracity'
 
 class ReceivedEmail
   include ActiveModel::Validations
-  attr_accessor :from, :to, :body_plain, :body_stripped, :subject, :from_user, :to_user, :from_user_copy, :to_user_copy
+  attr_accessor :from, :to, :body_plain, :body_stripped, :subject, :from_user, :to_user, :from_user_copy, :to_user_copy,:reply_to
   validates_presence_of  :from, :to, :body_plain, :body_stripped, :subject
 
 
@@ -82,13 +82,12 @@ class ReceivedEmail
     # look for a thread-id somewhere (maybe in the headers or the footer)
     # if none, then create a new file
     # if exists, create as a reply
-   
     unless self.reply_to_id.nil? 
 
-      reply_to = TaskFolder.get_file_from_path(self.reply_to_id)
-      unless reply_to.nil?
+      @reply_to = TaskFolder.get_file_from_path(self.reply_to_id)
+      unless @reply_to.nil?
         # create a copy that the from user sent
-        @from_user_copy = reply_to.get_copy_of_file(@from_user)        
+        @from_user_copy = @reply_to.get_copy_of_file(@from_user)        
         @from_user_copy.contents = email_content         
         @from_user_copy.save!
         # now share that with the new user

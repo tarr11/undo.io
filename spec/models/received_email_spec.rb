@@ -16,19 +16,24 @@ describe ReceivedEmail do
     end
   end
   
-  describe "When a ReceivedEmail is created with a bad reply-to" do
+  describe "When a ReceivedEmail is created with a reply_to_id" do
     before (:each) do
       @from_user = Factory.create(:user)
       @to_user = Factory.create(:user2)
+      @file = @to_user.todo_files.create(Factory.attributes_for(:file))
       @received_email = Factory.build(:received_email)
-      @received_email.body_plain = "something someting \n reply_to_id:bla"
-      @received_email.body_stripped = "something someting \n reply_to_id:bla"
+      @received_email.body_plain = "something someting \n reply_to_id:/jamy/foo"
+      @received_email.body_stripped = "something someting \n reply_to_id:/jamy/foo"
     end
   
    it 'should succeed' do
      lambda {@received_email.process}.should_not raise_error
    end 
 
+   it 'should have a reply_to' do
+     @received_email.process
+     @received_email.reply_to.should_not be_nil
+   end
   end
 
   describe "When a ReceivedEmail is created" do

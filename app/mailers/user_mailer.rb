@@ -7,7 +7,7 @@ class UserMailer < ActionMailer::Base
       @file = file
       from =  from_user.username + "@" + EMAIL_REPLY_TO_DOMAIN 
       unless from_user.display_name.nil?
-        from = from +  " <" + from_user.display_name + ">" 
+        from = from_user.display_name +  " <" + from + ">" 
       end
       mail(:from => from,:reply_to=>from, :to => to_user.email_or_unverified_email, :subject => file.shortName)
     end

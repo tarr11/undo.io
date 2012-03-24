@@ -176,7 +176,6 @@ class TaskFolderController < ApplicationController
 
   def share
 
-    Rails.logger.debug "DEBUG-SHARE"
     get_header_data
     # if this is a file. move it
     users_shared = []

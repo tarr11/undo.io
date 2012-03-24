@@ -4,7 +4,7 @@ class EmailController < ApplicationController
    def post
      # process various message parameters:
      sender  = params['from']
-     recipient = params['to']
+     recipient = params['recipient']
      subject = params['subject']
 
      # get the "stripped" body of the message, i.e. without

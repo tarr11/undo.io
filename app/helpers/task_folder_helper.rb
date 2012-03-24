@@ -18,7 +18,12 @@ module TaskFolderHelper
       return ""
     end
     users = []
-    users.push @file.reply_to.user.username
+    user = @file.reply_to.user
+    if user.is_registered?
+      users.push user.username
+    else
+      users.push user.unverified_email
+    end
     return users.join(",")
   end
 

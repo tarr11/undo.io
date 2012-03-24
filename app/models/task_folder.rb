@@ -32,6 +32,9 @@ class TaskFolder
     parts = parts.reverse
     compare_file_name = "/" + parts.join("/")
     compare_user = User.find_by_username(compare_user_name)
+    if compare_user.nil?
+      return nil
+    end
     return compare_user.file(compare_file_name)
   end
  

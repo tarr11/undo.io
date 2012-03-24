@@ -16,6 +16,20 @@ describe ReceivedEmail do
     end
   end
   
+  describe "When a ReceivedEmail is created with a bad reply-to" do
+    before (:each) do
+      @from_user = Factory.create(:user)
+      @to_user = Factory.create(:user2)
+      @received_email = Factory.build(:received_email)
+      @received_email.body_plain = "something someting \n reply_to_id:bla"
+      @received_email.body_stripped = "something someting \n reply_to_id:bla"
+    end
+  
+   it 'should succeed' do
+     lambda {@received_email.process}.should_not raise_error
+   end 
+
+  end
 
   describe "When a ReceivedEmail is created" do
     before (:each) do
@@ -23,6 +37,7 @@ describe ReceivedEmail do
       @to_user = Factory.create(:user2)
       @received_email = Factory.build(:received_email)
     end
+   
     it 'should be valid' do
       @received_email.valid?.should be_true
       @received_email.from_email.should == "doug@example.com"

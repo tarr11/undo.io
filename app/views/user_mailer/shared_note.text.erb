@@ -3,6 +3,6 @@
 --
 http://www.replyinline.com<%=file_local_path @file%>
 This message was sent on behalf of <%= @from_user.display_name ||= @from_user.email %> via www.replyinline.com
-<%unless @file.reply_to.nil?%>
-reply_to_id:<%=file_local_path @file.reply_to%>
+<%unless @file.in_reply_to.nil?%>
+reply_to_id:<%=file_local_path @file.in_reply_to%>
 <% end %>

@@ -41,6 +41,7 @@ describe ReceivedEmail do
       @from_user = Factory.create(:user)
       @to_user = Factory.create(:user2)
       @received_email = Factory.build(:received_email)
+      @file = @to_user.todo_files.create(Factory.attributes_for(:file))
     end
    
     it 'should be valid' do
@@ -60,13 +61,13 @@ describe ReceivedEmail do
       end
       it 'from_user_copy should not be nil' do
         @received_email.from_user_copy.should_not be_nil
-        @received_email.from_user_copy.filename.should == '/Test Subject'
+        @received_email.from_user_copy.filename.should == '/inbox/jamy/foo'
         @received_email.from_user_copy.user.should == @from_user
       end
 
       it 'to_user_copy should not be nil' do
         @received_email.to_user_copy.should_not be_nil
-        @received_email.to_user_copy.filename.should == '/inbox/doug/Test Subject'
+        @received_email.to_user_copy.filename.should == '/foo/replies/doug/reply-1'
       end
       it 'should not have a footer anymore' do
         contents = @received_email.to_user_copy.contents
@@ -78,6 +79,8 @@ describe ReceivedEmail do
       before (:each) do 
         @received_email_non_registered = Factory.build(:received_email) 
         @received_email_non_registered.from = "Not Registered <notregistered@example.com>"
+        @received_email_non_registered.body_plain = "test"
+        @received_email_non_registered.body_stripped = "test"
         @received_email_non_registered.process
       end 
 

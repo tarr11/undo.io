@@ -85,6 +85,9 @@ class ReceivedEmail
     unless self.reply_to_id.nil? 
 
       @reply_to = TaskFolder.get_file_from_path(self.reply_to_id)
+      if @reply_to.nil?
+        raise self.reply_to_id
+      end
       unless @reply_to.nil?
         # create a copy that the from user sent
         @from_user_copy = @reply_to.get_copy_of_file(@from_user)        

@@ -39,7 +39,8 @@ class TaskFolder
     if compare_user.nil?
       return nil
     end
-    return compare_user.file(compare_file_name)
+    file = compare_user.file(compare_file_name)
+    return file
   end
  
   def move(new_location)

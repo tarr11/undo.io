@@ -13,6 +13,19 @@ describe TaskFolder do
         @user.task_folder.files.length.should == 0
     end
   end
+  describe "When a file is created with an unregisterd user" do
+    before (:each) do 
+      @user = Factory.create(:user_unverified)
+      @file = @user.todo_files.build(Factory.attributes_for(:file))
+      @file.save!
+    end
+
+    it 'should be findable' do
+      file = TaskFolder.get_file_from_path('/' + @user.unverified_email + @file.filename)
+      file.should_not be_nil
+    end
+  end
+ 
   describe "When a file is created" do
     before(:each) do
           @user = Factory.create(:user)

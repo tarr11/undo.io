@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TodoFile do
 
-  describe "When a file is created with / as the filename" do
+ describe "When a file is created with / as the filename" do
     before (:each) do
       @user = Factory.create(:user)
       @file = @user.todo_files.build(Factory.attributes_for(:file))

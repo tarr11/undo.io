@@ -21,6 +21,14 @@ Factory.define :user3, :class=>User do |user|
   user.password_confirmation "foobar"
   user.username              "elijah"
 end
+Factory.define :user_unverified, :class=>User do |user|
+  user.unverified_email     "unverified@example.com"
+  user.password              "foobar"
+  user.password_confirmation "foobar"
+  user.is_registered         false
+  user.allow_email           true
+end
+
 
 Factory.define :file do |file|
   file.filename   "/foo"

@@ -30,6 +30,8 @@ namespace :todo do
         user.save!
       end
     end
+ end
+  task :v5_files => :environment do
     TodoFile.all.each do |file|
       file.file_uuid = UUIDTools::UUID.timestamp_create().to_s
       if file.is_public.nil?
@@ -41,6 +43,7 @@ namespace :todo do
         file.save!
       end
     end
+ 
   end
   task :compare => :environment do
     user = User.first

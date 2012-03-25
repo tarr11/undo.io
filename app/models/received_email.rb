@@ -28,7 +28,7 @@ class ReceivedEmail
   end
 
   def reply_to_id
-    match = self.body_plain.match(/reply_to_id:(?<id>[^\b]+)\b/)
+    match = self.body_plain.match(/reply_to_id:(?<id>[^\b]+)$/)
     unless match.nil?
       return match["id"]
     end

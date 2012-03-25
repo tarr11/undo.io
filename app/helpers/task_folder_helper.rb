@@ -2,6 +2,8 @@ module TaskFolderHelper
   require 'ostruct'
 
   def get_file_from_path(path)
+
+    path = CGI::unescape(path)
     TaskFolder.get_file_from_path(path)
   end
 

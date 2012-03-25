@@ -22,7 +22,7 @@ Factory.define :user3, :class=>User do |user|
   user.username              "elijah"
 end
 Factory.define :user_unverified, :class=>User do |user|
-  user.unverified_email     "unverified@example.com"
+  user.unverified_email     "unverified+22@example.com"
   user.password              "foobar"
   user.password_confirmation "foobar"
   user.is_registered         false

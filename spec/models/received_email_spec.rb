@@ -22,8 +22,8 @@ describe ReceivedEmail do
       @to_user = Factory.create(:user2)
       @file = @to_user.todo_files.create(Factory.attributes_for(:file))
       @received_email = Factory.build(:received_email)
-      @received_email.body_plain = "something someting \n reply_to_id:" + @file.file_uuid
-      @received_email.body_stripped = "something someting \n reply_to_id" + @file.file_uuid
+      @received_email.body_plain = "something someting \n reply_to_id:" + @file.file_uuid + " \n\n"
+      @received_email.body_stripped = "something someting \n reply_to_id" + @file.file_uuid + " \n\n"
     end
   
    it 'should succeed' do

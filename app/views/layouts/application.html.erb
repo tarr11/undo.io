@@ -31,6 +31,7 @@
               <li><%= link_to "Sign in", new_session_path(resource_name)%></li>
               </ul>
             <% end%>
+            <% if user_signed_in? %>
             <ul class="nav">
               <%=content_tag :li, do%>
                 <%= link_to url_for(:controller => "task_folder", :action=>"new_file", :path=>(@folder_path ||= '/')) ,:method=>"post"  do%>
@@ -41,7 +42,7 @@
               <%=content_tag :li, :class => inbox_active_class  do%><%=link_to "Inbox", inbox_path%><%end%>
               <%=content_tag :li, :class => (@is_public ? "active" : nil)  do%><a href="/public">Public Notes</a><%end%>
             </ul>
-
+          <% end %>
             <% if user_signed_in? %>
               <div class="nav pull-right">
               <ul class="nav">

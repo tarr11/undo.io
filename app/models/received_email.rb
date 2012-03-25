@@ -84,7 +84,7 @@ class ReceivedEmail
     # if exists, create as a reply
     unless self.reply_to_id.nil? 
 
-      @reply_to = TaskFolder.get_file_from_path(self.reply_to_id)
+      @reply_to = TodoFile.find_by_file_uuid(self.reply_to_id)
       if @reply_to.nil?
         raise self.reply_to_id
       end

@@ -22,8 +22,8 @@ describe ReceivedEmail do
       @to_user = Factory.create(:user2)
       @file = @to_user.todo_files.create(Factory.attributes_for(:file))
       @received_email = Factory.build(:received_email)
-      @received_email.body_plain = "something someting \n reply_to_id:/jamy/foo"
-      @received_email.body_stripped = "something someting \n reply_to_id:/jamy/foo"
+      @received_email.body_plain = "something someting \n reply_to_id:" + @file.file_uuid
+      @received_email.body_stripped = "something someting \n reply_to_id" + @file.file_uuid
     end
   
    it 'should succeed' do
@@ -61,13 +61,13 @@ describe ReceivedEmail do
       end
       it 'from_user_copy should not be nil' do
         @received_email.from_user_copy.should_not be_nil
-        @received_email.from_user_copy.filename.should == '/inbox/jamy/foo'
+        @received_email.from_user_copy.filename.should == '/Test Subject'
         @received_email.from_user_copy.user.should == @from_user
       end
 
       it 'to_user_copy should not be nil' do
         @received_email.to_user_copy.should_not be_nil
-        @received_email.to_user_copy.filename.should == '/foo/replies/doug/reply-1'
+        @received_email.to_user_copy.filename.should == '/inbox/doug/Test Subject'
       end
       it 'should not have a footer anymore' do
         contents = @received_email.to_user_copy.contents

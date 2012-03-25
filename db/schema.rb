@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323202313) do
+ActiveRecord::Schema.define(:version => 20120325004756) do
 
   create_table "alerts", :force => true do |t|
     t.integer  "user_id"
@@ -122,7 +122,10 @@ ActiveRecord::Schema.define(:version => 20120323202313) do
     t.integer  "reply_number"
     t.boolean  "is_read_only"
     t.integer  "reply_to_id"
+    t.string   "file_uuid"
   end
+
+  add_index "todo_files", ["file_uuid"], :name => "index_todo_files_on_file_uuid", :unique => true
 
   create_table "todo_lines", :force => true do |t|
     t.integer  "user_id"

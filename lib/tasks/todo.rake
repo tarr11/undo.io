@@ -21,6 +21,27 @@ namespace :todo do
   end
 
 
+  task :v5 => :environment do
+    ActiveRecord::Base.record_timestamps = false
+    User.all.each do |user|
+      unless user.username.nil?
+        user.is_registered = true
+        user.allow_email = true
+        user.save!
+      end
+    end
+    TodoFile.all.each do |file|
+      file.file_uuid = UUIDTools::UUID.timestamp_create().to_s
+      if file.is_public.nil?
+        file.is_public = false
+      end
+      if file.contents.blank?
+        file.destroy
+      else
+        file.save!
+      end
+    end
+  end
   task :compare => :environment do
     user = User.first
     filename1 =  "/home/douglastarr/dev/todo/sample.txt" 

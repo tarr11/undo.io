@@ -85,6 +85,9 @@ class ReceivedEmail
     unless self.reply_to_id.nil? 
 
       @reply_to = TodoFile.find_by_file_uuid(self.reply_to_id)
+      if @reply_to.nil?
+        raise 'Could not find UUID:' + self.reply_to_id + "(" + self.reply_to_id.length + ")"
+      end
       unless @reply_to.nil?
         # create a copy that the from user sent
         @from_user_copy = @reply_to.get_copy_of_file(@from_user)        

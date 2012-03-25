@@ -51,7 +51,7 @@ describe TaskFolderHelper do
 
     describe "and the filename is urlencoded" do
       it "returns a file" do
-        file = helper.get_file_from_path("/doug/foo%20bar")
+        file = helper.get_file_from_path_escaped("/doug/foo%20bar")
         file.should_not be_nil
       end
     end

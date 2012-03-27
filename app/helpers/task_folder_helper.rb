@@ -442,7 +442,6 @@ module TaskFolderHelper
       @replies = []
       @file.replies
         .each{ |a|
-
           activity = FileActivity.new
           activity.activity_type = :replies
           activity.file = a

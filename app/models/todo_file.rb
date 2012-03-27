@@ -299,9 +299,9 @@ class TodoFile < ActiveRecord::Base
 
   def replies
     unless thread_source.nil?
-      self.user.todo_files.where(:thread_source_id=>self.thread_source_id)
+      self.user.todo_files.where(:thread_source_id=>self.thread_source_id).select{|a| a.id != self.id}
     else
-      self.user.todo_files.where(:thread_source_id=>self.id)
+      self.user.todo_files.where(:thread_source_id=>self.id).select{|a| a.id != self.id}
     end
   end
 

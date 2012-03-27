@@ -68,7 +68,23 @@ describe TaskFolderController do
   end
 =end
 
+  describe "GET 'folder_view' /foo?compare=/xxx@yyy.com" do
+    before (:each) do
+      @file = subject.current_user.todo_files.build(Factory.attributes_for(:file))
+      @file.filename = '/foo'
+      @file.save!
+      @file2 = subject.current_user.todo_files.build(Factory.attributes_for(:file))
+      @file2.filename = '/xxx@yyy.com'
+      @file2.save!
+    end
 
+   it "should be successful" do
+      get :folder_view, :username =>subject.current_user.username, :path=>"/foo", :compare => "/bar"
+      response.should be_success
+    end
+
+  end
+ 
 
   describe "GET 'folder_view' /user?q=foo" do
     it "should be successful" do
@@ -128,6 +144,14 @@ describe TaskFolderController do
       end
     end
 
+    describe "PUT 'update' /user/file :method=>'move'" do
+      before (:each) do
+        put :update, :path => @file.filename, :username => subject.current_user.username, :method => :move, :filename => '/user/file-moved'
+      end
+      it 'should be successful' do
+        response.should be_redirect
+      end
+    end
     describe "PUT 'update' /user/file :method=>'share'" do
       before (:each) do
         put :update, :path => @file.filename, :username => subject.current_user.username, :method => :share, :shared_user_list => "nonregistereduser@example.com"

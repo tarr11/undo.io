@@ -157,6 +157,7 @@ class TaskFolderController < ApplicationController
     get_header_data
     # if this is a file. move it
     unless @file.nil?
+      oldName = @file.filename
       if @file.move(params[:filename]) 
         if @file.save!
           DropboxNavigator.delay(:queue=>'dropbox').move_file oldName, @file

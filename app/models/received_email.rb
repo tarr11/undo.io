@@ -35,6 +35,11 @@ class ReceivedEmail
     return nil
   end
 
+  def self.strip_reply_to_blocks(content)
+    content = content.gsub(/^(On(.+)wrote:)$/m,"")
+    content = content.gsub(/^(From|To|Date|Subject):(.+)$/,"")
+    return content
+  end
 
   def strip_email_garbage
     # strip email header
@@ -79,6 +84,7 @@ class ReceivedEmail
     end
   
     email_content = strip_email_garbage
+    email_content = ReceivedEmail.strip_reply_to_blocks(email_content)
     # look for a thread-id somewhere (maybe in the headers or the footer)
     # if none, then create a new file
     # if exists, create as a reply

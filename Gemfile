@@ -78,4 +78,4 @@ gem 'diff_match_patch'
 gem 'draper'
 gem "email_veracity", "~> 0.6.0"
 gem 'airbrake'
-gem "email_reply_parser"
+gem "email_reply_parser", :path=>"/home/dougt/git/email_reply_parser"

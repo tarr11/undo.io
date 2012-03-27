@@ -15,8 +15,22 @@ describe ReceivedEmail do
       email.should == "douglas.tarr@gmail.com"
     end
   end
-  
-  describe "When a ReceivedEmail is created with a reply_to_id" do
+
+  describe "when an email has a gmail-like reply-block" do 
+
+    it 'should strip it' do
+      email = ReceivedEmail.strip_reply_to_blocks("message\nOn March 5, 2012\ndouglas.tarr@gmail.com wrote:\nSome stuff")
+      email.should == "message\n\nSome stuff"
+    end
+  end  
+  describe "when an email has a outlook-like reply-block" do 
+
+    it 'should strip it' do
+      email = ReceivedEmail.strip_reply_to_blocks("message\nFrom:Douglas Tarr<dougt@undo.io>\nTo:J'Amy Tarr <jamy@undo.io>\nSubject:something\nDate:March 10, 2012\nSome stuff")
+      email.should == "message\n\nSome stuff"
+    end
+  end  
+   describe "When a ReceivedEmail is created with a reply_to_id" do
     before (:each) do
       @from_user = Factory.create(:user)
       @to_user = Factory.create(:user2)

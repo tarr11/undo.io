@@ -19,6 +19,16 @@ describe TaskFolderHelper do
     it "user_owns_file should return false for other user" do
       helper.user_owns_file(@file, @user2).should be_false
     end
+
+    describe 'and it is called with different casing' do
+      before(:each) do
+        @file2 = helper.get_file_from_path("/" + @user.username + "/Foo")
+      end
+
+      it 'should still find the file' do
+        @file2.should_not be_nil
+      end
+    end
   end
 
   describe "When get_changed_files_by_folder is called on one file" do

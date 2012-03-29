@@ -20,14 +20,14 @@ describe ReceivedEmail do
 
     it 'should strip it' do
       email = ReceivedEmail.strip_reply_to_blocks("message\nOn March 5, 2012\ndouglas.tarr@gmail.com wrote:\nSome stuff")
-      email.should == "message\n\nSome stuff"
+      email.should == "message\nSome stuff"
     end
   end  
   describe "when an email has a outlook-like reply-block" do 
 
     it 'should strip it' do
       email = ReceivedEmail.strip_reply_to_blocks("message\nFrom:Douglas Tarr<dougt@undo.io>\nTo:J'Amy Tarr <jamy@undo.io>\nSubject:something\nDate:March 10, 2012\nSome stuff")
-      email.should == "message\n\nSome stuff"
+      email.should == "message\nSome stuff"
     end
   end  
    describe "When a ReceivedEmail is created with a reply_to_id" do

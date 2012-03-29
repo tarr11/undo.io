@@ -17,7 +17,7 @@ class TodoFile < ActiveRecord::Base
 
   validates_inclusion_of :is_public, :in => [true, false]
   validates_presence_of :filename, :contents, :user_id, :file_uuid
-  validates_uniqueness_of :filename, :scope => :user_id
+  validates_uniqueness_of :filename, :scope => :user_id, :case_sensitive => false
   validates_uniqueness_of :file_uuid
 
   # filename can't be "/"

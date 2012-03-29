@@ -43,6 +43,17 @@ describe TodoFile do
       @file.was_sent_to_other_user?.should be_false
     end
 
+    describe "and another file is created with the same name, but different capitalization" do
+      before(:each) do
+          @file2 = @user.todo_files.build(Factory.attributes_for(:file))
+          @file2.filename = "/Foo"
+      end
+     
+      it 'should throw an exception' do
+        lambda { @file2.save!}.should raise_exception
+      end 
+    end
+ 
     describe "and is moved" do
       before (:each) do
         @file.move '/somewhere/else'
@@ -158,7 +169,6 @@ describe TodoFile do
      
         describe "and user shares it back to original user" do
           before (:each) do
-            
             @reply_back = @reply.share_with(@user)
           end
           it 'should be successful' do

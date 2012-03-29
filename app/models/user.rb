@@ -110,7 +110,7 @@ class User < ActiveRecord::Base
 
   def suggest_filename(filename)
     # suggests a new file name to avoid collisions
-    files = self.todo_files.where("filename like ?", filename).to_a
+    files = self.todo_files.where("lower(filename) like ?", filename.downcase).to_a
     if files.length == 0
       return filename
     end
@@ -157,7 +157,7 @@ class User < ActiveRecord::Base
   end
 
   def file(filename)
-    self.todo_files.find(:all, :conditions => ["filename = ?", "#{filename}"]).first
+    self.todo_files.find(:all, :conditions => ["lower(filename) = ?", "#{filename.downcase}"]).first
   end
 
    protected

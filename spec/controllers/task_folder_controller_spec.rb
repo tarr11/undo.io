@@ -74,12 +74,12 @@ describe TaskFolderController do
       @file.filename = '/foo'
       @file.save!
       @file2 = subject.current_user.todo_files.build(Factory.attributes_for(:file))
-      @file2.filename = '/xxx@yyy.com'
+      @file2.filename = '/inbox/foo@bar.com/bla'
       @file2.save!
     end
 
    it "should be successful" do
-      get :folder_view, :username =>subject.current_user.username, :path=>"/foo", :compare => "/bar"
+      get :folder_view, :username =>subject.current_user.username, :path=>"/foo", :compare => "/" + subject.current_user.username + "/inbox/foo@bar.com/bla" 
       response.should be_success
     end
 

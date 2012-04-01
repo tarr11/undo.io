@@ -1,5 +1,7 @@
-<p>Welcome <%= @resource.display_name %>!</p>
+<p>Welcome to undo.io,  <%= @resource.display_name %></p>
 
-<p>You can confirm your account through the link below:</p>
+<p>You can confirm your undo.io account through the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+<p>Or, paste this URL into your browser window: <%=confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)%></p> 

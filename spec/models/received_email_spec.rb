@@ -34,6 +34,22 @@ describe ReceivedEmail do
       email.should == "message\nSome stuff"
     end
   end  
+
+ describe "When a ReceivedEmail is created with a reply" do
+    before (:each) do
+      @from_user = Factory.create(:user)
+      @to_user = Factory.create(:user2)
+      @file = @to_user.todo_files.create(Factory.attributes_for(:file))
+      @received_email = Factory.build(:reply_email)
+      @received_email.process
+    end
+  
+   it 'should succeed' do
+     puts @received_email.to_user_copy.contents
+   end 
+ end
+ 
+
    describe "When a ReceivedEmail is created with a reply_to_id" do
     before (:each) do
       @from_user = Factory.create(:user)
@@ -57,7 +73,6 @@ describe ReceivedEmail do
       @received_email.reply_to.should_not be_nil
     end
     it 'should not strip tabs' do
-      puts @received_email.to_user_copy.contents 
       @received_email.to_user_copy.contents.include?("\t").should be_true
     end
    end

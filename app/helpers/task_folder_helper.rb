@@ -285,12 +285,7 @@ module TaskFolderHelper
         @only_path = true
         @folders = @taskfolder.task_folders
         @files = @taskfolder.files
-        @files.each do |a|
-          if a.shortName.nil?
-            logger.info "DEBUG filename:" + a.filename
-          end
-        end
-        @files_alpha_sorted = @files.sort_by{|a| a.shortName.downcase}.to_a
+        @files_alpha_sorted = @taskfolder.todo_files_immediate.sort_by{|a| a.shortName.downcase}.to_a
         @dataUrlBase = url_for(:controller => "task_folder", :action=>"folder_view", :path=>@taskfolder.path, :trailing_slash => true, :only_path =>true, :username=>username)
         @hashPageId = path.sub("/","_")
 

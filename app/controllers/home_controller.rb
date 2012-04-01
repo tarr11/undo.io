@@ -42,7 +42,12 @@ class HomeController < ApplicationController
 
     @changed_files_by_folder = changed_files
       .group_by {|note| get_sub_folder(note.path,"/") }
-    @header = "Public Notes"
+    if path.nil?
+      @header = "Public Notes"
+    else
+      @header = path  
+       
+    end
     @wildcard_user_name = true
     @path_parts = get_path_parts(false, path)
     @is_public = true
@@ -99,6 +104,7 @@ class HomeController < ApplicationController
       dashboard_view
     else
       respond_to do |format|
+        @header = "Your idea starts here"
         format.html
       end
 

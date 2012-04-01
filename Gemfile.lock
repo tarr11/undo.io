@@ -4,11 +4,6 @@ GIT
   specs:
     chronic (0.6.7)
 
-PATH
-  remote: /home/dougt/git/email_reply_parser
-  specs:
-    email_reply_parser (0.5.0)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -84,6 +79,7 @@ GEM
     diff_match_patch (0.1.0)
     draper (0.11.1)
       activesupport (>= 2.3.10)
+    email_reply_parser (0.5.0)
     email_veracity (0.6.0)
     erubis (2.7.0)
     escape (0.0.4)
@@ -282,7 +278,7 @@ DEPENDENCIES
   diff-lcs
   diff_match_patch
   draper
-  email_reply_parser!
+  email_reply_parser
   email_veracity (~> 0.6.0)
   execjs
   factory_girl_rails (~> 1.2)

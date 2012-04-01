@@ -44,8 +44,8 @@ describe ReceivedEmail do
       @received_email.process
     end
   
-   it 'should succeed' do
-     puts @received_email.to_user_copy.contents
+   it 'should strip the reply stuff' do
+     @received_email.to_user_copy.contents.include?("doug@undo-staging.mailgun.org").should_not be_true
    end 
  end
  

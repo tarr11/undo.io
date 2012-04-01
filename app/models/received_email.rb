@@ -36,6 +36,8 @@ class ReceivedEmail
   end
 
   def self.strip_reply_to_blocks(content)
+    # strip \r from content
+    content = content.gsub(/\r\n?/, "\n")
     content = content.gsub(/^(On(.+)wrote:)$/m,"")
     content = content.gsub(/^(From|To|Date|Subject):(.+)$/,"")
     # collapse line breaks

@@ -13,11 +13,7 @@ Factory.define :reply_email, :class=>ReceivedEmail do |email|
  email.from                 "User One <doug@example.com>"
  email.to                   "User Two <jamy@example.com>"
  email.subject              "Test Subject"
-  email.body_plain          "Really
-
-On Sun, Apr 1, 2012 at 8:41 AM, Douglas Tarr
-<doug@undo-staging.mailgun.org>wrote:
-
+  email.body_plain          "Really\r\n\r\nOn Sun, Apr 1, 2012 at 8:41 AM, Douglas Tarr\r\n<doug@undo-staging.mailgun.org>wrote:\r\n
  Something
   Tabbed
     Third tab
@@ -26,8 +22,7 @@ On Sun, Apr 1, 2012 at 8:41 AM, Douglas Tarr
 "
    email.body_stripped          "Really
 
-On Sun, Apr 1, 2012 at 8:41 AM, Douglas Tarr
-<doug@undo-staging.mailgun.org>wrote:
+On Sun, Apr 1, 2012 at 8:41 AM, Douglas Tarr\r\n<doug@undo-staging.mailgun.org>wrote:
 
  Something
   Tabbed

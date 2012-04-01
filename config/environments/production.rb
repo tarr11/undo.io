@@ -76,6 +76,6 @@ Todo::Application.configure do
                                  :path => "/:style/:filename"}
 
    
-  EMAIL_REPLY_TO_DOMAIN = "app2210402.mailgun.org"
+  EMAIL_REPLY_TO_DOMAIN = "undo.io"
 
 end

@@ -68,13 +68,17 @@ class User < ActiveRecord::Base
  
   def check_whitelist?
 
-     if is_not_registered_user?
+    return false
+=begin
+       if is_not_registered_user?
        return false
      end
+     
       if Rails.env.production?
         return true 
       end
       return false
+=end
   end 
   def is_production?
   end

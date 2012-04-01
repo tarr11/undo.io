@@ -141,6 +141,7 @@ module TaskFolderHelper
   end
 
   def user_owns_file file, current_user
+    return false if current_user.nil?
     return file.user.id == current_user.id
   end
 

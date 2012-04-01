@@ -1,0 +1,152 @@
+Product Stuff to worry about
+    gmail tries to parse dates, they are not confident enough to push it into your calendar.  Why should i be able to do it automatically when they can't?   
+        Answer: there are no accepted patterns in GMail, mail comes from anywhere
+        I can detect if the note was written in a tool, or if we are confident of a date
+        I can also limit the dates we accept and encourage users via feedback to learn those
+
+    vim has a huge amount of commands for navigating and cleaning up text.  Why do I think I can do that automatically?
+        I am not trying to be as "clean" as vim.  Just a little better than what users have/
+        
+Product Vision
+    undo.io is a web notepad where you bake your ideas.   it enables you to create notes that can ultimately be used to communicate with others and helps you think about what you are writing before you publish it and before it gets too frozen.  It is where you go before you start working in email, blog, twitter, or other publishing tools.
+
+
+    lite office suite:
+        Email
+        Notes
+        Slides
+        Database (need to figure these out)
+        Excel?? (csv / tsv?)
+   
+    web content should start as notes.  Notes are only text.  
+        Text is the DNA of the internet, it contains the raw ideas, it can mutate, it is the building blocks for everything else you do online
+
+    Pattern is:
+        Create or copy Notes -> Edit / Revise / Decide -> Do Something
+
+        Meetings
+            Have a meeting -> Write some notes -> Get consensus -> Take actions
+        Blogs
+            Write some notes -> Create a draft -> Publish blog
+        Project ideas
+            Write some notes -> drafts, edit / revise -> email / share doc / post on wiki
+        Slides
+            Write some notes -> draft an outline -> Create a powerpoint
+        Tweets
+            Write some notes -> draft some tweets -> push to witter
+        Recipes 
+            Copy a recipe -> tweak it -> cook something
+        Todo lists
+            Notes - What am i doing today? -> Prioritize -> Do Tasks
+        More
+            Political discussions, recipes, how-to guides
+            
+   Why just text?
+        As documents get more "formatted", and more ready for sharing, they become more fixed
+            Compare:
+                Editing a text file vs
+                    Editing a word doc
+                    Editing a google doc
+                    Editing a PPTX
+                    Editing an email
+            Which is easier?
+                Text.
+                Why?
+                    No fighting with formatting
+                    Easy diffs
+                    Works on any device
+                    Transportable via any web mechanism:
+                        Email
+                        Chat
+                        Dropbox
+                        Most web tools:
+                            OneNote/Evernote/Word/GDocs/etc
+   
+   Product Risks
+        People might just love formatting more than I think they do
+        They might be unwilling to switch from their existing toolsets because of invested time
+
+   How to acquire users?
+       Low barrier to entry amongs users - most willing to "try" notes tools
+            Simple text format reduces learning curve
+            Dropbox sync addresses resistance to "data lockup"
+
+        In future, add options to make this even easier:
+            Import from evernote, text, oneNote, GDocs, etc
+                All have APIs and have professed to keep your data "free"
+
+       Phase 1: Viral Via email
+        users will share notes via tool.
+        if you receive an email via the tool, you will have those notes automatically stored, organized and available.
+        If someone emails you a note via this tool:
+            x% will sign up
+            y% will write notes
+            z% will share with others
+
+
+       Phase 2: SEO / Social Media - Generate Unique / original content
+           users will be creating notes - which are unique, original, timely content on many topics
+           users will share via social channels
+           Published notes will be available read-only to new visitors
+           Call to action will be to "file", "copy" this note   
+
+       Phase 3: Increase engagement via Inline discussion and commenting
+           Encourage debate and discussion of hard topics via tool.  Replies inline, instead of top-posting or bottom-posting.  Change the tenor of discussions on the web
+          This will be available immediately from email on private notes 
+
+        Other ideas:
+            Browser extension - clip just the text of a page to note, summarize, edit etc
+                like evernote, pinterest, etc
+
+            Social Media Integrations
+                Use FB/Twitter/LI links to grow user base
+                Auto tweets
+
+    Business model?
+        Most likely a freemium model, with enterprise users being targeted for a subscription
+            Corporate users will see value in email replacements and productivity
+            They may pay for enterprise features such as:
+                Group features
+                    Manage groups of users via exisitng LDAP tools or custom console
+                    security models
+                       ACLs for locking down access to sensitive documents
+                        
+                Integration with other tools:
+                    MS Office
+                    Salesforce.com
+                    etc
+
+            Risks:
+                I have no data to support this yet.  Just what I've seen from experience and gut.
+
+        Other options:
+            Text mine notes for your intentions (vacation planning, financial whatever)  Show offers to users.  
+                Risks: Highly dependent on huge audience
+                        Big dev effort to build targeting system
+                        Unlikely to be meaningful in less than 24 montsh 
+                Todo:
+                    Test the lite version out with Adsense to see if there's anything there
+
+           Media business
+                If content created on platform is compelling and creates it's own gravitational pull, then advertisers will want access to the user base. 
+                Risks:
+                    I have no idea if the content that gets published is going to be any good, or even if people will publish it. 
+
+         
+How is this disruptive?
+
+    Emergence of open source collaborative technologies 
+        NodeJS, WebSockets
+      Collaboration tech has gotten incredibly cheap and accessible (think NodeJS and WebSockets)  You can replication GDocs collaboration in 4 lines of code.  OneNote collaboration is awful.  Evernote's is non-existent. 
+
+    Cut out formatting and associated development efforts
+        All these tools have built rich clients that have huge dev efforts.  Much of that work is around formatting and display of text.  By making this text-only, I don't have to build fancy editors on every version of every device in html, ios, chrome etc.
+     
+   Why not evernote?
+    Evernote is a single-user tool.  Heavy clients, lots of formatting.  Designed to capture every kind of informaiton (notes, pictures, sounds, etc).  Not a collaboration tool.  Does lots of things - main value is "use on any device" and consistent interface.  Feature bloat and lack of organization make it feel like MS Office.  Not light - symbol is an elephant and there's no focus on editing and revising.  Just keeping everything forever.  
+    
+     
+    Why not GDocs?
+        GDocs is All search, no browse.  Browsing is important for brainstorming, organizing, synthesizing.  Search is GDocs is not complicated, can be replicated with SOLR.  Everyone I know feels like their GDocs is a mess after a while, and you can only find things via search.  Killer feature on GDocs is collaborative edting.  They killed wave, there are a ton of services that do this open source (see ShareJS)   
+       GDocs uses HTML (or some variant) for storing source data.  Makes editing on mobile devices hard.  By limiting format to just text I can endrun this problem.  Any editor will work; keep your notes in vim or org-mode emacs or TextMate or Word.   
+         

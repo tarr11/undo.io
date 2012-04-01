@@ -22,6 +22,10 @@ describe ReceivedEmail do
       email = ReceivedEmail.strip_reply_to_blocks("message\nOn March 5, 2012\ndouglas.tarr@gmail.com wrote:\nSome stuff")
       email.should == "message\nSome stuff"
     end
+    it "shouldn't strip tabs" do
+      email = ReceivedEmail.strip_reply_to_blocks("\t\tmessage\nOn March 5, 2012\ndouglas.tarr@gmail.com wrote:\nSome stuff")
+      email.should == "\t\tmessage\nSome stuff"
+    end
   end  
   describe "when an email has a outlook-like reply-block" do 
 
@@ -36,17 +40,26 @@ describe ReceivedEmail do
       @to_user = Factory.create(:user2)
       @file = @to_user.todo_files.create(Factory.attributes_for(:file))
       @received_email = Factory.build(:received_email)
-      @received_email.body_plain = "something someting \n reply_to_id:" + @file.file_uuid + " \n\n"
-      @received_email.body_stripped = "something someting \n reply_to_id" + @file.file_uuid + " \n\n"
+      @received_email.body_plain = "\tsomething someting \n reply_to_id:" + @file.file_uuid + " \n\n"
+      @received_email.body_stripped = "\tsomething someting \n reply_to_id" + @file.file_uuid + " \n\n"
     end
   
    it 'should succeed' do
      lambda {@received_email.process}.should_not raise_error
    end 
 
-   it 'should have a reply_to' do
+   describe 'and it is processed' do
+    before(:each) do
      @received_email.process
-     @received_email.reply_to.should_not be_nil
+    end
+
+    it 'should have a reply_to' do
+      @received_email.reply_to.should_not be_nil
+    end
+    it 'should not strip tabs' do
+      puts @received_email.to_user_copy.contents 
+      @received_email.to_user_copy.contents.include?("\t").should be_true
+    end
    end
   end
 

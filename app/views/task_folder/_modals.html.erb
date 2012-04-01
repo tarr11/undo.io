@@ -3,7 +3,7 @@
   <% unless @compare_file.nil?%>
       <div id="accept-modal" class="modal hide fade">
         <div class="modal-header">
-          <a href="#" class="close">&times;</a>
+          <a href="#" class="close" data-dismiss="modal">&times;</a>
           <h3>Accept changes from <%= file_local_path(@compare_file)%>?</h3>
         </div>
         <div class="modal-body">
@@ -23,7 +23,7 @@
   <% unless @file.copied_from.nil?%>
   <div id="reply-modal" class="modal hide fade">
     <div class="modal-header">
-      <a href="#" class="close">&times;</a>
+      <a href="#" class="close" data-dismiss="modal">&times;</a>
       <h3>Create reply to <%= @file.copied_from.user.username%>?</h3>
     </div>
     <div class="modal-body">
@@ -42,7 +42,7 @@
 
     <div id="publish-modal" class="modal hide fade">
       <div class="modal-header">
-        <a href="#" class="close">&times;</a>
+        <a href="#" class="close" data-dismiss="modal">&times;</a>
         <h3>Publish <%=@file.shortName%>?</h3>
       </div>
       <div class="modal-body">
@@ -60,7 +60,7 @@
 
   <div id="unpublish-modal" class="modal hide fade">
      <div class="modal-header">
-       <a href="#" class="close">&times;</a>
+       <a href="#" class="close" data-dismiss="modal">&times;</a>
        <h3>Unpublish <%=@file.shortName%>?</h3>
      </div>
      <div class="modal-body">
@@ -78,7 +78,7 @@
 
      <div id="delete-modal" class="modal hide fade">
     <div class="modal-header">
-      <a href="#" class="close">&times;</a>
+      <a href="#" class="close" data-dismiss="modal">&times;</a>
       <h3>Delete <%=@file.shortName%>?</h3>
     </div>
     <div class="modal-body">
@@ -97,7 +97,7 @@
   <div id="move-modal" class="modal hide fade">
     <%=form_tag(url_for(:action=>"update", :path=>params[:path],:method=>"move"), :method=>:put, :id=>"move-form") do %>
     <div class="modal-header">
-      <a href="#" class="close">&times;</a>
+      <a href="#" class="close" data-dismiss="modal">&times;</a>
       <h3>Move <%=@file.shortName%></h3>
     </div>
     <div class="modal-body">
@@ -113,9 +113,23 @@
      <% end %>
   </div>
   <div id="copy-modal" class="modal hide fade">
+    <% if !user_signed_in? %> 
+    <div class="modal-header">
+      <a href="#" class="close" data-dismiss="modal">&times;</a>
+      <h3>Copy <%=@file.shortName%>?</h3>
+    <div class="modal-body">
+      <div>You must have an account to copy a note.</div>
+    </div>
+    <div class="modal-footer">
+      <div><a class="btn btn-success btn-large" href="<%=new_registration_path(resource_name)%>">Create an account</a>
+       <%= link_to "Sign in", new_session_path(resource_name), :class=>"btn btn-large"%>
+      </div>
+    </div>
+  </div>
+    <% else %>
     <%=form_tag(url_for(:action=>"update", :path=>params[:path],:method=>"copy"), :method=>:put, :id=>"copy-form", :class=>"inline-form") do %>
     <div class="modal-header">
-      <a href="#" class="close">&times;</a>
+      <a href="#" class="close" data-dismiss="modal">&times;</a>
       <h3>Copy <%=@file.shortName%></h3>
     </div>
     <div class="modal-body">
@@ -131,11 +145,12 @@
       <a href="#" id="cancel-copy-file" class="btn secondary cancel">Cancel</a>
     </div>
      <% end %>
+   <% end %>
   </div>
   <div id="share-modal" class="modal hide fade">
     <%= form_tag url_for(:controller=>"task_folder", :action=>"update", :method=>:share), :method=>:put, :class=>"inline-form" do%>
      <div class="modal-header">
-       <a href="#" class="close">&times;</a>
+       <a href="#" class="close" data-dismiss="modal">&times;</a>
        <h3>Share <%=@file.shortName%>?</h3>
      </div>
      <div class="modal-body">
@@ -156,7 +171,7 @@
   <div id="move-dir-modal" class="modal hide fade">
         <%=form_tag(url_for(:action=>"move", :path=>@path), :method=>"move", :id=>"move-dir-form") do %>
         <div class="modal-header">
-          <a href="#" class="close">&times;</a>
+          <a href="#" class="close" data-dismiss="modal">&times;</a>
           <h3>Move Directory "<%=@taskfolder.path%>"</h3>
         </div>
         <div class="modal-body">

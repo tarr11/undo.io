@@ -53,7 +53,7 @@ class ReceivedEmail
 
    footer_index = lines.length - 1
     lines.reverse.each_with_index do |line, index|
-      if line.starts_with?("--")
+      if line.lstrip.starts_with?("--")
         max_index = lines.length - 1
         footer_index = max_index - index - 1
         break

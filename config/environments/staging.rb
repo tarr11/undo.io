@@ -69,7 +69,7 @@ Todo::Application.configure do
   }
   ActionMailer::Base.delivery_method = :smtp
 
-  config.action_mailer.default_url_options = { :host => 'staging.replyinline.com' }
+  config.action_mailer.default_url_options = { :host => 'undo-staging.herokuapp.com' }
 
   PAPERCLIP_STORAGE_OPTIONS = {:storage => :s3,
                                  :s3_credentials => "#{Rails.root}/config/s3.yml",

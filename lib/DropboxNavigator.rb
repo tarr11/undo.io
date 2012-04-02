@@ -1,4 +1,4 @@
-lass DropboxNavigator
+class DropboxNavigator
 
   def self.SyncAll()
     User.all.each do |user|

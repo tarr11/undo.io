@@ -35,7 +35,7 @@ class HomeController < ApplicationController
     path = params[:path]
     changed_files = []
     unless results.nil?
-     changed_files = TaskFolder.process_search_results(results, "/")
+     changed_files = TaskFolder.process_search_results(current_user, results, "/")
      changed_files = changed_files.select{|a| a.is_public && (path.nil? || a.filename.start_with?(path))}
     end
 
@@ -67,7 +67,7 @@ class HomeController < ApplicationController
        paginate :page => 1, :per_page => 100
        order_by(:revision_at, :desc)
      end
-     changed_files = TaskFolder.process_search_results(results, "/")
+     changed_files = TaskFolder.process_search_results(current_user, results, "/")
      changed_files = changed_files.select{|a| a[:file].is_public}
      @header = "Public Notes"
      @changed_files_by_date = changed_files

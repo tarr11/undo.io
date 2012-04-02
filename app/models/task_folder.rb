@@ -193,13 +193,24 @@ class TaskFolder
   end
 
 
-  def self.process_search_results(results, path)
+  def self.process_search_results(current_user, results, path)
     allChanges = []
     # need this because helper method is busted in RSpec
     if results.hits.length == 0
       return allChanges
     end
+
     results.each_hit_with_result do |hit, result|
+
+      if current_user.nil? && !result.is_public
+        next
+      end
+
+      if !result.is_public
+        if result.user_id != current_user.id
+          next
+        end
+      end
 
       if result.filename.starts_with?(path)
 
@@ -230,18 +241,15 @@ class TaskFolder
 
   end
 
-  def search_for_changes(query)
+  def search_for_changes(current_user, query)
     results = self.user.todo_files.search do
       keywords query, :highlight=>true
       with(:user_id, user.id)
     end
 
-    changed_files = TaskFolder.process_search_results(results, self.path)
+    changed_files = TaskFolder.process_search_results(current_user, results, self.path)
 
     return changed_files
-#    allChanges = TaskFolder.process_search_results results, self.path
-
- #   return allChanges
   end
 
 

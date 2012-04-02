@@ -379,7 +379,7 @@ class TaskFolderController < ApplicationController
     if (params[:q].nil?)
       files = @taskfolder.files
     else
-      files = @taskfolder.search_for_changes(params[:q])
+      files = @taskfolder.search_for_changes(current_user, params[:q])
     end
     @changed_files_by_folder  = get_changed_files_by_folder(files, @taskfolder.path)
     respond_to do |format|
@@ -406,7 +406,7 @@ class TaskFolderController < ApplicationController
     end
 
     unless (params[:q].nil?)
-      changed_files = @taskfolder.search_for_changes(params[:q])
+      changed_files = @taskfolder.search_for_changes(current_user, params[:q])
     else
       changed_files = @taskfolder.files
     end

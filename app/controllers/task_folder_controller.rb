@@ -21,7 +21,7 @@ class TaskFolderController < ApplicationController
   end
 
   def create
-    @todo_file = current_user.todo_files.new(:filename => params[:filename], :contents => params[:save_new_contents], :is_public => false)
+    @todo_file = current_user.todo_files.new(:filename => params[:filename], :contents => params[:save_new_contents], :is_public => false, :edit_source=>'web')
 
     if !@todo_file.filename.starts_with?("/")
       @todo_file.filename = "/" + @todo_file.filename
@@ -82,7 +82,7 @@ class TaskFolderController < ApplicationController
     filename = params[:filename]
     @todo_file = current_user.todo_files.find_by_filename(filename)
     if @todo_file.nil?
-      @todo_file = current_user.todo_files.new(:filename => params[:filename], :contents => params[:savecontents], :is_public => false)
+      @todo_file = current_user.todo_files.new(:filename => params[:filename], :contents => params[:savecontents], :is_public => false, :edit_source => 'web')
       @todo_file.revision_at = DateTime.now.utc
       if !@todo_file.filename.starts_with?("/")
         @todo_file.filename = "/" + @todo_file.filename
@@ -93,6 +93,7 @@ class TaskFolderController < ApplicationController
     if @todo_file.save!
       respond_to do |format|
         format.json  { render json: {"location" => url_for(:controller => "task_folder", :action=>"folder_view", :path=> @todo_file.filename, :only_path=>true, :username =>@todo_file.user.username)}}
+
       end
     else
       respond_to do |format|

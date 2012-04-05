@@ -144,6 +144,15 @@ describe TaskFolderController do
       end
     end
 
+    describe "PUT 'create' /user/file :method=>'create'" do
+      before (:each) do
+        put :update,:savecontents=>'Some stuff', :path => @file.filename, :username => subject.current_user.username, :method => :put, :filename => '/some-new-file', :format=>:json
+      end
+      it 'should be successful' do
+        response.should be_success
+      end
+    end
+ 
     describe "PUT 'update' /user/file :method=>'move'" do
       before (:each) do
         put :update, :path => @file.filename, :username => subject.current_user.username, :method => :move, :filename => '/user/file-moved'

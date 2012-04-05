@@ -77,6 +77,12 @@ namespace :todo do
 
   end
 
+  task :dropbox_doug => :environment do
+
+    doug = User.find_by_username("doug")
+    doug.dropbox.sync_delta
+  end
+
   task :dropbox => :environment do
 
     User.all.each do |user|

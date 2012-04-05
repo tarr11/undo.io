@@ -6,6 +6,9 @@ class TaskFolder
   attr_accessor :user
   attr_accessor :path
 
+  def is_a_folder
+    return files.length > 0 
+  end
 
   def initialize(user, path, *params)
 
@@ -15,6 +18,12 @@ class TaskFolder
       @path = @path + "/"
     end
     @files = params.pop
+  end
+
+  def destroy
+    files.each do |file|
+      file.destroy
+    end
   end
 
   def files

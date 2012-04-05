@@ -7,6 +7,11 @@ describe TodoFile do
       @user = Factory.create(:user)
       @file = @user.todo_files.build(Factory.attributes_for(:file))
       @file.filename = '/'
+      @file.edit_source = "web"
+    end
+    it' should not have a blank edit_source' do
+
+      @file.edit_source.should_not be_nil
     end
     it 'should not succeed' do
       lambda{@file.save!}.should raise_error
@@ -28,7 +33,7 @@ describe TodoFile do
   describe "When a file is created" do
     before(:each) do
       @user = Factory.create(:user)
-      @file = @user.todo_files.create(Factory.attributes_for(:file))
+      @file = @user.todo_files.create!(Factory.attributes_for(:file))
     end
 
     it 'should have a single revision after save' do

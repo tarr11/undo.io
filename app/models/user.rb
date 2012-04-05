@@ -38,6 +38,8 @@ class User < ActiveRecord::Base
 
   has_one :task_folder
   has_one :dropbox, :class_name => "DropboxToken", :dependent => :destroy
+  has_one :dropbox_state
+  
   has_many :task_file_revisions
   has_many :files_shared_with_user, :through => :shared_files, :source => :todo_file
   has_many :shared_files
@@ -82,6 +84,13 @@ class User < ActiveRecord::Base
   end 
   def is_production?
   end
+  #http://stackoverflow.com/questions/3802179/how-to-autobuild-an-associated-polymorphic-activerecord-object-in-rails-3
+ 
+  def dropbox_state_with_build
+    dropbox_state_without_build || build_dropbox_state
+  end
+  
+  alias_method_chain :dropbox_state, :build
 
   def is_registered_user?
     return self.is_registered

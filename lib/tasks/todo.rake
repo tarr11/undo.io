@@ -79,7 +79,12 @@ namespace :todo do
 
   task :dropbox => :environment do
 
-    DropboxNavigator.SyncAll
+    User.all.each do |user|
+      if user.dropbox.nil?
+        next
+      end
+      user.dropbox.sync_delta
+    end
 
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120325004756) do
+ActiveRecord::Schema.define(:version => 20120404214032) do
 
   create_table "alerts", :force => true do |t|
     t.integer  "user_id"
@@ -65,6 +65,13 @@ ActiveRecord::Schema.define(:version => 20120325004756) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "dropbox_states", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "cursor"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "dropbox_wrappers", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -91,6 +98,7 @@ ActiveRecord::Schema.define(:version => 20120325004756) do
     t.datetime "summary"
     t.datetime "published_at"
     t.string   "revision_uuid"
+    t.string   "edit_source"
   end
 
   create_table "tasks", :force => true do |t|
@@ -123,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20120325004756) do
     t.boolean  "is_read_only"
     t.integer  "reply_to_id"
     t.string   "file_uuid"
+    t.string   "edit_source"
   end
 
   add_index "todo_files", ["file_uuid"], :name => "index_todo_files_on_file_uuid", :unique => true

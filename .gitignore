@@ -14,9 +14,6 @@
 /log/*.log
 /tmp
 
-# swap files
-/*.swp
-
 # Ignore solr
 /solr
 

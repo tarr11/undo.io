@@ -16,18 +16,19 @@ class TodoFile < ActiveRecord::Base
   has_many :shared_files
 
   validates_inclusion_of :is_public, :in => [true, false]
-  validates_presence_of :filename,  :user_id, :file_uuid
+  validates_presence_of :filename,  :user_id, :file_uuid, :edit_source
   validates_uniqueness_of :filename, :scope => :user_id, :case_sensitive => false
   validates_uniqueness_of :file_uuid
-
+  
   # filename can't be "/"
   validates :filename, :exclusion => { :in =>["/"], 
     :message => "Filename %{value} is reserved." }
-  attr_accessible :filename, :contents, :is_public
+  attr_accessible :filename, :contents, :is_public, :edit_source
   attr_accessor :changed_lines
   after_save :save_revision, :update_dropbox
   serialize :diff
 
+  
   before_validation do
     self.file_uuid = UUIDTools::UUID.timestamp_create().to_s
   end
@@ -166,7 +167,7 @@ class TodoFile < ActiveRecord::Base
   new_file.copied_from = self
   new_file.contents = self.contents
   new_file.is_public = false
-
+  new_file.edit_source = "web"
   if user != self.user
     new_file.is_read_only = true
     new_file.reply_to = self
@@ -247,13 +248,11 @@ class TodoFile < ActiveRecord::Base
     if user.nil?
       if TodoFile.is_email?(person)
         user = User.create_anonymous_user(person)
-        Rails.logger.debug "DEBUG:Anonymous-share" + person
       end
     end
     unless user.nil?
       return share_with(user)
     end
-    Rails.logger.debug "DEBUG: fail:" + person
     return nil
   end
 
@@ -376,6 +375,7 @@ class TodoFile < ActiveRecord::Base
     new_file.user = user
     new_file.is_public = false
     new_file.copied_from_id = self.id
+    new_file.edit_source = self.edit_source
     revision = self.task_file_revisions.find_by_revision_uuid(revision_uuid)
     if revision.nil?
       raise "No Revision"
@@ -454,7 +454,7 @@ class TodoFile < ActiveRecord::Base
     revision.revision_at = self.revision_at
     revision.dropbox_revision = self.dropbox_revision
     revision.revision_uuid = UUIDTools::UUID.timestamp_create().to_s
-
+    revision.edit_source = self.edit_source
     unless (previous.nil?)
       arrayA = previous.contents.split("\n")
       arrayB = self.contents.split("\n")
@@ -467,7 +467,9 @@ class TodoFile < ActiveRecord::Base
   end
 
   def update_dropbox
-    DropboxNavigator.delay(:queue=>'dropbox').UpdateFileInDropbox(self)
+    unless self.edit_source == 'dropbox' 
+      DropboxNavigator.delay(:queue=>'dropbox').UpdateFileInDropbox(self)
+    end
   end
 
 

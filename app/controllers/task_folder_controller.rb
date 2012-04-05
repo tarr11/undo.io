@@ -22,7 +22,6 @@ class TaskFolderController < ApplicationController
 
   def create
     @todo_file = current_user.todo_files.new(:filename => params[:filename], :contents => params[:save_new_contents], :is_public => false)
-    @todo_file.revision_at = DateTime.now.utc
 
     if !@todo_file.filename.starts_with?("/")
       @todo_file.filename = "/" + @todo_file.filename

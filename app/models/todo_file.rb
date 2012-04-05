@@ -16,7 +16,7 @@ class TodoFile < ActiveRecord::Base
   has_many :shared_files
 
   validates_inclusion_of :is_public, :in => [true, false]
-  validates_presence_of :filename,  :user_id, :file_uuid, :edit_source
+  validates_presence_of :filename,  :user_id, :file_uuid, :edit_source, :revision_at
   validates_uniqueness_of :filename, :scope => :user_id, :case_sensitive => false
   validates_uniqueness_of :file_uuid
   
@@ -27,14 +27,17 @@ class TodoFile < ActiveRecord::Base
   attr_accessor :changed_lines
   after_save :save_revision, :update_dropbox
   serialize :diff
-
+  before_validation :set_revision_at
   
   before_validation do
     self.file_uuid = UUIDTools::UUID.timestamp_create().to_s
   end
 
-  before_save do
-    self.revision_at = Time.now.utc
+
+  def set_revision_at
+    if self.edit_source == 'web'
+      self.revision_at = Time.now.utc
+    end
   end
 
   searchable do

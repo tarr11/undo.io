@@ -23,7 +23,9 @@ describe DropboxToken do
     it 'should have the right contents' do
       @user.file('/test').contents.should == "some stuff"
     end
-  
+    it 'should have the right revision date' do
+      @user.file('/test').revision_at < Date.parse('2011-12-30')
+    end  
     it "should have a dropbox edit source" do
       @user.file("/test").edit_source.should == "dropbox"
     end 

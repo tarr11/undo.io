@@ -25,7 +25,7 @@ class UserMailer < ActionMailer::Base
       unless from_user.display_name.nil?
         from = from_user.display_name +  " <" + from + ">" 
       end
-      subject = "undo.io Reminder: You have " + events.length.to_s + " " + pluralize(events.length, "event") + " today"
+      subject = "undo.io Reminder: You have " + pluralize(events.length, "event") + " soon" 
       mail(:from => from,:reply_to=>from, :to => from_user.email, :subject => subject)
     end
 

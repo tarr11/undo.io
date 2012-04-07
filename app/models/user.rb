@@ -55,6 +55,10 @@ class User < ActiveRecord::Base
   end
 
   before_create :whitelisted, :if => :check_whitelist?
+  before_create :set_defaults
+
+  def set_defaults
+  end
 
   def active_for_authentication?
     super && is_registered_user? 

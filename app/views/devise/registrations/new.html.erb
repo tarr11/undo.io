@@ -26,7 +26,8 @@
 
   <div><%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %></div>
-
+<%= f.hidden_field :allow_email, :value => true%>
+<%= f.hidden_field :allow_email_reminders,:value=> true%>
   <div><%= f.submit "Sign up" %></div>
         </fieldset>
 <% end %>

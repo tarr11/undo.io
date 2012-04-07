@@ -31,6 +31,19 @@ class TaskFolder
     return @files
   end
 
+  def send_email_reminders(start_date, end_date) 
+      events = self.to_enum(:get_event_notes).to_a.select do |event|
+        event.created_at >= start_date && event.created_at < end_date
+      end
+
+      if events.length > 0
+        msg = UserMailer.reminder_note(self.user, events)
+        msg.deliver
+        return true
+      end
+      return false
+  end
+
   def self.get_file_from_path(path)
     parts = path.split('/')
     parts = parts.reverse

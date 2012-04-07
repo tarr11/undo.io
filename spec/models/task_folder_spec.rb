@@ -28,14 +28,20 @@ describe TaskFolder do
  
   describe "When a file is created" do
     before(:each) do
-          @user = Factory.create(:user)
-          @file = @user.todo_files.create(Factory.attributes_for(:file))
-          @folder = @file.task_folder
+      @user = Factory.create(:user)
+      @file = @user.todo_files.create(Factory.attributes_for(:file))
+      @folder = @file.task_folder
     end
 
     it 'should have a folder' do
       @folder.should_not be_nil
     end
+
+    it "should be able to send an email reminder" do
+      result = @folder.send_email_reminders( DateTime.parse("2012-3-15"), DateTime.parse("2012-3-16") )
+      result.should be_true
+    end
+
 
     describe "when it is restricted to public files" do
       before(:each) do

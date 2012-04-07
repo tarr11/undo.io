@@ -71,6 +71,24 @@ namespace :todo do
     User.first.tasks.delete_all
   end
 
+  task :send_email_reminders => :environment do
+
+    start_date = DateTime.now.utc
+    end_date = start_date + 2.days
+    User.all.each do |user|
+      if user.allow_email && user.allow_email_reminders 
+        Rails.logger.debug "trying to send reminder to " + user.email
+        
+        if user.task_folder.send_email_reminders start_date, end_date
+          Rails.logger.debug "sent reminder to " + user.email
+        else
+          Rails.logger.debug "skipped reminder to " + user.email
+        end
+      end
+    end
+
+  end
+
   task :dbdelete  => :environment do
 
       ConsumerToken.delete_all

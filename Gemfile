@@ -80,3 +80,4 @@ gem "email_veracity", "~> 0.6.0"
 gem 'airbrake'
 gem "email_reply_parser"
 gem "dropbox-sdk", "~> 1.3"
+gem "ri_cal"

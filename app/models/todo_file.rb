@@ -707,7 +707,6 @@ class TodoFile < ActiveRecord::Base
   def get_event_notes
     # copy/paste from get_person_notes
     # forgive me, future me!
-
     last_tab_count = 0
     note = nil
 

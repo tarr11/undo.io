@@ -188,6 +188,7 @@ GEM
     rb-fsevent (0.9.0)
     rdoc (3.12)
       json (~> 1.4)
+    ri_cal (0.8.8)
     rsolr (1.0.7)
       builder (>= 2.1.2)
     rspec (2.8.0)
@@ -302,6 +303,7 @@ DEPENDENCIES
   progress_bar
   rails (= 3.2.2)
   rb-fsevent
+  ri_cal
   rspec
   rspec-rails (= 2.8)
   sass-rails (~> 3.2.3)

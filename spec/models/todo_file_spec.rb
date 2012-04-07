@@ -10,7 +10,6 @@ describe TodoFile do
       @file.edit_source = "web"
     end
     it' should not have a blank edit_source' do
-
       @file.edit_source.should_not be_nil
     end
     it 'should not succeed' do
@@ -46,6 +45,11 @@ describe TodoFile do
 
     it "shouldn't be shared" do
       @file.was_sent_to_other_user?.should be_false
+    end
+
+    it "should have an event" do
+      events = @file.to_enum(:get_event_notes).to_a
+      events.length.should == 1 
     end
 
     describe "and another file is created with the same name, but different capitalization" do

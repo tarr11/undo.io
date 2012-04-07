@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, , :lockable, :timeoutable and :omniauthable
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :time_zone, :username,:login, :display_name, :allow_email
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :time_zone, :username,:login, :display_name, :allow_email, :allow_email_reminders
     devise :registerable,:database_authenticatable,:confirmable,
             :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
 
@@ -82,10 +82,9 @@ class User < ActiveRecord::Base
       return false
 =end
   end 
-  def is_production?
-  end
+
+  
   #http://stackoverflow.com/questions/3802179/how-to-autobuild-an-associated-polymorphic-activerecord-object-in-rails-3
- 
   def dropbox_state_with_build
     dropbox_state_without_build || build_dropbox_state
   end
@@ -161,6 +160,7 @@ class User < ActiveRecord::Base
       user.is_registered = false 
       user.skip_confirmation!
       user.allow_email = true
+      user.allow_email_reminders = false
       user.save!
       return user 
   end

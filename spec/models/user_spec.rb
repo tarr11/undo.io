@@ -14,6 +14,10 @@ describe User do
     lambda{user2 = Factory.create(:user, :email=>"user2@example.com", :username=>@user.username)}.should raise_error
   end
 
+  it " should require case insensitve unique username" do
+    lambda{user2 = Factory.create(:user, :email=>"user2@example.com", :username=>@user.username.upcase)}.should raise_error
+  end
+
   it 'should be registered' do
     @user.is_registered.should be_true
   end

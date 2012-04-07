@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   attr_accessor :login
 
   with_options :if => :is_registered_user? do |user|
-    user.validates_uniqueness_of :username, :email
+    user.validates_uniqueness_of :username, :email, :case_sensitive => false
     user.validates_presence_of :username, :email, :display_name
     user.validates_presence_of :password, :on => :create
    
@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   # user who hasn't registered, and came in via email
   with_options :if => :is_not_registered_user? do |user|
     user.validates_presence_of :unverified_email 
-    user.validates_uniqueness_of :unverified_email
+    user.validates_uniqueness_of :unverified_email, :case_sensitive => false
   end
 
   before_validation(:on => :create) do

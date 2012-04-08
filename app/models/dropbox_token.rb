@@ -21,9 +21,16 @@ DROPBOX_SETTINGS= {
     @client ||= begin 
       @session = DropboxSession.new(DropboxToken.consumer.key, DropboxToken.consumer.secret)
       @session.set_access_token(token, secret)
+      @authorized = @session.authorized?
       DropboxClient.new(@session,ACCESS_TYPE)
     end 
     
+  end
+
+  def is_authorized?
+    # initialize the client
+    client = self.dropbox_client
+    return @authorized
   end
 
   def get_delta

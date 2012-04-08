@@ -107,7 +107,9 @@ namespace :todo do
       if user.dropbox.nil?
         next
       end
-      user.dropbox.sync_delta
+      if user.dropbox.is_authorized?
+        user.dropbox.sync_delta
+      end
     end
 
   end

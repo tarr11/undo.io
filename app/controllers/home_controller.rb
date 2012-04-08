@@ -22,6 +22,9 @@ class HomeController < ApplicationController
     end
 
   end
+  def please_confirm
+    @header = "Please confirm"
+  end
 
   def team
     @header = "Team Edition"

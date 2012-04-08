@@ -10,10 +10,11 @@ Todo::Application.routes.draw do
       match 'client/*endpoint' => 'oauth_consumers#client'
     end
   end
-  devise_for :users, :controllers =>{:sessions => "sessions"}
+  devise_for :users, :controllers =>{:sessions => "sessions", :registrations => "registrations" }
   match '/settings' => 'user#update', :via => [:put, :post]
   match '/settings' => 'user#show'
   match '/team' => 'home#team'
+  match '/please_confirm' => 'home#please_confirm'
 
   match '/email' => 'email#post', :via => :post
   resources :todo_files

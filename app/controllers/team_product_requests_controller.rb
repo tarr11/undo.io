@@ -43,7 +43,7 @@ class TeamProductRequestsController < ApplicationController
     @team_product_request = TeamProductRequest.new(params[:team_product_request])
 
     respond_to do |format|
-      if @team_product_request.save!
+      if @team_product_request.save
         format.html { redirect_to team_product_requests_url}
         format.json { render json: @team_product_request, status: :created, location: @team_product_request }
       else

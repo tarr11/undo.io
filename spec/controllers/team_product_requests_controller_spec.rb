@@ -24,7 +24,7 @@ describe TeamProductRequestsController do
   # TeamProductRequest. As you add validations to TeamProductRequest, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {:email=>"foo@bar.com"}
   end
   
   # This should return the minimal set of values that should be in the session
@@ -42,26 +42,10 @@ describe TeamProductRequestsController do
     end
   end
 
-  describe "GET show" do
-    it "assigns the requested team_product_request as @team_product_request" do
-      team_product_request = TeamProductRequest.create! valid_attributes
-      get :show, {:id => team_product_request.to_param}, valid_session
-      assigns(:team_product_request).should eq(team_product_request)
-    end
-  end
-
   describe "GET new" do
     it "assigns a new team_product_request as @team_product_request" do
       get :new, {}, valid_session
       assigns(:team_product_request).should be_a_new(TeamProductRequest)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested team_product_request as @team_product_request" do
-      team_product_request = TeamProductRequest.create! valid_attributes
-      get :edit, {:id => team_product_request.to_param}, valid_session
-      assigns(:team_product_request).should eq(team_product_request)
     end
   end
 
@@ -81,7 +65,7 @@ describe TeamProductRequestsController do
 
       it "redirects to the created team_product_request" do
         post :create, {:team_product_request => valid_attributes}, valid_session
-        response.should redirect_to(TeamProductRequest.last)
+        response.should redirect_to(team_product_requests_url)
       end
     end
 
@@ -102,63 +86,5 @@ describe TeamProductRequestsController do
     end
   end
 
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested team_product_request" do
-        team_product_request = TeamProductRequest.create! valid_attributes
-        # Assuming there are no other team_product_requests in the database, this
-        # specifies that the TeamProductRequest created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        TeamProductRequest.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => team_product_request.to_param, :team_product_request => {'these' => 'params'}}, valid_session
-      end
-
-      it "assigns the requested team_product_request as @team_product_request" do
-        team_product_request = TeamProductRequest.create! valid_attributes
-        put :update, {:id => team_product_request.to_param, :team_product_request => valid_attributes}, valid_session
-        assigns(:team_product_request).should eq(team_product_request)
-      end
-
-      it "redirects to the team_product_request" do
-        team_product_request = TeamProductRequest.create! valid_attributes
-        put :update, {:id => team_product_request.to_param, :team_product_request => valid_attributes}, valid_session
-        response.should redirect_to(team_product_request)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the team_product_request as @team_product_request" do
-        team_product_request = TeamProductRequest.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        TeamProductRequest.any_instance.stub(:save).and_return(false)
-        put :update, {:id => team_product_request.to_param, :team_product_request => {}}, valid_session
-        assigns(:team_product_request).should eq(team_product_request)
-      end
-
-      it "re-renders the 'edit' template" do
-        team_product_request = TeamProductRequest.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        TeamProductRequest.any_instance.stub(:save).and_return(false)
-        put :update, {:id => team_product_request.to_param, :team_product_request => {}}, valid_session
-        response.should render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested team_product_request" do
-      team_product_request = TeamProductRequest.create! valid_attributes
-      expect {
-        delete :destroy, {:id => team_product_request.to_param}, valid_session
-      }.to change(TeamProductRequest, :count).by(-1)
-    end
-
-    it "redirects to the team_product_requests list" do
-      team_product_request = TeamProductRequest.create! valid_attributes
-      delete :destroy, {:id => team_product_request.to_param}, valid_session
-      response.should redirect_to(team_product_requests_url)
-    end
-  end
 
 end

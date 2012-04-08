@@ -23,6 +23,10 @@ class HomeController < ApplicationController
 
   end
 
+  def team
+    @header = "Team Edition"
+  end
+
   def board_view
 
     results = TodoFile.search do

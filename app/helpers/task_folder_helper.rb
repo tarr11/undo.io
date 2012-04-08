@@ -331,6 +331,10 @@ module TaskFolderHelper
 
     end
 
+    def team_active_class
+      
+    end
+
     def inbox_active_class
       return "" if current_user.nil?
       return (params[:username] == current_user.username && params[:shared] == "y" ? "active" : nil)

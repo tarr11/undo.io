@@ -1,5 +1,7 @@
 Todo::Application.routes.draw do
 
+  resources :team_product_requests, :except =>[:destroy, :show, :update]
+
   root :to => 'home#index'
   resources :oauth_consumers do
     member do
@@ -11,6 +13,7 @@ Todo::Application.routes.draw do
   devise_for :users, :controllers =>{:sessions => "sessions"}
   match '/settings' => 'user#update', :via => [:put, :post]
   match '/settings' => 'user#show'
+  match '/team' => 'home#team'
 
   match '/email' => 'email#post', :via => :post
   resources :todo_files

@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Email:</b>
+  <%= @team_product_request.email %>
+</p>
+
+<p>
+  <b>Feedback:</b>
+  <%= @team_product_request.feedback %>
+</p>
+
+
+<%= link_to 'Edit', edit_team_product_request_path(@team_product_request) %> |
+<%= link_to 'Back', team_product_requests_path %>

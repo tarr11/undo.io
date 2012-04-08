@@ -3,6 +3,12 @@ include ActionView::Helpers::TextHelper
 class UserMailer < ActionMailer::Base
    add_template_helper(TaskFolderHelper)
 
+   def product_request_note(email, feedback)
+     @email = email
+     @feedback = feedback
+     mail(:from=>"product-requests@undo.io", :to=>"douglas.tarr@gmail.com", :subject=>"Product request!")
+   end
+
     def shared_note(from_user, to_user, file)
       @from_user =  from_user
       @to_user = to_user

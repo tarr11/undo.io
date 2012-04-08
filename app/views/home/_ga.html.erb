@@ -6,7 +6,7 @@
   _gaq.push(['_trackPageview']);
 <%if flash[:analytics]%>
   <% flash[:analytics].each do |event|%>
-    _gaq.push(['_trackEvent', '<%=event.category%>', '<%=event.action%>', '<%=event.label%>','<%=event.value%>']);
+    _gaq.push(['_trackEvent', '<%=event.category%>', '<%=event.action%>', '<%=event.label%>',<%=event.value%>]);
   <% end %>
 <%end%>
 

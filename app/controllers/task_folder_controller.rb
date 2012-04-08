@@ -29,7 +29,6 @@ class TaskFolderController < ApplicationController
 
     respond_to do |format|
       if @todo_file.save!
-
         format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :username=>current_user.username, :path=> @todo_file.filename, notice: 'File was successfully created.' }
         format.json { render json: @todo_file, status: :created}
       else
@@ -91,6 +90,7 @@ class TaskFolderController < ApplicationController
       @todo_file.contents = params[:savecontents]
     end
     if @todo_file.save!
+      create_google_analytics_event('Note','Create','',1)
       respond_to do |format|
         format.json  { render json: {"location" => url_for(:controller => "task_folder", :action=>"folder_view", :path=> @todo_file.filename, :only_path=>true, :username =>@todo_file.user.username)}}
 
@@ -189,13 +189,15 @@ class TaskFolderController < ApplicationController
             users_shared.push file.user.user_folder_name
           end
         end
-
       end
+      create_google_analytics_event('Note','Share','',people.length)
+
       make_public = (params[:make_public] == "y")
       if make_public
         unless @file.is_public?
           @file.make_public()
           make_public = true
+          create_google_analytics_event('Note','Publish','',1)
         end
       else
         if @file.is_public?

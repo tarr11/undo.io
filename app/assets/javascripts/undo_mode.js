@@ -1,11 +1,3 @@
-/**
- * Created by JetBrains RubyMine.
- * User: dougt
- * Date: 1/28/12
- * Time: 12:45 PM
- * To change this template use File | Settings | File Templates.
- */
-
 CodeMirror.newFoldFunction = function(rangeFinder, markText) {
   var folded = [];
   if (markText == null) markText = '<div style="position: absolute; left: 2px; color:#600">&#x25bc;</div>%N%';

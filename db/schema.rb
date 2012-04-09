@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(:version => 20120408025000) do
     t.integer  "user_id"
     t.text     "message"
     t.boolean  "was_read"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "alerts", ["user_id"], :name => "index_alerts_on_user_id"
@@ -40,8 +40,8 @@ ActiveRecord::Schema.define(:version => 20120408025000) do
     t.string   "type",           :limit => 30
     t.string   "token",          :limit => 1024
     t.string   "secret"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.datetime "authorized_at"
     t.datetime "invalidated_at"
     t.datetime "expires_at"

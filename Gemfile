@@ -69,7 +69,7 @@ gem 'chronic',:git => 'git://github.com/tarr11/chronic.git'
 gem 'sunspot_rails'
 gem 'delayed_job_active_record', "~> 0.3.2"
 gem 'delayed_task'
-gem 'codemirror-rails', "~> 2.22"
+gem 'codemirror-rails',:git => "git://github.com/jweir/codemirror-rails"
 gem 'thin'
 gem "paperclip", "~> 2.0"
 gem 'aws-sdk'

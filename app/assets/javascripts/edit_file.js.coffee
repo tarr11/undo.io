@@ -50,13 +50,13 @@ initCodeMirror = () ->
         $('#status').html("")
     ,
     onChange : (cm, event) ->
-      if event.text[0] == "@"
-        previousChar = cm.getRange({ch:event.from.ch-1, line:event.from.line}, {ch:event.from.ch, line:event.from.line})
-        if previousChar == " " || previousChar == ""
-          CodeMirror.simpleHint cm, CodeMirror.javascriptHint
+      #if event.text[0] == "@"
+       # previousChar = cm.getRange({ch:event.from.ch-1, line:event.from.line}, {ch:event.from.ch, line:event.from.line})
+       # if previousChar == " " || previousChar == ""
+       #   CodeMirror.simpleHint cm, CodeMirror.javascriptHint
 
-      if event.text[0] == "/"
-        CodeMirror.simpleHint cm, CodeMirror.javascriptHint
+      #if event.text[0] == "/"
+       # CodeMirror.simpleHint cm, CodeMirror.javascriptHint
 
 
     #onHighlightComplete : (event) ->

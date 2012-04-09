@@ -99,7 +99,12 @@ CodeMirror.defineMode("undo", function(config, parserConfig) {
       var peopleRegex = /^@[\w]+\b/
       var taskRegex = /^!/
       var completedtaskRegex = /^x[\s]*!.*/
-      var dateRegex = /^(0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d/
+      var dateRegexes = [
+	/^(0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.]((19|20)\d\d)?/,
+	/^[1-9][012]?:[0-5][0-9](?:\s[ap]m)?/i,
+	/^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s[0-9]{1,2}/i,
+	/^(january|february|march|april|may|june|july|august|september|october|november|december)\s[0-9]{1,2}/i
+	];
       var emailRegex = /^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i
 
 
@@ -134,10 +139,14 @@ CodeMirror.defineMode("undo", function(config, parserConfig) {
                 return "undo-task-completed";
             }
 
-            if (stream.match(dateRegex))
-            {
-                return "undo-date";
-            }
+			for (i=0;i<dateRegexes.length;i++)
+			{
+				dateRegex = dateRegexes[i];
+				if (stream.match(dateRegex))
+				{
+					return "undo-date";
+				}
+			}
 
             if (stream.match(wwwRegex))
             {

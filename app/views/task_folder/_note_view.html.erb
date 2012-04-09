@@ -160,7 +160,7 @@
               <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#related-events"><i class="icon-calendar"></i> Related Events</a> (<%=@events.length%>)</h3>
              <div style="margin-left:.5em;" id="related-events" class="collapse out">
              <%@events.each do |event|%>
-                   <div><%=event.title%></div>
+				 <div><%=event.title%><%=event.created_at%></div>
              <% end%>
               </div>
              </div>

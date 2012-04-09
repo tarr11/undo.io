@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/jweir/codemirror-rails
+  revision: 56a48907696c4ab50785bea006d4db691c785e13
+  specs:
+    codemirror-rails (2.22)
+      railties (~> 3.0)
+
+GIT
   remote: git://github.com/tarr11/chronic.git
   revision: a76c6b364970bce1055afc85eb85780b70321351
   specs:
@@ -53,8 +60,6 @@ GEM
     builder (3.0.0)
     cancan (1.6.7)
     cocaine (0.2.1)
-    codemirror-rails (2.22)
-      railties (~> 3.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -273,7 +278,7 @@ DEPENDENCIES
   aws-sdk
   cancan
   chronic!
-  codemirror-rails (~> 2.22)
+  codemirror-rails!
   coffee-rails (~> 3.2.1)
   delayed_job_active_record (~> 0.3.2)
   delayed_task

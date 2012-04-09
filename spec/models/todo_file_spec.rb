@@ -59,7 +59,6 @@ describe TodoFile do
 
     it "should have an event" do
       events_thing = @file.get_events.to_a
-      puts "THING:" + events_thing.to_s
       events_thing.length.should == 1 
     end
 

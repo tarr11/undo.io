@@ -56,7 +56,7 @@ namespace :todo do
 
   task :send_email_reminders => :environment do
 
-    start_date = DateTime.now.utc
+    start_date = Date.today
     end_date = start_date + 2.days
     User.all.each do |user|
       if user.allow_email && user.allow_email_reminders 

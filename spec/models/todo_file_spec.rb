@@ -47,9 +47,20 @@ describe TodoFile do
       @file.was_sent_to_other_user?.should be_false
     end
 
-    it "should have an event" do
-      events = @file.to_enum(:get_event_notes).to_a
+
+    it "should have slides" do
+      @file.slideshow.slides.length.should > 0
+    end
+
+    it "should have slides in the slideshow" do
+      events = @file.slideshow.to_enum(:get_events).to_a
       events.length.should == 1 
+    end
+
+    it "should have an event" do
+      events_thing = @file.get_events.to_a
+      puts "THING:" + events_thing.to_s
+      events_thing.length.should == 1 
     end
 
     describe "and another file is created with the same name, but different capitalization" do

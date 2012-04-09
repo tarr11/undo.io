@@ -2,7 +2,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-window.checkNewRightRail = false
 window.saveNew = ->
   contents = window.myCodeMirror.getValue()
   $('#savecontents').val(contents)
@@ -17,19 +16,6 @@ window.saveNew = ->
 
 window.navigateHome = ->
   window.location.href = "/"
-
-getNewRightRail = ->
-  if window.checkNewRightRail
-    window.checkNewRightRail = false
-    $.ajax $('#page-path').text() + "?rail=true",
-      type: 'GET'
-      dataType: 'html'
-      success: (data, textStatus, jqXHR) ->
-          if window.lastdata != data
-            window.lastdata = data
-            $('#right-rail-feed').hide()
-            $('#right-rail-feed').html(data)
-            $('#right-rail-feed').fadeIn('slow')
 
 
 

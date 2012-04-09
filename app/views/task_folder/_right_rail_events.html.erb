@@ -1,0 +1,11 @@
+<h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#related-events"><i class="icon-calendar"></i> Related Events</a> (<%=@events.length%>)</h3>
+<div style="margin-left:.5em;" id="related-events" class="collapse out">
+  <%@events.group_by{|a| a.slide}.each do |slide, events|%>
+    <div style="font-weight:bold"><%=slide.title%></div>
+    <ul>
+      <%events.each do |event|%>
+        <li><%=event.title%></li>
+      <%end%>
+    </ul>
+  <% end%>
+</div>

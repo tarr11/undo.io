@@ -25,7 +25,7 @@ describe UserMailer do
       @to_user = User.create_anonymous_user("test@example.com")
       @file = @from_user.todo_files.build(Factory.attributes_for(:file))
       @file.save!
-      events = @file.to_enum(:get_event_notes).to_a
+      events = @file.to_enum(:get_events).to_a
       @email = UserMailer.reminder_note(@from_user, events) 
     end
 

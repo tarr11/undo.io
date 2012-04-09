@@ -20,7 +20,7 @@
   </div>
 
 <% if @show_list_view %>
-    <ul style="margin-left:0em;">
+    <ul class="feed-view" style="margin-left:0em;">
       <% @tasks_by_date.each do |date, tasklist| %>
           <li class="undo-divider"><%=date%></li>
           <% tasklist.each do |task| %>

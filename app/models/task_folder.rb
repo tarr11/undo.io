@@ -32,8 +32,8 @@ class TaskFolder
   end
 
   def send_email_reminders(start_date, end_date) 
-      events = self.to_enum(:get_event_notes).to_a.select do |event|
-        event.created_at >= start_date && event.created_at < end_date
+      events = self.to_enum(:get_events).to_a.select do |event|
+        event.start_at >= start_date && event.start_at < end_date
       end
 
       if events.length > 0
@@ -93,10 +93,10 @@ class TaskFolder
     @files = files.select{|a| a.is_public}
   end
 
-  def get_event_notes
+  def get_events
 
     self.files.each do |file|
-       file.get_event_notes do |line|
+       file.slideshow.get_events do |line|
           yield line
       end
     end

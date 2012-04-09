@@ -100,7 +100,7 @@ CodeMirror.defineMode("undo", function(config, parserConfig) {
       var taskRegex = /^!/
       var completedtaskRegex = /^x[\s]*!.*/
       var dateRegexes = [
-	/^(0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.]((19|20)\d\d)?/,
+	/^(0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.]((19|20)\d\d)/,
 	/^[1-9][012]?:[0-5][0-9](?:\s[ap]m)?/i,
 	/^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s[0-9]{1,2}/i,
 	/^(january|february|march|april|may|june|july|august|september|october|november|december)\s[0-9]{1,2}/i

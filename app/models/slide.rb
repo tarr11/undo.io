@@ -1,6 +1,7 @@
 class Slide
   # To change this template use File | Settings | File Templates.
 
+  attr_accessor :slideshow
   attr_accessor :sections
   attr_accessor :has_tasks
 
@@ -11,8 +12,9 @@ class Slide
   #attr_accessor :links
   #attr_accessor :images
 
-  def initialize()
+  def initialize(slideshow)
     @sections = []
+    @slideshow = slideshow
 #    add_line line
   end
 
@@ -72,6 +74,20 @@ class Slide
 
   def httpRegex
      /\bhttp[s]?:\/\/[^\s]+\b/
+  end
+
+  def get_events
+
+    @sections.each do |section|
+      section.slide_contents.each do |part|
+        event =  Event.get_event(part.text, self.slideshow.file, self)
+        unless event.nil?
+          yield event
+        end
+      end
+    end
+
+     
   end
 
   def get_images

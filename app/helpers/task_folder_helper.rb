@@ -521,7 +521,7 @@ module TaskFolderHelper
 
     def get_related_events
 
-      @events = @file.to_enum(:get_event_notes).to_a
+      @events = @file.slideshow.to_enum(:get_events).to_a
 
     end
 

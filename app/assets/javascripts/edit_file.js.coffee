@@ -8,8 +8,25 @@ checkAutoSave = ->
   if contents != window.lastContents
     $('#edit-button').click()
     window.lastContents = contents
+	window.checkNewRightRail = true
+	
+
+getNewRightRail = ->
+  if window.checkNewRightRail
+    window.checkNewRightRail = false
+    $.ajax $('#page-path').text() + "?rail=true",
+      type: 'GET'
+      dataType: 'html'
+      success: (data, textStatus, jqXHR) ->
+        if window.lastdata != data
+          window.lastdata = data
+          $('#right-rail-events').hide()
+          $('#right-rail-events').html(data)
+          $('#right-rail-events').fadeIn('slow')
+
 
 initCodeMirror = () ->
+  window.checkNewRightRail = false
   textArea = document.getElementById('editor')
   if textArea == null
     return
@@ -67,6 +84,7 @@ initCodeMirror = () ->
 
   window.lastContents = window.myCodeMirror.getValue()
   setInterval checkAutoSave, 1000
+  setInterval getNewRightRail, 1000
   window.myCodeMirror.focus()
 
 

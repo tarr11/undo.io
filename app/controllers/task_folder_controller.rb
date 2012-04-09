@@ -13,9 +13,9 @@ class TaskFolderController < ApplicationController
 
   def home_view
 
-   @public_files = TodoFile.find_by_is_public(true, :order=>"REVISION_AT desc")
+    @public_files = TodoFile.find_by_is_public(true, :order=>"REVISION_AT desc")
     respond_to do |format|
-       format.html {render 'home_view', :layout => 'task_folder'}
+      format.html {render 'home_view', :layout => 'task_folder'}
     end
 
   end
@@ -206,9 +206,9 @@ class TaskFolderController < ApplicationController
         end
       end
       flash[:shared_note] = {
-          :make_public => make_public,
-          :make_private => make_private,
-          :users_shared => users_shared
+        :make_public => make_public,
+        :make_private => make_private,
+        :users_shared => users_shared
       }
 
       respond_to do |format|
@@ -223,36 +223,36 @@ class TaskFolderController < ApplicationController
       # TODO: deal with overwriting
 
 
-      end
+    end
 
   end
 
   def copy
-      get_header_data
-      # if this is a file. move it
-      unless @file.nil?
+    get_header_data
+    # if this is a file. move it
+    unless @file.nil?
 
-       @new_file = @file.copy(current_user,params[:copy_filename], params[:revision_uuid])
-        if @new_file.save!
+      @new_file = @file.copy(current_user,params[:copy_filename], params[:revision_uuid])
+      if @new_file.save!
 
-          respond_to do |format|
-            flash[:notice] = "File was copied"
-            format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @new_file.filename, :username=>@new_file.user.username}
-          end
-        else
-          @errors = new_file.errors
-          folder_view
+        respond_to do |format|
+          flash[:notice] = "File was copied"
+          format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :path=> @new_file.filename, :username=>@new_file.user.username}
         end
+      else
+        @errors = new_file.errors
+        folder_view
       end
-
-      unless @taskfolder.nil?
-        oldName = @taskfolder.path
-        # find all files in this path, and change their names
-        # TODO: deal with overwriting
-
-
-        end
     end
+
+    unless @taskfolder.nil?
+      oldName = @taskfolder.path
+      # find all files in this path, and change their names
+      # TODO: deal with overwriting
+
+
+    end
+  end
 
 
   def task_file_view
@@ -282,10 +282,10 @@ class TaskFolderController < ApplicationController
 
 
     @tasks_by_date = tasks
-      .select {|task| !task.completed}
-      .group_by {|task| task.file.revision_at.strftime "%A, %B %e, %Y" }
-            .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
-            .reverse
+    .select {|task| !task.completed}
+    .group_by {|task| task.file.revision_at.strftime "%A, %B %e, %Y" }
+    .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
+    .reverse
 
     respond_to do |format|
       format.html {render 'task_folder/task_view'}
@@ -312,32 +312,32 @@ class TaskFolderController < ApplicationController
     end
 
     @notes_by_date = lines
-      .group_by {|line| line.file.revision_at.strftime "%A, %B %e, %Y" }
-            .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
-            .reverse
+    .group_by {|line| line.file.revision_at.strftime "%A, %B %e, %Y" }
+    .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
+    .reverse
 
   end
 
   def event_view
     lines = []
-      if !@file.nil?
-        @file.get_event_notes do |line|
-          lines.push line
-        end
-      else
-        @taskfolder.get_event_notes do |line|
-          lines.push line
-        end
+    if !@file.nil?
+      @file.get_events do |line|
+        lines.push line
       end
+    else
+      @taskfolder.get_events do |line|
+        lines.push line
+      end
+    end
 
-      #if !params[:person].nil?
-      #  lines = lines.select{|a| a.people.include?(params[:person])}
-      #end
+    #if !params[:person].nil?
+    #  lines = lines.select{|a| a.people.include?(params[:person])}
+    #end
 
-      @notes_by_date = lines
-        .select {|line| line.event.start_at > Date.today}
-        .group_by {|line| line.event.start_at.strftime "%A, %B %e, %Y" }
-              .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
+    @notes_by_date = lines
+    .select {|line| line.start_at > Date.today}
+    .group_by {|line| line.start_at.strftime "%A, %B %e, %Y" }
+    .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
 
 
     respond_to do |format|
@@ -385,7 +385,7 @@ class TaskFolderController < ApplicationController
     end
     @changed_files_by_folder  = get_changed_files_by_folder(files, @taskfolder.path)
     respond_to do |format|
-        format.html { render 'task_folder/boxed_view', :layout => 'task_folder', :wildcard_user_name=>false}
+      format.html { render 'task_folder/boxed_view', :layout => 'task_folder', :wildcard_user_name=>false}
     end
   end
 
@@ -479,7 +479,7 @@ class TaskFolderController < ApplicationController
   end
 
   def get_diff_html(left_file, right_file)
-#
+    #
     file_comparer = FileComparer.new(left_file, right_file)
 
     if file_comparer.merge_error?
@@ -492,8 +492,8 @@ class TaskFolderController < ApplicationController
     diff_type = nil
     file_comparer.tokenize do |token|
       if token[:token_type] == :action_start
-          html.push '<span class="' + token[:diff_type].to_s + '">'
-          diff_type = token[:diff_type]
+        html.push '<span class="' + token[:diff_type].to_s + '">'
+        diff_type = token[:diff_type]
       elsif token[:token_type] == :action_end
         html.push '</span>'
         diff_type = nil
@@ -539,18 +539,18 @@ class TaskFolderController < ApplicationController
     @show_reply_button = false
     @show_edit_buttons = false
     if params[:compare].nil? && @file.is_copied?
-        @show_reply_button = true
+      @show_reply_button = true
     end
 
     if @file.is_read_only?
       @show_copy_button = true
     end
- 
+
     if !@show_copy_button && params[:compare].nil?
       @show_edit_buttons = true
     end
 
-   
+
     unless params[:compare].nil?
       @compare_file = get_file_from_path_escaped(params[:compare])
       unless (!current_user.nil? && @compare_file.user_id == current_user.id) || @compare_file.is_public  || @compare_file.shared_with_users.include?(current_user)
@@ -562,11 +562,11 @@ class TaskFolderController < ApplicationController
 
     if params[:rail] == "true"
       respond_to do |format|
-          format.html { render '_right_rail', :layout => false}
-       end
+        format.html { render '_right_rail', :layout => false}
+      end
     else
       respond_to do |format|
-         format.html { render '_note_view', :layout => 'application'}
+        format.html { render '_note_view', :layout => 'application'}
       end
 
     end
@@ -577,5 +577,5 @@ class TaskFolderController < ApplicationController
   end
 
 
-
 end
+

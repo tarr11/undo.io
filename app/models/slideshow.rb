@@ -2,6 +2,8 @@ class Slideshow
   # To change this template use File | Settings | File Templates.
 
   attr_accessor :slides
+  attr_accessor :file
+
   def initialize(file)
     @file = file
     @slides = to_enum(:build_slides).to_a
@@ -16,6 +18,14 @@ class Slideshow
 
     return nil
 
+  end
+
+  def get_events
+    @slides.each do |slide|
+      slide.get_events do |event|
+        yield event
+      end
+    end
   end
 
   def build_slides
@@ -34,7 +44,7 @@ class Slideshow
       # first line is special, we initialize a new slide
       if index == 0
         last_line = line
-        current_slide = Slide.new
+        current_slide = Slide.new(self)
         next
       end
 
@@ -50,7 +60,7 @@ class Slideshow
       if line.text.blank?
         current_slide.complete
         yield current_slide
-        current_slide = Slide.new
+        current_slide = Slide.new(self)
         last_line = line
         next
       end
@@ -59,7 +69,7 @@ class Slideshow
       if line.is_task && line.children.length > 0 && !current_slide.has_tasks
         current_slide.complete
         yield current_slide
-        current_slide = Slide.new
+        current_slide = Slide.new(self)
         last_line = line
         next
       end

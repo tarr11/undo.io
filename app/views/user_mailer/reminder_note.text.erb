@@ -1,9 +1,12 @@
 You have <%=pluralize(@events.length, "event")%> coming up soon.
 
 <% @events.each do |event|%>
+<%=event.slide.title%>
+----
 * <%= event.title%>
-   http://www.undo.io<%=file_local_path event.file%>
+in http://www.undo.io<%=file_local_path event.file%>
+
 <% end %>
 --
-This is an automated message from undo.io
-To unsubscribe from all undo.io email, just reply to this email with the word "unsubscribe" in the first line.
+This is a reminder from undo.io
+To stop receiving these reminders, visit http://www.undo.io/settings

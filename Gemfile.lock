@@ -5,12 +5,6 @@ GIT
     codemirror-rails (2.22)
       railties (~> 3.0)
 
-GIT
-  remote: git://github.com/tarr11/chronic.git
-  revision: a76c6b364970bce1055afc85eb85780b70321351
-  specs:
-    chronic (0.6.7)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -59,6 +53,7 @@ GEM
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
     cancan (1.6.7)
+    chronic (0.6.7)
     cocaine (0.2.1)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -277,7 +272,7 @@ DEPENDENCIES
   aws-s3
   aws-sdk
   cancan
-  chronic!
+  chronic
   codemirror-rails!
   coffee-rails (~> 3.2.1)
   delayed_job_active_record (~> 0.3.2)

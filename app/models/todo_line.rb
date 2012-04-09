@@ -1,5 +1,4 @@
 require 'twitter-text'
-require 'chronic'
 class TodoLine
   include Twitter::Extractor
 
@@ -127,34 +126,4 @@ class TodoLine
 
   end
 
-  def get_event
-
-	regexes =[/(0?[1-9]|1[012])[- \/.](0?[1-9]|[12][0-9]|3[01])[- \/.]((19|20)\d\d)?/,
-		/[1-9][012]?:[0-5][0-9](?:\s[ap]m)?/i,
-	/(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s[0-9]{1,2}/i,
-	/(january|february|march|april|may|june|july|august|september|october|november|december)\s[0-9]{1,2}/i
-	]
-
-	extracted_text = ""
-	regexes.each do |re|
-		match = re.match(text)
-		unless match.nil?
-			extracted_text = extracted_text + " " + match[0]
-		end
-	end
-	puts extracted_text
-
-    #match = text.match(/(0?[1-9]|1[012])[- \/.](0?[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d/)
-    #date = chronic.parse(text, :now=>self.created_at)
-    unless extracted_text.blank?
-
-      event = Event.new
-      event.start_at = Chronic.parse(extracted_text,:now=>self.created_at)
-      event.title = text
-      event.todo_line = self
-      return event
-    end
-
-
-  end
 end

@@ -65,7 +65,7 @@ gem 'twitter'
 gem 'mobylette'
 gem 'diff-lcs'
 gem 'twitter-text'
-gem 'chronic',:git => 'git://github.com/tarr11/chronic.git'
+gem 'chronic'
 gem 'sunspot_rails'
 gem 'delayed_job_active_record', "~> 0.3.2"
 gem 'delayed_task'

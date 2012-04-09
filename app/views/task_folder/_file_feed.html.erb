@@ -1,4 +1,4 @@
-    <ul style="margin-left:0em;">
+    <ul class="feed-view" style="margin-left:0em;">
     <% @changed_files_by_date.each do |date_item| %>
       <li class="undo-divider"><%=date_item.first%></li>
       <% date_item.second.sort_by{|a| a.revision_at}.reverse.each do |file| %>

@@ -704,7 +704,12 @@ class TodoFile < ActiveRecord::Base
 
   end
 
-  def get_event_notes
+
+  def get_events
+    events = self.slideshow.to_enum(:get_events).to_a
+  end
+
+  def get_event_notes_old
     # copy/paste from get_person_notes
     # forgive me, future me!
     last_tab_count = 0

@@ -1,3 +1,4 @@
+#
 # encoding: utf-8
 require 'dropbox_sdk'
 
@@ -85,6 +86,7 @@ DROPBOX_SETTINGS= {
             Rails.logger.debug "Dropbox: Updated file:" + user.username + "/" +  filename
           end
         end
+
         if !is_folder
           file.revision_at = metadata["modified"] 
           file.edit_source = 'dropbox'

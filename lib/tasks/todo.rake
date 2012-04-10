@@ -91,7 +91,11 @@ namespace :todo do
         next
       end
       if user.dropbox.is_authorized?
-        user.dropbox.sync_delta
+        begin
+          user.dropbox.sync_delta
+        rescue Net::HTTPUnauthorized
+
+        end
       end
     end
 

@@ -98,7 +98,12 @@ DROPBOX_SETTINGS= {
 
   def sync_delta
     while true do
-      delta = get_delta 
+      begin
+        delta = get_delta 
+      rescue Net::HTTPUnauthorized
+        break
+      end
+
       delta["entries"].each do |delta_entry|
         sync_delta_entry delta_entry     
       end 

@@ -100,7 +100,7 @@ DROPBOX_SETTINGS= {
     while true do
       begin
         delta = get_delta 
-      rescue Net::HTTPUnauthorized
+      rescue# Net::HTTPUnauthorized
         break
       end
 

@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120411220819) do
+ActiveRecord::Schema.define(:version => 20120412211410) do
 
   create_table "alerts", :force => true do |t|
     t.integer  "user_id"
     t.text     "message"
     t.boolean  "was_read"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "alerts", ["user_id"], :name => "index_alerts_on_user_id"
@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(:version => 20120411220819) do
     t.string   "type",           :limit => 30
     t.string   "token",          :limit => 1024
     t.string   "secret"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "authorized_at"
     t.datetime "invalidated_at"
     t.datetime "expires_at"
@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(:version => 20120411220819) do
     t.text     "diff"
     t.datetime "summary"
     t.datetime "published_at"
-    t.string   "revision_uuid"
+    t.string   "revision_uuid",    :limit => nil
     t.string   "edit_source"
   end
 
@@ -163,6 +163,13 @@ ActiveRecord::Schema.define(:version => 20120411220819) do
     t.datetime "updated_at"
   end
 
+  create_table "user_follows", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "follow_user_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
@@ -192,6 +199,8 @@ ActiveRecord::Schema.define(:version => 20120411220819) do
     t.boolean  "is_registered"
     t.string   "unverified_email"
     t.boolean  "allow_email_reminders"
+    t.text     "bio"
+    t.string   "website"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

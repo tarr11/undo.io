@@ -32,9 +32,9 @@ module TaskFolderHelper
     return users.join(",")
   end
 
-  def render_line(line)
+  def render_line(line, line_number)
 
-      div = '<div style="'
+      div = '<div line-number="' + line_number.to_s + '" style="'
 
       if line.tab_count > 0
         div += "margin-left:" + line.tab_count.to_s + "em;"
@@ -933,5 +933,9 @@ module TaskFolderHelper
      end
 
 
+    def get_formatted_lines_for_viewer
+      commented_content = TodoFile.apply_comments(@file.contents, @file.comments)
+      TodoFile.formatted_lines  commented_content 
+    end
 
 end

@@ -39,7 +39,7 @@ class Slideshow
     current_slide = nil
 
     last_line = nil
-    @file.formatted_lines.each_with_index do |line, index|
+    TodoFile.formatted_lines(@file.contents).each_with_index do |line, index|
 
       # first line is special, we initialize a new slide
       if index == 0

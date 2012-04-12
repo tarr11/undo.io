@@ -111,7 +111,7 @@ class HomeController < ApplicationController
       dashboard_view
     else
       respond_to do |format|
-        @header = "Your idea starts here"
+        @header = "Your project starts here"
         format.html
       end
 

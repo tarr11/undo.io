@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120408025000) do
+ActiveRecord::Schema.define(:version => 20120411220819) do
 
   create_table "alerts", :force => true do |t|
     t.integer  "user_id"
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(:version => 20120408025000) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "todo_file_id"
+    t.integer  "task_file_revision_id"
+    t.integer  "start_pos"
+    t.integer  "content_length"
+    t.text     "replacement_content"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "consumer_tokens", :force => true do |t|

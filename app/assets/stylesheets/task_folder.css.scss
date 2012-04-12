@@ -604,3 +604,45 @@ ARTICLE
 {
   background-color: #FFFFFE;
 }
+
+.comment-editor
+{
+  display:none;
+  position:absolute;
+  background-color:white;
+  padding:5px;
+  border: solid 1px black;
+  width:300px;
+  height:300px;
+}
+
+.comment
+{
+  color:red;
+  display:inline;
+}
+
+.comment-parent
+{
+  display:inline;
+}
+.compare-header
+{
+  font-weight:bold;
+}
+.comment-content
+{
+  display:inline;
+}
+
+.break-line
+{
+  display:block;
+}
+
+.hide
+{
+  display:none;
+}
+
+

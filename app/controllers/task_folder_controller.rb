@@ -77,6 +77,44 @@ class TaskFolderController < ApplicationController
 
   end
 
+  def comment
+    filename = params[:filename]
+    revision = TaskFileRevision.find_by_revision_uuid(params[:revision_uuid])
+    content_length = params[:original_content].length
+
+    # to find the starting position, we want to seek to the line we are at on the file
+    io = StringIO.new(revision.contents)
+    line_number = params[:line_number].to_i
+
+    start_pos = 0
+    line = ""
+    (0..line_number).each do |index|
+      start_pos = io.pos
+      line = io.gets
+    end
+
+
+    orig = StringIO.new(params[:original_content])
+    first_line = orig.gets
+    line_pos = line.index(first_line) 
+    if line_pos.nil?
+      final_pos = start_pos
+    else
+      final_pos = start_pos + line_pos 
+    end
+
+    comment = revision.comments.new(:todo_file_id=>revision.todo_file_id, :user_id=>current_user.id, :start_pos => final_pos, :content_length=> content_length, :replacement_content=>params[:replacement_content])
+    if comment.save!
+      respond_to do |format|
+        format.json {head :ok} 
+      end
+    else
+      respond_to do |format|
+        format.json { render json: revision.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
   def create_or_update
     filename = params[:filename]
     @todo_file = current_user.todo_files.find_by_filename(filename)
@@ -131,6 +169,8 @@ class TaskFolderController < ApplicationController
       reply
     elsif params[:method] == "accept"
       accept
+    elsif params[:method] == "comment"
+      comment
     else
       create_or_update
     end

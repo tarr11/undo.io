@@ -41,7 +41,7 @@
               <%=content_tag :li, :class =>  my_notes_active_class do%><%=link_to "My Notes", user_path(current_user)%><%end%>
               <%=content_tag :li, :class => inbox_active_class  do%><%=link_to "Inbox", inbox_path%><%end%>
             <% end %>
-            <%=content_tag :li, :class => (@is_public ? "active" : nil)  do%><a href="/public">Public Notes</a>
+            <%=content_tag :li, :class => (@is_public ? "active" : nil)  do%><a href="/public">Public Projects</a>
               <%=content_tag :li, :class => team_active_class  do%><%=link_to "For Teams", "/team"%><%end%>
             <%end%>
             </ul>
@@ -83,11 +83,11 @@
     <% end %>
     <div class="container-fluid">
         <%= content_for?(:content) ? yield(:content) : yield %>
+    </div> <!-- /container -->
+
       <footer>
         <p>&copy; undo.io 2012</p>
       </footer>
-    </div> <!-- /container -->
-
 
 </body>
 </html>

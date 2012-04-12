@@ -12,3 +12,4 @@
 //= require jquery.masonry.min
 //= require codemirror
 //= require slideshow
+//= require rangy/rangy-core

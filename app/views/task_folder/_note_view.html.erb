@@ -2,8 +2,11 @@
   <%= javascript_include_tag "undo_mode" %>
   <%= javascript_include_tag "edit_file"  %>
   <%= javascript_include_tag "shortcuts/file"  %>
-
 <% end %>
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "read_file"  %>
+<% end %>
+
 <% content_for :stylesheet_includes do %>
   <%= stylesheet_link_tag "task_folder"  %>
 <% end %>
@@ -65,6 +68,16 @@
                   <%= render 'editor_buttons' %>
               </div>
         </div>
+          <div class="comment-editor">
+            <%= form_tag(url_for(:controller=>"task_folder", :action=>"update",:method=>"comment"), :remote => true, :method=>:put,:format => :json, :id => "comment-form") do  %>
+              <%= hidden_field_tag 'original_content'%>
+              <%= hidden_field_tag 'line_number'%>
+              <%= hidden_field_tag 'revision_uuid',@file.current_revision.revision_uuid%>
+              <div class="comment-header">Suggest a change</div>
+              <textarea name="replacement_content" id="comment-text-editor"></textarea>
+              <div><input type="submit" class="btn" id="save-comment" value="Save"></div>
+            <% end %>
+          </div>
         <% if @owned_by_user && (@compare_file.nil? && !@combined) && !@file.is_read_only%>
           <div id="read-only-contents">
             <div class="editor-border"></div>
@@ -79,8 +92,8 @@
                   <%=line.html_safe%>
                   <% end %>
               <% else %>
-                  <%@file.formatted_lines.each do |line|%>
-                     <%=render_line(line).html_safe%>
+                  <%get_formatted_lines_for_viewer.each_with_index do |line,index|%>
+                     <%=render_line(line,index).html_safe%>
                   <% end %>
               <% end %>
           <% end %>

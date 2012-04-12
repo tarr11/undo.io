@@ -14,6 +14,7 @@ class TodoFile < ActiveRecord::Base
   has_many :copied_to, :class_name => "TodoFile", :foreign_key => "copied_from_id"
   has_many :shared_with_users, :through => :shared_files, :source=>:user
   has_many :shared_files
+  has_many :comments
 
   validates_inclusion_of :is_public, :in => [true, false]
   validates_presence_of :filename,  :user_id, :file_uuid, :edit_source, :revision_at
@@ -600,7 +601,7 @@ class TodoFile < ActiveRecord::Base
     task = nil
     parent_line = nil
     prev_line = nil
-     formatted_lines.each do |line|
+     TodoFile.formatted_lines(self.contents).each do |line|
        i = i + 1
 
       is_task = line.is_task #stripped.match(taskRegex)
@@ -653,20 +654,18 @@ class TodoFile < ActiveRecord::Base
     @task_folder = TaskFolder.new(self.user, path)
   end
 
-  def formatted_lines
+
+  def self.formatted_lines(text_to_format)
 
     # create a directed graph of the document
-    if !@lines.nil?
-      return @lines
-    end
 
-    @lines = []
-    self.get_lines do |line|
-      @lines.push line
+    lines = []
+    self.get_lines(text_to_format) do |line|
+      lines.push line
     end
 
     stack = []
-    @lines.each do |line|
+    lines.each do |line|
 
         if stack.length == 0
           stack.push line
@@ -696,11 +695,11 @@ class TodoFile < ActiveRecord::Base
 
     end
 
-    first_line = @lines.first
+    first_line = lines.first
     if (!first_line.nil? && !first_line.blank?)
       first_line.line_type = :document_title
     end
-    return @lines
+    return lines
 
   end
 
@@ -715,7 +714,7 @@ class TodoFile < ActiveRecord::Base
     last_tab_count = 0
     note = nil
 
-    formatted_lines.each do |line|
+    TodoFile.formatted_lines.each do |line|
       line.created_at = self.revision_at
       event = line.get_event
       if !event.nil?
@@ -761,7 +760,7 @@ class TodoFile < ActiveRecord::Base
 
     last_tab_count = 0
     note = nil
-    formatted_lines.each do |line|
+    TodoFile.formatted_lines(self.contents).each do |line|
 
       people = line.get_people.map{|a| a.downcase}
       if !people.nil? && people.length > 0
@@ -793,7 +792,7 @@ class TodoFile < ActiveRecord::Base
   def get_tag_notes
     last_tab_count = 0
     note = nil
-    formatted_lines.each do |line|
+    TodoFile.formatted_lines(self.contents).each do |line|
       tags = line.get_tags.map{|a| a.downcase}
       if !tags.nil? && tags.length > 0
         if !note.nil?
@@ -821,13 +820,13 @@ class TodoFile < ActiveRecord::Base
 
   end
 
-  def get_lines
+  def self.get_lines(text_to_split)
 
-    if (self.contents.nil?)
+    if (text_to_split.nil?)
       return
     end
 
-    reader = StringIO.new(self.contents)
+    reader = StringIO.new(text_to_split)
     prev_line = nil
     line_number = 1
     while (line = reader.gets)
@@ -894,6 +893,50 @@ class TodoFile < ActiveRecord::Base
 
   end
 
+  def self.format_replacement_content(comment)
 
+    content = comment.replacement_content
+    original_content = comment.task_file_revision.contents[comment.start_pos, comment.start_pos + comment.content_length]
+    parts = content.split("\n")
+    html = "<div class='hide comment-parent' username='" + comment.user.username + "'>"
+    html += "<div class='compare-header'>Original</div>"
+    html += "<div class='original-content'>"
+    html += original_content
+    html += "</div>"
+    html += "<div class='compare-header'>New</div>"
+    if parts.length <= 1 
+      html += "<div class='comment-content'>" + content + "</div>"
+    else
+      html += "<div class='comment-content'>" + parts[0] + "</div>"
+      (1..parts.length).each do |index|
+        unless parts[index].nil?
+          html += "<div class='break-line comment-content'>"
+          html += parts[index]
+          html += "</div>"
+        end
+      end 
+    end
+    html += "</div>"
+    return html 
+  end
+
+  def self.apply_comments(text, comments)
+    comments = comments.sort_by{|a| a.start_pos}
+    comment = comments.shift
+    pos = 0
+    final_doc = ""
+    comment_number = 0
+    text.each_char do |char|
+      while !comment.nil? &&  comment.start_pos == pos do
+        final_doc += "<div id='comment_" + comment_number.to_s + "' content_length='" + comment.content_length.to_s + "' class='comment'><i class='toggle-comment icon-comment'></i>" + self.format_replacement_content(comment) + "</div>"
+        comment = comments.shift
+        comment_number += 1
+      end
+      final_doc += char
+      pos += 1
+    end
+    return final_doc
+
+  end
 
 end

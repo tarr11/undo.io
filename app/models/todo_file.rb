@@ -820,6 +820,12 @@ class TodoFile < ActiveRecord::Base
 
   end
 
+  def get_lines_from_content
+    TodoFile.get_lines self.contents do |line|
+      yield line
+    end 
+  end
+
   def self.get_lines(text_to_split)
 
     if (text_to_split.nil?)
@@ -896,8 +902,8 @@ class TodoFile < ActiveRecord::Base
   def self.format_replacement_content(comment)
 
     content = comment.replacement_content
-    original_content = comment.task_file_revision.contents[comment.start_pos, comment.start_pos + comment.content_length]
-    parts = content.split("\n")
+    original_content = comment.task_file_revision.contents[comment.start_pos..comment.start_pos + comment.content_length]
+    parts = comment.replacement_content.split("\n")
     html = "<div class='hide comment-parent' username='" + comment.user.username + "'>"
     html += "<div class='compare-header'>Original</div>"
     html += "<div class='original-content'>"
@@ -905,7 +911,7 @@ class TodoFile < ActiveRecord::Base
     html += "</div>"
     html += "<div class='compare-header'>New</div>"
     if parts.length <= 1 
-      html += "<div class='comment-content'>" + content + "</div>"
+      html += "<div class='comment-content'>" + comment.replacement_content + "</div>"
     else
       html += "<div class='comment-content'>" + parts[0] + "</div>"
       (1..parts.length).each do |index|

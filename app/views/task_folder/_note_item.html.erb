@@ -15,8 +15,8 @@
       unless img.nil?%>
           <%= image_tag img, :class=>"note-thumbnail" %>
      <%   end%>
-<%file.to_enum(:get_lines).to_a.first(25).each do |line|%>
-     <div class="undo-ul-li-desc"><%=render_line(line).html_safe%></div>
+<%file.to_enum(:get_lines_from_content).to_a.first(25).each_with_index do |line,index|%>
+     <div class="undo-ul-li-desc"><%=render_line(line,index).html_safe%></div>
 <% end%>
 <li class="path italics"><%=time_ago_in_words(file.revision_at ||= DateTime.now)%> ago in <%= link_to (file.task_folder.shortName.blank? ? "/" : file.task_folder.shortName), task_folder_local_path(file.task_folder)%></li>
 <div style="clear:both"></div>

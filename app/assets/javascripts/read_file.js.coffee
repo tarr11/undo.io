@@ -22,6 +22,7 @@ $ ->
 
 
   $('article').mouseup (event) ->
+    return
     sel = rangy.getSelection()
     $('.comment-editor').css
       'top':event.pageY,

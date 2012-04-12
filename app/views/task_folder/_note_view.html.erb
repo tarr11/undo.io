@@ -68,6 +68,7 @@
                   <%= render 'editor_buttons' %>
               </div>
         </div>
+        <% if !@is_new_file %>
           <div class="comment-editor">
             <%= form_tag(url_for(:controller=>"task_folder", :action=>"update",:method=>"comment"), :remote => true, :method=>:put,:format => :json, :id => "comment-form") do  %>
               <%= hidden_field_tag 'original_content'%>
@@ -78,6 +79,7 @@
               <div><input type="submit" class="btn" id="save-comment" value="Save"></div>
             <% end %>
           </div>
+        <% end%>
         <% if @owned_by_user && (@compare_file.nil? && !@combined) && !@file.is_read_only%>
           <div id="read-only-contents">
             <div class="editor-border"></div>

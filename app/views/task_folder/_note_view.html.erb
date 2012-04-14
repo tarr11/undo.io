@@ -68,18 +68,6 @@
                   <%= render 'editor_buttons' %>
               </div>
         </div>
-        <% if !@is_new_file %>
-          <div class="comment-editor">
-            <%= form_tag(url_for(:controller=>"task_folder", :action=>"update",:method=>"comment"), :remote => true, :method=>:put,:format => :json, :id => "comment-form") do  %>
-              <%= hidden_field_tag 'original_content'%>
-              <%= hidden_field_tag 'line_number'%>
-              <%= hidden_field_tag 'revision_uuid',@file.current_revision.revision_uuid%>
-              <div class="comment-header">Suggest a change</div>
-              <textarea name="replacement_content" id="comment-text-editor"></textarea>
-              <div><input type="submit" class="btn" id="save-comment" value="Save"></div>
-            <% end %>
-          </div>
-        <% end%>
         <% if @owned_by_user && (@compare_file.nil? && !@combined) && !@file.is_read_only%>
           <div id="read-only-contents">
             <div class="editor-border"></div>
@@ -117,7 +105,13 @@
 
            <div id="accordion-group">
              <div style="padding:1em;">
-              <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#replies"><i class="icon-indent-left"></i> Replies</a> (<%=@replies.length%>)</h3>
+              <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#suggestions"><i class="icon-indent-left"></i> Suggestions</a> (<%=@suggestions.length%>)</h3>
+                <div id="suggestions" class="collapse out">
+                <%= render 'right_rail_suggestions', :suggestions=>@suggestions%>
+              </div>
+              </div>
+             <div style="padding:1em;">
+              <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#replies"><i class="icon-indent-left"></i> Copies</a> (<%=@replies.length%>)</h3>
                 <div id="replies" class="collapse out">
                 <%= render 'right_rail_revisions', :notes=>@replies%>
               </div>

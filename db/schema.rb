@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120412211410) do
+ActiveRecord::Schema.define(:version => 20120413215526) do
 
   create_table "alerts", :force => true do |t|
     t.integer  "user_id"
@@ -96,6 +96,20 @@ ActiveRecord::Schema.define(:version => 20120412211410) do
     t.boolean  "viewed_file"
   end
 
+  create_table "suggestions", :force => true do |t|
+    t.integer  "user_id",               :null => false
+    t.integer  "todo_file_id",          :null => false
+    t.integer  "task_file_revision_id", :null => false
+    t.integer  "start_pos",             :null => false
+    t.integer  "content_length",        :null => false
+    t.text     "original_content"
+    t.text     "replacement_content"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.integer  "line_number",           :null => false
+    t.integer  "line_column"
+  end
+
   create_table "task_file_revisions", :force => true do |t|
     t.integer  "todo_file_id"
     t.text     "contents"
@@ -108,7 +122,7 @@ ActiveRecord::Schema.define(:version => 20120412211410) do
     t.text     "diff"
     t.datetime "summary"
     t.datetime "published_at"
-    t.string   "revision_uuid",    :limit => nil
+    t.string   "revision_uuid"
     t.string   "edit_source"
   end
 

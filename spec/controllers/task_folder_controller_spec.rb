@@ -153,9 +153,9 @@ describe TaskFolderController do
       end
     end
  
-    describe "PUT 'comment' /user/file :method=>'comment'" do
+    describe "PUT 'suggestion' /user/file :method=>'suggestion'" do
       before (:each) do
-        put :update, :original_content=>'Some stuff', :path => @file.filename, :revision_uuid=>@file.current_revision.revision_uuid,  :start_pos=>1, :replacement_content=>'test',  :method => :comment, :format=>:json
+        put :update, :original_content=>'Some stuff', :path => @file.filename, :revision_uuid=>@file.current_revision.revision_uuid,  :start_pos=>1, :replacement_content=>'test',  :method => :suggestion, :format=>:json
       end
       it 'should be successful' do
         response.should be_success

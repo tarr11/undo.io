@@ -5,5 +5,5 @@ class TaskFileRevision < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :revision_at, :filename, :contents, :user_id,:revision_uuid, :edit_source
 
-  has_many :comments
+  has_many :suggestions
 end

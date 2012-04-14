@@ -1,34 +1,27 @@
 $ ->
-  window.commentCodeMirror = CodeMirror.fromTextArea document.getElementById('comment-text-editor')
-  $('.toggle-comment').each ->
-    content = $(this).siblings('.comment-parent').html()
-    title = $(this).siblings('.comment-parent').attr('username')
+  window.suggestionCodeMirror = CodeMirror.fromTextArea document.getElementById('suggestion-text-editor'),
+    autoClearEmptyLines: true
+
+  $('.toggle-suggestion').each ->
+    suggestion_id = $(this).attr("suggestion-id")
+    suggest_element = $('#suggestion-' + suggestion_id)
+    replacement_content = suggest_element.attr('replacement-content')
+    original_content = suggest_element.attr('original-content')
+    content = '<div>original</div><div>' + original_content + '</div><div>Replacement</div>' + replacement_content + '</div>'
+    title = suggest_element.attr('username')
     $(this).popover 
       'title' : title,
       'content' : content,
       html : true
 
-  $('#save-comment').click ->
-    $("comment-form")
+  $('#save-suggestion').click ->
+    $("suggestion-form")
       .data('type', 'json')
       .bind('ajax:complete', ->
-        $('.comment-editor').hide())
+        $('.suggestion-editor').hide())
       .bind('ajax:success', (event, data, status, xhr) ->
         window.location.href = data.location)
       .bind('ajax:error', (xhr, status, error) ->
         alert error)
     
-  $('.toggle-comment').hover (event) ->
 
-
-  $('article').mouseup (event) ->
-    return
-    sel = rangy.getSelection()
-    $('.comment-editor').css
-      'top':event.pageY,
-      'left':event.pageX
-    window.commentCodeMirror.setValue sel.toString()
-    $('#original_content').val(sel.toString())
-    $('#line_number').val($(sel.anchorNode.parentNode).attr("line-number"))
-    $('.comment-editor').show()
-    window.commentCodeMirror.refresh()

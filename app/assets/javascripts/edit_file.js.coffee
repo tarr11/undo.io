@@ -49,6 +49,7 @@ initCodeMirror = () ->
     mode: "undo",
     lineWrapping: true,
     gutter: false,
+    autoClearEmptyLines: true,
     extraKeys: {
         "Ctrl-Q": collapseSection,
         "Ctrl-M": window.collapseAll,

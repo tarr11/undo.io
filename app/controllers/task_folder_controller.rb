@@ -77,7 +77,7 @@ class TaskFolderController < ApplicationController
 
   end
 
-  def comment
+  def suggestion
     filename = params[:filename]
     revision = TaskFileRevision.find_by_revision_uuid(params[:revision_uuid])
     content_length = params[:original_content].length
@@ -99,12 +99,13 @@ class TaskFolderController < ApplicationController
     line_pos = line.index(first_line) 
     if line_pos.nil?
       final_pos = start_pos
+      line_pos = 0
     else
       final_pos = start_pos + line_pos 
     end
 
-    comment = revision.comments.new(:todo_file_id=>revision.todo_file_id, :user_id=>current_user.id, :start_pos => final_pos, :content_length=> content_length, :replacement_content=>params[:replacement_content])
-    if comment.save!
+    suggestion = revision.suggestions.new(:todo_file_id=>revision.todo_file_id, :user_id=>current_user.id, :start_pos => final_pos, :content_length=> content_length, :original_content=>params[:original_content], :replacement_content=>params[:replacement_content], :line_number => line_number, :line_column=>line_pos)
+    if suggestion.save!
       respond_to do |format|
         format.json {head :ok} 
       end
@@ -169,8 +170,8 @@ class TaskFolderController < ApplicationController
       reply
     elsif params[:method] == "accept"
       accept
-    elsif params[:method] == "comment"
-      comment
+    elsif params[:method] == "suggestion"
+      suggestion
     else
       create_or_update
     end
@@ -565,6 +566,7 @@ class TaskFolderController < ApplicationController
     get_related_tasks
     get_slideshow
     get_replies
+    get_suggestions
     get_tagged
     get_same_folder
     get_shared_with

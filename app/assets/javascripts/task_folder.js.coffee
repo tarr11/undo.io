@@ -127,6 +127,71 @@ $ ->
       show : true
     })
 
+  $('#suggest-button').click (event) ->
+    sel = rangy.getSelection()
+    # sel.toString() adds weird spaces
+    selection_text = sel.nativeSelection.toString() || " "
+    if sel.anchorNode == null
+      line_number = 0
+    else
+      line_number = $(sel.anchorNode.parentNode).attr("line-number")
+
+    window.suggestionCodeMirror.setValue selection_text
+    $('#original_content').val(selection_text)
+    $('#line_number').val(line_number)
+    $('#suggest-modal').modal({
+      keyboard: true,
+      show : true
+    })
+
+  $('#suggest-modal').on 'shown', (event) ->
+    window.suggestionCodeMirror.refresh()
+
+  
+  $('.replace-link').click (event) ->
+    if window.myCodeMirror
+       data_element = $('#suggestion-' + $(event.target).attr("suggestion-id"))
+       index = Number(data_element.attr("suggestion-pos"))
+       line_number = Number(data_element.attr("line-number"))
+       length = Number(data_element.attr("suggestion-length"))
+       original = data_element.attr("original-content")
+       replacement = data_element.attr("replacement-content")
+       line_column = Number(data_element.attr("suggestion-line-col"))
+       line_pos = 
+          "line" : line_number, 
+          "ch" : line_column
+       start_index = window.myCodeMirror.indexFromPos(line_pos)
+       end_index = start_index + original.length
+       end_pos = window.myCodeMirror.posFromIndex(end_index)
+       window.myCodeMirror.replaceSelection(replacement)
+
+  $('.highlight-link').click (event) ->
+    if window.myCodeMirror
+       data_element = $('#suggestion-' + $(event.target).attr("suggestion-id"))
+       index = Number(data_element.attr("suggestion-pos"))
+       line_number = Number(data_element.attr("line-number"))
+       length = Number(data_element.attr("suggestion-length"))
+       original = data_element.attr("original-content")
+       line_column = Number(data_element.attr("suggestion-line-col"))
+       line_pos = 
+          "line" : line_number, 
+          "ch" : line_column
+       start_index = window.myCodeMirror.indexFromPos(line_pos)
+       end_index = start_index + original.length
+       end_pos = window.myCodeMirror.posFromIndex(end_index)
+       window.myCodeMirror.setSelection(line_pos, end_pos)
+       window.myCodeMirror.refresh()
+       #
+       #       cursor = window.myCodeMirror.getSearchCursor(original, line_pos)
+       #       if cursor.findNext()
+       #         window.myCodeMirror.setSelection(cursor.from(), cursor.to())
+       #         window.myCodeMirror.refresh()
+
+    else
+      marker = $('#suggestion-marker-' + $(event.target).attr("suggestion-id"))
+      marker.toggleClass('hide')
+      marker.children('.toggle-suggestion').popover('toggle')
+
   $('#reply-button').click (event) ->
     $('#reply-form').submit()
 

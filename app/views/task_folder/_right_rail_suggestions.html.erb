@@ -1,0 +1,29 @@
+<ul class="history">
+
+  <% suggestions.each_with_index do |suggestion, index|%>
+
+   <% if index > 0 %>
+          <li class="history-divider"></li>
+   <% end %>
+    <li>
+      <div style="float:left;padding-left:1em;">
+        <div style="float:left;padding-left: .5em">
+          <div style="float:left"><%=image_tag suggestion.user.avatar.url(:thumb)%></div>
+          <div style="float:left;padding-left:1em;"><%=link_to suggestion.user.username, user_path(suggestion.user)%></div>
+          <div style="clear:both"></div>
+          <div id="suggestion-<%=suggestion.id.to_s%>" username="<%=suggestion.user.username%>" suggestion-id="<%=suggestion.id.to_s%>" line-number="<%=suggestion.line_number%>" original-content="<%=suggestion.original_content%>" replacement-content="<%=suggestion.replacement_content%>" suggestion-length="<%=suggestion.original_content.length%>" suggestion-line-col="<%=suggestion.line_column%>" suggestion-pos="<%=suggestion.start_pos%>"></div>
+          <div style="font-weight:bold;margin-left:.5em;"><%=suggestion.replacement_content%></div>
+           <div style="margin-left:.5em;">From: <%=suggestion.original_content%></div>
+           <div style="margin-left:.5em;"><a href="#" class="highlight-link" suggestion-id="<%=suggestion.id.to_s%>">Highlight</a>
+             <div style="margin-left:.5em;"><a href="#" class="replace-link" suggestion-id="<%=suggestion.id.to_s%>">Replace</a>
+            <div style="margin-left:.5em;font-style: italic;color:gray;"> Suggested <%=time_ago_in_words(suggestion.created_at)%> ago</div>
+          </div>
+      </div>
+    </li>
+
+  <% end %>
+
+</ul>
+<div style="clear:both;padding-bottom: 1em;"></div>
+
+

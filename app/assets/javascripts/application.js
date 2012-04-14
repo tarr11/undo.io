@@ -11,5 +11,6 @@
 //= require twitter/bootstrap/bootstrap-dropdown
 //= require jquery.masonry.min
 //= require codemirror
+//= require codemirror/utils/searchcursor
 //= require slideshow
 //= require rangy/rangy-core

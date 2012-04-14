@@ -3,7 +3,17 @@
     <% unless @user_copy.nil? %>
         <a href="<%=file_local_path(@user_copy)%>" class="btn" id="my-copy-button"><i class="icon-eye-open"></i> Your Version</a>
     <% else %>
-          <a href="#" class="btn btn-success" id="copy-button"><i class="icon-download icon-white"></i> Copy</a>
+          <a href="#" class="btn btn-success" id="suggest-button"><i class="icon-comment icon-white"></i> Suggest Change</a>
+      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        More
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <% if signed_in?%>
+        <li style="text-align: right"><%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>@file.path, :username=>current_user.username}, :method=>:post%></li>
+        <li style="text-align: right"><a href="#"  id="copy-button" >Copy</a></li>
+      <% end %>
+      </ul>
     <% end%>
 
 <% end %>

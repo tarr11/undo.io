@@ -39,6 +39,31 @@
     </div>
   </div>
   <% end %>
+    <div id="suggest-modal" class="modal hide fade">
+      <%= form_tag(url_for(:controller=>"task_folder", :action=>"update",:method=>"suggestion"), :remote => true, :method=>:put,:format => :json, :id => "suggestion-form") do  %>
+          <%= hidden_field_tag 'original_content'%>
+          <%= hidden_field_tag 'line_number'%>
+          <%= hidden_field_tag 'revision_uuid',@file.current_revision.revision_uuid%>
+        <div class="modal-header">
+          <a href="#" class="close" data-dismiss="modal">&times;</a>
+          <h3>Suggest change to <%=@file.shortName%></h3>
+        </div>
+        <div class="modal-body">
+          <div class="clearfix">
+              <h3>Make your change here</h3>
+            <div class="suggestion-editor">
+              <textarea name="replacement_content" id="suggestion-text-editor"></textarea>
+            </div>
+            <div>Reason: <select><option>Typo</option><option>Style</option><option>Factual</option><option>Other</option></select></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= button_tag "Suggest", :class => "btn btn-primary" %>
+          <a href="#" id="cancel-publish-file" class="btn secondary cancel">Cancel</a>
+        </div>
+    <% end %>
+    </div>
+
 
     <div id="publish-modal" class="modal hide fade">
       <div class="modal-header">

@@ -188,13 +188,14 @@ UL.files LI > A
           line-height: 20pt;
 
         }
+
          .CodeMirror-scroll
           {
 
               height: auto;
               overflow-x:auto;
               overflow-y:hidden;
-              min-height: 300px;
+         #     min-height: 300px;
               width:100%;
 
           }
@@ -605,24 +606,24 @@ ARTICLE
   background-color: #FFFFFE;
 }
 
-.comment-editor
+.suggestion-editor
 {
-  display:none;
-  position:absolute;
   background-color:white;
   padding:5px;
+  width:500px;
   border: solid 1px black;
-  width:300px;
-  height:300px;
+  height:100px;
 }
 
-.comment
+
+
+.suggestion
 {
   color:red;
   display:inline;
 }
 
-.comment-parent
+.suggestion-parent
 {
   display:inline;
 }
@@ -630,7 +631,7 @@ ARTICLE
 {
   font-weight:bold;
 }
-.comment-content
+.suggestion-content
 {
   display:inline;
 }
@@ -645,4 +646,7 @@ ARTICLE
   display:none;
 }
 
-
+#suggest-modal
+{
+  width:800px;
+}

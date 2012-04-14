@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
   has_many :files_shared_with_user, :through => :shared_files, :source => :todo_file
   has_many :shared_files
   has_many :alerts
+  has_many :suggestions
   attr_accessible :avatar
     has_attached_file :avatar, {
                       :styles => { :medium => "300x300>",

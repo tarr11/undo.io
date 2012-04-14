@@ -14,7 +14,8 @@ class TodoFile < ActiveRecord::Base
   has_many :copied_to, :class_name => "TodoFile", :foreign_key => "copied_from_id"
   has_many :shared_with_users, :through => :shared_files, :source=>:user
   has_many :shared_files
-  has_many :comments
+  has_many :suggestions
+  has_many :suggestions
 
   validates_inclusion_of :is_public, :in => [true, false]
   validates_presence_of :filename,  :user_id, :file_uuid, :edit_source, :revision_at
@@ -899,47 +900,54 @@ class TodoFile < ActiveRecord::Base
 
   end
 
-  def self.format_replacement_content(comment)
+  def self.format_replacement_content(suggestion)
 
-    content = comment.replacement_content
-    original_content = comment.task_file_revision.contents[comment.start_pos..comment.start_pos + comment.content_length]
-    parts = comment.replacement_content.split("\n")
-    html = "<div class='hide comment-parent' username='" + comment.user.username + "'>"
+    content = suggestion.replacement_content
+    original_content = suggestion.task_file_revision.contents[suggestion.start_pos..suggestion.start_pos + suggestion.content_length]
+#    parts = suggestion.replacement_content.split("\n")
+    html = "<div class='hide suggestion-parent' username='" + suggestion.user.username + "'>"
     html += "<div class='compare-header'>Original</div>"
     html += "<div class='original-content'>"
     html += original_content
     html += "</div>"
     html += "<div class='compare-header'>New</div>"
-    if parts.length <= 1 
-      html += "<div class='comment-content'>" + comment.replacement_content + "</div>"
-    else
-      html += "<div class='comment-content'>" + parts[0] + "</div>"
-      (1..parts.length).each do |index|
-        unless parts[index].nil?
-          html += "<div class='break-line comment-content'>"
-          html += parts[index]
-          html += "</div>"
-        end
-      end 
-    end
+#    if parts.length <= 1 
+      html += "<div class='suggestion-content'>" + suggestion.replacement_content + "</div>"
+#    else
+#      html += "<div class='suggestion-content'>" + parts[0] + "</div>"
+#      (1..parts.length).each do |index|
+#        unless parts[index].nil?
+#          html += "<div class='break-line suggestion-content'>"
+#          html += parts[index]
+#          html += "</div>"
+#        end
+#      end 
+#    end
     html += "</div>"
     return html 
   end
 
-  def self.apply_comments(text, comments)
-    comments = comments.sort_by{|a| a.start_pos}
-    comment = comments.shift
+  def self.apply_suggestions(text, suggestions)
+    suggestions = suggestions.sort_by{|a| a.start_pos}
+    suggestion = suggestions.shift
     pos = 0
     final_doc = ""
-    comment_number = 0
+    line_num = 0
+    suggestion_number = 0
     text.each_char do |char|
-      while !comment.nil? &&  comment.start_pos == pos do
-        final_doc += "<div id='comment_" + comment_number.to_s + "' content_length='" + comment.content_length.to_s + "' class='comment'><i class='toggle-comment icon-comment'></i>" + self.format_replacement_content(comment) + "</div>"
-        comment = comments.shift
-        comment_number += 1
+      while !suggestion.nil? &&  suggestion.start_pos == pos do
+        final_doc += "<div id='suggestion-marker-" + suggestion.id.to_s + "' class='suggestion hide'><i class='toggle-suggestion icon-comment' suggestion-id='" + suggestion.id.to_s + "'></i></div>"
+        suggestion = suggestions.shift
+        suggestion_number += 1
       end
-      final_doc += char
-      pos += 1
+     final_doc += char
+     pos += 1
+ #    if char == "\n"
+ #       # marker for lines on html
+ #       final_doc += "<span style='display:none;' line-number='" + line_num.to_s + "'></span>"
+ #       line_num += 1
+ #     end
+ 
     end
     return final_doc
 

@@ -454,6 +454,9 @@ module TaskFolderHelper
 
     end
 
+    def get_suggestions
+      @suggestions = @file.suggestions.sort_by{|a| a.created_at}.reverse
+    end
 
   def owned_by_user?(file_or_folder)
     return false if current_user.nil?
@@ -934,8 +937,8 @@ module TaskFolderHelper
 
 
     def get_formatted_lines_for_viewer
-      commented_content = TodoFile.apply_comments(@file.contents, @file.comments)
-      TodoFile.formatted_lines  commented_content 
+      suggestioned_content = TodoFile.apply_suggestions(@file.contents, @file.suggestions)
+      TodoFile.formatted_lines  suggestioned_content 
     end
 
 end

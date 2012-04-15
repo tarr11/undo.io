@@ -12,9 +12,8 @@
 <% end %>
 
 <%= render 'layouts/breadcrumb'%>
-
-<input style="display:none;position:absolute;" class="autocomplete" type="text" data-provide="typeahead" data-source='["doug","debbie","darryl","jamy"]' data-items="4">
-<% if !@is_new_file %>
+<div class="alert alert-info"><h2>Improve this note by <a href="#" class="suggest-change-demo">suggesting changes</a>.</h2> </div> 
+  <% if !@is_new_file %>
 <%= render 'modals'%>
 <% else %>
     <%=form_tag url_for(:action=>"update", :controller => "task_folder"), :method=>:put, :remote=>true, :id => "save-new-form"  do %>

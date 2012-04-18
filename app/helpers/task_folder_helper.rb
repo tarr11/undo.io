@@ -529,49 +529,8 @@ module TaskFolderHelper
     end
 
     def get_related_tags
-      return [] if current_user.nil?
-      tags = []
-      # get a list of people, and all the notes that they are in
 
-      these_tags = []
-      @file.get_tag_notes do |note|
-        note.tags.each do |tag|
-          these_tags.push tag
-        end
-      end
-
-      these_tags = these_tags.uniq
-
-      current_user.task_folder("/").get_tag_notes do |note|
-        if note.file.filename == @file.filename
-          next
-        end
-
-        note.tags.each do |tag|
-          unless these_tags.include?(tag)
-            next
-          end
-
-          tags.push ({
-            :tag=> tag,
-            :file => note.file
-          })
-        end
-      end
-
-      tags = tags.uniq{|a| [a[:tag], a[:file]]}
-
-      @these_tags = these_tags
-      related_tags = tags.group_by {|group| group[:tag]}
-        .map {|key, group|
-          OpenStruct.new(:name=> key,
-            :files=>group.map { |b|
-              OpenStruct.new(:file=>b[:file])
-            }
-          )
-      }
-
-      return related_tags
+      @related_tags = @file.get_related_tag_notes
 
     end
 

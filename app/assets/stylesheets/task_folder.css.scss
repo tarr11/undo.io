@@ -480,9 +480,15 @@ border-image: initial;
   -moz-box-shadow: 0 0 1px #888;
     -webkit-box-shadow: 0 0 1px#888;
     box-shadow: 0 0 1px #888;
+    width:100%;
 }
 
-#right-rail
+.right-rail-container
+{
+width:100%;
+}
+
+#right-rail-created-by
 {
   background-color: #FFFFFE;
 

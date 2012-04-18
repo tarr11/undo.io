@@ -1,0 +1,5 @@
+<% if !@is_new_file %>
+  <% @related_tags.each do |key, group| %>
+    <%=render 'snippet', :key=>key, :group=>group%>
+  <% end %>
+<% end %>

@@ -20,7 +20,7 @@ window.navigateHome = ->
 
 
 $ ->
-  $('.note-container').masonry
+  $('.right-rail-container').masonry
     itemSelector : '.note-box'
 
   $("a[rel=popover]")

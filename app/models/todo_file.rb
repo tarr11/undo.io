@@ -953,4 +953,62 @@ class TodoFile < ActiveRecord::Base
 
   end
 
+  def get_snippet_around(text, max_lines)
+
+    lines = []
+
+    formatted_lines = TodoFile.formatted_lines(self.contents).to_a
+    formatted_lines.each do |line|
+      if lines.length > max_lines
+        break
+      end
+
+      if lines.length > 0 && !line.text.strip.blank?
+        lines.push line
+      end
+
+      if line.text.downcase.match(text.downcase)
+        lines.push line 
+      end
+    end
+    return lines
+  end
+
+  def get_related_tag_notes
+
+      tags = []
+      # get a list of people, and all the notes that they are in
+
+      these_tags = []
+      self.get_tag_notes do |note|
+        note.tags.each do |tag|
+          these_tags.push tag
+        end
+      end
+
+      these_tags = these_tags.uniq
+
+      user.task_folder("/").get_tag_notes do |note|
+        if note.file.filename == self.filename
+          next
+        end
+
+        note.tags.each do |tag|
+          unless these_tags.include?(tag)
+            next
+          end
+
+          tags.push OpenStruct.new(
+            :tag=> tag,
+            :file => note.file
+          )
+        end
+
+      end
+
+      tags = tags.uniq{|a| [a.tag, a.file]}
+      related_tags = tags.group_by {|group| group.tag}
+      return related_tags
+
+  end
 end

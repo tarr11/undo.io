@@ -12,5 +12,6 @@
 //= require jquery.masonry.min
 //= require codemirror
 //= require codemirror/utils/searchcursor
+//= require codemirror_simplehint
 //= require slideshow
 //= require rangy/rangy-core

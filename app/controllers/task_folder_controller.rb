@@ -606,6 +606,25 @@ class TaskFolderController < ApplicationController
       respond_to do |format|
         format.html { render '_right_rail', :layout => false}
       end
+    elsif params[:tags] == "true"
+      request.format = :json
+      all_tags = current_user.task_folder("/").to_enum(:get_tag_notes).to_a.map{|a| a.tags}.flatten.uniq.sort_by{|a| a}.map{|a| "#" + a}
+      respond_to do |format|
+        format.json {render :json=> all_tags}
+      end
+    elsif params[:topics] == "true"
+      request.format = :json
+      @tags_thing = @related_tags.map do |key, group|
+        {
+          :key => key,
+          :snippet_id => 'snippet_' + key,
+          :snippet => render_to_string(:partial => 'task_folder/snippet', :locals => {:key=>key, :group=>group})
+        }
+
+      end
+      respond_to do |format|
+        format.json {render :json=> @tags_thing}
+      end
     else
       respond_to do |format|
         format.html { render '_note_view', :layout => 'application'}

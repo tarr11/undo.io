@@ -1,0 +1,15 @@
+<% unless @compare_file.nil? %>
+  <div>My version:<%=link_to file_local_path(@file), file_local_path(@file)%></div>
+  <div>Compared to <%=link_to file_local_path(@compare_file), file_local_path(@compare_file)%></div>
+  <% if @merge_error  %>
+    <div class="alert alert-error">
+      <div style="font-weight: bold">Merge Conflict</div>
+      <div>We could not automatically merge these changes</div>
+      <ul>
+        <li>Review <%=link_to @compare_file.user.username + "'s note", file_local_path(@compare_file)%>.</li>
+        <li>Compare them to <%=link_to "your note", file_local_path(@file)%>.</li>
+        <li>Paste any changes back in to your file.</li>
+      </ul>
+    </div>
+  <% end %>
+<% end %>

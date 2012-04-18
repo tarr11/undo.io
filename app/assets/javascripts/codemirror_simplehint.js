@@ -1,7 +1,6 @@
 (function() {
   CodeMirror.simpleHint = function(editor, getHints) {
     // We want a single cursor position.
-
     if (editor.somethingSelected()) return;
     var result = getHints(editor);
     if (!result || !result.list.length) return;
@@ -10,8 +9,7 @@
       editor.replaceRange(str, result.from, result.to);
     }
     // When there is only one completion, use it directly.
-    if (completions.length == 1) {insert(completions[0]); return true;}
-
+//    if (completions.length == 1) {insert(completions[0]); return true;}
 
     // Build the select widget
     var complete = document.createElement("div");
@@ -31,6 +29,10 @@
     complete.style.left = pos.x + "px";
     complete.style.top = pos.yBot + "px";
     document.body.appendChild(complete);
+    // If we're at the edge of the screen, then we want the menu to appear on the left of the cursor.
+    var winW = window.innerWidth || Math.max(document.body.offsetWidth, document.documentElement.offsetWidth);
+    if(winW - pos.x < sel.clientWidth)
+      complete.style.left = (pos.x - sel.clientWidth) + "px";
     // Hack to hide the scrollbar.
     if (completions.length <= 10)
       complete.style.width = (sel.clientWidth - 1) + "px";
@@ -53,9 +55,10 @@
       if (code == 13) {CodeMirror.e_stop(event); pick();}
       // Escape
       else if (code == 27) {CodeMirror.e_stop(event); close(); editor.focus();}
-      else if (code == 8) {close(); editor.focus();}
       else if (code != 38 && code != 40) {
         close(); editor.focus();
+        // Pass the event to the CodeMirror instance so that it can handle things like backspace properly.
+        editor.triggerOnKeyDown(event);
         setTimeout(function(){CodeMirror.simpleHint(editor, getHints);}, 50);
       }
     });
@@ -66,10 +69,4 @@
     if (window.opera) setTimeout(function(){if (!done) sel.focus();}, 100);
     return true;
   };
-})();/**
- * Created by JetBrains RubyMine.
- * User: dougt
- * Date: 2/6/12
- * Time: 9:24 PM
- * To change this template use File | Settings | File Templates.
- */
+})();

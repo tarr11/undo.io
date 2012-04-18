@@ -39,11 +39,7 @@
                   <% end %>
               <%end%>
               <%=content_tag :li, :class =>  my_notes_active_class do%><%=link_to "My Notes", user_path(current_user)%><%end%>
-              <%=content_tag :li, :class => inbox_active_class  do%><%=link_to "Inbox", inbox_path%><%end%>
             <% end %>
-            <%=content_tag :li, :class => (@is_public ? "active" : nil)  do%><a href="/public">Public Projects</a>
-              <%=content_tag :li, :class => team_active_class  do%><%=link_to "For Teams", "/team"%><%end%>
-            <%end%>
             </ul>
             <% if user_signed_in? %>
               <div class="nav pull-right">

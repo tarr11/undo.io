@@ -1,0 +1,14 @@
+<div class="editor-border"></div>
+<article id="read-only-contents" style="width:95%;margin: .5em;">
+<% unless @merge_error  %>
+  <% unless @diff_html.nil? %>
+    <%@diff_html.each do |line|%>
+      <%=line.html_safe%>
+    <% end %>
+  <% else %>
+    <%get_formatted_lines_for_viewer.each_with_index do |line,index|%>
+      <%=render_line(line,index).html_safe%>
+    <% end %>
+  <% end %>
+<% end %>
+</article>

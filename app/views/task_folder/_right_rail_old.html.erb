@@ -1,0 +1,76 @@
+       <div id="right-rail-created-by" style="padding:1em;">
+         <%= render 'right_rail_created_by'%>
+       </div>
+      <% unless @is_new_file%>
+
+           <div id="accordion-group">
+<!--             <div style="padding:1em;">
+              <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#suggestions"><i class="icon-indent-left"></i> Suggestions</a> (<%=@suggestions.length%>)</h3>
+                <div id="suggestions" class="collapse out">
+                <%= render 'right_rail_suggestions', :suggestions=>@suggestions%>
+              </div>
+              </div>
+             <div style="padding:1em;">
+              <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#replies"><i class="icon-indent-left"></i> Copies</a> (<%=@replies.length%>)</h3>
+                <div id="replies" class="collapse out">
+                <%= render 'right_rail_revisions', :notes=>@replies%>
+              </div>
+              </div>
+
+              -->
+
+             <div style="padding:1em;">
+                <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#slides"><i class="icon-picture"></i> Slides (<%=@slides.length%>)</a> </h3>
+               <div style="margin-left:.5em;" id="slides" class="collapse out">
+                 <% @slides.each_with_index do |slide, index|%>
+                     <div><a id="slide<%=index%>-link" class="slide-link" href="#" slide-index="<%=index%>"><%=slide.title%></a></div>
+                  <% end%>
+                </div>
+               </div>
+
+
+           <div style="padding:1em;">
+             <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#notestream"><i class="icon-folder-open"></i> In this folder</a> (<%=@same_folder_notes.length%>)</h3>
+               <div id="notestream" class="collapse out">
+               <%= render 'right_rail_revisions', :notes=>@same_folder_notes%>
+             </div>
+
+             </div>
+
+             <div style="padding:1em;">
+               <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#tagged"><i class="icon-tag"></i> Tagged</a> (<%=@tagged.length%>)</h3>
+                 <div id="tagged" class="collapse out">
+                 <%= render 'right_rail_revisions', :notes=>@tagged%>
+               </div>
+
+               </div>
+
+           <div style="padding:1em;">
+             <h3 style="border-bottom:solid #D8DFEA 1px;margin-bottom:.5em;"><a data-toggle="collapse" data-parent="#accordion-group" href="#tasks"><i class="icon-check"></i> Tasks</a> (<%=@task_count%>)</h3>
+                <div style="margin-left:.5em; margin-bottom:1em;" id="tasks" class="collapse out">
+                  <%= render 'task_group', :group=>@tasks_grouped, :level=>0%>
+            </div>
+           </div>
+           <div id="right-rail-events" style="padding:1em;">
+             <%= render 'right_rail_events', :events=> @events%>
+           </div>
+
+     <% end %>
+
+
+      </div>
+</div>
+
+<div class="slideshow" tabindex="10">
+    <div class="slideshow-foreground">
+    <% @slides.each_with_index do |slide, index|%>
+
+        <div class="slide <%=slide.slide_type.to_s%>" slide-id="<%=index%>" id="slide<%=index%>">
+           <%=render "slide_" + slide.slide_type.to_s, :slide => slide%>
+          <div class="slideshow-nav">
+            <a href="#" class="prev-button">Prev</a> |
+            <a href="#" class="next-button">Next</a>
+          </div>
+        </div>
+       <% end%>
+     </div>

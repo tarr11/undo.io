@@ -1,0 +1,14 @@
+<div id="snippet_<%=key%>" class="note-box">
+  <ul style="margin-left:0">
+    <li class="undo-new-header"><%=link_to "#" + key, ""%></li>
+    <% group.each do |file| %>
+      <li class="undo-ul-li-heading">
+      <%=link_to file.file.shortName, file_local_path(file.file)%></li>
+      <% file.file.get_snippet_around(key,3).each do |line| %>
+        <div class="undo-ul-li-desc"><%=render_line(line,1).html_safe%></div>
+      <% end %>
+    <% end%>
+    <div style="clear:both"></div>
+    </li>
+  </ul>
+</div>

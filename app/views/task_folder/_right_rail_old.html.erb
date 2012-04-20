@@ -62,15 +62,16 @@
 </div>
 
 <div class="slideshow" tabindex="10">
-    <div class="slideshow-foreground">
+  <div class="slideshow-foreground">
     <% @slides.each_with_index do |slide, index|%>
 
-        <div class="slide <%=slide.slide_type.to_s%>" slide-id="<%=index%>" id="slide<%=index%>">
-           <%=render "slide_" + slide.slide_type.to_s, :slide => slide%>
-          <div class="slideshow-nav">
-            <a href="#" class="prev-button">Prev</a> |
-            <a href="#" class="next-button">Next</a>
-          </div>
+      <div class="slide <%=slide.slide_type.to_s%>" slide-id="<%=index%>" id="slide<%=index%>">
+        <%=render "slide_" + slide.slide_type.to_s, :slide => slide%>
+        <div class="slideshow-nav">
+          <a href="#" class="prev-button">Prev</a> |
+          <a href="#" class="next-button">Next</a>
         </div>
-       <% end%>
-     </div>
+      </div>
+    <% end%>
+  </div>
+</div>

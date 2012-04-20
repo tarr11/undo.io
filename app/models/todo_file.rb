@@ -15,7 +15,6 @@ class TodoFile < ActiveRecord::Base
   has_many :shared_with_users, :through => :shared_files, :source=>:user
   has_many :shared_files
   has_many :suggestions
-  has_many :suggestions
 
   validates_inclusion_of :is_public, :in => [true, false]
   validates_presence_of :filename,  :user_id, :file_uuid, :edit_source, :revision_at
@@ -655,6 +654,17 @@ class TodoFile < ActiveRecord::Base
     @task_folder = TaskFolder.new(self.user, path)
   end
 
+  def get_undo_links
+    self.contents.scan(/\/[\S]+\S/)
+  end
+
+ def get_linked_files
+    files = get_undo_links.map do |filename|
+      TaskFolder.get_file_from_path filename
+    end
+
+    files.select{|a| !a.nil?}
+  end
 
   def self.formatted_lines(text_to_format)
 
@@ -970,6 +980,10 @@ class TodoFile < ActiveRecord::Base
       if line.text.downcase.match(text.downcase)
         lines.push line 
       end
+    end
+
+    if lines.length == 0
+      lines = formatted_lines.first(max_lines).to_a
     end
     return lines
   end

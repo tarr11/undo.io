@@ -34,24 +34,24 @@ remove_unreferenced_topics = (topics) ->
 render_topic = (topic) ->
   snippet = $(topic.snippet)
   if $('#' + topic.snippet_id).length == 0
-    $('.right-rail-container').prepend snippet
-    $('.right-rail-container').masonry 'appended', snippet
+    $('#card-view').prepend snippet
+    $('#card-view').masonry 'appended', snippet
 
 
 getNewRightRail = ->
   if window.checkNewRightRail
     window.checkNewRightRail = false
-    $.ajax $('#page-path').text() + "?topics=true",
-      type: 'GET'
-      dataType: 'json'
-      success: (data, textStatus, jqXHR) ->
-        populateTopics data
-        #        if window.lastdata != data
-        #          window.lastdata = data
-        #          $('#right-rail-events').hide()
-        #          $('#right-rail-events').html(data)
-        #          $('#right-rail-events').fadeIn('slow')
-
+    if $('#card-view').length > 0
+      $.ajax $('#page-path').text() + "?cards=true",
+        type: 'GET'
+        dataType: 'json'
+        success: (data, textStatus, jqXHR) ->
+          populateTopics data
+    else if $('#task-view').length > 0
+      $.ajax $('#page-path').text() + "?part=tasks",
+        type: 'GET'
+        success: (data, textStatus, jqXHR) ->
+          $('#task-view').html(data)
 
 initCodeMirror = () ->
   window.checkNewRightRail = false
@@ -73,6 +73,26 @@ initCodeMirror = () ->
   window.saveDocument = (cm) ->
     window.saveNew()
 
+  autocomplete = (editor, results) ->
+    cur = editor.getCursor()
+    token = editor.getTokenAt(cur)
+    
+    regex_string = ".*"
+    for index in [0..(token.string.length - 1)]
+      regex_string = regex_string + token.string[index] + ".*"
+      
+    regex = new RegExp(regex_string)
+    matches = (tag for tag in results when tag.match regex )
+    "list" : matches,
+    "from" :
+        "line": cur.line,
+        "ch": token.start,
+    "to" :
+        "line": cur.line,
+        "ch": token.end
+
+  window.get_user_files = (editor) ->
+    autocomplete editor, window.user_files
 
   window.get_user_tags = (editor) ->
     cur = editor.getCursor()
@@ -118,6 +138,8 @@ initCodeMirror = () ->
       if event.text[0] == "#"
         CodeMirror.simpleHint cm, window.get_user_tags
           
+      if event.text[0] == "/"
+        CodeMirror.simpleHint cm, window.get_user_files
       #if event.text[0] == "@"
        # previousChar = cm.getRange({ch:event.from.ch-1, line:event.from.line}, {ch:event.from.ch, line:event.from.line})
        # if previousChar == " " || previousChar == ""
@@ -146,3 +168,9 @@ $ ->
       dataType: 'json'
       success: (data, textStatus, jqXHR) ->
         window.user_tags = data 
+
+  $.ajax $('#page-path').text() + "?files=true",
+      type: 'GET'
+      dataType: 'json'
+      success: (data, textStatus, jqXHR) ->
+        window.user_files = data 

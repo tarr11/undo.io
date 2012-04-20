@@ -400,19 +400,20 @@ class TaskFolderController < ApplicationController
   def folder_view
 
     get_header_data
-    if params[:view] == "tasks"
-      task_view
-    elsif params[:view] == "events"
-      event_view
-    elsif params[:view] == "feed"
-      feed_view
-    else
-      if @file.nil?
-        board_view
+    if @file.nil?
+      if params[:view] == "tasks"
+        task_view
+      elsif params[:view] == "events"
+        event_view
+      elsif params[:view] == "feed"
+        feed_view
       else
-        note_view
+        board_view
       end
+    else
+      note_view
     end
+
   end
 
   def board_view
@@ -570,7 +571,7 @@ class TaskFolderController < ApplicationController
     get_tagged
     get_same_folder
     get_shared_with
-
+    get_cards
 
     if !current_user.nil? && @file.user.id == current_user.id
       @owned_by_user = true
@@ -600,11 +601,17 @@ class TaskFolderController < ApplicationController
       end
       @diff_html = get_diff_html(@file,@compare_file)
     end
-
+ 
 
     if params[:rail] == "true"
       respond_to do |format|
         format.html { render '_right_rail', :layout => false}
+      end
+    elsif params[:files] == "true"
+      request.format = :json
+      files = current_user.task_folder("/").files.map { |a| file_local_path(a)}
+      respond_to do |format|
+        format.json {render :json=> files}
       end
     elsif params[:tags] == "true"
       request.format = :json
@@ -612,18 +619,15 @@ class TaskFolderController < ApplicationController
       respond_to do |format|
         format.json {render :json=> all_tags}
       end
-    elsif params[:topics] == "true"
-      request.format = :json
-      @tags_thing = @related_tags.map do |key, group|
-        {
-          :key => key,
-          :snippet_id => 'snippet_' + key,
-          :snippet => render_to_string(:partial => 'task_folder/snippet', :locals => {:key=>key, :group=>group})
-        }
-
-      end
+    elsif params[:part] == "tasks"
       respond_to do |format|
-        format.json {render :json=> @tags_thing}
+        format.html { render '_task_group', :locals=>{:group=>@tasks_grouped, :level=>0},:layout=>false}
+      end
+    elsif params[:cards] == "true"
+      snippets = get_cards_with_snippets
+      request.format = :json
+      respond_to do |format|
+        format.json {render :json=> snippets}
       end
     else
       respond_to do |format|

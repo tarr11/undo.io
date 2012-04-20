@@ -76,6 +76,7 @@ class TaskFolder
   def user_id 
     @user.id
   end
+
   def ensure_files
     if @files.nil?
       @files = todo_files_recursive

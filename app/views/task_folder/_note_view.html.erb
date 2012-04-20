@@ -12,7 +12,6 @@
   <%= stylesheet_link_tag "codemirror/utils/simple-hint"  %>
 <% end %>
 
-<%= render 'layouts/breadcrumb'%>
   <% if !@is_new_file %>
 <%= render 'modals'%>
 <% else %>
@@ -39,41 +38,49 @@
     <% end %>
 
 <% end%>
-<table style="width:100%">
-  <tr>
-    <td style="width:1000px;vertical-align:top">
-    <div id="article-column">
-      <div class="row-fluid" id="article-body">
-        <div id="status" style="display:none">&nbsp;</div>
-        <div id="page-path" style="display:none"><%=url_for(:controller => "task_folder", :action=>"folder_view", :path=> @file.filename, :only_path => true, :username=>@file.user.username)%></div>
-        <div class="editor-title">
-          <h1 style="display:inline; margin-right:.5em;"><%=@header%></h1>
-          <%= render 'merge_conflict' %>
-              <div class="pull-right" id="button-container">
-                  <%=render 'access_labels'%>
-                  <%= render 'editor_buttons' %>
-              </div>
-        </div>
-        <% if @owned_by_user && (@compare_file.nil? && !@combined) && !@file.is_read_only%>
-          <div id="read-only-contents">
-            <div class="editor-border"></div>
-            <textarea id="editor"><%=@file.contents%></textarea>
-          </div>
-        <% else %>
-          <%= render 'read_only_article_viewer'%>
-        <% end %>
-          <%= form_tag(url_for(:controller=>"task_folder", :action=>"update"), :remote => true, :method=>:put,:format => :json, :id => "update-form") do  %>
-              <%= hidden_field_tag 'savecontents'%>
-              <%= hidden_field_tag 'filename'%>
-              <%= hidden_field_tag 'current-path', params[:path] %>
-          <% end %>
+<div class="row-fluid">
+  <div class="span5" id="article-column">
+    <div id="status" style="display:none">&nbsp;</div>
+    <div id="page-path" style="display:none"><%=url_for(:controller => "task_folder", :action=>"folder_view", :path=> @file.filename, :only_path => true, :username=>@file.user.username)%></div>
+    <div class="editor-title">
+      <h1 style="display:inline; margin-right:.5em;"><%=@header%></h1>
+      <%= render 'merge_conflict' %>
+      <div class="pull-right" id="button-container">
+        <%=render 'access_labels'%>
+        <%= render 'editor_buttons' %>
       </div>
     </div>
-  </td>
-  <td style="vertical-align:top">
+    <% if @owned_by_user && (@compare_file.nil? && !@combined) && !@file.is_read_only%>
+      <div id="read-only-contents">
+        <div class="editor-border"></div>
+        <textarea id="editor"><%=@file.contents%></textarea>
+      </div>
+    <% else %>
+      <%= render 'read_only_article_viewer'%>
+    <% end %>
+    <%= form_tag(url_for(:controller=>"task_folder", :action=>"update"), :remote => true, :method=>:put,:format => :json, :id => "update-form") do  %>
+      <%= hidden_field_tag 'savecontents'%>
+      <%= hidden_field_tag 'filename'%>
+      <%= hidden_field_tag 'current-path', params[:path] %>
+    <% end %>
+  </div>
+  <div class="span7">
+    <div style="margin-bottom:10px;padding:3px;background-color:white;border:1px solid #DDD;border-radius:3px;">
+      <ul style="display: inline-block;margin-bottom: 0px;" class="nav nav-pills">
+        <% @note_views.each do |view| %>
+          <% if params[:view] == view.id %>
+            <li class="active">
+          <% else %>
+            <li>
+          <% end %>
+          <%= link_to view.name, {:controller => "task_folder", :action=>"folder_view", :path=>@path, :view=>view.querystring}%>
+          </li>
+        <% end %>
+      </ul>
+    </div>
     <div class="right-rail-container">
       <%= render 'right_rail_new'%>
     </div>
-  </td>
-</tr></table>
+  </div>
+  </div>
 </div>

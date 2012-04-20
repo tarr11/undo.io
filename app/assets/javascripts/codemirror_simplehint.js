@@ -25,6 +25,7 @@
     }
     sel.firstChild.selected = true;
     sel.size = Math.min(10, completions.length);
+    sel.className = "autocomplete-dropdown";
     var pos = editor.cursorCoords();
     complete.style.left = pos.x + "px";
     complete.style.top = pos.yBot + "px";

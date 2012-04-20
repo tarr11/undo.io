@@ -1,5 +1,40 @@
 <% if !@is_new_file %>
-  <% @related_tags.each do |key, group| %>
-    <%=render 'snippet', :key=>key, :group=>group%>
+  <% if params[:view].nil?%>
+    <div id="card-view">
+    <% @cards.each do |card| %>
+      <%=render 'snippet', :key=>card[:key], :group=>card[:files]%>
+    <% end %>
+  </div>
+  <% elsif params[:view] == "tasks" %>
+    <div id="task-view">
+    <%= render 'task_group', :group=>@tasks_grouped, :level=>0%>
+  </div>
+  <% elsif params[:view] == "events" %>
+    <%@events.group_by{|a| a.slide}.each do |slide, events|%>
+      <div style="font-weight:bold"><%=slide.title%></div>
+      <ul>
+        <%events.each do |event|%>
+          <li><%=event.title%></li>
+        <%end%>
+      </ul>
+    <% end%>
+  <% elsif params[:view] == "slides" %>
+    <% @slides.each_with_index do |slide, index|%>
+      <div><a id="slide<%=index%>-link" class="slide-link" href="#" slide-index="<%=index%>"><%=slide.title%></a></div>
+    <% end%>
+    <div class="slideshow" tabindex="10">
+      <div class="slideshow-foreground">
+        <% @slides.each_with_index do |slide, index|%>
+
+          <div class="slide <%=slide.slide_type.to_s%>" slide-id="<%=index%>" id="slide<%=index%>">
+            <%=render "slide_" + slide.slide_type.to_s, :slide => slide%>
+            <div class="slideshow-nav">
+              <a href="#" class="prev-button">Prev</a> |
+              <a href="#" class="next-button">Next</a>
+            </div>
+          </div>
+        <% end%>
+      </div>
+    </div>
   <% end %>
 <% end %>

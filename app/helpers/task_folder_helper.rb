@@ -191,6 +191,30 @@ module TaskFolderHelper
           )
         ]
 
+      @note_views = [
+
+          OpenStruct.new(
+              :id => nil,
+              :name => "Notes",
+              :querystring => nil
+          ),
+          OpenStruct.new(
+              :id => "tasks",
+              :name => "Tasks",
+              :querystring => "tasks"
+          ),
+          OpenStruct.new(
+              :id => "events",
+              :name => "Events",
+              :querystring => "events"
+          ),
+          OpenStruct.new(
+              :id => "slides",
+              :name => "Slides",
+              :querystring => "slides"
+          )
+        ]
+
     end
 
     def get_header_data
@@ -359,7 +383,7 @@ module TaskFolderHelper
     end
 
     def file_local_path file
-      url_for :controller=>"task_folder", :action => "folder_view", :username=>file.user.user_folder_name, :path => file.filename
+      url_for :controller=>"task_folder", :action => "folder_view", :username=>file.user.user_folder_name, :path => file.filename, :only_path=>true
     end
 
     def sample_tasks
@@ -531,6 +555,45 @@ module TaskFolderHelper
     def get_related_tags
 
       @related_tags = @file.get_related_tag_notes
+
+    end
+
+    def get_cards
+      cards = [] 
+
+      tags = @related_tags.map do |key, group|
+        {
+          :key => key,
+          :card_type => :tag,
+          :files => group.map{|a| a.file}
+        }
+      end
+
+      files = @file.get_linked_files.map do |file|
+        {
+          :key => file.shortName,
+          :card_type => :file,
+          :files =>[file] 
+        }
+      end
+
+      cards.concat tags
+      cards.concat files
+      @cards = cards
+
+    end
+
+    def get_cards_with_snippets
+
+      @cards.map do |card|
+        
+        {
+          :key => card[:key],
+          :card_type => card[:card_type],
+          :snippet_id => 'snippet_' + card[:key],
+          :snippet => render_to_string(:partial => 'task_folder/snippet', :locals => {:key=>card[:key], :group=>card[:files]})
+        }
+      end
 
     end
 

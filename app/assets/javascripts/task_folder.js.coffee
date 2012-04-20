@@ -29,10 +29,17 @@ $ ->
       .click (e) ->
         e.preventDefault()
 
-  $('#right-rail').delegate '.task-checkbox-in-file', 'click', (event) ->
+  $('.right-rail-container').delegate '.task-checkbox-in-file', 'click', (event) ->
     completedtaskRegex = /^([\s]*)x([\s]*!)/
 
-    line_num = $(event.target).attr("line-number")
+    task_text = "!" + $(event.target).attr("task-text")
+    line_num =$(event.target).attr("line-number")
+
+    #    cursor = window.myCodeMirror.getSearchCursor(task_text, 0)
+    #
+    #    if cursor.findNext()
+    #      window.myCodeMirror.setSelection(cursor.from(), cursor.to())
+    #      window.myCodeMirror.refresh()
 
     line = window.myCodeMirror.getLine(line_num-2)
     if event.target.checked
@@ -52,7 +59,7 @@ $ ->
 
   $('#read-only-contents').mouseup (event) ->
     # todo - put line number in status col so we can edit the appropriate line
-
+    return
     if $.trim($('#status').text()) != ""
       url = $('#status').text()
       if url.indexOf("#") == 0

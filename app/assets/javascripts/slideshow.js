@@ -14,7 +14,7 @@ jQuery.fn.center = function () {
 
 
 jQuery.fn.nextSlide = function (nextPrev) {
-    var results = $('.slide:visible');
+    var slide_number = Number($('.slideshow-foreground').data("slide_number"))
     var slideToShow = [];
 
     var slideAdd = 1;
@@ -23,17 +23,18 @@ jQuery.fn.nextSlide = function (nextPrev) {
         slideAdd = -1;
     }
 
-    if (results.length > 0)
-    {
-        slide_id = 'slide' + (Number(results.first().attr('slide-id')) + slideAdd);
-        slideToShow = $('#' + slide_id)
-    }
+    var next_slide = slide_number + slideAdd;
 
-    $('.slide').hide();
+    var slide_id = 'slide' + next_slide;
+    slideToShow = $('#' + slide_id)
+
     if (slideToShow.length > 0)
     {
+        $('.slideshow-foreground').html('')
+        $('.slideshow-foreground').append(slideToShow.clone())
+        $('.slideshow-foreground').data("slide_number",next_slide)
         window.location.hash = '#'  + slide_id
-        slideToShow.show();
+//slideToShow.show();
     }
     else
     {

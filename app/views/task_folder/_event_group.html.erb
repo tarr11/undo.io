@@ -1,0 +1,8 @@
+<%@events.group_by{|a| a.slide}.each do |slide, events|%>
+  <div style="font-weight:bold"><%=slide.title%></div>
+  <ul>
+    <%events.each do |event|%>
+      <li><%=event.title%></li>
+    <%end%>
+  </ul>
+<% end%>

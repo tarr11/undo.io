@@ -1,0 +1,15 @@
+<% @slides.each_with_index do |slide, index|%>
+  <!--      <div><a id="slide<%=index%>-link" class="slide-link" href="#" slide-index="<%=index%>"><%=slide.title%></a></div>-->
+<% end%>
+<div style="text-align:center"><a id="slide0-link" class="slide-link" href="#" slide-index="0">Play slideshow</a></div>
+<div tabindex="10">
+  <% @slides.each_with_index do |slide, index|%>
+    <div class="slide <%=slide.slide_type.to_s%>" slide-id="<%=index%>" id="slide<%=index%>">
+      <%=render "slide_" + slide.slide_type.to_s, :slide => slide%>
+      <div style="display:none" class="slideshow-nav">
+        <a href="#" class="prev-button">Prev</a> |
+        <a href="#" class="next-button">Next</a>
+      </div>
+    </div>
+  <% end%>
+</div>

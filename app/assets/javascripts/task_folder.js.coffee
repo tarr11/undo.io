@@ -90,12 +90,19 @@ $ ->
 
   $('.slide-link').click (event) ->
     $('html, body').animate({ scrollTop: 0 }, 0);
+    $('.slideshow-foreground').data("slide_number", 0)
     $('.slideshow').show()
+    #$('.slideshow').height($(window).height())
+    #    $('.slideshow').width($(window).width())
+    $('.slideshow-foreground').html('')
+    $('.slideshow-foreground').show()
     $('.slideshow-foreground').center()
     $('.slideshow').focus()
-    slide_to_show = '#slide' + $(event.target).attr('slide-index')
-    window.location.hash = slide_to_show
-    $(slide_to_show).show()
+    slide_id = 'slide' + $(event.target).attr('slide-index')
+    slide_to_show = $("#" + slide_id)
+    $('.slideshow-foreground').append(slide_to_show.clone())
+    window.location.hash = slide_id
+    #$(slide_to_show).show()
     return false
 
 
@@ -246,7 +253,6 @@ $ ->
 
 
   $('#complete-button').click (event) ->
-
     $('#file_name').val($(event.target).attr('file_name'))
     $('#line_number').val($(event.target).attr('line_number'))
     $('#is_completed').val('true')

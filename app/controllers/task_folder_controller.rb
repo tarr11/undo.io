@@ -623,6 +623,14 @@ class TaskFolderController < ApplicationController
       respond_to do |format|
         format.html { render '_task_group', :locals=>{:group=>@tasks_grouped, :level=>0},:layout=>false}
       end
+    elsif params[:part] == "events"
+      respond_to do |format|
+        format.html { render '_event_group',:layout=>false}
+      end
+    elsif params[:part] == "slides"
+      respond_to do |format|
+        format.html { render '_slide_group',:layout=>false}
+      end
     elsif params[:cards] == "true"
       snippets = get_cards_with_snippets
       request.format = :json

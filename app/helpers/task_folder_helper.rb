@@ -195,7 +195,7 @@ module TaskFolderHelper
 
           OpenStruct.new(
               :id => nil,
-              :name => "Notes",
+              :name => "My Notes",
               :querystring => nil
           ),
           OpenStruct.new(

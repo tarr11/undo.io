@@ -34,9 +34,8 @@ remove_unreferenced_topics = (topics) ->
 render_topic = (topic) ->
   snippet = $(topic.snippet)
   if $('#' + topic.snippet_id).length == 0
-    $('#card-view').prepend snippet
-    $('#card-view').masonry 'appended', snippet
-
+    $('.right-rail-container').prepend snippet
+    $('.right-rail-container').masonry 'appended', snippet
 
 getNewRightRail = ->
   if window.checkNewRightRail
@@ -52,6 +51,16 @@ getNewRightRail = ->
         type: 'GET'
         success: (data, textStatus, jqXHR) ->
           $('#task-view').html(data)
+    else if $('#event-view').length > 0
+      $.ajax $('#page-path').text() + "?part=events",
+        type: 'GET'
+        success: (data, textStatus, jqXHR) ->
+          $('#event-view').html(data)
+    else if $('#slide-view').length > 0
+      $.ajax $('#page-path').text() + "?part=slides",
+        type: 'GET'
+        success: (data, textStatus, jqXHR) ->
+          $('#slide-view').html(data)
 
 initCodeMirror = () ->
   window.checkNewRightRail = false
@@ -154,8 +163,8 @@ initCodeMirror = () ->
         # just need to get the line from each item??
 
 
-
   window.lastContents = window.myCodeMirror.getValue()
+  window.myCodeMirror.refresh()
   setInterval checkAutoSave, 1000
   setInterval getNewRightRail, 1000
   window.myCodeMirror.focus()

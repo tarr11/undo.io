@@ -360,19 +360,23 @@ UL.files LI > A
 
     .slideshow
     {
-         display:none;
-         background-color:gray;
-         top: 0;
-         left: 0;
-         width:100%;
-         height:100%;
-         z-index:9999;
-         position:absolute;
-
+      display:none;
+      position:fixed;
+      background-color:gray;
+      top: 0px;
+      left: 0px;
+      width:100%;
+      height:100%;
+      z-index:9999;
+//      filter: alpha(opacity=90);
+//      -moz-opacity: 0.9;
+//      opacity: 0.9;
 
     }
+
     .slideshow-foreground
     {
+        display:none;
         background-color:white;
         width:900px;
         height:600px;
@@ -386,11 +390,13 @@ UL.files LI > A
 
     .slide
     {
-        display:none;
+        //#display:none;
+        background-color:white;
         min-height:400px;
-
         min-width:500px;
         margin:2em 1em;
+        margin-bottom:2em;
+        padding:2em;
     }
 
     .slideshow-nav
@@ -679,8 +685,11 @@ ARTICLE
 {
   width:800px;
 }
-#task-view
+.white-background
 {
   background-color:#FFFFFE;
-  padding:5px;
+}
+.right-rail-view 
+{
+  padding:10px;
 }

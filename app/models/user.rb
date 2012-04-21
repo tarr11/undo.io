@@ -127,14 +127,14 @@ class User < ActiveRecord::Base
 
   def suggest_filename(filename)
     # suggests a new file name to avoid collisions
-    files = self.todo_files.where("lower(filename) like ?", filename.downcase).to_a
+    files = self.todo_files.where("lower(filename) like ?", filename.downcase + '%').to_a 
     if files.length == 0
       return filename
     end
     start_with = 1
     while (true)
-      replacement_filename = filename + "_" + start_with.to_s
-     unless files.include?(replacement_filename) 
+      replacement_filename = filename + "-" + start_with.to_s
+     if self.file(replacement_filename).nil?
        return replacement_filename
      end
      start_with += 1

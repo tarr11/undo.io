@@ -34,12 +34,13 @@
             <ul class="nav">
             <% if user_signed_in? %>
               <%=content_tag :li, do%>
-                <%= link_to url_for(:controller => "task_folder", :action=>"new_file", :path=>(@folder_path ||= '/')) ,:method=>"post"  do%>
+                <%= link_to url_for(:controller => "task_folder", :action=>"create", :path=>(@folder_path ||= '/')) ,:method=>"post"  do%>
                   <i class="icon-pencil"></i> New Note
                   <% end %>
               <%end%>
               <%=content_tag :li, :class =>  my_notes_active_class do%><%=link_to "My Notes", user_path(current_user)%><%end%>
             <% end %>
+              <%=content_tag :li, :class =>  public_notes_active_class do%><%=link_to "Public Notes", "/public"%><%end%>
             </ul>
             <% if user_signed_in? %>
               <div class="nav pull-right">

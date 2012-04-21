@@ -93,7 +93,7 @@ describe TodoFile do
 
         it 'should be somewhere else' do
           @file.filename.should_not == @file2.filename
-          @file.filename.should == '/foo2_1'
+          @file.filename.should == '/foo2-1'
         end
       end
 

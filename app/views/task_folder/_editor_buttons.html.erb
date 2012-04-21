@@ -28,12 +28,12 @@
       <a href="#" id="reply-button" class="btn btn-success"><i class="icon-share icon-white"></i> Reply</a>
     <% end%>
     <% if @show_edit_buttons %>
-      <!--      <a href="#" id="share-button" class="btn btn-success"><i class="icon-share icon-white"></i> Share</a>-->
-      <%= link_to "New Note", {:controller => "task_folder", :action=>"new_file", :path=>@file.path, :username=>current_user.username}, :method=>:post, :class=>"btn btn-success"%>
+      <a href="#" id="share-button" class="btn btn-success"><i class="icon-share icon-white"></i> Share</a>
       <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
         <span class="caret"></span>
       </a>
       <ul class="dropdown-menu">
+        <li style="text-align: right"><%= link_to "New", {:controller => "task_folder", :action=>"new_file", :path=>@file.path, :username=>current_user.username}, :method=>:post%></li>
         <li style="text-align: right"><a href="#" id="move-button">Move</a></li>
         <li style="text-align: right"><a href="#"  id="copy-button" >Copy</a></li>
         <li style="text-align: right"><a href="#" id="delete-button">Delete</a></li>

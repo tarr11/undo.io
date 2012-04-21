@@ -21,7 +21,7 @@ Todo::Application.routes.draw do
   match "public:path" => "home#public_view", :constraints => {:path=> /.*/}, :via => :get
   match 'file/complete_task' => 'task_folder#mark_task_completed', :via => [:put, :post]
 
-  match "file/new" => "task_folder#new_file", :via=> :get
+  match "file/new" => "task_folder#create", :via=> :post
   match ":username:path" => "task_folder#folder_view", :constraints => {:path=> /.*/}, :via => :get
   match ":username:path" => "task_folder#new_file", :constraints => {:path=> /.*/}, :via => [:post]
   match ":username:path" => "task_folder#update", :constraints => {:path=> /.*/}, :via => [:put]

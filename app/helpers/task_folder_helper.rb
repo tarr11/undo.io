@@ -368,6 +368,10 @@ module TaskFolderHelper
       return ((!@is_public && params[:username].nil?  || (params[:username] == current_user.username && params[:shared] == nil)) ? "active" : nil)
     end
 
+    def public_notes_active_class
+      return "" if current_user.nil?
+      return ((params[:username] != current_user.username && @is_public) ? "active" : nil)
+    end
     def user_path user
       return "" if current_user.nil?
       url_for :controller=>"task_folder", :action => "folder_view", :username=>user.user_folder_name, :path => "/"

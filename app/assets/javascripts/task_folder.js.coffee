@@ -88,7 +88,7 @@ $ ->
              alert error)
       #$("#save-new-form").submit()
 
-  $('.slide-link').click (event) ->
+  $('.right-rail-container').on "click", ".slide-link", (event) ->
     $('html, body').animate({ scrollTop: 0 }, 0);
     $('.slideshow-foreground').data("slide_number", 0)
     $('.slideshow').show()

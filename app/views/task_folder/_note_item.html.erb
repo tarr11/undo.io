@@ -1,4 +1,3 @@
-
 <li class="undo-ul-li-heading">
   <% if !user_owns_file(file, current_user)%>
       <%= link_to  "@" + file.user.username, {:controller => "task_folder", :action=>"folder_view", :path=> "/", :only_path => @only_path, :username=>file.user.username}, :class=>"user-link"%>

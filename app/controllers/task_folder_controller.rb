@@ -21,15 +21,23 @@ class TaskFolderController < ApplicationController
   end
 
   def create
-    @todo_file = current_user.todo_files.new(:filename => params[:filename], :contents => params[:save_new_contents], :is_public => false, :edit_source=>'web')
-
-    if !@todo_file.filename.starts_with?("/")
-      @todo_file.filename = "/" + @todo_file.filename
+    if params[:path].nil? || params[:path] == "/" 
+      path_start = "/notes" + "/" + DateTime.now.strftime("%Y")  
+    else
+      path_start = params[:path]
     end
+
+    if path_start.ends_with?("/")
+      path_start = path_start[0...-1]
+    end
+
+    filename = current_user.suggest_filename(path_start + "/" + DateTime.now.strftime("%b-%-d"))
+    current_user.todo_files.create!(:filename => filename, :contents => ' ', :is_public => false, :edit_source=>'web')
+    @todo_file = current_user.file(filename)
 
     respond_to do |format|
       if @todo_file.save!
-        format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :username=>current_user.username, :path=> @todo_file.filename, notice: 'File was successfully created.' }
+        format.html { redirect_to :controller=>'task_folder', :action=>'folder_view', :username=>current_user.username, :path=> @todo_file.filename}
         format.json { render json: @todo_file, status: :created}
       else
         format.html { render action: "new" }

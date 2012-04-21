@@ -465,7 +465,7 @@ class TodoFile < ActiveRecord::Base
       diff = TodoFile.getLcsDiff(arrayA, arrayB)
       revision.diff = diff
     end
-    revision.save
+    revision.save!
 
 
   end

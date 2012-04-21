@@ -651,10 +651,6 @@ class TaskFolderController < ApplicationController
       end
 
     end
-
-
-
-
   end
 
 

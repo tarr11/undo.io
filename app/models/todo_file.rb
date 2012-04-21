@@ -1013,15 +1013,15 @@ class TodoFile < ActiveRecord::Base
           end
 
           tags.push OpenStruct.new(
-            :tag=> tag,
+            :tagname=> tag,
             :file => note.file
           )
         end
 
       end
 
-      tags = tags.uniq{|a| [a.tag, a.file]}
-      related_tags = tags.group_by {|group| group.tag}
+      tags = tags.uniq{|a| [a.tagname, a.file]}
+      related_tags = tags.group_by {|group| group.tagname}
       return related_tags
 
   end

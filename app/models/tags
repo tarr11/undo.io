@@ -1,0 +1,209 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Ability	ability.rb	/^class Ability$/;"	c
+Alert	alert.rb	/^class Alert < ActiveRecord::Base$/;"	c
+BetaTester	beta_tester.rb	/^class BetaTester < ActiveRecord::Base$/;"	c
+Comment	comment.rb	/^class Comment < ActiveRecord::Base$/;"	c
+ConsumerToken	consumer_token.rb	/^class ConsumerToken < ActiveRecord::Base$/;"	c
+DropboxState	dropbox_state.rb	/^class DropboxState < ActiveRecord::Base$/;"	c
+DropboxToken	dropbox_token.rb	/^class DropboxToken < ConsumerToken$/;"	c
+Event	event.rb	/^class Event$/;"	c
+FileActivity	file_activity.rb	/^class FileActivity$/;"	c
+FileComparer	file_comparer.rb	/^class FileComparer$/;"	c
+GoogleAnalyticsEvent	google_analytics_event.rb	/^class GoogleAnalyticsEvent$/;"	c
+Notes	notes.rb	/^module Notes$/;"	m
+PersonNote	person_note.rb	/^class PersonNote$/;"	c
+ReceivedEmail	received_email.rb	/^class ReceivedEmail$/;"	c
+ReplyAlert	reply_alert.rb	/^class ReplyAlert$/;"	c
+SharedFile	shared_file.rb	/^class SharedFile < ActiveRecord::Base$/;"	c
+SharedNoteAlert	shared_note_alert.rb	/^class SharedNoteAlert$/;"	c
+Slide	slide.rb	/^class Slide$/;"	c
+SlideContent	slide_content.rb	/^class SlideContent$/;"	c
+SlideSection	slide_section.rb	/^class SlideSection$/;"	c
+Slideshow	slideshow.rb	/^class Slideshow$/;"	c
+Suggestion	suggestion.rb	/^class Suggestion < ActiveRecord::Base$/;"	c
+TagNote	tag_note.rb	/^class TagNote$/;"	c
+Task	task.rb	/^class Task$/;"	c
+TaskFileRevision	task_file_revision.rb	/^class TaskFileRevision < ActiveRecord::Base$/;"	c
+TaskFolder	task_folder.rb	/^class TaskFolder$/;"	c
+TeamProductRequest	team_product_request.rb	/^class TeamProductRequest < ActiveRecord::Base$/;"	c
+TodoFile	todo_file.rb	/^class TodoFile < ActiveRecord::Base$/;"	c
+TodoLine	todo_line.rb	/^class TodoLine$/;"	c
+User	user.rb	/^class User < ActiveRecord::Base$/;"	c
+UserFollow	user_follow.rb	/^class UserFollow < ActiveRecord::Base$/;"	c
+accept	todo_file.rb	/^  def accept(compare_file)$/;"	f	class:TodoFile
+active_for_authentication?	user.rb	/^  def active_for_authentication?$/;"	f	class:User
+add_line	slide.rb	/^  def add_line(line)$/;"	f	class:Slide
+all	task_folder.rb	/^  def all$/;"	f	class:TaskFolder
+all_copies	todo_file.rb	/^  def all_copies$/;"	f	class:TodoFile
+apply_suggestions	todo_file.rb	/^  def self.apply_suggestions(text, suggestions)$/;"	F	class:TodoFile
+build_note	user.rb	/^  def build_note(subject, body)$/;"	f	class:User.check_whitelist?
+build_slides	slideshow.rb	/^  def build_slides$/;"	f	class:Slideshow
+check_whitelist?	user.rb	/^  def check_whitelist?$/;"	f	class:User
+compare	file_comparer.rb	/^  def compare$/;"	f	class:FileComparer
+compareFiles	todo_file.rb	/^  def self.compareFiles(base, compare)$/;"	F	class:TodoFile
+compare_related	file_comparer.rb	/^  def compare_related$/;"	f	class:FileComparer
+compare_unrelated	file_comparer.rb	/^  def compare_unrelated$/;"	f	class:FileComparer
+complete	slide.rb	/^  def complete$/;"	f	class:Slide
+completedtaskRegex	todo_line.rb	/^  def self.completedtaskRegex$/;"	F	class:TodoLine
+consumer	dropbox_token.rb	/^  def self.consumer(options={})$/;"	F	class:DropboxToken
+copied_revision	todo_file.rb	/^  def copied_revision$/;"	f	class:TodoFile
+copy	todo_file.rb	/^  def copy(user, filename, revision_uuid)$/;"	f	class:TodoFile
+create_anonymous_user	user.rb	/^  def self.create_anonymous_user(email)$/;"	F	class:User.check_whitelist?
+current_revision	todo_file.rb	/^  def current_revision$/;"	f	class:TodoFile
+destroy	task_folder.rb	/^  def destroy$/;"	f	class:TaskFolder
+diffs	file_comparer.rb	/^  def diffs$/;"	f	class:FileComparer
+dropbox_client	dropbox_token.rb	/^  def dropbox_client$/;"	f	class:DropboxToken
+dropbox_state_with_build	user.rb	/^  def dropbox_state_with_build$/;"	f	class:User.check_whitelist?
+email_or_unverified_email	user.rb	/^  def email_or_unverified_email$/;"	f	class:User.check_whitelist?
+email_required?	user.rb	/^  def email_required?$/;"	f	class:User
+encodeUtf8	todo_file.rb	/^  def self.encodeUtf8(untrusted_string)$/;"	F	class:TodoFile
+ensure_files	task_folder.rb	/^  def ensure_files$/;"	f	class:TaskFolder
+extract_date	event.rb	/^  def self.extract_date(text,created_at)$/;"	F	class:Event
+extract_email	received_email.rb	/^  def self.extract_email(email_string)$/;"	F	class:ReceivedEmail
+file	user.rb	/^  def file(filename)$/;"	f	class:User.check_whitelist?
+files	task_folder.rb	/^  def files$/;"	f	class:TaskFolder
+find_for_database_authentication	user.rb	/^   def self.find_for_database_authentication(warden_conditions)$/;"	F	class:User.check_whitelist?
+find_record	user.rb	/^ def self.find_record(login)$/;"	F	class:User.check_whitelist?
+find_recoverable_or_initialize_with_errors	user.rb	/^ def self.find_recoverable_or_initialize_with_errors(required_attributes, attributes, error=:invalid)$/;"	F	class:User.check_whitelist?
+first_image	slideshow.rb	/^  def first_image$/;"	f	class:Slideshow
+format_replacement_content	todo_file.rb	/^  def self.format_replacement_content(suggestion)$/;"	F	class:TodoFile
+formatted_lines	todo_file.rb	/^  def self.formatted_lines(text_to_format)$/;"	F	class:TodoFile
+from_email	received_email.rb	/^  def from_email$/;"	f	class:ReceivedEmail
+getChanges	task_folder.rb	/^  def getChanges(startDate, endDate, allChanges = [])$/;"	f
+getChanges	todo_file.rb	/^  def getChanges(startDate, endDate, all_revisions)$/;"	f	class:TodoFile
+getLcsDiff	todo_file.rb	/^  def self.getLcsDiff(arrayA, arrayB)$/;"	F	class:TodoFile
+getLcsDiff2	todo_file.rb	/^  def self.getLcsDiff2(arrayA,arrayB)$/;"	F	class:TodoFile
+get_all_tags	user.rb	/^  def get_all_tags$/;"	f	class:User.check_whitelist?
+get_cleaned_completed_task	todo_line.rb	/^  def get_cleaned_completed_task$/;"	f	class:TodoLine
+get_cleaned_line	todo_line.rb	/^  def get_cleaned_line$/;"	f	class:TodoLine
+get_copy_of_file	todo_file.rb	/^  def get_copy_of_file(user)$/;"	f	class:TodoFile
+get_delta	dropbox_token.rb	/^  def get_delta$/;"	f	class:DropboxToken
+get_event	event.rb	/^  def self.get_event(text, file, slide)$/;"	F	class:Event
+get_event_notes_old	todo_file.rb	/^  def get_event_notes_old$/;"	f	class:TodoFile
+get_events	slide.rb	/^  def get_events$/;"	f	class:Slide
+get_events	slideshow.rb	/^  def get_events$/;"	f	class:Slideshow
+get_events	task_folder.rb	/^  def get_events$/;"	f	class:TaskFolder
+get_events	todo_file.rb	/^  def get_events$/;"	f	class:TodoFile
+get_file_changes	task_folder.rb	/^  def get_file_changes(start_date, end_date)$/;"	f
+get_file_from_dropbox	dropbox_token.rb	/^  def get_file_from_dropbox(filename)$/;"	f	class:DropboxToken
+get_file_from_path	task_folder.rb	/^  def self.get_file_from_path(path)$/;"	F	class:TaskFolder
+get_images	slide.rb	/^  def get_images$/;"	f	class:Slide
+get_inverted_tags	todo_file.rb	/^  def get_inverted_tags$/;"	f	class:TodoFile.apply_suggestions
+get_level	todo_line.rb	/^  def get_level$/;"	f	class:TodoLine
+get_lines	todo_file.rb	/^  def self.get_lines(text_to_split)$/;"	F	class:TodoFile
+get_lines_from_content	todo_file.rb	/^  def get_lines_from_content$/;"	f	class:TodoFile
+get_linked_files	todo_file.rb	/^ def get_linked_files$/;"	f	class:TodoFile
+get_links	slide.rb	/^  def get_links$/;"	f	class:Slide
+get_people	todo_file.rb	/^  def get_people$/;"	f	class:TodoFile
+get_people	todo_line.rb	/^  def get_people$/;"	f	class:TodoLine
+get_person_notes	task_folder.rb	/^  def get_person_notes$/;"	f	class:TaskFolder
+get_person_notes	todo_file.rb	/^  def get_person_notes(&block)$/;"	f	class:TodoFile
+get_related_tag_notes	todo_file.rb	/^  def get_related_tag_notes$/;"	f	class:TodoFile.apply_suggestions
+get_snippet_around	todo_file.rb	/^  def get_snippet_around(text, max_lines)$/;"	f	class:TodoFile.apply_suggestions
+get_summary	task_folder.rb	/^  def get_summary(start_date, end_date)$/;"	f
+get_tag_notes	task_folder.rb	/^  def get_tag_notes$/;"	f	class:TaskFolder
+get_tag_notes	todo_file.rb	/^  def get_tag_notes$/;"	f	class:TodoFile
+get_tags	todo_line.rb	/^  def get_tags$/;"	f	class:TodoLine
+get_tasks	task_folder.rb	/^  def get_tasks$/;"	f	class:TaskFolder
+get_tasks	todo_file.rb	/^  def get_tasks$/;"	f	class:TodoFile
+get_undo_links	todo_file.rb	/^  def get_undo_links$/;"	f	class:TodoFile
+get_user_by_username_or_email	todo_file.rb	/^  def self.get_user_by_username_or_email(person)$/;"	F	class:TodoFile
+has_children?	slide_section.rb	/^  def has_children?$/;"	f	class:SlideSection
+has_children?	todo_line.rb	/^  def has_children?$/;"	f	class:TodoLine
+has_replied?	todo_file.rb	/^  def has_replied?$/;"	f	class:TodoFile
+httpRegex	slide.rb	/^  def httpRegex$/;"	f	class:Slide
+importFile	todo_file.rb	/^  def self.importFile(filename, user)$/;"	F	class:TodoFile
+in_reply_to	todo_file.rb	/^  def in_reply_to$/;"	f	class:TodoFile
+inactive_message	user.rb	/^  def inactive_message$/;"	f	class:User
+initialize	ability.rb	/^  def initialize(user)$/;"	f	class:Ability
+initialize	file_comparer.rb	/^  def initialize(compare_from, compare_to)$/;"	f	class:FileComparer
+initialize	slide.rb	/^  def initialize(slideshow)$/;"	f	class:Slide
+initialize	slide_content.rb	/^  def initialize(text, content_type)$/;"	f	class:SlideContent
+initialize	slide_section.rb	/^  def initialize(slide_contents, is_task, level, has_children)$/;"	f	class:SlideSection
+initialize	slideshow.rb	/^  def initialize(file)$/;"	f	class:Slideshow
+initialize	task_folder.rb	/^  def initialize(user, path, *params)$/;"	f	class:TaskFolder
+initialize	todo_line.rb	/^  def initialize$/;"	f	class:TodoLine
+is_a_folder	task_folder.rb	/^  def is_a_folder$/;"	f	class:TaskFolder
+is_authorized?	dropbox_token.rb	/^  def is_authorized?$/;"	f	class:DropboxToken
+is_completed_task	todo_line.rb	/^  def is_completed_task$/;"	f	class:TodoLine
+is_copied?	todo_file.rb	/^  def is_copied?$/;"	f	class:TodoFile
+is_different?	file_comparer.rb	/^  def is_different?$/;"	f	class:FileComparer
+is_email	todo_file.rb	/^  def self.is_email?(address)$/;"	F	class:TodoFile
+is_not_registered_user?	user.rb	/^  def is_not_registered_user?$/;"	f	class:User.check_whitelist?
+is_registered_user?	user.rb	/^  def is_registered_user?$/;"	f	class:User.check_whitelist?
+is_related?	file_comparer.rb	/^  def is_related?$/;"	f	class:FileComparer
+is_task	todo_line.rb	/^  def is_task$/;"	f	class:TodoLine
+latestNotes	todo_file.rb	/^  def latestNotes$/;"	f	class:TodoFile
+make_private	todo_file.rb	/^  def make_private()$/;"	f	class:TodoFile
+make_public	todo_file.rb	/^  def make_public()$/;"	f	class:TodoFile
+make_user	consumer_token.rb	/^    def make_user$/;"	f	class:ConsumerToken
+mark_task_status	todo_file.rb	/^  def mark_task_status(line_number, is_completed)$/;"	f	class:TodoFile
+merge	todo_file.rb	/^  def merge(base_file, new_file, current_file)$/;"	f	class:TodoFile
+merge_error?	file_comparer.rb	/^  def merge_error?$/;"	f	class:FileComparer
+merged_result	file_comparer.rb	/^  def merged_result$/;"	f	class:FileComparer
+model_name	task_folder.rb	/^  def self.model_name$/;"	F	class:TaskFolder
+move	task_folder.rb	/^  def move(new_location)$/;"	f	class:TaskFolder
+move	todo_file.rb	/^  def move(new_filename)$/;"	f	class:TodoFile
+name	task_folder.rb	/^  def name$/;"	f	class:TaskFolder
+name	todo_file.rb	/^  def name$/;"	f	class:TodoFile
+new_replies	todo_file.rb	/^  def new_replies$/;"	f	class:TodoFile
+other_people_copies	todo_file.rb	/^  def other_people_copies$/;"	f	class:TodoFile
+path	todo_file.rb	/^  def path$/;"	f	class:TodoFile
+process	received_email.rb	/^  def process$/;"	f
+process_search_results	task_folder.rb	/^  def self.process_search_results(current_user, results, path)$/;"	F	class:TaskFolder
+replies	todo_file.rb	/^  def replies$/;"	f	class:TodoFile
+reply_to_id	received_email.rb	/^  def reply_to_id$/;"	f	class:ReceivedEmail
+saveFile	todo_file.rb	/^  def self.saveFile(user, filename, file, revisionDate, revisionCode)$/;"	F	class:TodoFile
+save_cursor	dropbox_token.rb	/^  def save_cursor(cursor)$/;"	f	class:DropboxToken
+save_revision	todo_file.rb	/^  def save_revision$/;"	f	class:TodoFile
+search_for_changes	task_folder.rb	/^  def search_for_changes(current_user, query)$/;"	f
+send_email	team_product_request.rb	/^  def send_email$/;"	f	class:TeamProductRequest
+send_email_reminders	task_folder.rb	/^  def send_email_reminders(start_date, end_date) $/;"	f	class:TaskFolder
+send_reply	todo_file.rb	/^  def send_reply()$/;"	f	class:TodoFile
+send_reset_password_instructions	user.rb	/^ def self.send_reset_password_instructions(attributes={})$/;"	F	class:User.check_whitelist?
+sent_copies	todo_file.rb	/^  def sent_copies    $/;"	f	class:TodoFile
+sent_to	todo_file.rb	/^  def sent_to$/;"	f	class:TodoFile
+set_defaults	user.rb	/^  def set_defaults$/;"	f	class:User
+set_revision_at	todo_file.rb	/^  def set_revision_at$/;"	f	class:TodoFile
+share_with	todo_file.rb	/^  def share_with(user)$/;"	f	class:TodoFile
+share_with_person	todo_file.rb	/^  def share_with_person(person)$/;"	f	class:TodoFile
+shortName	task_folder.rb	/^  def shortName$/;"	f	class:TaskFolder
+shortName	todo_file.rb	/^  def shortName$/;"	f	class:TodoFile
+show_public_only	task_folder.rb	/^  def show_public_only$/;"	f	class:TaskFolder
+show_shared_only	task_folder.rb	/^  def show_shared_only$/;"	f	class:TaskFolder
+slide_type	slide.rb	/^  def slide_type$/;"	f	class:Slide
+slideshow	todo_file.rb	/^  def slideshow$/;"	f	class:TodoFile
+strip_email_garbage	received_email.rb	/^  def strip_email_garbage$/;"	f	class:ReceivedEmail
+strip_reply_to_blocks	received_email.rb	/^  def self.strip_reply_to_blocks(content)$/;"	F	class:ReceivedEmail
+suggest_filename	user.rb	/^  def suggest_filename(filename)$/;"	f	class:User.check_whitelist?
+summary	task_folder.rb	/^  def summary$/;"	f	class:TaskFolder
+sync_delta	dropbox_token.rb	/^  def sync_delta$/;"	f	class:DropboxToken
+sync_delta_entry	dropbox_token.rb	/^  def sync_delta_entry(delta_entry)$/;"	f	class:DropboxToken
+tab_count	todo_line.rb	/^  def tab_count$/;"	f	class:TodoLine
+table_name_prefix	notes.rb	/^  def self.table_name_prefix$/;"	F	class:Notes
+taskRegex	todo_line.rb	/^  def self.taskRegex$/;"	F	class:TodoLine
+task_folder	todo_file.rb	/^  def task_folder$/;"	f	class:TodoFile
+task_folder	user.rb	/^  def task_folder (path="\/")$/;"	f	class:User.check_whitelist?
+task_folders	task_folder.rb	/^  def task_folders$/;"	f	class:TaskFolder
+tasks	task_folder.rb	/^  def tasks$/;"	f	class:TaskFolder
+thumbnail	user.rb	/^  def thumbnail$/;"	f	class:User
+title	slide.rb	/^  def title$/;"	f	class:Slide
+to_s	todo_line.rb	/^  def to_s$/;"	f	class:TodoLine
+to_username	received_email.rb	/^  def to_username$/;"	f	class:ReceivedEmail
+todo	file_comparer.rb	/^  def todo$/;"	f	class:FileComparer
+todo_files_immediate	task_folder.rb	/^  def todo_files_immediate$/;"	f	class:TaskFolder
+todo_files_recursive	task_folder.rb	/^    def todo_files_recursive$/;"	f
+tokenize	file_comparer.rb	/^  def tokenize$/;"	f	class:FileComparer
+unshare_with	todo_file.rb	/^  def unshare_with(user)$/;"	f	class:TodoFile
+update_dropbox	todo_file.rb	/^  def update_dropbox$/;"	f	class:TodoFile
+user_folder_name	user.rb	/^  def user_folder_name$/;"	f	class:User.check_whitelist?
+user_id	task_folder.rb	/^  def user_id $/;"	f	class:TaskFolder
+user_who_wrote_this	todo_file.rb	/^  def user_who_wrote_this$/;"	f	class:TodoFile
+was_sent?	todo_file.rb	/^  def was_sent?$/;"	f	class:TodoFile
+was_sent_to_other_user?	todo_file.rb	/^  def was_sent_to_other_user?$/;"	f	class:TodoFile
+whitelisted	user.rb	/^  def whitelisted$/;"	f	class:User.check_whitelist?

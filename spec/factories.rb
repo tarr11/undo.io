@@ -32,14 +32,14 @@ end
 
 Factory.define :file do |file|
   file.filename   "/foo"
-  file.contents   "This is a file.\n! This is a task\nx! This is a completed task.\n This is a date 3/15/2012"
+  file.contents   "This is a file.\n! This is a task\nx! #recipe This is a completed task.\n This is a date 3/15/2012"
   file.edit_source  "web"
   file.is_public  false
 end
 
 Factory.define :file2, :class=>TodoFile do |file|
   file.filename   "/foo2"
-  file.contents   "This is a different file.\n! This is a task\nx! This is a completed task.\n This is a date 3/15/2012"
+  file.contents   "This is a different file.\n! This is a task\nx! recipe This is a completed task.\n This is a date 3/15/2012"
   file.is_public  false
   file.edit_source  "web"
 end

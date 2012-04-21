@@ -988,7 +988,24 @@ class TodoFile < ActiveRecord::Base
     return lines
   end
 
+  def get_inverted_tags
+
+      # get a list of all the tags for this user, and then see if any of those terms are in this file as well
+      all_tags = self.user.get_all_tags
+      these_tags = []
+      all_tags.each do |tag_note|
+        tag_note.tags.each do |tag|
+          if self.contents.include?(tag)
+            these_tags.push tag
+          end
+        end
+      end
+      return these_tags
+
+  end
+
   def get_related_tag_notes
+
 
       tags = []
       # get a list of people, and all the notes that they are in
@@ -1000,7 +1017,8 @@ class TodoFile < ActiveRecord::Base
         end
       end
 
-      these_tags = these_tags.uniq
+      these_tags.append self.get_inverted_tags
+      these_tags = these_tags.flatten.uniq
 
       user.task_folder("/").get_tag_notes do |note|
         if note.file.filename == self.filename

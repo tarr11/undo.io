@@ -63,13 +63,10 @@ describe TodoFile do
     end
 
     it "should have a tag" do
-      tag_notes = @file.to_enum(:get_tag_notes).to_a
-      tag_notes.length.should == 1
+      @file.get
     end
 
-
     describe "and another file is created with the same name, but different capitalization" do
-
       before(:each) do
           @file2 = @user.todo_files.build(Factory.attributes_for(:file))
           @file2.filename = "/Foo"
@@ -103,19 +100,7 @@ describe TodoFile do
           @file.filename.should == '/foo2-1'
         end
 
-        it 'should have an inverted tag' do
-         @file2.get_inverted_tags.length.should == 1 
-        end
-
-        it 'should be related to the first file' do
-          related = @file2.get_related_tag_notes
-          related.length.should == 1
-        end
-
-        it 'the first file should not be related to the second file' do
-          related = @file.get_related_tag_notes
-          related.length.should == 0
-        end
+        
       end
 
        

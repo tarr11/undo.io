@@ -178,6 +178,10 @@ class User < ActiveRecord::Base
     self.todo_files.find(:all, :conditions => ["lower(filename) = ?", "#{filename.downcase}"]).first
   end
 
+  def get_all_tags
+    self.task_folder("/").to_enum(:get_tag_notes).to_a
+  end
+
    protected
 
  # Attempt to find a user by it's email. If a record is found, send new

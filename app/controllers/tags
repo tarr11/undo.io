@@ -1,0 +1,79 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ApplicationController	application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c
+EmailController	email_controller.rb	/^class EmailController < ApplicationController$/;"	c
+HomeController	home_controller.rb	/^class HomeController < ApplicationController$/;"	c
+OauthConsumersController	oauth_consumers_controller.rb	/^class OauthConsumersController < ApplicationController$/;"	c
+RegistrationsController	registrations_controller.rb	/^class RegistrationsController < Devise::RegistrationsController$/;"	c
+SessionsController	sessions_controller.rb	/^class SessionsController < Devise::SessionsController$/;"	c
+TaskFolderController	task_folder_controller.rb	/^class TaskFolderController < ApplicationController$/;"	c
+TeamProductRequestsController	team_product_requests_controller.rb	/^class TeamProductRequestsController < ApplicationController$/;"	c
+TodoFilesController	todo_files_controller.rb	/^class TodoFilesController < ApplicationController$/;"	c
+UserController	user_controller.rb	/^class UserController < ApplicationController$/;"	c
+accept	task_folder_controller.rb	/^  def accept$/;"	f	class:TaskFolderController
+after_inactive_sign_up_path_for	registrations_controller.rb	/^  def after_inactive_sign_up_path_for(resource)$/;"	f	class:RegistrationsController
+after_sign_up_path_for	registrations_controller.rb	/^  def after_sign_up_path_for(resource)$/;"	f	class:RegistrationsController
+board_view	home_controller.rb	/^  def board_view$/;"	f	class:HomeController
+board_view	task_folder_controller.rb	/^  def board_view$/;"	f	class:TaskFolderController
+callback	oauth_consumers_controller.rb	/^  def callback$/;"	f	class:OauthConsumersController
+client	oauth_consumers_controller.rb	/^  def client$/;"	f	class:OauthConsumersController
+copy	task_folder_controller.rb	/^  def copy$/;"	f	class:TaskFolderController
+create	task_folder_controller.rb	/^  def create$/;"	f	class:TaskFolderController
+create	team_product_requests_controller.rb	/^  def create$/;"	f	class:TeamProductRequestsController
+create	todo_files_controller.rb	/^  def create$/;"	f	class:TodoFilesController
+create_or_update	task_folder_controller.rb	/^  def create_or_update$/;"	f	class:TaskFolderController
+current_user=	oauth_consumers_controller.rb	/^   def current_user=(user)$/;"	f	class:OauthConsumersController
+dashboard_view	home_controller.rb	/^  def dashboard_view$/;"	f	class:HomeController
+delete	task_folder_controller.rb	/^  def delete$/;"	f	class:TaskFolderController
+destroy	team_product_requests_controller.rb	/^  def destroy$/;"	f	class:TeamProductRequestsController
+edit	team_product_requests_controller.rb	/^  def edit$/;"	f	class:TeamProductRequestsController
+edit	todo_files_controller.rb	/^  def edit$/;"	f	class:TodoFilesController
+edit	user_controller.rb	/^  def edit$/;"	f	class:UserController
+event_view	task_folder_controller.rb	/^  def event_view$/;"	f	class:TaskFolderController
+feed_view	home_controller.rb	/^  def feed_view$/;"	f	class:HomeController
+feed_view	task_folder_controller.rb	/^  def feed_view$/;"	f	class:TaskFolderController
+folder_view	task_folder_controller.rb	/^  def folder_view$/;"	f	class:TaskFolderController
+force_ssl	sessions_controller.rb	/^   def force_ssl$/;"	f	class:SessionsController
+get_diff_html	task_folder_controller.rb	/^  def get_diff_html(left_file, right_file)$/;"	f
+go_back	oauth_consumers_controller.rb	/^  def go_back$/;"	f	class:OauthConsumersController
+home_view	task_folder_controller.rb	/^  def home_view$/;"	f	class:TaskFolderController
+index	home_controller.rb	/^  def index$/;"	f	class:HomeController
+index	oauth_consumers_controller.rb	/^  def index$/;"	f	class:OauthConsumersController
+index	team_product_requests_controller.rb	/^  def index$/;"	f	class:TeamProductRequestsController
+index	todo_files_controller.rb	/^  def index$/;"	f	class:TodoFilesController
+logged_in?	oauth_consumers_controller.rb	/^   def logged_in?$/;"	f	class:OauthConsumersController
+mark_task_completed	task_folder_controller.rb	/^  def mark_task_completed$/;"	f	class:TaskFolderController
+move	task_folder_controller.rb	/^  def move$/;"	f	class:TaskFolderController
+new	team_product_requests_controller.rb	/^  def new$/;"	f	class:TeamProductRequestsController
+new	todo_files_controller.rb	/^  def new$/;"	f	class:TodoFilesController
+new_file	task_folder_controller.rb	/^  def new_file$/;"	f	class:TaskFolderController
+note_feed	task_folder_controller.rb	/^  def note_feed$/;"	f	class:TaskFolderController
+note_view	task_folder_controller.rb	/^  def note_view$/;"	f
+patch_up	task_folder_controller.rb	/^  def patch_up(file)$/;"	f
+person_view	task_folder_controller.rb	/^  def person_view$/;"	f	class:TaskFolderController
+please_confirm	home_controller.rb	/^  def please_confirm$/;"	f	class:HomeController
+post	email_controller.rb	/^   def post$/;"	f	class:EmailController
+public_view	home_controller.rb	/^  def public_view$/;"	f	class:HomeController
+publish	task_folder_controller.rb	/^  def publish$/;"	f	class:TaskFolderController
+reply	task_folder_controller.rb	/^  def reply$/;"	f	class:TaskFolderController
+set_user_time_zone	application_controller.rb	/^  def set_user_time_zone$/;"	f	class:ApplicationController
+share	task_folder_controller.rb	/^  def share$/;"	f	class:TaskFolderController
+shared_view	home_controller.rb	/^  def shared_view$/;"	f	class:HomeController
+show	team_product_requests_controller.rb	/^  def show$/;"	f	class:TeamProductRequestsController
+show	todo_files_controller.rb	/^  def show$/;"	f	class:TodoFilesController
+show	user_controller.rb	/^  def show$/;"	f	class:UserController
+suggestion	task_folder_controller.rb	/^  def suggestion$/;"	f	class:TaskFolderController
+task_file_view	task_folder_controller.rb	/^  def task_file_view$/;"	f	class:TaskFolderController
+task_view	task_folder_controller.rb	/^  def task_view$/;"	f	class:TaskFolderController
+team	home_controller.rb	/^  def team$/;"	f	class:HomeController
+tokenize_diff	task_folder_controller.rb	/^  def tokenize_diff (diff)$/;"	f	class:TaskFolderController
+topic_view	task_folder_controller.rb	/^  def topic_view$/;"	f	class:TaskFolderController
+unpublish	task_folder_controller.rb	/^  def unpublish$/;"	f	class:TaskFolderController
+update	task_folder_controller.rb	/^  def update$/;"	f	class:TaskFolderController
+update	team_product_requests_controller.rb	/^  def update$/;"	f	class:TeamProductRequestsController
+update	todo_files_controller.rb	/^  def update$/;"	f	class:TodoFilesController
+update	user_controller.rb	/^  def update$/;"	f	class:UserController

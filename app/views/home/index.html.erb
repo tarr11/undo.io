@@ -1,36 +1,41 @@
-<div class="container">
-<div class="row">
+<% content_for :stylesheet_includes do %>
+  <%= stylesheet_link_tag "task_folder"  %>
+<% end %>
+<div class="container-fluid">
+<div class="row-fluid">
   <div class="leader span12">
  <div class="row leader">
-   <h1>Idea -> Action</h1>
+   <h1>Index cards for the web</h1>
 </div>
   </div>
 </div>
-<div class="row">
-<div class="span4 feature-box highlight-box">
-  <h2>Simple</h2>
-  <div class="feature-description">
-    <ul class="feature-list">
-      <li>Distraction-free user interface</li>
-      <li>Work online or offline</li>
-      <li>Painless organization</li>
-      <li>Sync to Dropbox</li>
-    </ul>
-  </div>
-</div>
-<div class="span4 feature-box highlight-box">
-  <h2>Social</h2>
-  <div class="feature-description">
-    <ul class="feature-list">
-      <li>Get meaningful feedback</li>
-      <li>Share via email or web</li>
-      <li>Effortless slideshows</li>
-      <li>Discover, copy and edit notes</li>
-    </ul>
-  </div>
-</div>
-<div class="span4 feature-box highlight-box">
-  <h2>Smart</h2>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="note-box-3x5">
+      <div class="undo-new-header">Simple</div>
+      <div class="feature-description">
+        <ul class="feature-list">
+          <li>Distraction-free user interface</li>
+          <li>Work online or offline</li>
+          <li>Painless organization</li>
+          <li>Sync to Dropbox</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note-box-3x5">
+      <div class="undo-new-header">Social</div>
+      <div class="feature-description">
+        <ul class="feature-list">
+          <li>Get meaningful feedback</li>
+          <li>Share via email or web</li>
+          <li>Effortless slideshows</li>
+          <li>Discover, copy and edit notes</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note-box-3x5">
+      <div class="undo-new-header">Smart</div>
   <div class="feature-description">
     <ul class="feature-list">
       <li>Task and event detection</li>
@@ -44,6 +49,6 @@
    <h2>Create, shape and share your notes.</h2>
  </div>
   <div class="row">
-    <div class="explore-row"><a class="btn btn-success btn-large" href="<%=new_registration_path(resource_name)%>">Create an account</a></div>
+    <div class="explore-row"><a class="btn btn-success btn-large" href="<%=new_registration_path(resource_name)%>">Create a note</a></div>
   </div>
 </div>

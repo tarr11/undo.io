@@ -199,9 +199,9 @@ UL.files LI > A
          .CodeMirror-scroll
           {
 
-              height: auto;
-              overflow-x:auto;
-              overflow-y:hidden;
+              height: 300px;
+              overflow-x:hidden;
+              overflow-y:auto;
          #     min-height: 300px;
               width:100%;
 
@@ -484,7 +484,7 @@ font-size: 15px;
 font-weight: 500;
 margin-top: .2em;
 border-image: initial;
-border-bottom: solid #ccc 1px;
+border-bottom: solid #FF0000 1px;
 }
 
 .undo-new-header A:visited, .undo-new-header A:link

@@ -16,34 +16,35 @@
       <% end %>
     </div>
     <div class="span4">
-      <h2>Upcoming Events and Tasks</h2>
+      <h2>Just Getting Started?</h2>
       <div class="dashboard-module">
-        Reminders go here
+        <h3><a href="/public/guides/undo">Learn more about undo</a></h3>
+        <p>We publish lots of information as public notes. It's a great place to start learning about how to use undo.</p>
+        <p><a href="/public/guides/undo">Explore undo guides</a></p>
+        <p><a href="/public">Explore all public notes</a></p>
       </div>
-      <h2>Getting Started Guides</h2>
+      <h2>Upcoming Events</h2>
       <div class="dashboard-module">
-      <h3>Create</h3>
-      <ul>
-        <li><%= link_to "Create a note", url_for(:controller => "task_folder", :action=>"new_file", :path=>(@folder_path ||= '/'), :username=>current_user.username) ,:method=>"post"%></li>
-        <li>Make Todo Lists </li>
-        <li>Use dates and events</li>
-        <li>Make a slideshow</li>
-        <li>Organize your notes in folders</li>
-        <li>Sync to Dropbox</li>
-      </ul>
-
-      <h3>Share</h3>
-      <ul>
-        <li><%= link_to "Explore public notes", "/public"%></li>
-        <li>Compare notes</li>
-        <li>Copy someone else's note into your own folder</li>
-        <li>Share notes with others</li>
-        <li>Publish your own notes to everyone</li>
-      </ul>
-    </div>
+        <% @notes_by_date.each do |date, noteslist| %>
+          <div class="undo-new-header"><%=date%></div>
+          <% noteslist.group_by{|note| note.file}.each do |file, notes|%>
+            <div style="font-style:italic" class="undo-ul-li-desc">
+              in <%=link_to file_local_path(file), file_local_path(file)%>
+            </div>
+            <% notes.each do |note| %>
+              <div class="undo-ul-li-desc">
+                <%=note.slide.title%>        
+              </div>
+            <% end %>
+        <% end %>
+        <% end %>
+      </div>
   </div>
   <div class="span4">
     <h2>Public Notes</h2>
+      <%@public_changed_files_by_folder.each do |folder_item|%>
+        <%= render 'task_folder/note_box_folder', :folder_item =>folder_item, :show_avatar=>true,:show_public_path=>true,:note_class=>"note-box-3x5-bootstrap" %>
+      <% end %>
   </div>
   </div>
 </div>

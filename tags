@@ -315,6 +315,7 @@ getCompletions.gatherCompletions	app/assets/javascripts/codemirror_javascripthin
 getCompletions.maybeAdd	app/assets/javascripts/codemirror_javascripthint.js	/^    function maybeAdd(str) {$/;"	f
 getLcsDiff	app/models/todo_file.rb	/^  def self.getLcsDiff(arrayA, arrayB)$/;"	F	class:TodoFile
 getLcsDiff2	app/models/todo_file.rb	/^  def self.getLcsDiff2(arrayA,arrayB)$/;"	F	class:TodoFile
+get_all_tags	app/models/user.rb	/^  def get_all_tags$/;"	f	class:User.check_whitelist?
 get_cards	app/helpers/task_folder_helper.rb	/^    def get_cards$/;"	f
 get_cards_with_snippets	app/helpers/task_folder_helper.rb	/^    def get_cards_with_snippets$/;"	f
 get_changed_files_by_date	app/helpers/task_folder_helper.rb	/^  def get_changed_files_by_date files$/;"	f	class:TaskFolderHelper
@@ -340,6 +341,7 @@ get_folder_username	app/helpers/task_folder_helper.rb	/^  def get_folder_usernam
 get_formatted_lines_for_viewer	app/helpers/task_folder_helper.rb	/^    def get_formatted_lines_for_viewer$/;"	f
 get_header_data	app/helpers/task_folder_helper.rb	/^    def get_header_data$/;"	f	class:TaskFolderHelper
 get_images	app/models/slide.rb	/^  def get_images$/;"	f	class:Slide
+get_inverted_tags	app/models/todo_file.rb	/^  def get_inverted_tags$/;"	f	class:TodoFile.apply_suggestions
 get_level	app/models/todo_line.rb	/^  def get_level$/;"	f	class:TodoLine
 get_lines	app/models/todo_file.rb	/^  def self.get_lines(text_to_split)$/;"	F	class:TodoFile
 get_lines_from_content	app/models/todo_file.rb	/^  def get_lines_from_content$/;"	f	class:TodoFile
@@ -428,6 +430,7 @@ l.K	vendor/assets/javascripts/rangy/rangy-core.js	/^window.rangy=function(){func
 l.z	app/assets/javascripts/rangy/rangy-core.js	/^window.rangy=function(){function l(p,u){var w=typeof p[u];return w=="function"||!!(w=="object"&&p[u])||w=="unknown"}function K(p,u){return!!(typeof p[u]=="object"&&p[u])}function H(p,u){return typeof p[u]!="undefined"}function I(p){return function(u,w){for(var B=w.length;B--;)if(!p(u,w[B]))return false;return true}}function z(p){return p&&A(p,x)&&v(p,t)}function C(p){window.alert("Rangy not supported in your browser. Reason: "+p);c.initialized=true;c.supported=false}function N(){if(!c.initialized){var p,$/;"	f
 l.z	vendor/assets/javascripts/rangy/rangy-core.js	/^window.rangy=function(){function l(p,u){var w=typeof p[u];return w=="function"||!!(w=="object"&&p[u])||w=="unknown"}function K(p,u){return!!(typeof p[u]=="object"&&p[u])}function H(p,u){return typeof p[u]!="undefined"}function I(p){return function(u,w){for(var B=w.length;B--;)if(!p(u,w[B]))return false;return true}}function z(p){return p&&A(p,x)&&v(p,t)}function C(p){window.alert("Rangy not supported in your browser. Reason: "+p);c.initialized=true;c.supported=false}function N(){if(!c.initialized){var p,$/;"	f
 latestNotes	app/models/todo_file.rb	/^  def latestNotes$/;"	f	class:TodoFile
+local_path_without_file	app/models/todo_file.rb	/^  def local_path_without_file$/;"	f	class:TodoFile
 logged_in?	app/controllers/oauth_consumers_controller.rb	/^   def logged_in?$/;"	f	class:OauthConsumersController
 login_user	spec/support/controller_macros.rb	/^  def login_user$/;"	f	class:ControllerMacros
 lookup	tmp/ace-install/ace-0.1.6/src/ace-uncompressed.js	/^var lookup = function(moduleName) {$/;"	f
@@ -466,6 +469,7 @@ process	app/models/received_email.rb	/^  def process$/;"	f
 process_search_results	app/models/task_folder.rb	/^  def self.process_search_results(current_user, results, path)$/;"	F	class:TaskFolder
 product_request_note	app/mailers/user_mailer.rb	/^   def product_request_note(email, feedback)$/;"	f	class:UserMailer
 public_notes_active_class	app/helpers/task_folder_helper.rb	/^    def public_notes_active_class$/;"	f	class:TaskFolderHelper
+public_path_without_file	app/models/todo_file.rb	/^  def public_path_without_file$/;"	f	class:TodoFile
 public_view	app/controllers/home_controller.rb	/^  def public_view$/;"	f	class:HomeController
 publish	app/controllers/task_folder_controller.rb	/^  def publish$/;"	f	class:TaskFolderController
 q	app/assets/javascripts/rangy/rangy-core.js	/^0,w=p.length,B,V;u<w;++u){V=p[u];B=c.modules[V];if(!B||!(B instanceof O))throw Error("Module '"+V+"' not found");if(!B.supported)throw Error("Module '"+V+"' not supported");}};var L=false;q=function(){if(!L){L=true;c.initialized||N()}};if(typeof window=="undefined")C("No window found");else if(typeof document=="undefined")C("No document found");else{l(document,"addEventListener")&&document.addEventListener("DOMContentLoaded",q,false);if(l(window,"addEventListener"))window.addEventListener("load",$/;"	f

@@ -1,0 +1,10 @@
+<ul class="feed-view" style="margin-left:0em;">
+  <ul style="margin-left:0em;">
+    <% @notes_by_date.each do |date, noteslist| %>
+        <li class="undo-divider"><%=date%></li>
+        <% noteslist.each do |note| %>
+          <%=render 'task_folder/event_note_item', :note => note%>
+         <% end %>
+     <% end %>
+  </ul>
+</ul>

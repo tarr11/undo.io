@@ -95,6 +95,15 @@ class HomeController < ApplicationController
     @changed_files_by_folder = changed_files
           .group_by {|note| get_sub_folder(note.path,"/") }
 
+    public_changed_files = TodoFile.where(:is_public => true).where("user_id <> ?", current_user.id).order('revision_at desc').first(3)
+    @public_changed_files_by_folder = public_changed_files
+          .group_by {|note| get_sub_folder(note.path,"/") }
+
+    @notes_by_date = current_user.task_folder("/").to_enum(:get_events).to_a
+    .select {|line| line.start_at > Date.today && line.start_at < (Date.today + 3.days)}
+    .group_by {|line| line.start_at.strftime "%A, %B %e, %Y" }
+    .sort_by {|date| [Date.strptime(date.first, "%A, %B %e, %Y")]}
+
     respond_to do |format|
       format.html {render 'task_folder/dashboard', :layout => 'application'}
     end

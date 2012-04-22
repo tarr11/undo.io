@@ -95,9 +95,13 @@ module TaskFolderHelper
 
       path_parts = []
 
-      incremental_part = "/"
+      incremental_part = ""
       parts.each do |part|
-          incremental_part +=  part + "/"
+          if part.blank? 
+            incremental_part += "" 
+          else
+            incremental_part += ("/" + part)
+          end
           path_parts.push ({
             :path => incremental_part,
             :name => part

@@ -6,6 +6,7 @@
     <%= button_to "New", {:controller => "task_folder", :action=>"new_file", :path=>(@path ||= '/'), :username=>current_user.username}, :class=>"btn primary"%>
     <% end %>
 <% end %>
+<h1 style="margin-top:5px;text-align:center;"><%=@header%></h1>
 <div class="content">
   <div class="note-container">
     <%@changed_files_by_folder.each do |folder_item|%>

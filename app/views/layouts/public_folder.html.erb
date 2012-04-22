@@ -3,18 +3,13 @@
 <% end %>
 <% content_for :content do %>
 <%= render 'task_folder/shared_notes_message' %>
-    <div class="content">
-    <div class="row-fluid">
-     <div id="main-body">
-       <div class="row-fluid" style="margin-bottom: .5em;">
-         <div class="pull-right">
-           <%= render 'layouts/search_form' %>
-         </div>
-       </div>
-       <%= yield %>
-     </div>
+<div class="content">
+  <div class="row-fluid">
+    <div id="main-body">
+<%= render 'layouts/breadcrumb'%>
+      <%= yield %>
     </div>
-
-    </div>
+  </div>
+</div>
 <% end %>
 <%= render :template => 'layouts/application' %>

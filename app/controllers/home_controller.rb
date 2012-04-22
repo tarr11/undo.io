@@ -46,15 +46,19 @@ class HomeController < ApplicationController
      changed_files = changed_files.select{|a| a.is_public && (path.nil? || a.filename.start_with?(path))}
     end
 
+    if changed_files.length == 0
+        raise ActionController::RoutingError.new('Not Found')
+    end
 
     @changed_files_by_folder = changed_files
       .group_by {|note| get_sub_folder(note.path,"/") }
-    if path.nil?
+    if path.blank? || path.nil? || path == "/"
       @header = "Public Notes"
     else
-      @header = path  
-       
+      @header = path.split("/").join(" ") + " notes"
+      @header = @header.lstrip.capitalize
     end
+
     @wildcard_user_name = true
     @path_parts = get_path_parts(false, path)
     @is_public = true

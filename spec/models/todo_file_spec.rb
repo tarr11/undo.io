@@ -104,12 +104,12 @@ describe TodoFile do
         end
 
         it 'should be related to the first file' do
-          related = @file2.get_related_tag_notes
+          related = @file2.get_related_tag_notes @user
           related.length.should == 1
         end
 
         it 'the first file should be related to the second file' do
-          related = @file.get_related_tag_notes
+          related = @file.get_related_tag_notes @user
           related.length.should == 1
         end
       end

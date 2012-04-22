@@ -560,13 +560,13 @@ module TaskFolderHelper
 
     end
 
-    def get_related_tags
+    def get_related_tags(user_requesting_access)
 
-      @related_tags = @file.get_related_tag_notes
+      @related_tags = @file.get_related_tag_notes(user_requesting_access)
 
     end
 
-    def get_cards
+    def get_cards(user_requesting_access)
       cards = [] 
 
       tags = @related_tags.map do |key, group|
@@ -577,7 +577,7 @@ module TaskFolderHelper
         }
       end
 
-      files = @file.get_linked_files.map do |file|
+      files = @file.get_linked_files(user_requesting_access).map do |file|
         {
           :key => file.shortName,
           :card_type => :file,

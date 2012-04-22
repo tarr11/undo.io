@@ -666,12 +666,11 @@ class TodoFile < ActiveRecord::Base
     self.contents.scan(/\/[\S]+\S/)
   end
 
- def get_linked_files
+ def get_linked_files(user)
     files = get_undo_links.map do |filename|
       TaskFolder.get_file_from_path filename
     end
-
-    files.select{|a| !a.nil?}
+    files.select{|a| !a.nil? && (a.is_public || a.user_id == user.id)}
   end
 
   def self.formatted_lines(text_to_format)
@@ -1012,7 +1011,7 @@ class TodoFile < ActiveRecord::Base
 
   end
 
-  def get_related_tag_notes
+  def get_related_tag_notes(user_requesting_access)
 
 
       tags = []
@@ -1030,6 +1029,10 @@ class TodoFile < ActiveRecord::Base
 
       user.task_folder("/").get_tag_notes do |note|
         if note.file.filename == self.filename
+          next
+        end
+
+        unless note.file.is_public || user_requesting_access == note.file.user
           next
         end
 

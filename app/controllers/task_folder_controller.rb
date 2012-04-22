@@ -570,7 +570,7 @@ class TaskFolderController < ApplicationController
   def note_view
 
     get_related_people
-    get_related_tags
+    get_related_tags current_user
     get_related_events
     get_related_tasks
     get_slideshow
@@ -579,7 +579,7 @@ class TaskFolderController < ApplicationController
     get_tagged
     get_same_folder
     get_shared_with
-    get_cards
+    get_cards current_user
 
     if !current_user.nil? && @file.user.id == current_user.id
       @owned_by_user = true

@@ -103,18 +103,14 @@ describe TodoFile do
           @file.filename.should == '/foo2-1'
         end
 
-        it 'should have an inverted tag' do
-         @file2.get_inverted_tags.length.should == 1 
-        end
-
         it 'should be related to the first file' do
           related = @file2.get_related_tag_notes
           related.length.should == 1
         end
 
-        it 'the first file should not be related to the second file' do
+        it 'the first file should be related to the second file' do
           related = @file.get_related_tag_notes
-          related.length.should == 0
+          related.length.should == 1
         end
       end
 

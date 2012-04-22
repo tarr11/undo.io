@@ -2,7 +2,7 @@
   <% if params[:view].nil?%>
     <div class="right-rail-view" id="card-view">
       <% @cards.each do |card| %>
-        <%=render 'snippet', :key=>card[:key], :group=>card[:files], :show_avatar=>false, :show_public_path=>show_public_path%>
+        <%=render 'snippet', :key=>card[:key], :group=>card[:files], :show_avatar=>false, :show_public_path=>show_public_path, :note_class=>"note-box-3x5"%>
       <% end %>
     </div>
   <% elsif params[:view] == "tasks" %>

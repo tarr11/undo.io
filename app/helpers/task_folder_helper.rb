@@ -599,7 +599,7 @@ module TaskFolderHelper
           :key => card[:key],
           :card_type => card[:card_type],
           :snippet_id => 'snippet_' + card[:key],
-          :snippet => render_to_string(:partial => 'task_folder/snippet', :locals => {:key=>card[:key], :group=>card[:files]})
+          :snippet => render_to_string(:partial => 'task_folder/snippet', :locals => {:key=>card[:key], :group=>card[:files],:show_avatar=>false,:show_public_path=>false,:note_class=>"note-box-3x5"})
         }
       end
 

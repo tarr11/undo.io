@@ -309,10 +309,6 @@ UL.files LI > A
   margin: 0;
   font-family: monospace;
 }
-     A.user-link:visited, A.user-link:link
-     {
-        color:green;
-     }
 
      .inline-form
      {
@@ -483,13 +479,13 @@ UL.files LI > A
 }
 .undo-new-header
 {
-    list-style: none;
 padding: .5em .5em;
 font-size: 15px;
 font-weight: 500;
 color: white;
 margin-top: .2em;
 border-image: initial;
+border-bottom: solid #ccc 1px;
 }
 
 .undo-new-header A:visited, .undo-new-header A:link
@@ -497,6 +493,10 @@ border-image: initial;
     color:black;
 }
 
+A.user-link:visited, A.user-link:link
+{
+  color:green;
+}
 #article-column
 {
   background-color: #FFFFFE;
@@ -546,6 +546,56 @@ ARTICLE
     {
       width: 325px;
         margin: 0px 10px 10px 10px;
+        float: left;
+        padding: 1em;
+
+      background-color: #FFFFFE;
+      -moz-box-shadow: 0 0 1px #888;
+        -webkit-box-shadow: 0 0 1px#888;
+        box-shadow: 0 0 1px #888;
+
+    }
+.note-box-body
+{
+  overflow-y: auto;
+  height:2in;
+}
+.note-box-footer
+{
+  padding: 1em;
+  font-size:8pt;
+  
+
+}
+.dashboard-module
+{
+      background-color: #FFFFFE;
+      -moz-box-shadow: 0 0 1px #888;
+        -webkit-box-shadow: 0 0 1px#888;
+        box-shadow: 0 0 1px #888;
+        margin: 10px 10px 10px 5px;
+        padding: 1em;
+}
+    .note-box-3x5-bootstrap
+    {
+      max-width: 5in;
+      height:3in;
+        margin: 10px 10px 10px 5px;
+//        float: left;
+        padding: 1em;
+
+      background-color: #FFFFFE;
+      -moz-box-shadow: 0 0 1px #888;
+        -webkit-box-shadow: 0 0 1px#888;
+        box-shadow: 0 0 1px #888;
+
+    }
+    
+    .note-box-3x5
+    {
+      width: 5in;
+      height:3in;
+        margin: 10px 10px 10px 5px;
         float: left;
         padding: 1em;
 

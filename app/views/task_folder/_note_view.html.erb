@@ -39,7 +39,7 @@
 
 <% end%>
 <div class="row-fluid">
-  <div class="span6" id="article-column">
+  <div class="span5" id="article-column">
     <div id="status" style="display:none">&nbsp;</div>
     <div id="page-path" style="display:none"><%=url_for(:controller => "task_folder", :action=>"folder_view", :path=> @file.filename, :only_path => true, :username=>@file.user.username)%></div>
     <%= render 'layouts/breadcrumb'%>
@@ -49,7 +49,7 @@
         <%= render 'editor_buttons' %>
       </div>
       <div><%=image_tag @file.user.avatar.url(:thumb)%>
-<h1 style="display:inline-block"><%=@file.shortName%> </h1>  </div>
+<h1 style="display:inline"><%=@file.shortName%> </h1>  </div>
     </div>
     <div>
       <div style="margin-right:10px" class="pull-right"> last edited at <%=@file.revision_at.strftime('%D %r')%></div>
@@ -69,7 +69,7 @@
       <%= hidden_field_tag 'current-path', params[:path] %>
     <% end %>
   </div>
-  <div class="span6">
+  <div class="span7">
     <div style="margin-bottom:10px;padding:3px;background-color:white;border:1px solid #DDD;border-radius:3px;">
   <% if !@is_new_file %>
       <ul style="display: inline-block;margin-bottom: 0px;" class="nav nav-pills">
@@ -88,7 +88,7 @@
     <% end %>
     </div>
     <div class="right-rail-container">
-      <%= render 'right_rail_new'%>
+      <%= render 'right_rail_new', :show_public_path=>false%>
     </div>
   </div>
   </div>

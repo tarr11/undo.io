@@ -435,7 +435,7 @@ class TaskFolderController < ApplicationController
     end
     @changed_files_by_folder  = get_changed_files_by_folder(files, @taskfolder.path)
     respond_to do |format|
-      format.html { render 'task_folder/boxed_view', :layout => 'task_folder', :wildcard_user_name=>false}
+      format.html { render 'task_folder/boxed_view', :layout => 'task_folder', :wildcard_user_name=>false, :locals => {:show_avatar=>false,:show_public_path=>false, :note_class=>"note-box-3x5"}}
     end
   end
 

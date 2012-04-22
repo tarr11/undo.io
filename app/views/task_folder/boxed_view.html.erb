@@ -9,9 +9,7 @@
 <div class="content">
   <div class="note-container">
     <%@changed_files_by_folder.each do |folder_item|%>
-    <div class="note-box">
-      <%= render 'task_folder/note_box_folder', :folder_item =>folder_item %>
-     </div>
+      <%= render 'task_folder/note_box_folder', :folder_item =>folder_item, :show_avatar=>show_avatar,:show_public_path=>show_public_path, :note_class=>note_class %>
      <% end %>
   </div>
 </div>

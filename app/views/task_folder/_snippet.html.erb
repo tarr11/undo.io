@@ -1,14 +1,27 @@
-<div id="snippet_<%=key.gsub(".","_")%>" class="note-box">
-  <ul style="margin-left:0">
-    <li class="undo-new-header"><%=link_to  key, ""%></li>
-    <% group.each do |file| %>
-      <li class="undo-ul-li-heading">
-      <%=link_to file.shortName, file_local_path(file)%></li>
-      <% file.get_snippet_around(key,3).each do |line| %>
-        <div class="undo-ul-li-desc"><%=render_line(line,1).html_safe%></div>
-      <% end %>
-    <% end%>
-    <div style="clear:both"></div>
-    </li>
-  </ul>
+<div id="snippet_<%=key.gsub(".","_")%>">
+  <% group.each do |file| %>
+    <div class="<%=note_class%>">
+      <div class="undo-new-header">
+        <% if file.user != current_user || show_avatar %>
+          <%=image_tag file.user.avatar.url(:thumb)%>
+        <% end%>
+        <%=link_to file.shortName, file_local_path(file)%>
+        <% if file.user != current_user || show_avatar%>
+          <%=link_to "@" + file.user.username, user_path(file.user), :class=>"user-link" %>
+        <% end %>
+      </div>
+      <div class="note-box-body">
+        <% file.get_snippet_around(key,20).each do |line| %>
+          <div class="undo-ul-li-desc"><%=render_line(line,1).html_safe%></div>
+        <% end %>
+      </div>
+      <div class="note-box-footer">
+        <% if show_public_path %>
+      <div class="pull-right">in <%=link_to file.public_path_without_file, file.public_path_without_file%></div>
+        <% else %>
+      <div class="pull-right">in <%=link_to file.local_path_without_file, file.local_path_without_file%></div>
+        <% end %>
+      </div>
+    </div>
+  <% end%>
 </div>

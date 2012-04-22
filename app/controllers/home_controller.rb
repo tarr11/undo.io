@@ -62,7 +62,7 @@ class HomeController < ApplicationController
 
     check_for_shared_notes
     respond_to do |format|
-        format.html { render 'task_folder/boxed_view', :layout => 'layouts/public_folder'}
+        format.html { render 'task_folder/boxed_view', :layout => 'layouts/public_folder', :locals=>{:show_avatar=>true, :show_public_path => true, :note_class=>"note-box-3x5"}}
     end
 
   end
@@ -111,7 +111,7 @@ class HomeController < ApplicationController
       dashboard_view
     else
       respond_to do |format|
-        @header = "Your project starts here"
+        @header = "Your idea starts here"
         format.html
       end
 

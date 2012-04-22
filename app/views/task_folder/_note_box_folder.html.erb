@@ -1,6 +1,1 @@
-<ul style="margin-left:0">
-  <li class="undo-new-header"><%=link_to get_folder_name(folder_item), :controller => "task_folder", :action=>"folder_view", :username=>get_folder_username(folder_item), :path=>folder_item.second.first.path%></li>
-  <% folder_item.second.sort_by{|a| a.revision_at}.reverse.each do |file| %>
-    <%=render 'task_folder/note_item', :file=>file, :max_line_count=>25%>
-  <% end %>
-</ul>
+<%=render 'task_folder/snippet',:key=>folder_item.second.first.path, :group=>folder_item.second, :max_line_count=>25, :show_avatar=>show_avatar, :show_public_path=>show_public_path,  :note_class=>note_class %>

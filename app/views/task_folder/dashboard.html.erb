@@ -4,24 +4,25 @@
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "dashboard" %>
 <% end %>
-
-<div class="row-fluid">
-  <div class="span3">
-    <div class="span4 note-box">
-    <h2><%= link_to("My Notes", {:controller=>"task_folder", :action=>"folder_view", :username=>current_user.username}) %></h2>
-    </div>
-    <%@changed_files_by_folder.each do |folder_item|%>
-    <div class="note-box">
-      <%= render 'task_folder/note_box_folder', :folder_item =>folder_item %>
-     </div>
-     <% end %>
-    <div class="note-box">
-    <%= link_to("View all my notes", {:controller=>"task_folder", :action=>"folder_view", :username=>current_user.username}) %>
-    </div>
+<div class="container-fluid">
+  <div class="row">
+      <h1>Welcome <%=current_user.display_name%></h1>
   </div>
-  <div class="span9">
-    <div class="span4 main-content-box">
-      <h2>Organize</h2>
+  <div class="row-fluid">
+    <div class="span4">
+      <h2>My Notes</h2>
+      <%@changed_files_by_folder.each do |folder_item|%>
+        <%= render 'task_folder/note_box_folder', :folder_item =>folder_item, :show_avatar=>false,:show_public_path=>false,:note_class=>"note-box-3x5-bootstrap" %>
+      <% end %>
+    </div>
+    <div class="span4">
+      <h2>Upcoming Events and Tasks</h2>
+      <div class="dashboard-module">
+        Reminders go here
+      </div>
+      <h2>Getting Started Guides</h2>
+      <div class="dashboard-module">
+      <h3>Create</h3>
       <ul>
         <li><%= link_to "Create a note", url_for(:controller => "task_folder", :action=>"new_file", :path=>(@folder_path ||= '/'), :username=>current_user.username) ,:method=>"post"%></li>
         <li>Make Todo Lists </li>
@@ -30,10 +31,8 @@
         <li>Organize your notes in folders</li>
         <li>Sync to Dropbox</li>
       </ul>
-    </div>
 
-    <div class="span4 main-content-box">
-      <h2>Share</h2>
+      <h3>Share</h3>
       <ul>
         <li><%= link_to "Explore public notes", "/public"%></li>
         <li>Compare notes</li>
@@ -41,8 +40,10 @@
         <li>Share notes with others</li>
         <li>Publish your own notes to everyone</li>
       </ul>
-     </div>
-
+    </div>
   </div>
- </div>
-
+  <div class="span4">
+    <h2>Public Notes</h2>
+  </div>
+  </div>
+</div>

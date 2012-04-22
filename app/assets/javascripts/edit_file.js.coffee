@@ -4,7 +4,7 @@ window.convertToSlug = (text) ->
   .replace(/[ ]+/g,'-')
 
 $('.right-rail-container').masonry
-  itemSelector : '.note-box'
+  itemSelector : '.note-box-3x5'
 
 checkAutoSave = ->
   contents = window.myCodeMirror.getValue()
@@ -17,7 +17,7 @@ populateTopics = (topics) ->
   remove_unreferenced_topics topics
   render_topic topic for topic in topics
   $('.right-rail-container').masonry  
-    itemSelector : '.note-box'
+    itemSelector : '.note-box-3x5'
 
 remove_unreferenced_topics = (topics) ->
   topic_ids = (snippet.snippet_id for snippet in topics)
@@ -29,7 +29,7 @@ remove_unreferenced_topics = (topics) ->
   $('.right-rail-container').masonry('remove', $(note_box)) for note_box in to_remove
   $(note_box).remove() for note_box in to_remove
   $('.right-rail-container').masonry  
-    itemSelector : '.note-box'
+    itemSelector : '.note-box-3x5'
 
 render_topic = (topic) ->
   snippet = $(topic.snippet)

@@ -644,6 +644,14 @@ class TodoFile < ActiveRecord::Base
     self.filename.split("/").last
   end
 
+  def local_path_without_file
+    return "/" + self.user.username + path
+  end
+
+  def public_path_without_file
+    return "/public" + path
+  end
+
   def path
     parts = self.filename.split("/")
     parts.pop
@@ -1017,7 +1025,7 @@ class TodoFile < ActiveRecord::Base
         end
       end
 
-      these_tags.append self.get_inverted_tags
+#      these_tags.append self.get_inverted_tags
       these_tags = these_tags.flatten.uniq
 
       user.task_folder("/").get_tag_notes do |note|

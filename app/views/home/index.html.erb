@@ -1,28 +1,21 @@
 <% content_for :stylesheet_includes do %>
   <%= stylesheet_link_tag "task_folder"  %>
 <% end %>
-<div class="container-fluid">
-<div class="row-fluid">
-  <div class="leader span12">
- <div class="row leader">
-   <h1>Index cards for the web</h1>
+<div class="leader">
+  <h1>Index cards for the web</h1>
 </div>
-  </div>
-</div>
-<div class="row-fluid">
-  <div class="span12">
-    <div class="note-box-3x5">
-      <div class="undo-new-header">Simple</div>
-      <div class="feature-description">
-        <ul class="feature-list">
-          <li>Distraction-free user interface</li>
-          <li>Work online or offline</li>
-          <li>Painless organization</li>
-          <li>Sync to Dropbox</li>
-        </ul>
+<div style="margin-left:auto;margin-right:auto;max-width:17in;">
+      <div class="note-box-3x5">
+        <div class="undo-new-header">Simple</div>
+        <div class="feature-description">
+          <ul class="feature-list">
+            <li>Distraction-free user interface</li>
+            <li>Work online or offline</li>
+            <li>Painless organization</li>
+            <li>Sync to Dropbox</li>
+          </ul>
+        </div>
       </div>
-    </div>
-
     <div class="note-box-3x5">
       <div class="undo-new-header">Social</div>
       <div class="feature-description">
@@ -36,19 +29,20 @@
     </div>
     <div class="note-box-3x5">
       <div class="undo-new-header">Smart</div>
-  <div class="feature-description">
-    <ul class="feature-list">
-      <li>Task and event detection</li>
-      <li>Automatic formatting</li>
-      <li>All your notes, at your fingertips</li>
-    </ul>
+      <div class="feature-description">
+        <ul class="feature-list">
+          <li>Task and event detection</li>
+          <li>Automatic formatting</li>
+          <li>All your notes, at your fingertips</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
+<div style="clear:both"></div>
+<div class="leader">
+  <h2>Create, shape and share your notes.</h2>
 </div>
-<div class="row leader">
-   <h2>Create, shape and share your notes.</h2>
- </div>
-  <div class="row">
-    <div class="explore-row"><a class="btn btn-success btn-large" href="<%=new_registration_path(resource_name)%>">Create a note</a></div>
-  </div>
+<div>
+  <div class="explore-row"><a class="btn btn-success btn-large" href="<%=new_registration_path(resource_name)%>">Create a note</a></div>
 </div>

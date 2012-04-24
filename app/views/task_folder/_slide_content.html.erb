@@ -1,7 +1,12 @@
 <% if content.content_type == :image %>
 <%=image_tag content.text%>
 <% elsif content.content_type == :link %>
-<%=link_to content.text, content.text%>
+  <% if content.text.start_with?("http://www.youtube.com")%>
+    <%= youtube_embed(content.text).html_safe%>
+  <% else %>
+    <%=link_to content.text, content.text%>
+  <% end %>
 <% else %>
+
 <%=content.text%>
 <% end %>

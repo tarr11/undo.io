@@ -124,7 +124,7 @@ class HomeController < ApplicationController
       dashboard_view
     else
       respond_to do |format|
-        @header = "Index cards for the web"
+        @header = "Socialize your notes"
         format.html
       end
 

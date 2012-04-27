@@ -11,7 +11,7 @@
         <% end %>
       </div>
       <div class="note-box-body">
-        <% file.get_snippet_around(key,20).each do |line| %>
+        <% TodoFile.formatted_lines(file.contents).each do |line| %>
           <div class="undo-ul-li-desc"><%=render_line(line,1).html_safe%></div>
         <% end %>
       </div>

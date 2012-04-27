@@ -670,7 +670,7 @@ class TodoFile < ActiveRecord::Base
     files = get_undo_links.map do |filename|
       TaskFolder.get_file_from_path filename
     end
-    files.select{|a| !a.nil? && (a.is_public || a.user_id == user.id)}
+    files.select{|a| !a.nil? && (a.is_public || (!user.nil? && a.user_id == user.id))}
   end
 
   def self.formatted_lines(text_to_format)

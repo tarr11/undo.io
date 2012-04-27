@@ -149,6 +149,7 @@ class User < ActiveRecord::Base
     return note
 
   end
+  
   def user_folder_name
     if is_registered?
       return self.username
@@ -156,6 +157,7 @@ class User < ActiveRecord::Base
       return self.unverified_email
     end
   end
+
   def self.create_anonymous_user(email)
       user = User.new 
       user.unverified_email = email

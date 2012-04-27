@@ -79,15 +79,33 @@ describe TodoFile do
         lambda { @file2.save!}.should raise_exception
       end 
     end
+
+    describe "and is copied" do
+      before (:each) do
+        @original_filename = @file.filename
+        @new_file = @file.copy @user, '/somewhere/else/copy', @file.current_revision.revision_uuid
+        puts "NEWFILE: " + @new_file.filename
+      end
+
+      it 'should be in the new place' do
+        @new_file.should_not be_nil 
+      end
+    end
  
     describe "and is moved" do
       before (:each) do
+        @original_filename = @file.filename
         @file.move '/somewhere/else'
       end
 
       it 'should be in the new place' do
         @file.filename.should == '/somewhere/else'
       end
+
+      it 'should not be in the old place' do
+        @user.file(@original_filename).should be_nil
+      end
+
       describe "and another file is created" do
         before (:each) do
           @file2 = @user.todo_files.create(Factory.attributes_for(:file2))

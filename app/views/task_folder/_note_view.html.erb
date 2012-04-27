@@ -2,8 +2,6 @@
   <%= javascript_include_tag "undo_mode" %>
   <%= javascript_include_tag "edit_file"  %>
   <%= javascript_include_tag "shortcuts/file"  %>
-<% end %>
-<% content_for :javascript_includes do %>
   <%= javascript_include_tag "read_file"  %>
 <% end %>
 
@@ -39,7 +37,7 @@
 
 <% end%>
 <div class="row-fluid">
-  <div class="span5" id="article-column">
+  <div class="span6" id="article-column">
     <div id="status" style="display:none">&nbsp;</div>
     <div id="page-path" style="display:none"><%=url_for(:controller => "task_folder", :action=>"folder_view", :path=> @file.filename, :only_path => true, :username=>@file.user.username)%></div>
     <%= render 'layouts/breadcrumb'%>
@@ -69,7 +67,7 @@
       <%= hidden_field_tag 'current-path', params[:path] %>
     <% end %>
   </div>
-  <div class="span7">
+  <div class="span6">
     <div style="margin-bottom:10px;padding:3px;background-color:white;border:1px solid #DDD;border-radius:3px;">
   <% if !@is_new_file %>
       <ul style="display: inline-block;margin-bottom: 0px;" class="nav nav-pills">

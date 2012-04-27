@@ -657,8 +657,14 @@ class TaskFolderController < ApplicationController
         format.json {render :json=> snippets}
       end
     else
-      respond_to do |format|
-        format.html { render '_note_view', :layout => 'application'}
+      if current_user.nil? || @file.user_id != current_user.id
+        respond_to do |format|
+          format.html { render '_note_view_public', :layout => 'application', :locals=>{:file=>@file}}
+        end
+      else
+        respond_to do |format|
+          format.html { render '_note_view', :layout => 'application'}
+        end
       end
 
     end

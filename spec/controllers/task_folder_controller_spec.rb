@@ -163,10 +163,14 @@ describe TaskFolderController do
     end
     describe "PUT 'update' /user/file :method=>'move'" do
       before (:each) do
+        @old_filename = @file.filename
         put :update, :path => @file.filename, :username => subject.current_user.username, :method => :move, :filename => '/user/file-moved'
       end
       it 'should be successful' do
         response.should be_redirect
+      end
+      it 'should not be in the old place anymore' do
+        subject.current_user.file(@old_filename).should be_nil
       end
     end
     describe "PUT 'update' /user/file :method=>'share'" do

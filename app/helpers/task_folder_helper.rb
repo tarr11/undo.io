@@ -170,11 +170,17 @@ module TaskFolderHelper
     return !file.copied_from.nil?  && file.user.id != current_user.id && file.copied_from.user_id == current_user.id
   end
   def get_changed_files_by_folder files, path
+#
+#    grouped_files = files
+#    .group_by {|note| get_sub_folder(note.path, path)}
+#    .sort_by {|folder_item| folder_item.second.map{|a| a.revision_at}.max}
+#    .reverse
+#
 
     grouped_files = files
-    .group_by {|note| get_sub_folder(note.path, path)}
-    .sort_by {|folder_item| folder_item.second.map{|a| a.revision_at}.max}
-    .reverse
+    .sort_by{|a| a.revision_at}
+      .reverse
+      .group_by{|note| get_sub_folder(note.path, path)}
 
     return grouped_files
 
@@ -398,7 +404,6 @@ module TaskFolderHelper
       return ((params[:username] != current_user.username && @is_public) ? "active" : nil)
     end
     def user_path user
-      return "" if current_user.nil?
       url_for :controller=>"task_folder", :action => "folder_view", :username=>user.user_folder_name, :path => "/"
     end
 
@@ -580,7 +585,7 @@ module TaskFolderHelper
       project_files = {
         :key => @file.path,
         :card_type => :project,
-        :files => @file.task_folder.files.sort_by{|a| a.revision_at}.reverse
+        :files => @file.task_folder.files.select{|a| a.id != @file.id}.sort_by{|a| a.revision_at}.reverse
       }
 
       return [project_files]

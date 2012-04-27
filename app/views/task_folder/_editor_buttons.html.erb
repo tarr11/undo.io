@@ -3,7 +3,7 @@
     <% unless @user_copy.nil? %>
         <a href="<%=file_local_path(@user_copy)%>" class="btn" id="my-copy-button"><i class="icon-eye-open"></i> Your Version</a>
     <% else %>
-          <a href="#" class="btn btn-success" id="suggest-button"><i class="icon-comment icon-white"></i> Suggest Change</a>
+          <a href="#" class="btn btn-success" id="copy-button"><i class="icon-bookmark icon-white"></i> Copy</a>
       <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
         More
         <span class="caret"></span>
@@ -28,7 +28,11 @@
       <a href="#" id="reply-button" class="btn btn-success"><i class="icon-share icon-white"></i> Reply</a>
     <% end%>
     <% if @show_edit_buttons %>
-      <a href="#" id="share-button" class="btn btn-success"><i class="icon-share icon-white"></i> Share</a>
+      <% if !@file.is_public?%>
+      <a href="#" id="publish-button" class="btn btn-success"><i class="icon-share icon-white"></i> Publish</a>
+    <% else %>
+      <a href="#" id="unpublish-button" class="btn"><i class="icon-share icon-black"></i> Unpublish</a>
+    <% end %>
       <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
         <span class="caret"></span>
       </a>

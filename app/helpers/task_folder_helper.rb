@@ -210,8 +210,18 @@ module TaskFolderHelper
 
           OpenStruct.new(
               :id => nil,
-              :name => "My Notes",
+              :name => "Project",
               :querystring => nil
+          ),
+          OpenStruct.new(
+              :id => "tagged",
+              :name => "Tagged",
+              :querystring => "tagged"
+          ),
+          OpenStruct.new(
+              :id => "public",
+              :name => "Public",
+              :querystring => "public"
           ),
           OpenStruct.new(
               :id => "tasks",
@@ -405,40 +415,6 @@ module TaskFolderHelper
       url_for :controller=>"task_folder", :action => "folder_view", :username=>file.user.user_folder_name, :path => file.filename, :only_path=>true
     end
 
-    def sample_tasks
-       foo = OpenStruct.new(:foo=>"bar")
-       sample_tasks = tasks_by_date = [
-         {
-             :date_item => "January 13, 2012",
-             :tasks => [
-               {
-                   :title => "Buy Groceries",
-                   :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.hour),
-                   :lines => ["Milk","Eggs"]
-               },
-               {
-                   :title => "Pay Bills",
-                   :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.hour),
-                    :lines => ["Electricity Bill"]
-               }
-             ]
-
-         },
-         {
-             :date_item => "January 11, 2012",
-             :tasks => [
-               {
-                   :title => "Ski lessons",
-                   :file => OpenStruct.new(:path => "/foo",:revision_at => DateTime.now - 1.week),
-                    :lines => ["Eli and Lilah"]
-               }
-             ]
-
-         }
-
-       ]
-
-    end
 
 
 
@@ -577,7 +553,40 @@ module TaskFolderHelper
 
     end
 
-    def get_cards(user_requesting_access)
+    def get_public_cards(user_requesting_access)
+      tags = @file.get_tags
+
+      cards = []
+      tags.each do |tag|
+        results = TodoFile.search do
+          keywords tag
+          with(:is_public, true)
+          paginate :page => 1, :per_page => 100
+          order_by(:revision_at, :desc)
+        end
+          card = {
+            :key => tag,
+            :card_type => :public,
+            :files => results.results.select{|a|a.user_id != @file.user_id}
+          }
+          cards.push card
+      end
+      return cards
+    end
+
+    def get_project_cards(user_requesting_access)
+      cards = [] 
+
+      project_files = {
+        :key => @file.path,
+        :card_type => :project,
+        :files => @file.task_folder.files.sort_by{|a| a.revision_at}.reverse
+      }
+
+      return [project_files]
+    end
+
+    def get_tagged_cards(user_requesting_access)
       cards = [] 
 
       tags = @related_tags.map do |key, group|
@@ -598,13 +607,13 @@ module TaskFolderHelper
 
       cards.concat tags
       cards.concat files
-      @cards = cards
 
+      return cards
     end
 
-    def get_cards_with_snippets
+    def get_cards_with_snippets(cards)
 
-      @cards.map do |card|
+      cards.map do |card|
         
         {
           :key => card[:key],

@@ -1011,13 +1011,9 @@ class TodoFile < ActiveRecord::Base
 
   end
 
-  def get_related_tag_notes(user_requesting_access)
+  def get_tags
 
-
-      tags = []
-      # get a list of people, and all the notes that they are in
-
-      these_tags = []
+    these_tags = []
       self.get_tag_notes do |note|
         note.tags.each do |tag|
           these_tags.push tag
@@ -1025,7 +1021,17 @@ class TodoFile < ActiveRecord::Base
       end
 
 #      these_tags.append self.get_inverted_tags
-      these_tags = these_tags.flatten.uniq
+      return these_tags.flatten.uniq
+
+  end
+
+  def get_related_tag_notes(user_requesting_access)
+
+
+      tags = []
+      # get a list of people, and all the notes that they are in
+
+      these_tags =self.get_tags 
 
       user.task_folder("/").get_tag_notes do |note|
         if note.file.filename == self.filename

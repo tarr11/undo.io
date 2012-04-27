@@ -1,8 +1,20 @@
 <% if !@is_new_file %>
   <% if params[:view].nil?%>
-    <div class="right-rail-view" id="card-view">
-      <% @cards.each do |card| %>
+    <div class="right-rail-view" id="project-card-view">
+      <% @project_cards.each do |card| %>
         <%=render 'snippet', :key=>card[:key], :group=>card[:files], :show_avatar=>false, :show_public_path=>show_public_path, :note_class=>"note-box-3x5"%>
+      <% end %>
+    </div>
+  <% elsif params[:view] == "tagged" %>
+    <div class="right-rail-view" id="tagged-card-view">
+      <% @tagged_cards.each do |card| %>
+        <%=render 'snippet', :key=>card[:key], :group=>card[:files], :show_avatar=>false, :show_public_path=>show_public_path, :note_class=>"note-box-3x5"%>
+      <% end %>
+    </div>
+  <% elsif params[:view] == "public" %>
+    <div class="right-rail-view" id="public-card-view">
+      <% @public_cards.each do |card| %>
+        <%=render 'snippet', :key=>card[:key], :group=>card[:files], :show_avatar=>true, :show_public_path=>true, :note_class=>"note-box-3x5"%>
       <% end %>
     </div>
   <% elsif params[:view] == "tasks" %>

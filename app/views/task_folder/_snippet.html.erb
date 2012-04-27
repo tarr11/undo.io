@@ -1,6 +1,6 @@
 <div id="snippet_<%=key.gsub(".","_")%>">
   <% group.each do |file| %>
-    <div class="<%=note_class%>">
+    <div class="note-box-base <%=note_class%>">
       <div class="undo-new-header">
         <% if file.user != current_user || show_avatar %>
           <%=image_tag file.user.avatar.url(:thumb)%>

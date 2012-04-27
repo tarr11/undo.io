@@ -579,7 +579,9 @@ class TaskFolderController < ApplicationController
     get_tagged
     get_same_folder
     get_shared_with
-    get_cards current_user
+    @tagged_cards = get_tagged_cards(current_user)
+    @project_cards = get_project_cards(current_user)
+    @public_cards = get_public_cards(current_user)
 
     if !current_user.nil? && @file.user.id == current_user.id
       @owned_by_user = true
@@ -639,8 +641,17 @@ class TaskFolderController < ApplicationController
       respond_to do |format|
         format.html { render '_slide_group',:layout=>false}
       end
-    elsif params[:cards] == "true"
-      snippets = get_cards_with_snippets
+    elsif !params[:cards].nil? 
+      
+      if params[:cards] == "public"
+        cards = @public_cards
+      elsif params[:cards] == "project"
+        cards = @project_cards
+      elsif params[:cards] == "tagged"
+        cards = @tagged_cards 
+      end
+      
+      snippets = get_cards_with_snippets(cards)
       request.format = :json
       respond_to do |format|
         format.json {render :json=> snippets}

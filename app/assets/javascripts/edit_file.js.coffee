@@ -3,8 +3,9 @@ window.convertToSlug = (text) ->
   .replace(/[^\w ]+/g,'')
   .replace(/[ ]+/g,'-')
 
-$('.right-rail-container').masonry
-  itemSelector : '.note-box-3x5'
+$ ->
+  $('.right-rail-view').masonry
+    itemSelector : '.note-box-base'
 
 checkAutoSave = ->
   contents = window.myCodeMirror.getValue()
@@ -16,32 +17,45 @@ checkAutoSave = ->
 populateTopics = (topics) ->
   remove_unreferenced_topics topics
   render_topic topic for topic in topics
-  $('.right-rail-container').masonry  
-    itemSelector : '.note-box-3x5'
+  $('.right-rail-view').masonry  
+    itemSelector : '.note-box-base'
 
 remove_unreferenced_topics = (topics) ->
   topic_ids = (snippet.snippet_id for snippet in topics)
   to_remove = []
-  $('.note-box').each ->
+  $('.note-box-base').each ->
     if not (this.id in topic_ids)
       to_remove.push this 
 
-  $('.right-rail-container').masonry('remove', $(note_box)) for note_box in to_remove
+  $('.right-rail-view').masonry('remove', $(note_box)) for note_box in to_remove
   $(note_box).remove() for note_box in to_remove
-  $('.right-rail-container').masonry  
-    itemSelector : '.note-box-3x5'
 
 render_topic = (topic) ->
   snippet = $(topic.snippet)
-  if $('#' + topic.snippet_id).length == 0
-    $('.right-rail-container').prepend snippet
-    $('.right-rail-container').masonry 'appended', snippet
+  if $('#' + topic.snippet_id).length > 0
+    $('#' + topic.snippet_id).remove()
+
+
+  $('.right-rail-view').prepend snippet
+  $('.right-rail-view').masonry 'appended', snippet
 
 getNewRightRail = ->
   if window.checkNewRightRail
     window.checkNewRightRail = false
-    if $('#card-view').length > 0
-      $.ajax $('#page-path').text() + "?cards=true",
+    if $('#project-card-view').length > 0
+      $.ajax $('#page-path').text() + "?cards=project",
+        type: 'GET'
+        dataType: 'json'
+        success: (data, textStatus, jqXHR) ->
+          populateTopics data
+    else if $('#public-card-view').length > 0
+      $.ajax $('#page-path').text() + "?cards=public",
+        type: 'GET'
+        dataType: 'json'
+        success: (data, textStatus, jqXHR) ->
+          populateTopics data
+    else if $('#tagged-card-view').length > 0
+      $.ajax $('#page-path').text() + "?cards=tagged",
         type: 'GET'
         dataType: 'json'
         success: (data, textStatus, jqXHR) ->

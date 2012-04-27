@@ -316,8 +316,7 @@ getCompletions.maybeAdd	app/assets/javascripts/codemirror_javascripthint.js	/^  
 getLcsDiff	app/models/todo_file.rb	/^  def self.getLcsDiff(arrayA, arrayB)$/;"	F	class:TodoFile
 getLcsDiff2	app/models/todo_file.rb	/^  def self.getLcsDiff2(arrayA,arrayB)$/;"	F	class:TodoFile
 get_all_tags	app/models/user.rb	/^  def get_all_tags$/;"	f	class:User.check_whitelist?
-get_cards	app/helpers/task_folder_helper.rb	/^    def get_cards$/;"	f
-get_cards_with_snippets	app/helpers/task_folder_helper.rb	/^    def get_cards_with_snippets$/;"	f
+get_cards_with_snippets	app/helpers/task_folder_helper.rb	/^    def get_cards_with_snippets(cards)$/;"	f
 get_changed_files_by_date	app/helpers/task_folder_helper.rb	/^  def get_changed_files_by_date files$/;"	f	class:TaskFolderHelper
 get_changed_files_by_folder	app/helpers/task_folder_helper.rb	/^  def get_changed_files_by_folder files, path$/;"	f	class:TaskFolderHelper
 get_cleaned_completed_task	app/models/todo_line.rb	/^  def get_cleaned_completed_task$/;"	f	class:TodoLine
@@ -345,18 +344,19 @@ get_inverted_tags	app/models/todo_file.rb	/^  def get_inverted_tags$/;"	f	class:
 get_level	app/models/todo_line.rb	/^  def get_level$/;"	f	class:TodoLine
 get_lines	app/models/todo_file.rb	/^  def self.get_lines(text_to_split)$/;"	F	class:TodoFile
 get_lines_from_content	app/models/todo_file.rb	/^  def get_lines_from_content$/;"	f	class:TodoFile
-get_linked_files	app/models/todo_file.rb	/^ def get_linked_files$/;"	f	class:TodoFile
+get_linked_files	app/models/todo_file.rb	/^ def get_linked_files(user)$/;"	f	class:TodoFile
 get_links	app/models/slide.rb	/^  def get_links$/;"	f	class:Slide
 get_path_parts	app/helpers/task_folder_helper.rb	/^    def get_path_parts(isFile, path)$/;"	f	class:TaskFolderHelper
 get_people	app/models/todo_file.rb	/^  def get_people$/;"	f	class:TodoFile
 get_people	app/models/todo_line.rb	/^  def get_people$/;"	f	class:TodoLine
 get_person_notes	app/models/task_folder.rb	/^  def get_person_notes$/;"	f	class:TaskFolder
 get_person_notes	app/models/todo_file.rb	/^  def get_person_notes(&block)$/;"	f	class:TodoFile
+get_public_cards	app/helpers/task_folder_helper.rb	/^    def get_public_cards(user_requesting_access)$/;"	f
 get_public_checkbox_checked	app/helpers/task_folder_helper.rb	/^  def get_public_checkbox_checked$/;"	f	class:TaskFolderHelper
 get_related_events	app/helpers/task_folder_helper.rb	/^    def get_related_events$/;"	f
 get_related_people	app/helpers/task_folder_helper.rb	/^    def get_related_people$/;"	f
-get_related_tag_notes	app/models/todo_file.rb	/^  def get_related_tag_notes$/;"	f	class:TodoFile.apply_suggestions
-get_related_tags	app/helpers/task_folder_helper.rb	/^    def get_related_tags$/;"	f
+get_related_tag_notes	app/models/todo_file.rb	/^  def get_related_tag_notes(user_requesting_access)$/;"	f	class:TodoFile.apply_suggestions
+get_related_tags	app/helpers/task_folder_helper.rb	/^    def get_related_tags(user_requesting_access)$/;"	f
 get_related_tasks	app/helpers/task_folder_helper.rb	/^    def get_related_tasks$/;"	f	class:TaskFolderHelper
 get_replies	app/helpers/task_folder_helper.rb	/^    def get_replies$/;"	f	class:TaskFolderHelper
 get_same_folder	app/helpers/task_folder_helper.rb	/^    def get_same_folder$/;"	f
@@ -370,6 +370,7 @@ get_summary	app/models/task_folder.rb	/^  def get_summary(start_date, end_date)$
 get_tag_notes	app/models/task_folder.rb	/^  def get_tag_notes$/;"	f	class:TaskFolder
 get_tag_notes	app/models/todo_file.rb	/^  def get_tag_notes$/;"	f	class:TodoFile
 get_tagged	app/helpers/task_folder_helper.rb	/^    def get_tagged$/;"	f	class:TaskFolderHelper
+get_tagged_cards	app/helpers/task_folder_helper.rb	/^    def get_tagged_cards(user_requesting_access)$/;"	f
 get_tags	app/models/todo_line.rb	/^  def get_tags$/;"	f	class:TodoLine
 get_tasks	app/models/task_folder.rb	/^  def get_tasks$/;"	f	class:TaskFolder
 get_tasks	app/models/todo_file.rb	/^  def get_tasks$/;"	f	class:TodoFile
@@ -481,7 +482,6 @@ reply	app/controllers/task_folder_controller.rb	/^  def reply$/;"	f	class:TaskFo
 reply_to_id	app/models/received_email.rb	/^  def reply_to_id$/;"	f	class:ReceivedEmail
 resource	app/helpers/application_helper.rb	/^  def resource$/;"	f	class:ApplicationHelper
 resource_name	app/helpers/application_helper.rb	/^  def resource_name$/;"	f	class:ApplicationHelper
-sample_tasks	app/helpers/task_folder_helper.rb	/^    def sample_tasks$/;"	f	class:TaskFolderHelper
 saveFile	app/models/todo_file.rb	/^  def self.saveFile(user, filename, file, revisionDate, revisionCode)$/;"	F	class:TodoFile
 save_cursor	app/models/dropbox_token.rb	/^  def save_cursor(cursor)$/;"	f	class:DropboxToken
 save_revision	app/models/todo_file.rb	/^  def save_revision$/;"	f	class:TodoFile
@@ -571,3 +571,4 @@ window.rangy	app/assets/javascripts/rangy/rangy-core.js	/^\/*$/;"	f
 window.rangy	vendor/assets/javascripts/rangy/rangy-core.js	/^\/*$/;"	f
 window.rangy.l	app/assets/javascripts/rangy/rangy-core.js	/^window.rangy=function(){function l(p,u){var w=typeof p[u];return w=="function"||!!(w=="object"&&p[u])||w=="unknown"}function K(p,u){return!!(typeof p[u]=="object"&&p[u])}function H(p,u){return typeof p[u]!="undefined"}function I(p){return function(u,w){for(var B=w.length;B--;)if(!p(u,w[B]))return false;return true}}function z(p){return p&&A(p,x)&&v(p,t)}function C(p){window.alert("Rangy not supported in your browser. Reason: "+p);c.initialized=true;c.supported=false}function N(){if(!c.initialized){var p,$/;"	f
 window.rangy.l	vendor/assets/javascripts/rangy/rangy-core.js	/^window.rangy=function(){function l(p,u){var w=typeof p[u];return w=="function"||!!(w=="object"&&p[u])||w=="unknown"}function K(p,u){return!!(typeof p[u]=="object"&&p[u])}function H(p,u){return typeof p[u]!="undefined"}function I(p){return function(u,w){for(var B=w.length;B--;)if(!p(u,w[B]))return false;return true}}function z(p){return p&&A(p,x)&&v(p,t)}function C(p){window.alert("Rangy not supported in your browser. Reason: "+p);c.initialized=true;c.supported=false}function N(){if(!c.initialized){var p,$/;"	f
+youtube_embed	app/helpers/task_folder_helper.rb	/^  def youtube_embed(youtube_url)$/;"	f	class:TaskFolderHelper

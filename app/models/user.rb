@@ -45,6 +45,8 @@ class User < ActiveRecord::Base
   has_many :shared_files
   has_many :alerts
   has_many :suggestions
+  has_many :user_follows
+
   attr_accessible :avatar
     has_attached_file :avatar, {
                       :styles => { :medium => "300x300>",
@@ -52,8 +54,6 @@ class User < ActiveRecord::Base
                       :default_url => "missing.png"
         }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
-  def thumbnail
-  end
 
   before_create :whitelisted, :if => :check_whitelist?
   before_create :set_defaults
@@ -64,7 +64,24 @@ class User < ActiveRecord::Base
   def active_for_authentication?
     super && is_registered_user? 
   end
+
+  def follows
+    self.user_follows.map{|a| a.follow_user}
+  end
+
+  def is_following?(follow_user)
+     !UserFollow.find_by_user_id_and_follow_user_id(self.id, follow_user.id).nil?
+  end
+
+  def unfollow(user_to_follow)
+    followUser = UserFollow.find_by_user_id_and_follow_user_id(self.id, user_to_follow.id)
+    followUser.destroy
+  end
   
+  def follow(user_to_follow)
+    self.user_follows.create!(:follow_user_id => user_to_follow.id)
+  end
+
   def email_required?
     return is_registered
   end 

@@ -126,6 +126,18 @@ $ ->
       $('.slideshow').nextSlide('next')
 
 
+  $('#follow-user-button').click (event) ->
+    $('#follow-user-form').submit()
+
+  $("#follow-user-form")
+      .bind('ajax:complete', ->
+       # $("#loading").fadeOut(2000)
+      )
+      .bind('ajax:success', (event, data, status, xhr) ->
+        $('#follow-user-section').html(data) 
+      )
+      .bind('ajax:error', (xhr, status, error) ->
+      )
 
   $('#delete-button').click (event) ->
     $('#delete-modal').modal({

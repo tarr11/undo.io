@@ -41,10 +41,16 @@
       </div>
   </div>
   <div class="span4">
-    <h2>Public Notes</h2>
+    <h2>Following</h2>
+    <% if @public_changed_files_by_folder.length == 0%>
+      <div class="dashboard-module">
+      <div>No files found.  <a href="/public">Find some people to follow</a></div>
+    </div>
+    <% else %>
       <%@public_changed_files_by_folder.each do |folder_item|%>
         <%= render 'task_folder/note_box_folder', :folder_item =>folder_item, :show_avatar=>true,:show_public_path=>true,:note_class=>"note-box-3x5-bootstrap" %>
       <% end %>
+    <% end %>
   </div>
   </div>
 </div>

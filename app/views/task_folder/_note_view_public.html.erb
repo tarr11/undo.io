@@ -40,7 +40,12 @@
         <% if signed_in?%>
           <div>
             <hr>
-           <h3>Want to recall this later?</h3>
+           <h3>Follow</h3>
+           <div id="follow-user-section">
+           <%= render 'follow_user'%>
+         </div>
+            <hr>
+           <h3>Want to recall this note later?</h3>
               <div>File this in your notes, write your own thoughts.</div>
               <div><a href="#" id="copy-button" class="btn"><i class="icon icon-star"></i> Take Note</a></div> 
               <hr>

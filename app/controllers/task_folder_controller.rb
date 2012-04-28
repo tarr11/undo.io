@@ -65,6 +65,24 @@ class TaskFolderController < ApplicationController
     end
 
   end
+  
+  def follow
+    get_header_data
+    current_user.follow @file.user
+    respond_to do |format|
+      format.html {render '_follow_user', :layout=>false }
+    end
+
+  end
+
+  def unfollow
+    get_header_data
+    current_user.unfollow @file.user
+    respond_to do |format|
+      format.html {render '_follow_user' , :layout=>false }
+    end
+
+  end
 
 
   def publish
@@ -163,8 +181,11 @@ class TaskFolderController < ApplicationController
 
   end
   def update
-
-    if params[:method] == "publish"
+    if params[:updatemethod] == "follow"
+      follow
+    elsif params[:updatemethod] == "unfollow"
+      unfollow
+    elsif params[:method] == "publish"
       publish
     elsif params[:method] == "unpublish"
       unpublish

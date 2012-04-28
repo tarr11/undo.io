@@ -99,7 +99,7 @@ class HomeController < ApplicationController
     @changed_files_by_folder = changed_files
           .group_by {|note| get_sub_folder(note.path,"/") }
 
-    public_changed_files = TodoFile.where(:is_public => true).where("user_id <> ?", current_user.id).order('revision_at desc').first(3)
+    public_changed_files = TodoFile.where(:is_public => true).where("user_id <> ?", current_user.id).where('user_id in (?)', current_user.follows.map{|a| a.id}).order('revision_at desc').first(3)
     @public_changed_files_by_folder = public_changed_files
           .group_by {|note| get_sub_folder(note.path,"/") }
 

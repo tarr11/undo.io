@@ -1,23 +1,23 @@
-<% if current_user.is_following?(user)%>
-  <div>You are following <%=user.username%></div>
-  <div>
-    <a href="#" id="follow-user-button" class="btn">
-      <i class="icon icon-user"></i> Unfollow</a>
-  </a>
-<%= form_tag url_for(:controller=>"task_folder", :action=>"update" ),:remote=>true, :method=>:put, :id=>"follow-user-form" do%>
-  <%=hidden_field_tag 'updatemethod', 'unfollow'%>
-<% end %>
-</div> 
+<% if user_signed_in? %>
+  <% if current_user.is_following?(user)%>
+    <div>You are following <%=user.username%></div>
+    <div>
+      <a href="#" id="follow-user-button" class="btn">
+        <i class="icon icon-user"></i> Unfollow</a>
+    </a>
+    <%= form_tag url_for(:controller=>"task_folder", :action=>"update" ),:remote=>true, :method=>:put, :id=>"follow-user-form" do%>
+      <%=hidden_field_tag 'updatemethod', 'unfollow'%>
+    <% end %>
+  </div> 
 <% else %>
   <div>Follow <%=user.username%> to keep track of their public notes.</div>
   <div>
     <a href="#" id="follow-user-button" class="btn">
       <i class="icon icon-user"></i> Follow</a>
-  </a>
   </div>
-<%= form_tag url_for(:controller=>"task_folder", :action=>"update" ),:remote=>true, :method=>:put, :id=>"follow-user-form" do%>
-  <%=hidden_field_tag 'updatemethod', 'follow'%>
-  <%=hidden_field_tag 'username', user.username%>
+  <%= form_tag url_for(:controller=>"task_folder", :action=>"update" ),:remote=>true, :method=>:put, :id=>"follow-user-form" do%>
+    <%=hidden_field_tag 'updatemethod', 'follow'%>
+    <%=hidden_field_tag 'username', user.username%>
+  <% end %>
 <% end %>
-
 <% end %>

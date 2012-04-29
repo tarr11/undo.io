@@ -24,7 +24,6 @@ describe UserMailer do
       @from_user = Factory.create(:user)
       @to_user = Factory.create(:user2)
       @email = UserMailer.follow_message @from_user, @to_user
-      puts @email
     end
     
     it 'should be deliverable' do

@@ -6,6 +6,7 @@ class FollowMessage < ActiveRecord::Base
   attr_accessible :user_id, :follow_user_id
 
   after_create do 
-    UserMailer.follow_message self.user, self.follow_user    
+    msg = UserMailer.follow_message(self.user, self.follow_user)   
+    msg.deliver
   end
 end

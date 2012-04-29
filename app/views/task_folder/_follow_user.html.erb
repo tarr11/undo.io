@@ -1,5 +1,5 @@
-<% if current_user.is_following?(@file.user)%>
-  <div>You are following <%=@file.user.username%></div>
+<% if current_user.is_following?(user)%>
+  <div>You are following <%=user.username%></div>
   <div>
     <a href="#" id="follow-user-button" class="btn">
       <i class="icon icon-user"></i> Unfollow</a>
@@ -9,7 +9,7 @@
 <% end %>
 </div> 
 <% else %>
-  <div>Follow <%=@file.user.username%> to keep track of their public notes.</div>
+  <div>Follow <%=user.username%> to keep track of their public notes.</div>
   <div>
     <a href="#" id="follow-user-button" class="btn">
       <i class="icon icon-user"></i> Follow</a>
@@ -17,6 +17,7 @@
   </div>
 <%= form_tag url_for(:controller=>"task_folder", :action=>"update" ),:remote=>true, :method=>:put, :id=>"follow-user-form" do%>
   <%=hidden_field_tag 'updatemethod', 'follow'%>
+  <%=hidden_field_tag 'username', user.username%>
 <% end %>
 
 <% end %>

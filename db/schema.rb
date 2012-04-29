@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120413215526) do
+ActiveRecord::Schema.define(:version => 20120429030537) do
 
   create_table "alerts", :force => true do |t|
     t.integer  "user_id"
@@ -86,6 +86,13 @@ ActiveRecord::Schema.define(:version => 20120413215526) do
   create_table "dropbox_wrappers", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "follow_messages", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "follow_user_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "shared_files", :force => true do |t|

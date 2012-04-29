@@ -9,6 +9,12 @@ class UserMailer < ActionMailer::Base
      mail(:from=>"product-requests@undo.io", :to=>"douglas.tarr@gmail.com", :subject=>"Product request!")
    end
 
+   def follow_message(from_user, to_user)
+     @from_user = from_user
+     @to_user = to_user
+     mail(:from => "alerts@undo.io", :to => to_user.email, :subject => from_user.username + " is following your notes" ) 
+   end
+
     def shared_note(from_user, to_user, file)
       @from_user =  from_user
       @to_user = to_user

@@ -10,6 +10,9 @@
     <%= image_tag @file_user.avatar.url(:thumb), :style=>"vertical-align:middle;" %>
     <h2 class="current-user-name"><%= link_to @file_user.display_name ||= @file_user.username, user_path(@file_user)%></h2>
   </div>
+  <div id="follow-user-section">
+    <%= render 'task_folder/follow_user', :user=>@file_user%>
+  </div>
   <div style="clear:both"></div>
 
 </div>

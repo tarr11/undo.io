@@ -19,6 +19,19 @@ describe UserMailer do
     end
   end
 
+  describe 'follow message' do
+    before (:each) do
+      @from_user = Factory.create(:user)
+      @to_user = Factory.create(:user2)
+      @email = UserMailer.follow_message @from_user, @to_user
+      puts @email
+    end
+    
+    it 'should be deliverable' do
+      lambda{@email.deliver!}.should_not raise_error
+    end
+
+  end
   describe 'reminder note' do 
     before(:each) do
       @from_user = Factory.create(:user)

@@ -68,18 +68,20 @@ class TaskFolderController < ApplicationController
   
   def follow
     get_header_data
-    current_user.follow @file.user
+    user = User.find_by_username(params[:username])
+    current_user.follow user
     respond_to do |format|
-      format.html {render '_follow_user', :layout=>false }
+      format.html {render '_follow_user', :locals => {:user=>user}, :layout=>false }
     end
 
   end
 
   def unfollow
     get_header_data
-    current_user.unfollow @file.user
+    user = User.find_by_username(params[:username])
+    current_user.unfollow user
     respond_to do |format|
-      format.html {render '_follow_user' , :layout=>false }
+      format.html {render '_follow_user' , :locals => {:user=>user}, :layout=>false }
     end
 
   end

@@ -199,10 +199,10 @@ UL.files LI > A
          .CodeMirror-scroll
           {
 
-              height: 300px;
+              height: auto;
               overflow-x:hidden;
               overflow-y:auto;
-         #     min-height: 300px;
+              min-height: 300px;
               width:100%;
 
           }

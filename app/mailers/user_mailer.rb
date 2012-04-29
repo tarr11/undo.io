@@ -12,7 +12,7 @@ class UserMailer < ActionMailer::Base
    def follow_message(from_user, to_user)
      @from_user = from_user
      @to_user = to_user
-     mail(:from => "alerts@undo.io", :to => to_user.email, :subject => from_user.username + " is following your notes" ) 
+     mail(:from => "undo.io <undo@undo.io>", :to => to_user.email, :subject => from_user.username + " is following your notes" ) 
    end
 
     def shared_note(from_user, to_user, file)

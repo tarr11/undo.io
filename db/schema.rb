@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120429030537) do
+ActiveRecord::Schema.define(:version => 20120430032218) do
 
   create_table "alerts", :force => true do |t|
     t.integer  "user_id"
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(:version => 20120429030537) do
     t.text     "diff"
     t.datetime "summary"
     t.datetime "published_at"
-    t.string   "revision_uuid"
+    t.string   "revision_uuid",    :limit => nil
     t.string   "edit_source"
   end
 
@@ -182,6 +182,12 @@ ActiveRecord::Schema.define(:version => 20120429030537) do
     t.integer  "todo_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "unsubscribe_unsubscribers", :force => true do |t|
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "user_follows", :force => true do |t|

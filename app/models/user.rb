@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
 
+  acts_as_unsubscribable
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, , :lockable, :timeoutable and :omniauthable
   # Setup accessible (or protected) attributes for your model

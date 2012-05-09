@@ -9,6 +9,7 @@ class UserMailer < ActionMailer::Base
      mail(:from=>"product-requests@undo.io", :to=>"douglas.tarr@gmail.com", :subject=>"Product request!")
    end
 
+  
    def follow_message(from_user, to_user)
      @from_user = from_user
      @to_user = to_user

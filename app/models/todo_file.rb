@@ -29,11 +29,13 @@ class TodoFile < ActiveRecord::Base
   after_save :save_revision, :update_dropbox
   serialize :diff
   before_validation :set_revision_at
-  
+  before_validation do 
+    self.contents = ActionController::Base.helpers.sanitize(self.contents)
+  end
+
   before_validation do
     self.file_uuid = UUIDTools::UUID.timestamp_create().to_s
   end
-
 
   def set_revision_at
     if self.edit_source == 'web'

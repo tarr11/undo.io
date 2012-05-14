@@ -45,28 +45,28 @@ module TaskFolderHelper
 
   def render_line(line, line_number)
 
-      div = '<div line-number="' + line_number.to_s + '" style="'
+    div = '<div line-number="' + line_number.to_s + '" style="'
 
-      if line.tab_count > 0
-        div += "margin-left:" + line.tab_count.to_s + "em;"
-      end
-      #if line.line_type == :outline_header
-      #  div += "font-weight:bold;"
-      #elsif line.line_type == :document_title
-      #  div += "font-weight:bold;"
-      #end
-      div += '">'
-
-      if line.text.blank?
-        div += "&nbsp;"
-      else
-        div += anchorize_line(line.text.strip)
-      end
-
-      div += "</div>"
-
-      return div
+    if line.tab_count > 0
+      div += "margin-left:" + line.tab_count.to_s + "em;"
     end
+    #if line.line_type == :outline_header
+    #  div += "font-weight:bold;"
+    #elsif line.line_type == :document_title
+    #  div += "font-weight:bold;"
+    #end
+    div += '">'
+
+    if line.text.blank?
+      div += "&nbsp;"
+    else
+      div += anchorize_line(line.text.strip)
+    end
+
+    div += "</div>"
+
+    return div
+  end
 
     def anchorize_line(line)
       if line.match(%r{http://}).nil?

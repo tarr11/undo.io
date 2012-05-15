@@ -1,3 +1,0 @@
-#!/bin/sh
-rake sunspot:solr:start
-rails server

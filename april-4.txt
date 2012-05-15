@@ -1,8 +1,0 @@
-Todo
-    Add dropbox cursor to User table
-    Create polling loop to check for deltas 
-    If file is new / updated, update it
-        Create a user message
-    If file was deleted, then delete it 
-
-

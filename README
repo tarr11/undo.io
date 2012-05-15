@@ -1,6 +1,6 @@
-=== undo.io ===
+# undo.io
 
-undo is a social note taking application.
+undo is a social note taking application, written in Rails 3.2 + Postgres, and deployable to Heroku.
 
 The idea was it was a development environment for your notes, and only supported text based notes.  That way you could take notes in your favorite editor, copy them in email, or have them synced and usable via tools like Dropbox.
 

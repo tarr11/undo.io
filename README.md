@@ -8,18 +8,21 @@ It's currently available in some form, at www.undo.io.  That may change in the f
 
 
 Undo supports the following features:
-    Productivity Features
-        * Create notes with automatic saving
-        * Automatically detect date related notes and remind you when they are coming up
-        * Try to create simple slide shows based on the format of your notes
-        * Tasks integrated into yournotes
-        * Autocomplete on hashtags (#) and other notes (/)
-        * Organize your notes into files and folders
-        * Sync your notes with dropbox
-        * Email notes to others (still there, but a bit buried)
 
-    Social Features
-        * Publish notes 
-        * Follow other peoples notes
+## Productivity Features
+    
+* Create notes with automatic saving
+* Automatically detect date related notes and remind you when they are coming up
+* Try to create simple slide shows based on the format of your notes
+* Tasks integrated into yournotes
+* Autocomplete on hashtags (#) and other notes (/)
+* Organize your notes into files and folders
+* Sync your notes with dropbox
+* Email notes to others (still there, but a bit buried)
+
+## Social Features
+
+* Publish notes 
+* Follow other peoples notes
 
 

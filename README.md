@@ -4,8 +4,6 @@ undo is a social note taking application, written in Rails 3.2 + Postgres, and d
 
 The idea was it was a development environment for your notes, and only supported text based notes.  That way you could take notes in your favorite editor, copy them in email, or have them synced and usable via tools like Dropbox.
 
-It's currently available in some form, at www.undo.io.  That may change in the future, since I'm paying some heroku hosting costs.  Nonetheless, it's a good place to look at the feature set.
-
 
 Undo supports the following features:
 

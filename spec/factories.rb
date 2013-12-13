@@ -1,5 +1,5 @@
 Factory.define :user do |user|
-  user.display_name          "Douglas Tarr"
+  user.display_name          "Douglas"
   user.email                 "doug@example.com"
   user.password              "foobar"
   user.password_confirmation "foobar"
@@ -7,7 +7,7 @@ Factory.define :user do |user|
 end
 
 Factory.define :user2, :class=>User do |user|
-  user.display_name          "J'Amy Tarr'"
+  user.display_name          "J Tarr'"
   user.email                 "jamy@example.com"
   user.password              "foobar"
   user.password_confirmation "foobar"
@@ -15,7 +15,7 @@ Factory.define :user2, :class=>User do |user|
 end
 
 Factory.define :user3, :class=>User do |user|
-  user.display_name          "Elijah Tarr'"
+  user.display_name          "Elijah'"
   user.email                 "eli@example.com"
   user.password              "foobar"
   user.password_confirmation "foobar"
